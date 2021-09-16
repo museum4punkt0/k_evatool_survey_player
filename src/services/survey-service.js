@@ -23,4 +23,26 @@ export default {
                 return error
             })
     },
+    async SURVEYS_getSurveyStepById(stepId) {
+        const url = 'evaluation-tool/survey-steps/' + stepId
+        return axios
+            .get(url)
+            .then((response) => {
+                return response.data.data
+            })
+            .catch((error) => {
+                return error
+            })
+    },
+    async SURVEYS_getSurveyElementById(elementId) {
+        const url = 'evaluation-tool/survey-element/' + elementId
+        return axios
+            .get(url)
+            .then((response) => {
+                return response.data.data
+            })
+            .catch((error) => {
+                return error
+            })
+    },
 }

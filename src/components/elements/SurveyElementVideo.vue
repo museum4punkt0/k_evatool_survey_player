@@ -6,16 +6,21 @@
             id="responsiveVideoWrapper"
             className="relative mx-auto pb-fluid-video"
         >
-            <video
-                ref="videoPlayer"
-                src="https://ak.picdn.net/shutterstock/videos/1060516912/preview/stock-footage-beautiful-sunlight-in-the-forest.webm"
-                muted
-                autoplay
-                class="mx-auto"
-                @timeupdate="videoTimeUpdate"
-                @play="playVideo"
-            ></video>
+            <div class="video-wrap">
+                <p v-if="showQuestion">?</p>
+                <video
+                    ref="videoPlayer"
+                    src="https://ak.picdn.net/shutterstock/videos/1060516912/preview/stock-footage-beautiful-sunlight-in-the-forest.webm"
+                    muted
+                    autoplay
+                    class="mx-auto"
+                    @timeupdate="videoTimeUpdate"
+                    @play="playVideo"
+                ></video>
+            </div>
             <div v-if="showQuestion" class="mx-auto">
+                {{ store.state.surveys.surveyStep }}
+
                 <h3>Question: {{ answeredSteps }}</h3>
                 <h3>
                     StopsVideo:
@@ -44,9 +49,13 @@
 <script>
 import { onMounted, toRefs } from '@vue/runtime-core'
 import { ref } from '@vue/reactivity'
+import { useStore } from 'vuex'
+
+// import SurveyElementBuilder from '../SurveyElementBuilder.vue'
 
 export default {
     name: 'SurveyElementVideo',
+    // components: { SurveyElementBuilder },
     props: {
         content: {
             type: Object,
@@ -59,7 +68,7 @@ export default {
         const answeredSteps = ref(0)
         const showQuestion = ref(false)
         const timeBasedSteps = ref(props.content.timeBasedSteps)
-
+        const store = useStore()
         const setAnswer = (id) => {
             console.log(id)
             // getNextQuestionByAnswer
@@ -84,6 +93,12 @@ export default {
                 if (timeBasedSteps.value[answeredSteps.value].stopsVideo) {
                     pauseVideo()
                 }
+                console.log(timeBasedSteps.value[answeredSteps.value].stepId)
+                store.dispatch(
+                    'surveys/getSurveyStepById',
+                    timeBasedSteps.value[answeredSteps.value].stepId,
+                )
+
                 showQuestion.value = true
                 answeredSteps.value++
             }
@@ -123,6 +138,7 @@ export default {
             interactiveSteps,
             timeBasedSteps,
             videoPlayer,
+            store,
             convertTimeCode,
             videoTimeUpdate,
             setAnswer,

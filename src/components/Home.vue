@@ -2,37 +2,20 @@
     <div class="main-page">
         <div class="survey-steps container mx-auto px-4">
             <h1 class="text-indigo-">{{ store.state.surveys.survey.name }}</h1>
-
-            Next Step:{{
-                store.state.surveys.surveySteps[page].nextStepId
-            }}
-            ID:{{ store.state.surveys.surveySteps[page].id }}
-
-            <SurveyElementBinaryQuestion
-                v-if="1 < 0"
-            ></SurveyElementBinaryQuestion>
-            <SurveyElementMultipleChoice
-                v-if="1 < 0"
-            ></SurveyElementMultipleChoice>
-            <SurveyElementStarRating v-if="1 < 0"></SurveyElementStarRating>
-            <SurveyElementSimpleText v-if="1 < 0"></SurveyElementSimpleText>
-
-            <div v-if="store.state.surveys.surveySteps[page].name === 'Video'">
-                <SurveyElementVideo
-                    :content="store.state.surveys.surveySteps[page]"
-                ></SurveyElementVideo>
+            <div v-if="nextSurvey && nextSurvey.nextStepId">
+                Next Step:{{ nextSurvey.nextStepId }}
             </div>
+
+            <SurveyElementBuilder
+                :survey="store.state.surveys.surveySteps[page]"
+            ></SurveyElementBuilder>
+
             <div class="survey-navigation">
                 <SurveyNavigation
                     @next-step="nextStep()"
                     @prev-step="prevStep()"
                 ></SurveyNavigation>
             </div>
-            <!--            <div>-->
-            <!--                {{ store.state.surveys.surveySteps[page] }}-->
-            <!--                {{ store.state.surveys.surveySteps[page].name }}-->
-            <!--                {{ page }}-->
-            <!--            </div>-->
         </div>
     </div>
 </template>
@@ -40,42 +23,51 @@
 <script>
 import { useStore } from 'vuex'
 
-import SurveyElementBinaryQuestion from './elements/SurveyElementBinaryQuestion.vue'
-import SurveyElementMultipleChoice from './elements/SurveyElementMultipleChoice.vue'
-import SurveyElementStarRating from './elements/SurveyElementStarRating.vue'
-import SurveyElementSimpleText from './elements/SurveyElementSimpleText.vue'
-import SurveyElementVideo from './elements/SurveyElementVideo.vue'
+import SurveyElementBuilder from './SurveyElementBuilder.vue'
+
 import SurveyNavigation from './SurveyNavigation.vue'
 import { ref } from '@vue/reactivity'
+import { onMounted } from '@vue/runtime-core'
 
 export default {
     name: 'Home',
     components: {
-        SurveyElementBinaryQuestion,
-        SurveyElementMultipleChoice,
-        SurveyElementStarRating,
-        SurveyElementSimpleText,
-        SurveyElementVideo,
+        SurveyElementBuilder,
         SurveyNavigation,
     },
     setup() {
         const page = ref(7)
         const store = useStore()
+        // const surveyContent = store.state.surveys.surveySteps
+        const nextSurvey = ref()
         store.dispatch('surveys/getSurvey', 1)
         store.dispatch('surveys/getSurveySteps', 1)
 
         const nextStep = () => {
             console.log('nextStep')
             page.value++
+            getNextSurvey()
         }
         const prevStep = () => {
             console.log('prevStep')
             page.value--
+            getNextSurvey()
         }
+
+        const getNextSurvey = () => {
+            nextSurvey.value = store.state.surveys.surveySteps[page.value]
+            console.log(nextSurvey)
+        }
+
+        onMounted(() => {
+            getNextSurvey()
+        })
 
         return {
             page,
             store,
+            // surveyContent,
+            nextSurvey,
             nextStep,
             prevStep,
         }
