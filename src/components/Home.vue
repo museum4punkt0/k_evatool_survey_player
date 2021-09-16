@@ -1,25 +1,38 @@
 <template>
     <div class="main-page">
-        <div class="survey-steps">
+        <div class="survey-steps container mx-auto px-4">
             <h1 class="text-indigo-">{{ store.state.surveys.survey.name }}</h1>
-        </div>
-        <SurveyElementBinaryQuestion v-if="1 < 0"></SurveyElementBinaryQuestion>
-        <SurveyElementMultipleChoice v-if="1 < 0"></SurveyElementMultipleChoice>
-        <SurveyElementStarRating v-if="1 < 0"></SurveyElementStarRating>
-        <SurveyElementSimpleText v-if="1 < 0"></SurveyElementSimpleText>
-        {{ store.state.surveys.surveySteps[page] }}
-        {{ store.state.surveys.surveySteps[page].name }}
-        {{ page }}
-        <div v-if="store.state.surveys.surveySteps[page].name === 'Video'">
-            <SurveyElementVideo
-                :content="store.state.surveys.surveySteps[page]"
-            ></SurveyElementVideo>
-        </div>
-        <div class="survey-navigation">
-            <SurveyNavigation
-                @next-step="nextStep()"
-                @prev-step="prevStep()"
-            ></SurveyNavigation>
+
+            Next Step:{{
+                store.state.surveys.surveySteps[page].nextStepId
+            }}
+            ID:{{ store.state.surveys.surveySteps[page].id }}
+
+            <SurveyElementBinaryQuestion
+                v-if="1 < 0"
+            ></SurveyElementBinaryQuestion>
+            <SurveyElementMultipleChoice
+                v-if="1 < 0"
+            ></SurveyElementMultipleChoice>
+            <SurveyElementStarRating v-if="1 < 0"></SurveyElementStarRating>
+            <SurveyElementSimpleText v-if="1 < 0"></SurveyElementSimpleText>
+
+            <div v-if="store.state.surveys.surveySteps[page].name === 'Video'">
+                <SurveyElementVideo
+                    :content="store.state.surveys.surveySteps[page]"
+                ></SurveyElementVideo>
+            </div>
+            <div class="survey-navigation">
+                <SurveyNavigation
+                    @next-step="nextStep()"
+                    @prev-step="prevStep()"
+                ></SurveyNavigation>
+            </div>
+            <!--            <div>-->
+            <!--                {{ store.state.surveys.surveySteps[page] }}-->
+            <!--                {{ store.state.surveys.surveySteps[page].name }}-->
+            <!--                {{ page }}-->
+            <!--            </div>-->
         </div>
     </div>
 </template>
@@ -46,7 +59,7 @@ export default {
         SurveyNavigation,
     },
     setup() {
-        const page = ref(0)
+        const page = ref(7)
         const store = useStore()
         store.dispatch('surveys/getSurvey', 1)
         store.dispatch('surveys/getSurveySteps', 1)
