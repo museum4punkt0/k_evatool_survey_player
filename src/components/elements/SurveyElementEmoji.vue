@@ -7,6 +7,10 @@
 <script>
 export default {
     name: 'SurveyElementEmoji',
+    content: {
+        type: Object,
+        default: () => {},
+    },
 }
 </script>
 

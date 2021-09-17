@@ -25,7 +25,12 @@ import { onMounted } from '@vue/runtime-core'
 
 export default {
     name: 'SurveyElementMultipleChoice',
-    props: ['content'],
+    props: {
+        content: {
+            type: Object,
+            default: () => {},
+        },
+    },
     setup(props, { emit }) {
         const question = ref({
             text: 'Question?',

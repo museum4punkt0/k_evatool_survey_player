@@ -1,5 +1,17 @@
 <template>
-    <div class="video-element mx-auto">
+    <div
+        class="
+            video-element
+            mx-auto
+            bg-gray-200
+            font-sans
+            h-screen
+            w-full
+            flex flex-col
+            justify-center
+            items-center
+        "
+    >
         <p>SurveyElementVideo</p>
         <button @click="pauseVideo">pauseVideo</button>
         <div
@@ -56,7 +68,12 @@ import { useStore } from 'vuex'
 export default {
     name: 'SurveyElementVideo',
     // components: { SurveyElementBuilder },
-    props: ['content'],
+    props: {
+        content: {
+            type: Object,
+            default: () => {},
+        },
+    },
     setup(props) {
         const videoPlayer = ref(null)
         const interactiveSteps = ref([])

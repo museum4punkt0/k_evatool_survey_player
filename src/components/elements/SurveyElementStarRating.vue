@@ -7,10 +7,17 @@
 <script>
 import StarRating from '../subelements/StarRating.vue'
 import { ref } from '@vue/reactivity'
+
 export default {
     name: 'SurveyElementStarRating',
     components: {
         StarRating,
+    },
+    props: {
+        content: {
+            type: Object,
+            default: () => {},
+        },
     },
     setup() {
         const rating = ref(3)

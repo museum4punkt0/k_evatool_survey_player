@@ -11,7 +11,12 @@ import { ref } from '@vue/reactivity'
 
 export default {
     name: 'SurveyElementSimpleText',
-    props: ['content'],
+    props: {
+        content: {
+            type: Object,
+            default: () => {},
+        },
+    },
     setup(props) {
         const simpleText = ref()
         const allowSkip = ref(props.content.allowSkip)
