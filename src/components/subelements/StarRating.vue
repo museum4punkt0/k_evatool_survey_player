@@ -6,6 +6,7 @@
             :class="{ 'mr-1': i < stars }"
             @click="setRating(i)"
         >
+            <star-icon class="h-5 w-5" />
             <svg
                 class="block h-8 w-8"
                 :class="[value >= i ? 'text-blue' : 'text-grey']"
@@ -22,9 +23,14 @@
 </template>
 
 <script>
+import { StarIcon } from '@heroicons/vue/outline'
 export default {
     name: 'StarRating',
+    components: {
+        StarIcon,
+    },
     props: ['value', 'stars'],
+    emits: ['input'],
     setup(props, { emit }) {
         const setRating = (i) => {
             emit('input', i)
