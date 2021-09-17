@@ -56,12 +56,7 @@ import { useStore } from 'vuex'
 export default {
     name: 'SurveyElementVideo',
     // components: { SurveyElementBuilder },
-    props: {
-        content: {
-            type: Object,
-            default: null,
-        },
-    },
+    props: ['content'],
     setup(props) {
         const videoPlayer = ref(null)
         const interactiveSteps = ref([])

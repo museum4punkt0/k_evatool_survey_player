@@ -1,21 +1,19 @@
 <template>
     <div class="main-page">
         <div class="survey-steps container mx-auto px-4">
-            <h1 class="text-indigo-">{{ store.state.surveys.survey.name }}</h1>
-            <div v-if="nextSurvey && nextSurvey.nextStepId">
-                Next Step:{{ nextSurvey.nextStepId }}
-            </div>
-
-            <SurveyElementBuilder
-                :survey="store.state.surveys.surveySteps[page]"
-            ></SurveyElementBuilder>
-
             <div class="survey-navigation">
                 <SurveyNavigation
                     @next-step="nextStep()"
                     @prev-step="prevStep()"
                 ></SurveyNavigation>
             </div>
+            <h1 class="text-indigo-">{{ store.state.surveys.survey.name }}</h1>
+            <div v-if="nextSurvey && nextSurvey.nextStepId">
+                Next Step:{{ nextSurvey.nextStepId }}
+            </div>
+            <SurveyElementBuilder
+                :survey="store.state.surveys.surveySteps[page]"
+            ></SurveyElementBuilder>
         </div>
     </div>
 </template>

@@ -1,6 +1,8 @@
 <template>
     <div class="survey-navigation-inner">
-        <button class="prev nav-button p-2" @click="prevStep()">prev</button>
+        <button class="prev nav-button p-2 mx-5" @click="prevStep()">
+            prev
+        </button>
         <button class="next nav-button p-2" @click="nextStep()">next</button>
     </div>
 </template>
@@ -36,7 +38,7 @@ export default {
 }
 
 .nav-button {
-    position: absolute;
+    position: relative;
     background-color: gray;
 }
 

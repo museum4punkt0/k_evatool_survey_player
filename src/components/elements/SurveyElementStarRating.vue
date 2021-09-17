@@ -1,5 +1,5 @@
 <template>
-    <div id="app" class="min-h-screen flex justify-center items-center">
+    <div id="app" class="flex justify-center items-center">
         <StarRating :value="rating" :stars="6" @input="setRating" />
     </div>
 </template>
