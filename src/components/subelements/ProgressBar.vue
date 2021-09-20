@@ -275,7 +275,7 @@ export default {
     width: 6px;
     height: 16px;
     top: 2px;
-    transform: translateX(10px);
+    transform: translateX(50%);
     background-color: #76a9fa;
 
     //#EBF5FF

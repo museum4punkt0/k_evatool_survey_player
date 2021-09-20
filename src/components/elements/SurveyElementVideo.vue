@@ -12,9 +12,9 @@
             items-center
         "
     >
-        <p>SurveyElementVideo</p>
-        <button @click="pauseVideo">pauseVideo</button>
-        <AudioRecorder></AudioRecorder>
+        <!--        <p>SurveyElementVideo</p>-->
+        <!--        <button @click="pauseVideo">pauseVideo</button>-->
+        <!--        <AudioRecorder></AudioRecorder>-->
         <div
             id="responsiveVideoWrapper"
             class="relative mx-auto pb-fluid-video flex"
@@ -61,9 +61,23 @@
                     :duration="mediaDurationTime"
                     :interactive-steps="interactiveSteps"
                 ></ProgressBar>
+                <MediaControls
+                    :current-time="mediaCurrentTime"
+                    :duration="mediaDurationTime"
+                    :media-is-playing="videoIsPlaying"
+                    @play-pause="tooglePlay"
+                ></MediaControls>
 
-                <div class="w-50 comment-field relative">
+                <div class="text-field inline-block text-center">
                     <input type="text" placeholder="text" />
+                    <button class="rounded border-2 px-2 py-1">
+                        <trash-icon class="h-6 w-6 mr-2 float-left" />
+                        löschen
+                    </button>
+                    <button class="rounded border-2 px-2 py-1">
+                        <check-circle-icon class="h-6 w-6 mr-2 float-left" />
+                        speichern
+                    </button>
                 </div>
             </div>
             <div class="sidebar w-40 mx-4">
@@ -80,12 +94,22 @@ import { useStore } from 'vuex'
 
 import AudioRecorder from '../subelements/AudioRecorder.vue'
 import ProgressBar from '../subelements/ProgressBar.vue'
+import MediaControls from '../subelements/MediaControls.vue'
 import TimeLine from '../subelements/TimeLine.vue'
+import { TrashIcon, CheckCircleIcon } from '@heroicons/vue/outline'
+
 // import SurveyElementBuilder from '../SurveyElementBuilder.vue'
 
 export default {
     name: 'SurveyElementVideo',
-    components: { AudioRecorder, ProgressBar, TimeLine },
+    components: {
+        AudioRecorder,
+        ProgressBar,
+        MediaControls,
+        TimeLine,
+        TrashIcon,
+        CheckCircleIcon,
+    },
     props: {
         content: {
             type: Object,
@@ -99,6 +123,7 @@ export default {
         const showQuestion = ref(false)
         const timeBasedSteps = ref(props.content.timeBasedSteps)
         const store = useStore()
+        const videoIsPlaying = ref(true)
         //
         const mediaCurrentTime = ref(0)
         const mediaDurationTime = ref(0)
@@ -112,6 +137,14 @@ export default {
         const nextQuestion = (id) => {
             playVideo()
             console.log(id)
+        }
+
+        const tooglePlay = () => {
+            if (videoIsPlaying.value) {
+                pauseVideo()
+            } else {
+                playVideo()
+            }
         }
 
         const videoTimeUpdate = () => {
@@ -144,10 +177,12 @@ export default {
             console.log('playVideo')
             videoPlayer.value.play()
             showQuestion.value = false
+            videoIsPlaying.value = true
         }
         const pauseVideo = () => {
             console.log('pauseVideo')
             videoPlayer.value.pause()
+            videoIsPlaying.value = false
         }
         //ToDo backend value with fps?
         const convertTimeCode = (time, fps = 24) => {
@@ -176,8 +211,10 @@ export default {
             timeBasedSteps,
             videoPlayer,
             store,
+            videoIsPlaying,
             mediaCurrentTime,
             mediaDurationTime,
+            tooglePlay,
             convertTimeCode,
             videoTimeUpdate,
             setAnswer,
@@ -216,9 +253,11 @@ video {
     position: absolute;
 }
 
-.comment-field {
+.text-field {
     float: left;
     position: relative;
     top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 </style>
