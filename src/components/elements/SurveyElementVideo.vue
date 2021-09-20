@@ -14,45 +14,60 @@
     >
         <p>SurveyElementVideo</p>
         <button @click="pauseVideo">pauseVideo</button>
+        <AudioRecorder></AudioRecorder>
         <div
             id="responsiveVideoWrapper"
-            className="relative mx-auto pb-fluid-video"
+            class="relative mx-auto pb-fluid-video flex"
         >
-            <div class="video-wrap">
-                <p v-if="showQuestion">?</p>
+            <div class="video-wrap block w-60 relative p-0 m-0">
                 <video
                     ref="videoPlayer"
                     src="https://ak.picdn.net/shutterstock/videos/1060516912/preview/stock-footage-beautiful-sunlight-in-the-forest.webm"
                     muted
                     autoplay
-                    class="mx-auto"
+                    class="mx-auto p-0 m-0"
                     @timeupdate="videoTimeUpdate"
                     @play="playVideo"
                 ></video>
-            </div>
-            <div v-if="showQuestion" class="mx-auto">
-                {{ store.state.surveys.surveyStep }}
+                <div
+                    v-if="showQuestion"
+                    class="mx-auto question bg-white p-4 absolute top-0"
+                >
+                    <!--            {{ store.state.surveys.surveyStep }}-->
 
-                <h3>Question: {{ answeredSteps }}</h3>
-                <h3>
-                    StopsVideo:
-                    {{ timeBasedSteps[answeredSteps - 1].stopsVideo }}
-                </h3>
-                <ul>
-                    <li>
-                        <button @click="setAnswer(1)">antwort 1</button>
-                    </li>
-                </ul>
-                <ul>
-                    <li>
-                        <button @click="setAnswer(2)">antwort 2</button>
-                    </li>
-                </ul>
-                <ul>
-                    <li>
-                        <button @click="setAnswer(3)">antwort 3</button>
-                    </li>
-                </ul>
+                    <h3>Question: {{ answeredSteps }}</h3>
+                    <h3>
+                        StopsVideo:
+                        {{ timeBasedSteps[answeredSteps - 1].stopsVideo }}
+                    </h3>
+                    <ul>
+                        <li>
+                            <button @click="setAnswer(1)">antwort 1</button>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <button @click="setAnswer(2)">antwort 2</button>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <button @click="setAnswer(3)">antwort 3</button>
+                        </li>
+                    </ul>
+                </div>
+                <ProgressBar
+                    :current-time="mediaCurrentTime"
+                    :duration="mediaDurationTime"
+                    :interactive-steps="interactiveSteps"
+                ></ProgressBar>
+
+                <div class="w-50 comment-field relative">
+                    <input type="text" placeholder="text" />
+                </div>
+            </div>
+            <div class="sidebar w-40 mx-4">
+                <TimeLine :interactive-steps="interactiveSteps"></TimeLine>
             </div>
         </div>
     </div>
@@ -63,11 +78,14 @@ import { onMounted, toRefs } from '@vue/runtime-core'
 import { ref } from '@vue/reactivity'
 import { useStore } from 'vuex'
 
+import AudioRecorder from '../subelements/AudioRecorder.vue'
+import ProgressBar from '../subelements/ProgressBar.vue'
+import TimeLine from '../subelements/TimeLine.vue'
 // import SurveyElementBuilder from '../SurveyElementBuilder.vue'
 
 export default {
     name: 'SurveyElementVideo',
-    // components: { SurveyElementBuilder },
+    components: { AudioRecorder, ProgressBar, TimeLine },
     props: {
         content: {
             type: Object,
@@ -81,6 +99,10 @@ export default {
         const showQuestion = ref(false)
         const timeBasedSteps = ref(props.content.timeBasedSteps)
         const store = useStore()
+        //
+        const mediaCurrentTime = ref(0)
+        const mediaDurationTime = ref(0)
+
         const setAnswer = (id) => {
             console.log(id)
             // getNextQuestionByAnswer
@@ -98,6 +120,9 @@ export default {
             const { content } = toRefs(props)
             console.log(content)
 
+            mediaCurrentTime.value = videoPlayer.value.currentTime
+            mediaDurationTime.value = parseInt(videoPlayer.value.duration)
+            console.log(mediaCurrentTime.value)
             // if (interactiveSteps.value.indexOf(currentTime) > -1) {
             if (interactiveSteps.value[answeredSteps.value] === currentTime) {
                 //ToDo close previous (not stopedVideo) question and show the next one
@@ -151,6 +176,8 @@ export default {
             timeBasedSteps,
             videoPlayer,
             store,
+            mediaCurrentTime,
+            mediaDurationTime,
             convertTimeCode,
             videoTimeUpdate,
             setAnswer,
@@ -165,7 +192,33 @@ export default {
 <style scoped>
 video {
     /* override other styles to make responsive */
-    width: auto !important;
+    width: 100% !important;
     height: auto !important;
+}
+
+.sidebar {
+    position: relative;
+    right: 0px;
+    width: 30vw;
+    height: 100vh;
+    overflow-y: scroll;
+}
+
+.w-40 {
+    width: 40%;
+}
+
+.w-60 {
+    width: 60%;
+}
+
+.question {
+    position: absolute;
+}
+
+.comment-field {
+    float: left;
+    position: relative;
+    top: 50px;
 }
 </style>

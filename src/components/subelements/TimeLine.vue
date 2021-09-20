@@ -1,0 +1,170 @@
+<template>
+    <div class="container bg-gray-200 mx-auto w-full h-full">
+        <div
+            class="
+                relative
+                wrap
+                overflow-scroll
+                p-5
+                mx-2
+                bg-blue-800
+                p-4
+                text-white
+            "
+        >
+            <h3>Übersicht</h3>
+            <p>
+                Hier siehst du die Übersicht aller erstellten Kommentare und
+                beantworteten Fragen.
+            </p>
+        </div>
+        <div class="relative wrap overflow-scroll p-5 mx-2 h-full bg-white">
+            <div
+                class="
+                    border-2-2
+                    absolute
+                    border-opacity-20 border-gray-700
+                    h-full
+                    border
+                    ml-4
+                "
+            ></div>
+            <!-- right timeline -->
+            <div
+                class="
+                    mb-8
+                    flex
+                    justify-between
+                    items-start
+                    w-full
+                    right-timeline
+                "
+            >
+                <!--                <div class="order-1 w-5/12"></div>-->
+                <div
+                    class="
+                        z-20
+                        flex
+                        items-center
+                        order-1
+                        bg-gray-300
+                        shadow-xl
+                        w-8
+                        h-8
+                        rounded-full
+                    "
+                >
+                    <h1
+                        class="
+                            mx-auto
+                            font-semibold
+                            text-lg text-black
+                            bg-gray-300
+                        "
+                    >
+                        <chat-alt-icon class="h-6 w-6 bg-gray-300 solid" />
+                    </h1>
+                </div>
+                <div class="order-1 w-10/12 p-1">
+                    <h3 class="font-bold text-gray-800 text-xl">Kommentar</h3>
+                    <p class="text-gray-400">2:34</p>
+                    <p
+                        class="
+                            mt-3
+                            text-sm
+                            leading-snug
+                            tracking-wide
+                            text-gray-900 text-opacity-100
+                        "
+                    >
+                        Lorem Ipsum is simply dummy text of the printing and
+                        typesetting industry. Lorem Ipsum has been the
+                        industry's standard dummy text ever since the 1500s,
+                        when an unknown printer took a galley of type and
+                        scrambled it to make a type specimen book.
+                    </p>
+                    <div class="mt-5 text-sm">
+                        <button class="rounded border-2 px-2 py-1">
+                            <trash-icon class="h-6 w-6 mr-2 float-left" />
+                            löschen
+                        </button>
+                        <button class="rounded border-2 px-2 py-1">
+                            <pencil-alt-icon class="h-6 w-6 mr-2 float-left" />
+                            edit
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- left timeline -->
+            <div
+                class="
+                    mb-8
+                    flex
+                    justify-between
+                    flex-row
+                    items-start
+                    w-full
+                    left-timeline
+                "
+            >
+                <!--                <div class="order-1 w-5/12"></div>-->
+                <div
+                    class="
+                        z-20
+                        flex
+                        items-center
+                        order-1
+                        bg-gray-300
+                        shadow-xl
+                        w-8
+                        h-8
+                        rounded-full
+                    "
+                >
+                    <h1 class="mx-auto text-black font-semibold text-lg">
+                        <question-mark-circle-icon
+                            class="h-6 w-6 bg-gray-300"
+                        />
+                    </h1>
+                </div>
+                <div class="order-1 w-10/12 p-1">
+                    <h3 class="mb-3 font-bold text-gray-800 text-xl inline">
+                        Frage
+                    </h3>
+                    <p class="inline-block text-gray-400">bei 2:34</p>
+
+                    {{ interactiveSteps }}
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import {
+    PlayIcon,
+    ChatAltIcon,
+    QuestionMarkCircleIcon,
+} from '@heroicons/vue/solid'
+import { PencilAltIcon, TrashIcon } from '@heroicons/vue/outline'
+
+export default {
+    name: 'TimeLine',
+    components: {
+        PlayIcon,
+        ChatAltIcon,
+        TrashIcon,
+        QuestionMarkCircleIcon,
+        PencilAltIcon,
+    },
+    props: {
+        interactiveSteps: {
+            type: Array,
+            default: null,
+        },
+    },
+}
+</script>
+
+<style scoped></style>

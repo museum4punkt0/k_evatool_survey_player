@@ -34,12 +34,12 @@ export default {
         SurveyNavigation,
     },
     setup() {
-        const page = ref(18)
+        const page = ref(19)
         const store = useStore()
         // const surveyContent = store.state.surveys.surveySteps
         const nextSurvey = ref()
-        store.dispatch('surveys/getSurvey', 1)
-        store.dispatch('surveys/getSurveySteps', 1)
+        store.dispatch('surveys/getSurvey', 2)
+        store.dispatch('surveys/getSurveySteps', 2)
 
         const nextStep = () => {
             console.log('nextStep')

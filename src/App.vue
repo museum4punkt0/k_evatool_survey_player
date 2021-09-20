@@ -5,4 +5,8 @@
 
 <script></script>
 
-<style></style>
+<style>
+::-webkit-scrollbar {
+    display: block;
+}
+</style>
