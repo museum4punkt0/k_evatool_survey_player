@@ -29,6 +29,7 @@ import HeaderMenu from './HeaderMenu.vue'
 import SurveyNavigation from './SurveyNavigation.vue'
 import { ref } from '@vue/reactivity'
 import { onMounted } from '@vue/runtime-core'
+import { useRoute } from 'vue-router'
 
 export default {
     name: 'Home',
@@ -40,10 +41,13 @@ export default {
     setup() {
         const page = ref(19)
         const store = useStore()
+        const route = useRoute()
+        const surveyId = route.query.id
+
         // const surveyContent = store.state.surveys.surveySteps
         const nextSurvey = ref()
-        store.dispatch('surveys/getSurvey', 2)
-        store.dispatch('surveys/getSurveySteps', 2)
+        store.dispatch('surveys/getSurvey', surveyId)
+        store.dispatch('surveys/getSurveySteps', surveyId)
 
         const nextStep = () => {
             console.log('nextStep')
