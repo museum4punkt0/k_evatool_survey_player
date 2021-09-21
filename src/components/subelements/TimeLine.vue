@@ -30,71 +30,138 @@
                 "
             ></div>
             <!-- right timeline -->
-            <div
-                class="
-                    mb-8
-                    flex
-                    justify-between
-                    items-start
-                    w-full
-                    right-timeline
-                "
+
+            <template
+                v-for="(comment, index) in content"
+                :key="'comment-' + index"
             >
-                <!--                <div class="order-1 w-5/12"></div>-->
                 <div
+                    v-if="comment.type === 'comment'"
                     class="
-                        z-20
+                        mb-8
                         flex
-                        items-center
-                        order-1
-                        bg-gray-300
-                        shadow-xl
-                        w-8
-                        h-8
-                        rounded-full
+                        justify-between
+                        items-start
+                        w-full
+                        right-timeline
                     "
                 >
-                    <h1
+                    <!--                <div class="order-1 w-5/12"></div>-->
+                    <div
                         class="
-                            mx-auto
-                            font-semibold
-                            text-lg text-black
+                            z-20
+                            flex
+                            items-center
+                            order-1
                             bg-gray-300
+                            shadow-xl
+                            w-8
+                            h-8
+                            rounded-full
                         "
                     >
-                        <chat-alt-icon class="h-6 w-6 bg-gray-300 solid" />
-                    </h1>
+                        <h1
+                            class="
+                                mx-auto
+                                font-semibold
+                                text-lg text-black
+                                bg-gray-300
+                            "
+                        >
+                            <chat-alt-icon class="h-6 w-6 bg-gray-300 solid" />
+                        </h1>
+                    </div>
+                    <div class="order-1 w-10/12 p-1">
+                        <h3 class="font-bold text-gray-800 text-xl">
+                            Kommentar {{ comment.index }}
+                        </h3>
+                        <p class="text-gray-400">
+                            {{ convertTime(comment.time) }}
+                        </p>
+                        <p
+                            class="
+                                mt-3
+                                text-sm
+                                leading-snug
+                                tracking-wide
+                                text-gray-900 text-opacity-100
+                            "
+                        >
+                            {{ comment.body }}
+                        </p>
+                        <div class="mt-5 text-sm">
+                            <button
+                                class="rounded-3xl border-2 px-4 px-2 py-1"
+                                @click="removeComment(comment)"
+                            >
+                                <trash-icon
+                                    class="h-6 w-6 mr-2 inline text-red-600"
+                                />
+                                Löschen
+                            </button>
+                            <button
+                                class="rounded-3xl border-2 px-4 ml-5 py-1"
+                                @click="editComment(comment)"
+                            >
+                                <pencil-alt-icon
+                                    class="h-6 w-6 mr-2 inline text-blue-600"
+                                />
+                                Ansehen & Bearbeiten
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <div class="order-1 w-10/12 p-1">
-                    <h3 class="font-bold text-gray-800 text-xl">Kommentar</h3>
-                    <p class="text-gray-400">2:34</p>
-                    <p
+
+                <div
+                    v-if="comment.type === 'question'"
+                    class="
+                        mb-8
+                        flex
+                        justify-between
+                        flex-row
+                        items-start
+                        w-full
+                        left-timeline
+                    "
+                >
+                    <!--                <div class="order-1 w-5/12"></div>-->
+                    <div
                         class="
-                            mt-3
-                            text-sm
-                            leading-snug
-                            tracking-wide
-                            text-gray-900 text-opacity-100
+                            z-20
+                            flex
+                            items-center
+                            order-1
+                            bg-gray-300
+                            shadow-xl
+                            w-8
+                            h-8
+                            rounded-full
                         "
                     >
-                        Lorem Ipsum is simply dummy text of the printing and
-                        typesetting industry. Lorem Ipsum has been the
-                        industry's standard dummy text ever since the 1500s,
-                        when an unknown printer took a galley of type and
-                        scrambled it to make a type specimen book.
-                    </p>
-                    <div class="mt-5 text-sm">
-                        <button class="rounded border-2 px-2 py-1">
-                            <trash-icon class="h-6 w-6 mr-2 float-left" />
-                            löschen
-                        </button>
-                        <button class="rounded border-2 px-2 py-1">
-                            <pencil-alt-icon class="h-6 w-6 mr-2 float-left" />
-                            edit
+                        <h1 class="mx-auto text-black font-semibold text-lg">
+                            <question-mark-circle-icon
+                                class="h-6 w-6 bg-gray-300 text-blue-600"
+                            />
+                        </h1>
+                    </div>
+                    <div class="order-1 w-10/12 p-1">
+                        <h3 class="mb-3 text-gray-400 text-xl inline">
+                            Fragen
+                            {{ comment.index }}
+                        </h3>
+
+                        <button
+                            class="rounded-3xl border-2 px-4 ml-5 py-1"
+                            @click="editComment(comment)"
+                        >
+                            <pencil-alt-icon
+                                class="h-6 w-6 mr-2 inline text-blue-600"
+                            />
+                            Ansehen & Bearbeiten
                         </button>
                     </div>
                 </div>
-            </div>
+            </template>
 
             <!-- left timeline -->
             <div
@@ -122,19 +189,29 @@
                         rounded-full
                     "
                 >
-                    <h1 class="mx-auto text-black font-semibold text-lg">
+                    <h1
+                        v-if="interactiveSteps.length - answeredSteps > 0"
+                        class="mx-auto text-black font-semibold text-lg"
+                    >
                         <question-mark-circle-icon
                             class="h-6 w-6 bg-gray-300"
                         />
                     </h1>
+
+                    <h1 v-else class="mx-auto text-black font-semibold text-lg">
+                        <check-circle-icon class="h-6 w-6 text-blue-600" />
+                    </h1>
                 </div>
                 <div class="order-1 w-10/12 p-1">
-                    <h3 class="mb-3 font-bold text-gray-800 text-xl inline">
-                        Frage
+                    <h3
+                        v-if="interactiveSteps.length - answeredSteps > 0"
+                        class="mb-3 text-gray-400 text-xl inline"
+                    >
+                        noch
+                        {{ interactiveSteps.length - answeredSteps }}
+                        Fragen
                     </h3>
-                    <p class="inline-block text-gray-400">bei 2:34</p>
-
-                    {{ interactiveSteps }}
+                    <h3 v-else>Alle Fragen beantwortet</h3>
                 </div>
             </div>
         </div>
@@ -142,12 +219,18 @@
 </template>
 
 <script>
+import { ref } from '@vue/reactivity'
 import {
     PlayIcon,
     ChatAltIcon,
     QuestionMarkCircleIcon,
 } from '@heroicons/vue/solid'
-import { PencilAltIcon, TrashIcon } from '@heroicons/vue/outline'
+import {
+    PencilAltIcon,
+    TrashIcon,
+    CheckCircleIcon,
+} from '@heroicons/vue/outline'
+import { onMounted } from '@vue/runtime-core'
 
 export default {
     name: 'TimeLine',
@@ -157,12 +240,48 @@ export default {
         TrashIcon,
         QuestionMarkCircleIcon,
         PencilAltIcon,
+        CheckCircleIcon,
     },
     props: {
         interactiveSteps: {
             type: Array,
             default: null,
         },
+        answeredSteps: {
+            type: Number,
+            default: 0,
+        },
+        content: {
+            type: Object,
+            default: null,
+        },
+    },
+    emits: ['removeComment', 'editComment'],
+    setup(props, { emit }) {
+        onMounted(() => {
+            console.log(props)
+        })
+
+        const convertTime = (duration) => {
+            let minutes = Math.floor(duration / 60)
+            minutes = minutes < 10 ? '0' + minutes : minutes
+            let seconds = Math.round(duration - minutes * 60)
+            seconds = seconds < 10 ? '0' + seconds : seconds
+            return minutes + ':' + seconds
+        }
+
+        const removeComment = (comment) => {
+            emit('removeComment', comment)
+        }
+        const editComment = (comment) => {
+            emit('editComment', comment)
+        }
+
+        return {
+            convertTime,
+            removeComment,
+            editComment,
+        }
     },
 }
 </script>
