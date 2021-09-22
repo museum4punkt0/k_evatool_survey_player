@@ -7,6 +7,8 @@
 <script>
 import StarRating from '../subelements/StarRating.vue'
 import { ref } from '@vue/reactivity'
+import { useStore } from 'vuex'
+import { onMounted } from '@vue/runtime-core'
 
 export default {
     name: 'SurveyElementStarRating',
@@ -18,13 +20,43 @@ export default {
             type: Object,
             default: () => {},
         },
+        surveyResults: {
+            type: Object,
+            default: () => {},
+        },
     },
-    setup() {
-        const rating = ref(3)
+    setup(props) {
+        const rating = ref(0)
+        const store = useStore()
+
+        console.log(props.content)
         const setRating = (i) => {
             console.log(i)
             rating.value = i
+
+            console.log(props.surveyResults)
+            console.log(
+                props.surveyResults.sampleResultPayload.resultData.languageId,
+            )
+
+            store.dispatch('surveyResults/sendSurveyResults', {
+                surveyId: props.content.surveyId,
+                data: {
+                    surveyStepId: props.content.id,
+                    resultValue: {
+                        rating: rating.value,
+                    },
+                    uuid: props.surveyResults.uuid,
+                    languageId:
+                        props.surveyResults.sampleResultPayload.resultData
+                            .languageId,
+                },
+            })
         }
+        onMounted(() => {
+            let questionResults = props.surveyResults
+            rating.value = questionResults.results.pop().result_value.rating
+        })
         return { rating, setRating }
     },
 }

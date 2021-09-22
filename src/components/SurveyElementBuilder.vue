@@ -23,6 +23,7 @@
         <SurveyElementStarRating
             v-if="survey && survey.surveyElementType === 'starRating'"
             :content="survey"
+            :survey-results="surveyResults"
         ></SurveyElementStarRating>
 
         <SurveyElementVideo
@@ -33,6 +34,7 @@
         <SurveyElementYayNay
             v-if="survey && survey.surveyElementType === 'yayNay'"
             :content="survey"
+            :survey-results="surveyResults"
         ></SurveyElementYayNay>
 
         <!--        <br />-->
@@ -60,7 +62,16 @@ export default {
         SurveyElementVideo,
         SurveyElementYayNay,
     },
-    props: ['survey'],
+    props: {
+        survey: {
+            type: Object,
+            default: null,
+        },
+        surveyResults: {
+            type: Object,
+            default: null,
+        },
+    },
 }
 </script>
 

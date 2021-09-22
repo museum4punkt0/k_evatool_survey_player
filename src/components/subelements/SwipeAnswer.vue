@@ -36,8 +36,10 @@ import { onMounted } from '@vue/runtime-core'
 
 export default {
     name: 'SwipeAnswer',
-    setup: function () {
+    emits: ['draggedThreshold'],
+    setup(props, { emit }) {
         const positions = ref({})
+        const threshold = ref(window.innerWidth / 3)
         const thresholdWidth = ref(window.innerWidth / 2)
         const thresholdHeight = ref(window.innerHeight / 2)
         const maxRotation = ref(20)
@@ -89,6 +91,12 @@ export default {
                 rotation: 0,
             }
             transformString.value = `transform: translate3D(${positions.value.clientX}px, ${positions.value.clientY}px, 0) rotate(${positions.value.rotation}deg`
+
+            if (positions.value.clientX > threshold.value) {
+                emit('draggedThreshold', true)
+            } else if (positions.value.clientX < -threshold.value) {
+                emit('draggedThreshold', false)
+            }
         }
 
         onMounted(() => {
@@ -98,6 +106,7 @@ export default {
         })
 
         return {
+            threshold,
             thresholdWidth,
             thresholdHeight,
             maxRotation,

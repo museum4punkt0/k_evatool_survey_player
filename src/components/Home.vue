@@ -2,6 +2,12 @@
     <div class="main-page bg-gray-200">
         <div class="survey-header-menu bg-white">
             <header-menu></header-menu>
+
+            <!--            {{-->
+            <!--                store.state.surveyResults.surveyResults.steps.original.data[-->
+            <!--                    surveyStep-->
+            <!--                ]-->
+            <!--            }}-->
         </div>
         <div class="survey-steps container mx-auto px-4">
             <div class="survey-navigation">
@@ -15,7 +21,12 @@
                 Next Step:{{ nextSurvey.nextStepId }}
             </div>
             <SurveyElementBuilder
-                :survey="store.state.surveys.surveySteps[page]"
+                :survey="store.state.surveys.surveySteps[surveyStep]"
+                :survey-results="
+                    store.state.surveyResults.surveyResults.steps.original.data[
+                        surveyStep
+                    ]
+                "
             ></SurveyElementBuilder>
         </div>
     </div>
@@ -39,7 +50,7 @@ export default {
         SurveyNavigation,
     },
     setup() {
-        const page = ref(19)
+        const surveyStep = ref(3)
         const store = useStore()
         const route = useRoute()
         const surveyId = route.query.id
@@ -48,20 +59,21 @@ export default {
         const nextSurvey = ref()
         store.dispatch('surveys/getSurvey', surveyId)
         store.dispatch('surveys/getSurveySteps', surveyId)
+        store.dispatch('surveyResults/setSurveyResults', surveyId)
 
         const nextStep = () => {
             console.log('nextStep')
-            page.value++
+            surveyStep.value++
             getNextSurvey()
         }
         const prevStep = () => {
             console.log('prevStep')
-            page.value--
+            surveyStep.value--
             getNextSurvey()
         }
 
         const getNextSurvey = () => {
-            nextSurvey.value = store.state.surveys.surveySteps[page.value]
+            nextSurvey.value = store.state.surveys.surveySteps[surveyStep.value]
             console.log(nextSurvey)
         }
 
@@ -70,7 +82,7 @@ export default {
         })
 
         return {
-            page,
+            surveyStep,
             store,
             // surveyContent,
             nextSurvey,
