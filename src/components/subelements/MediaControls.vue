@@ -21,7 +21,7 @@
                         <volume-off-icon class="h-6 w-6 text-gray-800" />
                     </span>
                 </div>
-                <div class="text-blue-800">
+                <div class="text-blue-800" @click="writeComment()">
                     <pencil-alt-icon class="h-6 w-6 inline" />
                     Kommentar schreiben
                 </div>
@@ -84,10 +84,14 @@ export default {
         const togglePlay = () => {
             emit('play-pause', !props.mediaIsPlaying)
         }
+        const writeComment = () => {
+            emit('play-pause', false)
+        }
 
         return {
             volume,
             togglePlay,
+            writeComment,
         }
     },
 }

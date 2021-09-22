@@ -35,8 +35,8 @@
             :content="survey"
         ></SurveyElementYayNay>
 
-        <br />
-        {{ survey }}
+        <!--        <br />-->
+        <!--        {{ survey }}-->
     </div>
 </template>
 

@@ -1,5 +1,8 @@
 <template>
-    <div class="main-page">
+    <div class="main-page bg-gray-200">
+        <div class="survey-header-menu bg-white">
+            <header-menu></header-menu>
+        </div>
         <div class="survey-steps container mx-auto px-4">
             <div class="survey-navigation">
                 <SurveyNavigation
@@ -7,7 +10,7 @@
                     @prev-step="prevStep()"
                 ></SurveyNavigation>
             </div>
-            <h1 class="text-indigo-">{{ store.state.surveys.survey.name }}</h1>
+            <!--            <h1 class="text-indigo-">{{ store.state.surveys.survey.name }}</h1>-->
             <div v-if="nextSurvey && nextSurvey.nextStepId">
                 Next Step:{{ nextSurvey.nextStepId }}
             </div>
@@ -22,7 +25,7 @@
 import { useStore } from 'vuex'
 
 import SurveyElementBuilder from './SurveyElementBuilder.vue'
-
+import HeaderMenu from './HeaderMenu.vue'
 import SurveyNavigation from './SurveyNavigation.vue'
 import { ref } from '@vue/reactivity'
 import { onMounted } from '@vue/runtime-core'
@@ -31,6 +34,7 @@ import { useRoute } from 'vue-router'
 export default {
     name: 'Home',
     components: {
+        HeaderMenu,
         SurveyElementBuilder,
         SurveyNavigation,
     },

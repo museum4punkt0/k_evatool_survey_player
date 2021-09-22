@@ -1,5 +1,4 @@
 <template>
-    <h1 class="text-indigo-700">Test</h1>
     <router-view />
 </template>
 
@@ -7,6 +6,6 @@
 
 <style>
 ::-webkit-scrollbar {
-    display: block;
+    display: none;
 }
 </style>

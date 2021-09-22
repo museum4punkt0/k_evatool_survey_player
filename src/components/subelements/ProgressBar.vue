@@ -12,9 +12,20 @@
                 @input="changeTheTime"
             />
             <div
-                v-for="step in interactiveSteps"
+                v-for="(step, index) in interactiveSteps"
+                :key="'step-' + index"
                 :style="setInteractiveStep(step)"
                 class="interactive-step"
+                @click="showContent(index, 'question')"
+            >
+                <span></span>
+            </div>
+            <div
+                v-for="(comment, index) in comments"
+                :key="'comment-' + index"
+                :style="setComments(comment.time)"
+                class="comment"
+                @click="showContent(index, 'comment')"
             >
                 <span></span>
             </div>
@@ -43,19 +54,50 @@ export default {
             type: Array,
             default: null,
         },
+        comments: {
+            type: Object,
+            default: null,
+        },
     },
-    emits: ['changeProgress'],
+    emits: ['changeProgress', 'addComment'],
     setup(props, { emit }) {
         const moving = ref(false)
-        const seekbar = ref(null)
+        const seekbar = ref(0)
 
         // const mediaCurrentTime = props.currentTime
         // const mediaDuration = props.duration
+        //
+        // const changeProgress = (seekToValue) => {
+        //     console.log(seekToValue)
+        //
+        //     // this.$refs.mediaPlayer.pause()
+        //     // this.mediaCurrentTime = parseInt(seekToValue)
+        //     // this.mediaPlayer.currentTime = seekToValue
+        //     // if (this.mediaIsPlaying) {
+        //     //     this.mediaPlayer.play()
+        //     // }
+        // }
+        const seekbarMin = ref(0)
+        const seekbarMax = ref(0)
 
-        const changeTheTime = () => {
+        // const seekbar = ref()
+
+        const showContent = (content) => {
+            console.log(content)
+
+            emit('jumpToItem', content)
+        }
+
+        const changeTheTime = (seekToValue) => {
             // seekbar.value = (props.duration * props.seekbar) / props.seekbar.max
             //
-            emit('changeProgress', parseFloat(seekbar.value))
+
+            // seekbar.value = (props.duration * seekbar.value) / props.duration
+
+            console.log(seekToValue.value)
+            console.log(seekbar.value.value)
+            emit('addComment', parseFloat(props.currentTime))
+            emit('changeProgress', parseFloat(seekbar.value.value))
 
             document.documentElement.style.setProperty(
                 '--videoProgress',
@@ -66,33 +108,24 @@ export default {
         const setInteractiveStep = (second) => {
             return 'left:' + (second / props.duration) * 100 + '%'
         }
-        onMounted(() => {
-            // this.$nextTick(() => {
-            seekbar.value = document.querySelectorAll('.seekbar')[0]
 
-            seekbar.value.min = 0
-            seekbar.value.max = props.duration.value
+        const setComments = (second) => {
+            return 'left:' + (second / props.duration) * 100 + '%'
+        }
+
+        onMounted(() => {
+            seekbar.value = document.querySelectorAll('.seekbar')[0]
 
             document.documentElement.style.setProperty(
                 '--videoProgress',
                 `${(props.currentTime / props.duration) * 100}%`,
             )
-
-            // document.documentElement.style.setProperty(
-            //     '--sliderThumbColor',
-            //     this.bgColor,
-            // )
-            // document.documentElement.style.setProperty(
-            //     '--sliderProgressColor',
-            //     this.bgColor,
-            // )
-            // })
         })
 
         watch(
             () => props.currentTime,
             (value) => {
-                seekbar.value = props.currentTime.value
+                seekbar.value.value = props.currentTime.value
                 console.log(value)
                 document.documentElement.style.setProperty(
                     '--videoProgress',
@@ -100,41 +133,20 @@ export default {
                 )
             },
         )
-
         return {
             moving,
             seekbar,
+            seekbarMin,
+            seekbarMax,
             // mediaCurrentTime,
             // mediaDuration,
             changeTheTime,
             setInteractiveStep,
+            setComments,
+            // changeProgress,
+            showContent,
         }
     },
-    // watch: {
-    //     currentTime() {
-    //         this.seekbar.value = this.currentTime
-    //
-    //         document.documentElement.style.setProperty(
-    //             '--videoProgress',
-    //             `${(this.currentTime / this.duration) * 100}%`,
-    //         )
-    //     },
-    // },
-
-    // methods: {
-    //     changeTheTime() {
-    //         this.seekbar.value =
-    //             (this.duration * this.seekbar.value) / this.seekbar.max
-    //
-    //         this.$emit('changeProgress', parseFloat(this.seekbar.value))
-    //
-    //         document.documentElement.style.setProperty(
-    //             '--videoProgress',
-    //             `${(this.currentTime / this.duration) * 100}%`,
-    //         )
-    //     },
-    // }
-    // ,
 }
 </script>
 
@@ -166,7 +178,8 @@ export default {
         appearance: none;
         margin: 0;
         width: 100%;
-        background-color: rgba(200, 200, 200, 0.4);
+        //background-color: rgba(200, 200, 200, 0.4);
+        background-color: #c3ddfd;
 
         &:focus {
             outline: none;
@@ -270,15 +283,22 @@ export default {
     }
 }
 
-.interactive-step {
+.interactive-step,
+.comment {
     position: absolute;
     width: 6px;
     height: 16px;
     top: 2px;
-    transform: translateX(50%);
-    background-color: #76a9fa;
-
+    transform: translateX(40%);
     //#EBF5FF
+}
+
+.interactive-step {
+    background-color: #76a9fa;
+}
+
+.comment {
+    background-color: #fff;
 }
 
 .progress-bar {
