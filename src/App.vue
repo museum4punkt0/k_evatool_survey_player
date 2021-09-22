@@ -2,7 +2,11 @@
     <router-view />
 </template>
 
-<script></script>
+<script>
+import { version } from '../package.json'
+
+console.log(version)
+</script>
 
 <style>
 ::-webkit-scrollbar {
