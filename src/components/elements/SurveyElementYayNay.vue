@@ -53,7 +53,9 @@ export default {
 
         onMounted(() => {
             let questionResults = props.surveyResults
-            result.value = questionResults.results.pop().result_value.value
+            if (questionResults.results.length) {
+                result.value = questionResults.results.pop().result_value.value
+            }
         })
         return {
             result,

@@ -7,6 +7,7 @@
                 v-model="selectedAnswer"
                 type="radio"
                 :value="answer"
+                @change="handleAnswer(answer)"
             />
             <label class="pl-3" :for="'answer-' + index">{{ answer }}</label>
             <br />
@@ -18,12 +19,17 @@
 
 <script>
 import { ref } from '@vue/reactivity'
-import { onMounted } from '@vue/runtime-core'
+import { onMounted, watch } from '@vue/runtime-core'
+import { useStore } from 'vuex'
 
 export default {
     name: 'SurveyElementBinaryQuestion',
     props: {
         content: {
+            type: Object,
+            default: () => {},
+        },
+        surveyResults: {
             type: Object,
             default: () => {},
         },
@@ -36,21 +42,38 @@ export default {
             answer: 'yes',
         })
         const selectedAnswer = ref()
+        const store = useStore()
         const allowSkip = ref(props.content.allowSkip)
+        console.log(allowSkip)
         const resultBasedNextSteps = ref(props.content.resultBasedNextSteps)
 
         const handleAnswer = (answer) => {
-            console.log(answer)
+            store.dispatch('surveyResults/sendSurveyResults', {
+                surveyId: props.content.surveyId,
+                data: {
+                    surveyStepId: props.content.id,
+                    resultValue: {
+                        value: answer,
+                    },
+                    uuid: props.surveyResults.uuid,
+                    languageId:
+                        props.surveyResults.sampleResultPayload.resultData
+                            .languageId,
+                },
+            })
         }
         const handleResults = (results) => {
             console.log(results)
             console.log(resultBasedNextSteps)
         }
 
-        onMounted(() => {
-            emit('allowSkip', allowSkip)
-        })
-
+        // onMounted(() => {
+        //     let questionResults = props.surveyResults
+        //     if (questionResults.results.length) {
+        //         selectedAnswer.value =
+        //             questionResults.results.pop().result_value.value
+        //     }
+        // })
         return {
             question,
             selectedAnswer,

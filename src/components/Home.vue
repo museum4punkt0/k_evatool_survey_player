@@ -50,7 +50,7 @@ export default {
         SurveyNavigation,
     },
     setup() {
-        const surveyStep = ref(3)
+        const surveyStep = ref(1)
         const store = useStore()
         const route = useRoute()
         const surveyId = route.query.id
