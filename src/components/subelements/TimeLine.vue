@@ -145,13 +145,24 @@
                         </h1>
                     </div>
                     <div class="order-1 w-10/12 p-1">
-                        <h3 class="mb-3 text-gray-400 text-xl inline">
-                            Fragen
-                            {{ comment.index }}
-                        </h3>
-
+                        <div class="inline-block">
+                            <h3 class="mb-3 text-gray-400 text-xl inline">
+                                Frage
+                                {{ comment.index }}
+                            </h3>
+                            <p class="text-gray-400">
+                                {{ convertTime(comment.time) }}
+                            </p>
+                        </div>
                         <button
-                            class="rounded-3xl border-2 px-4 ml-5 py-1"
+                            class="
+                                rounded-3xl
+                                align-top
+                                border-2
+                                px-4
+                                ml-5
+                                py-1
+                            "
                             @click="editComment(comment)"
                         >
                             <pencil-alt-icon

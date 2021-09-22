@@ -26,10 +26,29 @@
                         src="https://ak.picdn.net/shutterstock/videos/1060516912/preview/stock-footage-beautiful-sunlight-in-the-forest.webm"
                         muted
                         autoplay
-                        class="mx-auto p-0 m-0"
+                        class="mx-auto p-0 m-0 z-10"
                         @timeupdate="videoTimeUpdate"
                         @play="playVideo"
                     ></video>
+
+                    <div
+                        v-if="showQuestion"
+                        class="
+                            absolute
+                            bg-white
+                            w-2/3
+                            h-2/3
+                            absolute
+                            top-1/2
+                            left-1/2
+                            transform
+                            -translate-x-1/2 -translate-y-2/3
+                            z-20
+                        "
+                    >
+                        <ContentSlider class="z-20"></ContentSlider>
+                        <!--                        <formular class="z-20"></formular>-->
+                    </div>
                     <div
                         v-if="showQuestion"
                         class="
@@ -100,7 +119,7 @@
                         Klicke hier und hinterlasse einen Kommentar zur aktuelle
                         Stelle im Video, es wird dabei pausiert.
                     </p>
-                    <p>{{ comment }}</p>
+                    <!--                    <p>{{ comment }}</p>-->
                     <input v-model="comment" type="text" />
 
                     <div class="flex justify-between">
@@ -158,6 +177,8 @@ import AudioRecorder from '../subelements/AudioRecorder.vue'
 import ProgressBar from '../subelements/ProgressBar.vue'
 import MediaControls from '../subelements/MediaControls.vue'
 import TimeLine from '../subelements/TimeLine.vue'
+import Formular from '../subelements/Formular.vue'
+import ContentSlider from '../subelements/Contentslider.vue'
 import {
     TrashIcon,
     CheckCircleIcon,
@@ -178,6 +199,8 @@ export default {
         ClockIcon,
         CheckCircleIcon,
         MicrophoneIcon,
+        Formular,
+        ContentSlider,
     },
     props: {
         content: {

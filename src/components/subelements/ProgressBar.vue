@@ -289,16 +289,18 @@ export default {
     width: 6px;
     height: 16px;
     top: 2px;
-    transform: translateX(40%);
+
     //#EBF5FF
 }
 
 .interactive-step {
     background-color: #76a9fa;
+    transform: translateX(50%);
 }
 
 .comment {
     background-color: #fff;
+    transform: translateX(-50%);
 }
 
 .progress-bar {
