@@ -72,11 +72,12 @@
                         </h1>
                     </div>
                     <div class="order-1 w-10/12 p-1">
-                        <h3 class="font-bold text-gray-800 text-xl">
-                            Kommentar {{ comment.index }}
+                        <h3 class="text-gray-800 inline text-xl">
+                            Kommentar
+                            <!--                            {{ comment.index }}-->
                         </h3>
-                        <p class="text-gray-400">
-                            {{ convertTime(comment.time) }}
+                        <p class="text-gray-400 inline">
+                            bei {{ convertTime(comment.time) }}
                         </p>
                         <p
                             class="

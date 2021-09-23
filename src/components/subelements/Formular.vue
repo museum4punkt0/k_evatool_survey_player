@@ -6,6 +6,7 @@
             <div class="shadow overflow-hidden sm:rounded-md">
                 <div class="px-4 py-5 bg-white sm:p-6">
                     <div class="grid grid-cols-6 gap-6">
+                        Verrate uns noch ein paar Dinge über Dich!
                         <div class="col-span-6 sm:col-span-3">
                             <label
                                 for="first-name"

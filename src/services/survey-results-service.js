@@ -15,9 +15,10 @@ export default {
                 return error
             })
     },
-    async sendResults(surveyId, data) {
-        const url = 'evaluation-tool/surveys/' + surveyId + '/survey-results'
-
+    async sendAudioResults(data) {
+        const url = 'evaluation-tool/survey-step-result-assets'
+        alert('aaaa')
+        console.log(data)
         return axios
             .post(url, data)
             .then((res) => {
@@ -27,4 +28,6 @@ export default {
                 return error
             })
     },
+
+    // /api/evaluation-tool/survey-step-result-assets
 }

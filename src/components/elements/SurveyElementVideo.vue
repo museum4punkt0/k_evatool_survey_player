@@ -12,9 +12,6 @@
             items-center
         "
     >
-        <!--        <p>SurveyElementVideo</p>-->
-        <!--        <button @click="pauseVideo">pauseVideo</button>-->
-        <!--        <AudioRecorder></AudioRecorder>-->
         <div
             id="responsiveVideoWrapper"
             class="relative mx-auto pb-fluid-video flex"
@@ -115,6 +112,10 @@
                     <microphone-icon
                         class="h-6 w-6 mr-2 inline text-blue-800"
                     ></microphone-icon>
+
+                    <!--        <p>SurveyElementVideo</p>-->
+                    <!--        <button @click="pauseVideo">pauseVideo</button>-->
+                    <AudioRecorder></AudioRecorder>
                     <p class="text-xs p-2 text-gray-400 inline">
                         Klicke hier und hinterlasse einen Kommentar zur aktuelle
                         Stelle im Video, es wird dabei pausiert.

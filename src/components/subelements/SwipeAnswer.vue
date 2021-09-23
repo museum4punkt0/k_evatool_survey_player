@@ -13,7 +13,19 @@
     >
         <div
             id="touch-element"
-            class="card w-96 mx-auto bg-white shadow-xl hover:shadow"
+            class="
+                card
+                touch-element
+                w-96
+                mx-auto
+                bg-white
+                shadow-xl
+                hover:shadow
+            "
+            :class="[
+                { 'transition-all linear duration-300': !dragging },
+                { 'opacity-0': hideElement },
+            ]"
             :style="transformString"
             @mousedown="dragMouseDown"
             @touchmove="onTouchMove"
@@ -27,6 +39,15 @@
                 </p>
             </div>
         </div>
+        <!--        <div class="touch-element">-->
+        <!--            <div class="px-6 text-center font-light text-sm">-->
+        <!--                <img src="https://picsum.photos/400" alt="" />-->
+        <!--                <p>-->
+        <!--                    Front end Developer, avid reader. Love to take a long walk,-->
+        <!--                    swim-->
+        <!--                </p>-->
+        <!--            </div>-->
+        <!--        </div>-->
     </div>
 </template>
 
@@ -39,7 +60,9 @@ export default {
     emits: ['draggedThreshold'],
     setup(props, { emit }) {
         const positions = ref({})
-        const threshold = ref(window.innerWidth / 3)
+        const dragging = ref(true)
+        const hideElement = ref(false)
+        const threshold = ref(window.innerWidth / 4)
         const thresholdWidth = ref(window.innerWidth / 2)
         const thresholdHeight = ref(window.innerHeight / 2)
         const maxRotation = ref(20)
@@ -63,6 +86,8 @@ export default {
             event.preventDefault()
             let touch = event.targetTouches[0]
 
+            dragging.value = true
+
             positions.value = {
                 clientX:
                     touch.clientX -
@@ -85,27 +110,33 @@ export default {
             console.log(transformString.value)
         }
         const onTouchEnd = () => {
-            positions.value = {
-                clientX: positions.value.clientX,
-                clientY: positions.value.clientY,
-                rotation: 0,
-            }
-            transformString.value = `transform: translate3D(${positions.value.clientX}px, ${positions.value.clientY}px, 0) rotate(${positions.value.rotation}deg`
+            dragging.value = false
 
             if (positions.value.clientX > threshold.value) {
                 emit('draggedThreshold', true)
+                hideElement.value = true
             } else if (positions.value.clientX < -threshold.value) {
                 emit('draggedThreshold', false)
+                hideElement.value = true
+            } else {
+                positions.value = {
+                    clientX: 0, // positions.value.clientX,
+                    clientY: 0, //positions.value.clientY,
+                    rotation: 0,
+                }
+                transformString.value = `transform: translate3D(${positions.value.clientX}px, ${positions.value.clientY}px, 0) rotate(${positions.value.rotation}deg`
             }
         }
 
         onMounted(() => {
             touchElement.value = document
-                .getElementById('touch-element')
+                .getElementsByClassName('touch-element')[0]
                 .getBoundingClientRect()
         })
 
         return {
+            hideElement,
+            dragging,
             threshold,
             thresholdWidth,
             thresholdHeight,

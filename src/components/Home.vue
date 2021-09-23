@@ -23,9 +23,7 @@
             <SurveyElementBuilder
                 :survey="store.state.surveys.surveySteps[surveyStep]"
                 :survey-results="
-                    store.state.surveyResults.surveyResults.steps.original.data[
-                        surveyStep
-                    ]
+                    store.state.surveyResults.surveyResults.steps[surveyStep]
                 "
             ></SurveyElementBuilder>
         </div>

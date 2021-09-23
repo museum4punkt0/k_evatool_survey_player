@@ -29,5 +29,13 @@ export default {
             )
             commit('setSurveyResults', surveyResults)
         },
+        async sendSurveyAudioAsset({ commit }, resultData) {
+            console.log(resultData.surveyId)
+            await SURVEY_RESULTS.sendAudioResults(resultData)
+            const surveyResults = await SURVEY_RESULTS.getResults(
+                resultData.surveyId,
+            )
+            commit('setSurveyResults', surveyResults)
+        },
     },
 }
