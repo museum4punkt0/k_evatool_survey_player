@@ -28,6 +28,7 @@
             ]"
             :style="transformString"
             @mousedown="dragMouseDown"
+            @mousemove="onMouseMove"
             @touchmove="onTouchMove"
             @touchend="onTouchEnd"
         >
@@ -70,10 +71,24 @@ export default {
         const transformString = ref()
         const touchElement = ref()
 
+        const mouseDown = ref()
+
         const dragMouseDown = (event) => {
             event.preventDefault()
             console.log(event)
-
+            mouseDown.value = true
+            // positions.value = {
+            //     clientX: event.clientX - thresholdWidth.value,
+            //     clientY: event.clientY - thresholdHeight.value,
+            //     rotation:
+            //         maxRotation.value * (event.clientX / thresholdWidth.value),
+            // }
+            // console.log(positions.value)
+        }
+        // const dragMouseUp = (event) => {}
+        const onMouseMove = (event) => {
+            event.preventDefault()
+            console.log(event)
             positions.value = {
                 clientX: event.clientX - thresholdWidth.value,
                 clientY: event.clientY - thresholdHeight.value,
@@ -81,6 +96,8 @@ export default {
                     maxRotation.value * (event.clientX / thresholdWidth.value),
             }
             console.log(positions.value)
+            transformString.value = `transform: translate3D(${positions.value.clientX}px, ${positions.value.clientY}px, 0) rotate(${positions.value.rotation}deg`
+            console.log(transformString.value)
         }
         const onTouchMove = (event) => {
             event.preventDefault()
@@ -146,6 +163,7 @@ export default {
             touchElement,
             transformString,
             dragMouseDown,
+            onMouseMove,
             onTouchMove,
             onTouchEnd,
         }

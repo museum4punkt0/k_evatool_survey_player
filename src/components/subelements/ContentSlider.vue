@@ -61,10 +61,7 @@
                     slide
                 "
             >
-                <div class="flex">
-                    <img src="../../assets/thanks.svg" class="inline" />
-                    <h3 class="text-blue-800">Danke für ihre Bewertung!</h3>
-                </div>
+                Frage 3
             </div>
         </div>
         <div

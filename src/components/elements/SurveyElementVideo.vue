@@ -26,10 +26,11 @@
                         class="mx-auto p-0 m-0 z-10"
                         @timeupdate="videoTimeUpdate"
                         @play="playVideo"
+                        @ended="videoEnded"
                     ></video>
 
                     <div
-                        v-if="showQuestion"
+                        v-if="showQuestion || showFeedback || showFormular"
                         class="
                             absolute
                             bg-white
@@ -43,8 +44,22 @@
                             z-20
                         "
                     >
-                        <ContentSlider class="z-20"></ContentSlider>
-                        <!--                        <formular class="z-20"></formular>-->
+                        <ContentSlider
+                            v-if="showQuestion"
+                            class="z-20"
+                        ></ContentSlider>
+                        <formular v-if="showFormular" class="z-20"></formular>
+                        <div v-if="showFeedback" class="thanks-feedback">
+                            <div class="flex">
+                                <img
+                                    src="../../assets/thanks.svg"
+                                    class="inline"
+                                />
+                                <h3 class="text-blue-800">
+                                    Danke für ihre Bewertung!
+                                </h3>
+                            </div>
+                        </div>
                     </div>
                     <div
                         v-if="showQuestion"
@@ -116,12 +131,14 @@
                     <!--        <p>SurveyElementVideo</p>-->
                     <!--        <button @click="pauseVideo">pauseVideo</button>-->
                     <AudioRecorder></AudioRecorder>
-                    <p class="text-xs p-2 text-gray-400 inline">
-                        Klicke hier und hinterlasse einen Kommentar zur aktuelle
-                        Stelle im Video, es wird dabei pausiert.
-                    </p>
+                    <p class="text-xs p-2 text-gray-400 inline"></p>
                     <!--                    <p>{{ comment }}</p>-->
-                    <input v-model="comment" type="text" />
+                    <textarea
+                        v-model="comment"
+                        type="text"
+                        class="w-full text-left text-xs"
+                        placeholder="Schreibe ein Kommentar zur aktuellen Stelle im Video oder klicke auf das Mikrofon für die Spracheingabe"
+                    />
 
                     <div class="flex justify-between">
                         <div>
@@ -217,6 +234,8 @@ export default {
         const timeBasedSteps = ref(props.content.timeBasedSteps)
         const store = useStore()
         const videoIsPlaying = ref(true)
+        const showFeedback = ref(false)
+        const showFormular = ref(false)
 
         const comment = ref()
         const timelineObject = ref([])
@@ -304,6 +323,10 @@ export default {
             // console.log(questionsCounter.value)
             // // videoPlayer.value.currentTime = questionsCounter.value[itemId]
             // console.log(questionsCounter.value[itemId])
+        }
+
+        const videoEnded = () => {
+            showFeedback.value = true
         }
 
         const videoTimeUpdate = () => {
@@ -404,6 +427,9 @@ export default {
             mediaDurationTime,
             comment,
             timelineObject,
+            showFeedback,
+            showFormular,
+            videoEnded,
             tooglePlay,
             convertTimeCode,
             videoTimeUpdate,

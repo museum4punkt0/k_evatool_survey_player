@@ -1,13 +1,15 @@
 <template>
     <ContentSlider v-if="1 < 0"></ContentSlider>
 
-    <div class="mt-5 md:mt-0 md:col-span-2">
+    <div class="mt-5 md:mt-0 md:col-span-2 absolute">
         <form action="#" method="POST">
             <div class="shadow overflow-hidden sm:rounded-md">
                 <div class="px-4 py-5 bg-white sm:p-6">
                     <div class="grid grid-cols-6 gap-6">
-                        Verrate uns noch ein paar Dinge über Dich!
-                        <div class="col-span-6 sm:col-span-3">
+                        <div class="col-span-12 sm:col-span-12">
+                            Verrate uns noch ein paar Dinge über Dich!
+                        </div>
+                        <div class="col-span-6 sm:col-span-6">
                             <label
                                 for="first-name"
                                 class="block text-sm font-medium text-gray-700"
@@ -27,13 +29,13 @@
                                     w-full
                                     shadow-sm
                                     sm:text-sm
-                                    border-gray-300
+                                    border-gray-800
                                     rounded-md
                                 "
                             />
                         </div>
 
-                        <div class="col-span-6 sm:col-span-3">
+                        <div class="col-span-12 sm:col-span-12">
                             <label
                                 for="last-name"
                                 class="block text-sm font-medium text-gray-700"
@@ -53,13 +55,14 @@
                                     w-full
                                     shadow-sm
                                     sm:text-sm
-                                    border-gray-300
+                                    border-1
+                                    2xl:border-gray-80000
                                     rounded-md
                                 "
                             />
                         </div>
 
-                        <div class="col-span-6 sm:col-span-4">
+                        <div class="col-span-6 sm:col-span-6">
                             <label
                                 for="email-address"
                                 class="block text-sm font-medium text-gray-700"
@@ -253,6 +256,7 @@
 
 <script>
 import ContentSlider from './Contentslider.vue'
+
 export default {
     name: 'Formular',
     components: { ContentSlider },

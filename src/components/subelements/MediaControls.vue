@@ -1,9 +1,18 @@
 <template>
     <div
-        class="media-player-controls-wrap align-items-center w-100 bg-white p-2"
+        class="
+            media-player-controls-wrap
+            align-items-center
+            w-full
+            inline-block
+            justify-center
+            items-center
+            bg-white
+            p-2
+        "
     >
         <div class="media-player-controls d-flex flex-wrap">
-            <div class="group-left inline float-left w-4/12">
+            <div class="group-left inline float-left w-6/12">
                 <div class="play-pause inline float-left" @click="togglePlay()">
                     {{ videoIsPlaying }}
                     <span v-if="mediaIsPlaying">
@@ -21,12 +30,26 @@
                         <volume-off-icon class="h-6 w-6 text-gray-800" />
                     </span>
                 </div>
-                <div class="text-blue-800" @click="writeComment()">
-                    <pencil-alt-icon class="h-6 w-6 inline" />
-                    Kommentar schreiben
+
+                <!--                    Kommentar schreiben-->
+                <div class="float-left inline">
+                    <button
+                        class="
+                            rounded-2xl
+                            text-blue-800 text-xs
+                            px-1
+                            py-1
+                            border-2 border-gray-800
+                        "
+                        @click="writeComment()"
+                    >
+                        <pencil-alt-icon class="h-6 w-6 inline" />
+                        Kommentar in Timeline hinterlasse
+                    </button>
                 </div>
+                <!--                <div class="text-blue-800"></div>-->
             </div>
-            <div class="group-right inline-block text-center w-4/12">
+            <div class="group-right inline-block text-left w-6/12">
                 <div class="timer">
                     {{ parseInt(currentTime) }}/{{ duration }}
                 </div>

@@ -1,9 +1,7 @@
 <template>
     <div class="block">
         {{ isSupported }}
-
         <!--        <input type="file" accept="audio/*" capture />-->
-
         <!-- Voice Record Title + Button -->
         <div class="form-group row">
             <label for="Audio" class="col-2 col-form-label labelTop">
@@ -155,6 +153,7 @@ export default {
             isSupported.value = true
 
             navigator.mediaDevices.enumerateDevices().then((devices) => {
+                console.log(devices)
                 audioDevices.value = devices.filter(
                     (d) => d.kind === 'audioinput',
                 )
