@@ -130,13 +130,15 @@
 
                     <!--        <p>SurveyElementVideo</p>-->
                     <!--        <button @click="pauseVideo">pauseVideo</button>-->
-                    <AudioRecorder></AudioRecorder>
+                    <AudioRecorder
+                        @send-audio-asset="sendAudioAsset"
+                    ></AudioRecorder>
                     <p class="text-xs p-2 text-gray-400 inline"></p>
                     <!--                    <p>{{ comment }}</p>-->
                     <textarea
                         v-model="comment"
                         type="text"
-                        class="w-full text-left text-xs"
+                        class="flex px-5 py-2 text-left text-xs"
                         placeholder="Schreibe ein Kommentar zur aktuellen Stelle im Video oder klicke auf das Mikrofon für die Spracheingabe"
                     />
 
@@ -405,6 +407,14 @@ export default {
             return minutes + ':' + seconds
         }
 
+        const sendAudioAsset = (wav) => {
+            console.log(props.content)
+            store.dispatch('surveyResults/sendSurveyAudioAsset', {
+                surveyStepResultId: props.content.surveyId,
+                audio: wav,
+            })
+        }
+
         onMounted(() => {
             console.log('mounted!')
             timeBasedSteps.value.forEach((timestep) => {
@@ -431,6 +441,7 @@ export default {
             showFormular,
             videoEnded,
             tooglePlay,
+            sendAudioAsset,
             convertTimeCode,
             videoTimeUpdate,
             setAnswer,

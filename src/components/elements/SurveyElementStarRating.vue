@@ -35,26 +35,31 @@ export default {
             rating.value = i
 
             console.log(props.surveyResults)
-            console.log(
-                props.surveyResults.sampleResultPayload.resultData.languageId,
-            )
+            console.log(props.surveyResults.sampleResultPayload.resultData)
 
             store.dispatch('surveyResults/sendSurveyResults', {
                 surveyId: props.content.surveyId,
+                // resultLanguageId:
+                //     props.surveyResults.sampleResultPayload.resultData
+                //         .resultLanguageId,
                 data: {
                     surveyStepId: props.content.id,
                     resultValue: {
                         rating: rating.value,
                     },
                     uuid: props.surveyResults.uuid,
-                    languageId:
+                    resultLanguageId:
                         props.surveyResults.sampleResultPayload.resultData
-                            .languageId,
+                            .resultLanguageId,
                 },
             })
+
+            // let questionResults = props.surveyResults
+            // rating.value = questionResults.results.pop().result_value.rating
         }
         onMounted(() => {
             let questionResults = props.surveyResults
+            console.log(questionResults.results)
             rating.value = questionResults.results.pop().result_value.rating
         })
         return { rating, setRating }

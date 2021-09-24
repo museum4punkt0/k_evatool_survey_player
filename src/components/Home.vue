@@ -21,7 +21,16 @@
             <!--            <div v-if="nextSurvey && nextSurvey.nextStepId">-->
             <!--                Next Step:{{ nextSurvey.nextStepId }}-->
             <!--            </div>-->
+
+            <!--            {{ store.state.surveys.surveySteps }}-->
+            <!--            {{ store.state.surveyResults.surveyResults.steps }}-->
             <SurveyElementBuilder
+                v-if="
+                    store.state.surveys.surveySteps &&
+                    store.state.surveyResults.surveyResults &&
+                    store.state.surveyResults.surveyResults.steps &&
+                    store.state.surveyResults.surveyResults.steps[surveyStep]
+                "
                 :survey="store.state.surveys.surveySteps[surveyStep]"
                 :survey-results="
                     store.state.surveyResults.surveyResults.steps[surveyStep]
@@ -49,11 +58,26 @@ export default {
         SurveyNavigation,
     },
     setup() {
-        const surveyStep = ref(1)
+        const surveyStep = ref(0)
         const store = useStore()
         const route = useRoute()
         const router = useRouter()
         const backlink = ref()
+
+        let queries = JSON.parse(JSON.stringify(route.query))
+        console.log(queries)
+        console.log(window.history.state.back)
+        // if (
+        //     !localStorage.getItem('ev-tool-backlink') ||
+        //     window.history.state.back !==
+        //         localStorage.getItem('ev-tool-backlink')
+        // )
+        // backlink.value = window.history.state.back
+        // localStorage.setItem('ev-tool-backlink', backlink.value)
+        // queries.backlink = backlink.value
+        //
+        // router.replace({ query: queries })
+
         const surveyId = route.query.id
         const userLang = route.query.lang || ''
         // const surveyContent = store.state.surveys.surveySteps

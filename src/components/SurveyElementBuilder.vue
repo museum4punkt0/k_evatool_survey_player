@@ -8,6 +8,7 @@
         <SurveyElementEmoji
             v-if="survey && survey.surveyElementType === 'emoji'"
             :content="survey"
+            :survey-results="surveyResults"
         ></SurveyElementEmoji>
 
         <SurveyElementMultipleChoice

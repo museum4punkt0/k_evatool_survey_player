@@ -25,7 +25,7 @@
                 stopRecording
             </button>
             <div id="audio" class="audio" controls></div>
-            <audio id="player" controls></audio>
+            <audio id="player" type="audio/wav" controls></audio>
         </div>
         <div
             v-if="isSupported"
@@ -49,14 +49,15 @@
 <script>
 import { onMounted } from '@vue/runtime-core'
 import { ref } from '@vue/reactivity'
-import { useStore } from 'vuex'
+// import { useStore } from 'vuex'
 
 export default {
     name: 'AudioRecorder',
-    setup() {
+    emits: ['send-audio-asset'],
+    setup(props, { emit }) {
         const isSupported = ref(false)
         const items = ref([])
-        const store = useStore()
+        // const store = useStore()
         const audioDevices = ref()
         const blobString = ref()
         const recorder = ref(null)
@@ -89,14 +90,7 @@ export default {
 
                         getBase64(blob).then((data) => {
                             console.log(data)
-
-                            store.dispatch(
-                                'surveyResults/sendSurveyAudioAsset',
-                                {
-                                    surveyStepResultId: 1,
-                                    audio: data,
-                                },
-                            )
+                            emit('send-audio-asset', data)
                         })
                     }
                 }

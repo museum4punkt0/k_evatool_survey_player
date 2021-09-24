@@ -17,7 +17,19 @@ export default {
     },
     async sendAudioResults(data) {
         const url = 'evaluation-tool/survey-step-result-assets'
-        alert('aaaa')
+        console.log(data)
+        return axios
+            .post(url, data)
+            .then((res) => {
+                return { code: res.status, data: res }
+            })
+            .catch((error) => {
+                return error
+            })
+    },
+    async sendResults(surveyId, data) {
+        const url = 'evaluation-tool/surveys/' + surveyId + '/survey-results'
+
         console.log(data)
         return axios
             .post(url, data)

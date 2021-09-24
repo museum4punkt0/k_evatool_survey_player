@@ -1,16 +1,24 @@
 <template>
     <div class="multiple-choice-element mx-auto">
-        <p>SurveyElementMultipleChoice</p>
-
-        <div v-for="(answer, index) in question.answers" :key="index">
-            <input
-                :id="'answer-' + index"
-                v-model="selectedAnswers"
-                type="checkbox"
-                :value="answer"
-            />
-            <label class="pl-3" :for="'answer-' + index">{{ answer }}</label>
-            <br />
+        <span class="text-gray-700">
+            Checkboxes SurveyElementMultipleChoice
+        </span>
+        <div class="mt-2">
+            <div v-for="(answer, index) in question.answers" :key="index">
+                <label
+                    class="pl-3 inline-flex items-center"
+                    :for="'answer-' + index"
+                >
+                    <input
+                        :id="'answer-' + index"
+                        v-model="selectedAnswers"
+                        type="checkbox"
+                        class="checkbox"
+                        :value="answer"
+                    />
+                    <span class="ml-2">{{ answer }}</span>
+                </label>
+            </div>
         </div>
         <br />
         Selected Answers :{{ selectedAnswers }}
