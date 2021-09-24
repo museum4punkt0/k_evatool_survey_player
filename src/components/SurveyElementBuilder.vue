@@ -14,6 +14,7 @@
         <SurveyElementMultipleChoice
             v-if="survey && survey.surveyElementType === 'multipleChoice'"
             :content="survey"
+            :survey-results="surveyResults"
         ></SurveyElementMultipleChoice>
 
         <SurveyElementSimpleText

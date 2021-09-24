@@ -1,6 +1,8 @@
 <template>
     <div class="binary-question-element mx-auto">
         <p>SurveyElementBinaryQuestion</p>
+
+        {{ surveyResults }}
         <div v-for="(answer, index) in question.answers" :key="index">
             <input
                 :id="'answer-' + index"
@@ -66,6 +68,12 @@ export default {
             console.log(results)
             console.log(resultBasedNextSteps)
         }
+
+        onMounted(() => {
+            let questionResults = props.surveyResults
+            console.log(questionResults.results)
+            result.value = questionResults.results.pop().result_value.meaning
+        })
 
         // onMounted(() => {
         //     let questionResults = props.surveyResults
