@@ -3,8 +3,7 @@ import axios from 'axios'
 export default {
     async getResults(surveyId) {
         console.log(surveyId)
-        const url =
-            'evaluation-tool/surveys/' + surveyId + '/survey-results?all=true'
+        const url = 'evaluation-tool/surveys/' + surveyId + '/run?all=true'
 
         return axios
             .get(url)
@@ -15,8 +14,15 @@ export default {
                 return error
             })
     },
-    async sendAudioResults(data) {
-        const url = 'evaluation-tool/survey-step-result-assets'
+    async sendAudioResults(data, surveyId, surveyStepId, surveyStepResultId) {
+        const url =
+            'evaluation-tool/surveys/' +
+            surveyId +
+            '/survey-steps/' +
+            surveyStepId +
+            '/survey-step-results/' +
+            surveyStepResultId +
+            '/survey-step-result-assets'
         console.log(data)
         return axios
             .post(url, data)
@@ -28,7 +34,7 @@ export default {
             })
     },
     async sendResults(surveyId, data) {
-        const url = 'evaluation-tool/surveys/' + surveyId + '/survey-results'
+        const url = 'evaluation-tool/surveys/' + surveyId + '/run'
 
         console.log(data)
         return axios
