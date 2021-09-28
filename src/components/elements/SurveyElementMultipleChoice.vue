@@ -1,7 +1,8 @@
 <template>
     <div class="multiple-choice-element mx-auto">
         <span class="text-gray-700">
-            {{ surveyResults.params.question[$store.state.lang] }}
+            {{ content }}
+            <!--            {{ surveyResults.params.question[$store.state.lang] }}-->
         </span>
         <div class="mt-2">
             <div
@@ -85,8 +86,10 @@ export default {
         onMounted(() => {
             let questionResults = props.surveyResults
             console.log(questionResults.results)
-            selectedOptions.value =
-                questionResults.results.pop().result_value.selected
+            if (questionResults.results.length) {
+                selectedOptions.value =
+                    questionResults.results.pop().result_value.selected
+            }
         })
 
         return {

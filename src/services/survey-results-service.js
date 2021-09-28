@@ -1,5 +1,6 @@
 import axios from 'axios'
 
+axios.defaults.headers['X-DEMO'] = true
 export default {
     async getResults(surveyId) {
         console.log(surveyId)

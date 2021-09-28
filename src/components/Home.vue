@@ -58,7 +58,7 @@ export default {
         SurveyNavigation,
     },
     setup() {
-        const surveyStep = ref(0)
+        const surveyStep = ref(2)
         const store = useStore()
         const route = useRoute()
         const router = useRouter()

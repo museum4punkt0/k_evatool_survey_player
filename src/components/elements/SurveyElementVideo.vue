@@ -138,7 +138,7 @@
                     <textarea
                         v-model="comment"
                         type="text"
-                        class="flex px-5 py-2 text-left text-xs"
+                        class="flex textarea px-5 py-2 text-left text-xs w-full"
                         placeholder="Schreibe ein Kommentar zur aktuellen Stelle im Video oder klicke auf das Mikrofon für die Spracheingabe"
                     />
 
@@ -494,5 +494,10 @@ video {
     top: 50px;
     left: 50%;
     transform: translateX(-50%);
+}
+
+textarea {
+    box-sizing: border-box;
+    resize: none;
 }
 </style>

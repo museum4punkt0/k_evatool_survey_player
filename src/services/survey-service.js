@@ -1,5 +1,6 @@
 import axios from 'axios'
 
+axios.defaults.headers['X-DEMO'] = true
 export default {
     async SURVEYS_getSurvey(surveyId) {
         const url = 'evaluation-tool/surveys/' + surveyId

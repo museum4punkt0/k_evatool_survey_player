@@ -30,10 +30,10 @@ export default {
             commit('setSurveyResults', surveyResults)
         },
         async sendSurveyAudioAsset({ commit }, resultData) {
-            console.log(resultData.surveyId)
+            console.log(resultData)
             await SURVEY_RESULTS.sendAudioResults(resultData)
             const surveyResults = await SURVEY_RESULTS.getResults(
-                resultData.surveyId,
+                resultData.surveyStepResultId,
             )
             commit('setSurveyResults', surveyResults)
         },
