@@ -25,12 +25,14 @@ export default {
     actions: {
         async getSurvey({ commit }, surveyId) {
             const survey = await SURVEYS.SURVEYS_getSurvey(surveyId)
-            commit('setSurvey', survey)
+            console.log(survey)
+            commit('setSurvey', survey.survey)
+            commit('setSurveySteps', survey.steps)
         },
-        async getSurveySteps({ commit }, surveyId) {
-            const survey = await SURVEYS.SURVEYS_getSurveySteps(surveyId)
-            commit('setSurveySteps', survey)
-        },
+        //async getSurveySteps({ commit }, surveyId) {
+        // const survey = await SURVEYS.SURVEYS_getSurveySteps(surveyId)
+        // commit('setSurveySteps', survey)
+        //},
         async getSurveyStepById({ commit }, stepId) {
             const step = await SURVEYS.SURVEYS_getSurveyStepById(stepId)
             commit('setSurveyStepById', step)

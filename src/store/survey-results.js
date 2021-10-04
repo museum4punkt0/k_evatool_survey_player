@@ -13,12 +13,11 @@ export default {
     actions: {
         async setSurveyResults({ commit }, surveyId) {
             const surveyResults = await SURVEY_RESULTS.getResults(surveyId)
-
             console.log(surveyResults)
             commit('setSurveyResults', surveyResults)
         },
         async sendSurveyResults({ commit }, resultData) {
-            console.log(resultData.surveyId)
+            console.log(resultData)
             await SURVEY_RESULTS.sendResults(
                 resultData.surveyId,
                 resultData.data,

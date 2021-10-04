@@ -1,46 +1,50 @@
 <template>
     <div class="survey-content">
         <SurveyElementBinaryQuestion
-            v-if="survey && survey.surveyElementType === 'binary'"
-            :content="survey"
+            v-if="content && content.surveyElementType === 'binary'"
+            :content="content"
+            :survey="survey"
         ></SurveyElementBinaryQuestion>
 
         <SurveyElementEmoji
-            v-if="survey && survey.surveyElementType === 'emoji'"
-            :content="survey"
+            v-if="content && content.surveyElementType === 'emoji'"
+            :content="content"
+            :survey="survey"
             :survey-results="surveyResults"
         ></SurveyElementEmoji>
 
         <SurveyElementMultipleChoice
-            v-if="survey && survey.surveyElementType === 'multipleChoice'"
-            :content="survey"
+            v-if="content && content.surveyElementType === 'multipleChoice'"
+            :content="content"
+            :survey="survey"
             :survey-results="surveyResults"
         ></SurveyElementMultipleChoice>
 
         <SurveyElementSimpleText
-            v-if="survey && survey.surveyElementType === 'simpleText'"
-            :content="survey"
+            v-if="content && content.surveyElementType === 'simpleText'"
+            :content="content"
+            :survey="survey"
         ></SurveyElementSimpleText>
 
         <SurveyElementStarRating
-            v-if="survey && survey.surveyElementType === 'starRating'"
-            :content="survey"
+            v-if="content && content.surveyElementType === 'starRating'"
+            :content="content"
+            :survey="survey"
             :survey-results="surveyResults"
         ></SurveyElementStarRating>
 
         <SurveyElementVideo
-            v-if="survey && survey.surveyElementType === 'video'"
-            :content="survey"
+            v-if="content && content.surveyElementType === 'video'"
+            :content="content"
+            :survey="survey"
         ></SurveyElementVideo>
 
         <SurveyElementYayNay
-            v-if="survey && survey.surveyElementType === 'yayNay'"
-            :content="survey"
+            v-if="content && content.surveyElementType === 'yayNay'"
+            :content="content"
+            :survey="survey"
             :survey-results="surveyResults"
         ></SurveyElementYayNay>
-
-        <!--        <br />-->
-        <!--        {{ survey }}-->
     </div>
 </template>
 
@@ -66,6 +70,10 @@ export default {
     },
     props: {
         survey: {
+            type: Object,
+            default: null,
+        },
+        content: {
             type: Object,
             default: null,
         },

@@ -3,11 +3,12 @@ import axios from 'axios'
 axios.defaults.headers['X-DEMO'] = true
 export default {
     async SURVEYS_getSurvey(surveyId) {
-        const url = 'evaluation-tool/surveys/' + surveyId
+        const url = 'evaluation-tool/surveys/' + surveyId + '/run'
         return axios
             .get(url)
             .then((response) => {
-                return response.data.data
+                console.log(response.data)
+                return response.data
             })
             .catch((error) => {
                 return error

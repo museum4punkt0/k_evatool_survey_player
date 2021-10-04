@@ -227,6 +227,14 @@ export default {
             type: Object,
             default: () => {},
         },
+        survey: {
+            type: Object,
+            default: () => {},
+        },
+        surveyResults: {
+            type: Object,
+            default: () => {},
+        },
     },
     setup(props) {
         const videoPlayer = ref(null)

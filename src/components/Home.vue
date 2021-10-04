@@ -24,17 +24,26 @@
 
             <!--            {{ store.state.surveys.surveySteps }}-->
             <!--            {{ store.state.surveyResults.surveyResults.steps }}-->
+            <!--            <SurveyElementBuilder-->
+            <!--                v-if="-->
+            <!--                    store.state.surveys.surveySteps &&-->
+            <!--                    store.state.surveyResults.surveyResults &&-->
+            <!--                    store.state.surveyResults.surveyResults.steps &&-->
+            <!--                    store.state.surveyResults.surveyResults.steps[surveyStep]-->
+            <!--                "-->
+            <!--                :survey="store.state.surveys.surveySteps[surveyStep]"-->
+            <!--                :survey-results="-->
+            <!--                    store.state.surveyResults.surveyResults.steps[surveyStep]-->
+            <!--                "-->
+            <!--            ></SurveyElementBuilder>-->
+            <!--            {{ store.state.surveys.surveySteps }}-->
+            <!--             {{ store.state.surveys.surveySteps[surveyStep] }}-->
+            Step:{{ surveyStep }}
             <SurveyElementBuilder
-                v-if="
-                    store.state.surveys.surveySteps &&
-                    store.state.surveyResults.surveyResults &&
-                    store.state.surveyResults.surveyResults.steps &&
-                    store.state.surveyResults.surveyResults.steps[surveyStep]
-                "
-                :survey="store.state.surveys.surveySteps[surveyStep]"
-                :survey-results="
-                    store.state.surveyResults.surveyResults.steps[surveyStep]
-                "
+                v-if="store.state.surveys.surveySteps"
+                :content="store.state.surveys.surveySteps[surveyStep]"
+                :survey="store.state.surveys.survey"
+                :survey-results="store.state.surveys.surveySteps[surveyStep]"
             ></SurveyElementBuilder>
         </div>
     </div>
@@ -58,7 +67,7 @@ export default {
         SurveyNavigation,
     },
     setup() {
-        const surveyStep = ref(2)
+        const surveyStep = ref(0)
         const store = useStore()
         const route = useRoute()
         const router = useRouter()
@@ -78,16 +87,19 @@ export default {
         //
         // router.replace({ query: queries })
 
-        const surveyId = route.query.id
+        const surveyId = route.query.id || 1
+        queries.id = route.query.id || 1
+        router.replace({ query: queries })
         const userLang = route.query.lang || ''
+
         // const surveyContent = store.state.surveys.surveySteps
         const nextSurvey = ref()
 
-        store.dispatch('getLanguages', userLang)
+        //store.dispatch('getLanguages', userLang)
         //store.dispatch('setUserLanguage', userLang)
         store.dispatch('surveys/getSurvey', surveyId)
-        store.dispatch('surveys/getSurveySteps', surveyId)
-        store.dispatch('surveyResults/setSurveyResults', surveyId)
+        // store.dispatch('surveys/getSurveySteps', surveyId)
+        // store.dispatch('surveyResults/setSurveyResults', surveyId)
 
         console.log(route.query)
         console.log(router)
@@ -103,8 +115,12 @@ export default {
             getNextSurvey()
         }
 
-        const getNextSurvey = () => {
-            nextSurvey.value = store.state.surveys.surveySteps[surveyStep.value]
+        const getNextSurvey = async () => {
+            // alert('next')
+            console.log(store.state.surveys.surveySteps)
+            nextSurvey.value = await store.state.surveys.surveySteps[
+                surveyStep.value
+            ]
             console.log(nextSurvey)
         }
 

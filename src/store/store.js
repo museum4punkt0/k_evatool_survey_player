@@ -10,9 +10,13 @@ export default createStore({
     },
     state: {
         lang: null,
+        suveyid: null,
         languages: [],
     },
     mutations: {
+        setSuveyId(state, suveyid) {
+            state.suveyid = suveyid
+        },
         setLanguages(state, languages) {
             state.languages = languages
         },
@@ -29,8 +33,11 @@ export default createStore({
         },
     },
     actions: {
+        setSurveyId({ commit }, id) {
+            commit('setSurveyId', id)
+        },
         async setUserLanguage({ commit }, lang) {
-            commit('setUserLanguage', lang)
+            // commit('setUserLanguage', lang)
         },
         async getLanguages({ commit }, userLang) {
             const url = 'evaluation-tool/survey-languages'
@@ -43,8 +50,8 @@ export default createStore({
                     return error
                 })
             console.log(languages)
-            commit('setLanguages', languages)
-            commit('setUserLanguage', userLang)
+            //commit('setLanguages', languages)
+            // commit('setUserLanguage', userLang)
         },
     },
 })

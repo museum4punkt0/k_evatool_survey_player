@@ -4,7 +4,7 @@ axios.defaults.headers['X-DEMO'] = true
 export default {
     async getResults(surveyId) {
         console.log(surveyId)
-        const url = 'evaluation-tool/surveys/' + surveyId + '/run?all=true'
+        const url = 'evaluation-tool/surveys/' + surveyId + '/run'
 
         return axios
             .get(url)
@@ -36,8 +36,6 @@ export default {
     },
     async sendResults(surveyId, data) {
         const url = 'evaluation-tool/surveys/' + surveyId + '/run'
-
-        console.log(data)
         return axios
             .post(url, data)
             .then((res) => {
