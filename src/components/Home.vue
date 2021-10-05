@@ -10,9 +10,7 @@
             <!--            }}-->
         </div>
         <div class="survey-steps mx-5 pt-28 pb-16 px-4">
-            <div class="survey-navigation">
-                {{ store.state.lang }}
-            </div>
+            <!--            <div class="survey-navigation">            </div>-->
             <!--            <h1 class="text-indigo-">{{ store.state.surveys.survey.name }}</h1>-->
             <!--            <div v-if="nextSurvey && nextSurvey.nextStepId">-->
             <!--                Next Step:{{ nextSurvey.nextStepId }}-->
@@ -34,7 +32,7 @@
             <!--            ></SurveyElementBuilder>-->
             <!--            {{ store.state.surveys.surveySteps }}-->
             <!--             {{ store.state.surveys.surveySteps[surveyStep] }}-->
-            Step:{{ surveyStep }}
+
             <SurveyElementBuilder
                 v-if="store.state.surveys.surveySteps"
                 :content="store.state.surveys.surveySteps[surveyStep]"

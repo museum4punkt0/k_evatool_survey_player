@@ -9,7 +9,6 @@ export default createStore({
         surveyResults: surveyResultsStoreModule,
     },
     state: {
-        // lang: null,
         lang: 'de',
         suveyid: null,
         languages: [],
