@@ -5,16 +5,18 @@
                 class="
                     imprint
                     flex
+                    items-center
                     absolute
                     left-6
                     rounded-md
                     nav-button
                     p-2
+                    m-l2
                     bg-gray-200
                 "
                 @click="prevStep()"
             >
-                <book-open-icon class="h-5 w-5 mr-1"></book-open-icon>
+                <book-open-icon class="h-5 w-5 mr-2"></book-open-icon>
                 Impressum
             </button>
             <button
@@ -49,7 +51,7 @@
             >
                 Weiter
                 <chevron-double-right-icon
-                    class="h-5 w-5 ml-1s"
+                    class="h-5 w-5 ml-2"
                 ></chevron-double-right-icon>
             </button>
         </div>
