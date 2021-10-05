@@ -2,9 +2,9 @@
     <div class="flex justify-between items-center px-5 py-2 mx-5">
         <div class="left-menu">
             <img src="../assets/logo.svg" class="inline" />
-            <button class="inline ml-5">
+            <button class="ml-5 rounded-md p-2 bg-gray-200">
                 <arrow-left-icon class="h-4 w-4 inline"></arrow-left-icon>
-                Zurück
+                Umfrage schießen
             </button>
         </div>
         <div class="right-menu">

@@ -72,10 +72,7 @@
                         </h1>
                     </div>
                     <div class="order-1 w-10/12 p-1">
-                        <h3 class="text-gray-800 inline text-xl">
-                            Kommentar
-                            <!--                            {{ comment.index }}-->
-                        </h3>
+                        <h3 class="text-gray-800 inline text-xl">Kommentar</h3>
                         <p class="text-gray-400 inline">
                             bei {{ convertTime(comment.time) }}
                         </p>
@@ -89,6 +86,12 @@
                             "
                         >
                             {{ comment.body }}
+                            <audio
+                                id="player"
+                                type="audio/wav"
+                                :src="audioComment"
+                                controls
+                            ></audio>
                         </p>
                         <div class="mt-5 text-sm">
                             <button
@@ -265,6 +268,10 @@ export default {
         },
         content: {
             type: Object,
+            default: null,
+        },
+        audioComment: {
+            type: String,
             default: null,
         },
     },

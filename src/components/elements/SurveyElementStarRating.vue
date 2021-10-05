@@ -66,9 +66,10 @@ export default {
         onMounted(() => {
             let questionResults = props.surveyResults
             console.log(questionResults)
-            rating.value = questionResults.results.pop().result_value.rating
+            // rating.value = questionResults.results.pop().result_value.rating
         })
         return { rating, setRating }
     },
 }
 </script>
+<style scoped></style>

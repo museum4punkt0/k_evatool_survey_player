@@ -16,7 +16,16 @@
             id="responsiveVideoWrapper"
             class="relative mx-auto pb-fluid-video flex"
         >
-            <div class="sidebar-left block w-60 relative p-0 m-0">
+            <div
+                class="
+                    sidebar-left
+                    md:grid-cols-12
+                    sm:grid-cols-6
+                    relative
+                    p-0
+                    m-0
+                "
+            >
                 <div class="video-wrap relative">
                     <video
                         ref="videoPlayer"
@@ -175,11 +184,19 @@
                     </div>
                 </div>
             </div>
-            <div class="sidebar sidebar-right w-40 mx-4">
+            <div
+                class="
+                    sidebar sidebar-right
+                    sm:grid-cols-12
+                    md:grid-cols-3
+                    mx-4
+                "
+            >
                 <TimeLine
                     :interactive-steps="interactiveSteps"
                     :answered-steps="answeredSteps"
                     :content="timelineObject"
+                    :audio-comment="audioComment"
                     @removeComment="removeComment"
                     @editComment="editComment"
                 ></TimeLine>
@@ -205,6 +222,7 @@ import {
     ClockIcon,
     MicrophoneIcon,
 } from '@heroicons/vue/outline'
+import { useRoute } from 'vue-router'
 
 // import SurveyElementBuilder from '../SurveyElementBuilder.vue'
 
@@ -246,6 +264,8 @@ export default {
         const videoIsPlaying = ref(true)
         const showFeedback = ref(false)
         const showFormular = ref(false)
+        const audioComment = ref(false)
+        const route = useRoute()
 
         const comment = ref()
         const timelineObject = ref([])
@@ -284,7 +304,7 @@ export default {
             comment.value = ''
         }
         const saveComment = () => {
-            if (comment.value) {
+            if (comment.value || audioComment.value) {
                 let message = comment.value
 
                 commentsCounter.value = timelineObject.value.filter(
@@ -418,9 +438,10 @@ export default {
         const sendAudioAsset = (wav) => {
             console.log(props.content)
             store.dispatch('surveyResults/sendSurveyAudioAsset', {
-                surveyStepResultId: props.content.surveyId,
+                surveyStepResultId: route.query.id,
                 audio: wav,
             })
+            audioComment.value = wav
         }
 
         onMounted(() => {
@@ -447,6 +468,7 @@ export default {
             timelineObject,
             showFeedback,
             showFormular,
+            audioComment,
             videoEnded,
             tooglePlay,
             sendAudioAsset,
@@ -482,18 +504,6 @@ video {
     width: 30vw;
     height: 100vh;
     overflow-y: scroll;
-}
-
-.w-40 {
-    width: 40%;
-}
-
-.w-60 {
-    width: 60%;
-}
-
-.question {
-    position: absolute;
 }
 
 .text-field {

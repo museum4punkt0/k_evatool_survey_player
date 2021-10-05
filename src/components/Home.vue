@@ -1,6 +1,6 @@
 <template>
-    <div class="main-page bg-gray-200">
-        <div class="survey-header-menu bg-white">
+    <div class="main-page h-screen bg-gray-200">
+        <div class="survey-header-menu top-0 fixed w-screen z-30 bg-white">
             <header-menu></header-menu>
 
             <!--            {{-->
@@ -9,13 +9,9 @@
             <!--                ]-->
             <!--            }}-->
         </div>
-        <div class="survey-steps mx-5 px-4">
+        <div class="survey-steps mx-5 pt-28 px-4">
             <div class="survey-navigation">
                 {{ store.state.lang }}
-                <SurveyNavigation
-                    @next-step="nextStep()"
-                    @prev-step="prevStep()"
-                ></SurveyNavigation>
             </div>
             <!--            <h1 class="text-indigo-">{{ store.state.surveys.survey.name }}</h1>-->
             <!--            <div v-if="nextSurvey && nextSurvey.nextStepId">-->
@@ -46,6 +42,14 @@
                 :survey-results="store.state.surveys.surveySteps[surveyStep]"
             ></SurveyElementBuilder>
         </div>
+        <div class="survey-footer-menu bottom-0 fixed w-screen z-30 bg-white">
+            <SurveyNavigation
+                :survey-steps="store.state.surveys.surveySteps.length"
+                :current-step="surveyStep + 1"
+                @next-step="nextStep()"
+                @prev-step="prevStep()"
+            ></SurveyNavigation>
+        </div>
     </div>
 </template>
 
@@ -54,7 +58,7 @@ import { useStore } from 'vuex'
 
 import SurveyElementBuilder from './SurveyElementBuilder.vue'
 import HeaderMenu from './HeaderMenu.vue'
-import SurveyNavigation from './SurveyNavigation.vue'
+import SurveyNavigation from './FooterNavigation.vue'
 import { ref } from '@vue/reactivity'
 import { onMounted } from '@vue/runtime-core'
 import { useRoute, useRouter } from 'vue-router'

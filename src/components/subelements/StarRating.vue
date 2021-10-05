@@ -54,6 +54,7 @@ export default {
 }
 </script>
 <style scoped>
+/* ToDo: create Tailwind class */
 .text-blue {
     color: #3490dc;
     fill: #3490dc;

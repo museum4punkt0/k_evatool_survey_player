@@ -16,6 +16,7 @@ export default {
             })
     },
     async sendAudioResults(data, surveyId, surveyStepId, surveyStepResultId) {
+        console.log(data, surveyId, surveyStepId, surveyStepResultId)
         const url =
             'evaluation-tool/surveys/' +
             surveyId +
