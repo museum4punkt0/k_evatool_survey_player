@@ -1,41 +1,38 @@
 <template>
-    <div class="multiple-choice-element mx-auto">
-        <span class="text-gray-700">
-            <!--            {{ content }}-->
-            <!--            {{ surveyResults.params.question[$store.state.lang] }}-->
-        </span>
-        <div class="mt-2">
-            <div
-                v-for="(option, index) in surveyResults.params.options"
-                :key="index"
-            >
-                <label
-                    class="pl-3 inline-flex items-center"
-                    :for="'answer-' + index"
-                >
-                    <input
-                        :id="'answer-' + index"
-                        v-model="selectedOptions"
-                        type="checkbox"
-                        class="checkbox"
-                        :value="option"
-                    />
-                    <span class="ml-2">{{ option[$store.state.lang] }}</span>
-                </label>
-            </div>
-        </div>
-        <br />
-        Selected Answers :{{ selectedOptions }}
+    <span class="text-gray-700">
+        {{ surveyResults.params }}
+        <!--            {{ content }}-->
+        <!--            {{ surveyResults.params.question[$store.state.lang] }}-->
+    </span>
+    <span class="text-gray-700">
+        {{ surveyResults.params.maxSelectable }}
+    </span>
+    <span class="text-gray-700">
+        {{ surveyResults.params.minSelectable }}
+    </span>
+    <div class="m-5 text-gray-900">
+        {{ surveyResults.params.question[$store.state.lang] }}
     </div>
+    <div class="mt-2">
+        <select-button
+            v-for="(option, index) in surveyResults.params.options"
+            :key="'selection-button-' + index"
+            :label="option.labels[$store.state.lang]"
+        />
+    </div>
+    <br />
+    Selected Answers :{{ selectedOptions }}
 </template>
 
 <script>
 import { ref } from '@vue/reactivity'
 import { onMounted, watch } from '@vue/runtime-core'
 import { useStore } from 'vuex'
+import SelectButton from '../subelements/SelectButton.vue'
 
 export default {
     name: 'SurveyElementMultipleChoice',
+    components: { SelectButton },
     props: {
         content: {
             type: Object,

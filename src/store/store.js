@@ -9,7 +9,8 @@ export default createStore({
         surveyResults: surveyResultsStoreModule,
     },
     state: {
-        lang: null,
+        // lang: null,
+        lang: 'de',
         suveyid: null,
         languages: [],
     },
@@ -36,10 +37,12 @@ export default createStore({
         setSurveyId({ commit }, id) {
             commit('setSurveyId', id)
         },
-        async setUserLanguage({ commit }, lang) {
+        // async setUserLanguage({ commit }, lang) {
+        async setUserLanguage() {
             // commit('setUserLanguage', lang)
         },
-        async getLanguages({ commit }, userLang) {
+        // async getLanguages({ commit }, userLang) {
+        async getLanguages() {
             const url = 'evaluation-tool/survey-languages'
             let languages = await axios
                 .get(url)
