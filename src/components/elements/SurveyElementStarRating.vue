@@ -39,8 +39,8 @@ export default {
             default: () => {},
         },
     },
-    emits: ['next-step'],
-    setup(props, { emit }) {
+    // emits: ['next-step'],
+    setup(props) {
         const rating = ref(0)
         const store = useStore()
         const route = useRoute()
@@ -52,9 +52,9 @@ export default {
         })
 
         console.log(props.content)
-        const nextStep = (i) => {
-            emit('next-step')
-        }
+        // const nextStep = (i) => {
+        //     emit('next-step')
+        // }
 
         const setRating = (i) => {
             console.log(i)
