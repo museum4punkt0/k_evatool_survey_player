@@ -1,42 +1,104 @@
 <template>
-    <div class="binary-question-element mx-auto">
-        <p>SurveyElementBinaryQuestion</p>
-
-        {{ surveyResults.params.question }}
+    <div
+        class="
+            binary-question-element
+            flex flex-wrap flex-col
+            h-96
+            mt-16
+            justify-center
+            items-center
+        "
+    >
+        <p class="pb-5">
+            {{ content.params.question[lang] }}
+        </p>
         <div>
-            <label class="pl-3" :for="'answer-' + index">
+            <label
+                class="
+                    pl-3
+                    flex
+                    items-center
+                    rounded-md
+                    nav-button
+                    p-2
+                    mt-5
+                    bg-blue-700
+                    text-white
+                    focus:outline-none
+                "
+                :for="'answer-1'"
+            >
                 <input
-                    :id="'answer-' + index"
+                    :id="'answer-1'"
                     v-model="selectedAnswer"
                     type="radio"
-                    :value="surveyResults.params.trueValue"
-                    @change="handleAnswer(surveyResults.params.trueValue)"
+                    class="invisible appearance-none"
+                    :value="content.params.trueValue"
+                    @change="handleAnswer(content.params.trueValue)"
                 />
-                {{ surveyResults.params.trueLabel[$store.state.lang] }}
+                <arrow-circle-right-icon class="h-6 w-6 mr-3 text-white" />
+                {{ content.params.trueLabel[lang] }}
             </label>
-            <label class="pl-3" :for="'answer-' + index">
+            <label
+                class="
+                    pl-3
+                    flex
+                    items-center
+                    rounded-md
+                    nav-button
+                    p-2
+                    mt-5
+                    bg-blue-700
+                    text-white
+                    focus:outline-none
+                "
+                :for="'answer-2'"
+            >
                 <input
-                    :id="'answer-' + index"
+                    :id="'answer-2'"
                     v-model="selectedAnswer"
                     type="radio"
-                    :value="surveyResults.params.trueValue"
-                    @change="handleAnswer(surveyResults.params.trueValue)"
+                    class="invisible appearance-none"
+                    :value="content.params.falseValue"
+                    @change="handleAnswer(content.params.falseValue)"
                 />
-                {{ surveyResults.params.trueLabel[$store.state.lang] }}
+                <arrow-circle-right-icon class="h-6 w-6 mr-3 text-white" />
+                {{ content.params.falseLabel[lang] }}
             </label>
         </div>
-        <br />
-        Selected Answer: {{ selectedAnswer }}
+        <div class="flex justify-self-start">
+            <button
+                type="button"
+                class="
+                    confirm
+                    flex
+                    items-center
+                    rounded-md
+                    nav-button
+                    p-2
+                    mt-5
+                    bg-blue-700
+                    text-white
+                    focus:outline-none
+                "
+            >
+                <check-circle-icon class="h-6 w-6 mr-3 text-white" />
+                Eingabe bestätigen
+            </button>
+        </div>
     </div>
 </template>
 
 <script>
-import { ref } from '@vue/reactivity'
+import { computed, ref } from '@vue/reactivity'
 import { onMounted } from '@vue/runtime-core'
 import { useStore } from 'vuex'
+import { CheckCircleIcon, ArrowCircleRightIcon } from '@heroicons/vue/outline'
+import { useRoute } from 'vue-router'
 
 export default {
     name: 'SurveyElementBinaryQuestion',
+    components: { CheckCircleIcon, ArrowCircleRightIcon },
     props: {
         content: {
             type: Object,
@@ -54,27 +116,31 @@ export default {
     setup(props) {
         const selectedAnswer = ref()
         const store = useStore()
+        const route = useRoute()
         // const allowSkip = ref(props.content.allowSkip)
         // console.log(allowSkip)
         const resultBasedNextSteps = ref(props.content.resultBasedNextSteps)
-
-        const handleAnswer = () => {
-            store.dispatch('surveyResults/sendSurveyResults', {
-                surveyId: props.content.surveyId,
-                // resultLanguageId:
-                //     props.surveyResults.sampleResultPayload.resultData
-                //         .resultLanguageId,
-                data: {
-                    surveyStepId: props.content.id,
-                    resultValue: {
-                        value: selectedAnswer.value,
-                    },
-                    uuid: props.surveyResults.uuid,
-                    resultLanguageId:
-                        props.surveyResults.sampleResultPayload.resultData
-                            .resultLanguageId,
-                },
-            })
+        const lang = computed({
+            get: () => store.state.lang,
+        })
+        const handleAnswer = (value) => {
+            console.log(selectedAnswer.value)
+            // store.dispatch('surveyResults/sendSurveyResults', {
+            //     surveyId: route.query.id,
+            //     // resultLanguageId:
+            //     //     props.surveyResults.sampleResultPayload.resultData
+            //     //         .resultLanguageId,
+            //     data: {
+            //         surveyStepId: props.content.id,
+            //         resultValue: {
+            //             value: selectedAnswer.value,
+            //         },
+            //         //         uuid: props.surveyResults.uuid,
+            //         //         resultLanguageId:
+            //         //             props.surveyResults.sampleResultPayload.resultData
+            //         //                 .resultLanguageId,
+            //     },
+            // })
         }
         const handleResults = (results) => {
             console.log(results)
@@ -83,11 +149,11 @@ export default {
 
         onMounted(() => {
             let questionResults = props.surveyResults
-            console.log(questionResults.results)
-            if (questionResults.results.length) {
-                selectedAnswer.value =
-                    questionResults.results.pop().result_value.value
-            }
+            console.log(questionResults)
+            // if (questionResults.results.length) {
+            //     selectedAnswer.value =
+            //         questionResults.results.pop().result_value.value
+            // }
         })
 
         // onMounted(() => {
@@ -98,6 +164,9 @@ export default {
         //     }
         // })
         return {
+            store,
+            route,
+            lang,
             selectedAnswer,
             resultBasedNextSteps,
             handleAnswer,
@@ -107,4 +176,7 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+input {
+}
+</style>

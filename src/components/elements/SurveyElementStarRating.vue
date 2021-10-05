@@ -45,7 +45,7 @@ export default {
         const store = useStore()
         const route = useRoute()
         const labels = ref({})
-        labels.value = ['Wenig', 'Mittle', 'Viel']
+        labels.value = ['Wenig', 'Mittel', 'Viel']
 
         const lang = computed({
             get: () => store.state.lang,
