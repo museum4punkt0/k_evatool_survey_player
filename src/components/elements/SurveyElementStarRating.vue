@@ -1,12 +1,21 @@
 <template>
-    <div id="app" class="flex justify-center items-center">
-        <StarRating :value="rating" :stars="6" @input="setRating" />
+    <div class="flex flex-wrap flex-col h-96 mt-16 justify-center items-center">
+        <p class="pb-5">
+            {{ content.params.question[lang] }}
+        </p>
+        <StarRating
+            :value="rating"
+            :stars="content.params.numberOfStars"
+            :labels="labels"
+            @input="setRating"
+            @confirm="nextStep"
+        />
     </div>
 </template>
 
 <script>
 import StarRating from '../subelements/StarRating.vue'
-import { ref } from '@vue/reactivity'
+import { computed, ref } from '@vue/reactivity'
 import { useStore } from 'vuex'
 import { onMounted } from '@vue/runtime-core'
 import { useRoute } from 'vue-router'
@@ -30,11 +39,23 @@ export default {
             default: () => {},
         },
     },
-    setup(props) {
+    emits: ['next-step'],
+    setup(props, { emit }) {
         const rating = ref(0)
         const store = useStore()
         const route = useRoute()
+        const labels = ref({})
+        labels.value = ['Wenig', 'Mittle', 'Viel']
+
+        const lang = computed({
+            get: () => store.state.lang,
+        })
+
         console.log(props.content)
+        const nextStep = (i) => {
+            emit('next-step')
+        }
+
         const setRating = (i) => {
             console.log(i)
             rating.value = i
@@ -68,7 +89,7 @@ export default {
             console.log(questionResults)
             // rating.value = questionResults.results.pop().result_value.rating
         })
-        return { rating, setRating }
+        return { lang, labels, rating, setRating }
     },
 }
 </script>
