@@ -9,7 +9,7 @@
             <!--                ]-->
             <!--            }}-->
         </div>
-        <div class="survey-steps mx-5 pt-28 px-4">
+        <div class="survey-steps mx-5 pt-28 pb-16 px-4">
             <div class="survey-navigation">
                 {{ store.state.lang }}
             </div>

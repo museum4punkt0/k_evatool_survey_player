@@ -1,7 +1,7 @@
 <template>
     <div class="multiple-choice-element mx-auto">
         <span class="text-gray-700">
-            {{ content }}
+            <!--            {{ content }}-->
             <!--            {{ surveyResults.params.question[$store.state.lang] }}-->
         </span>
         <div class="mt-2">
