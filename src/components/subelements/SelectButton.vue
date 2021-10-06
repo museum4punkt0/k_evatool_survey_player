@@ -1,6 +1,7 @@
 <template>
     <div
         class="
+            w-min
             focus:ring-indigo-500
             relative
             flex
@@ -8,14 +9,14 @@
             py-4
             px-7
             mb-3
-            w-auto
             bg-white
             rounded-xl
         "
-        :class="
-            selected ? 'border-blue-700 border-2' : 'border-gray-900 border-2'
-        "
-        @click="selected = !selected"
+        :class="[
+            selected ? 'border-blue-700 border-2' : 'border-gray-900 border-2',
+            disabled ? 'cursor-not-allowed select-none' : 'cursor-pointer',
+        ]"
+        @click="toggleSelection"
     >
         <div class="flex items-center">
             <span
@@ -31,8 +32,13 @@
         </div>
         <div class="ml-3 text-sm">
             <label
-                class="font-medium text-gray-700"
-                :class="{ 'text-blue-700': selected }"
+                class="font-medium whitespace-nowrap"
+                :class="[
+                    selected ? 'text-blue-700' : 'text-gray-700',
+                    disabled
+                        ? 'cursor-not-allowed select-none'
+                        : 'cursor-pointer',
+                ]"
             >
                 {{ label }}
             </label>
@@ -49,42 +55,32 @@ export default {
         CheckIcon,
     },
     props: {
+        value: {
+            type: String,
+            default: '',
+        },
+        selected: {
+            type: Boolean,
+            default: false,
+        },
         label: {
             type: String,
             default: '',
         },
+        disabled: {
+            type: Boolean,
+            default: false,
+        },
     },
-    setup() {
-        /*
-        watch(
-            () => selectedOptions.value,
-            (value) => {
-                console.log(value)
-                store.dispatch('surveyResults/sendSurveyResults', {
-                    surveyId: props.content.surveyId,
-                    // resultLanguageId:
-                    //     props.surveyResults.sampleResultPayload.resultData
-                    //         .resultLanguageId,
-                    data: {
-                        surveyStepId: props.content.id,
-                        resultValue: {
-                            selected: selectedOptions.value,
-                        },
-                        uuid: props.surveyResults.uuid,
-                        resultLanguageId:
-                        props.surveyResults.sampleResultPayload.resultData
-                            .resultLanguageId,
-                    },
-                })
-            },
-        )*/
+    methods: {
+        toggleSelection() {
+            if (this.disabled) {
+                return
+            }
+            this.$emit('selected', this.value)
 
-        return {}
-    },
-    data() {
-        return {
-            selected: false,
-        }
+            // this.selected = !this.selected
+        },
     },
 }
 </script>
