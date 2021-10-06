@@ -1,17 +1,12 @@
 <template>
-    <div>
-        <p>SurveyElementEmoji</p>
-        DB Value: {{ result }}
+    <p>SurveyElementEmoji</p>
+    DB Value: {{ result }}
 
-        <div
-            v-for="(emoji, index) in surveyResults.params.emojis"
-            :key="'emoji-' + index"
-        >
-            <emoji-happy-icon
-                class="h-8 w-8"
-                @click="setResult(emoji.meaning)"
-            />
-        </div>
+    <div
+        v-for="(emoji, index) in surveyResults.params.emojis"
+        :key="'emoji-' + index"
+    >
+        <emoji-happy-icon class="h-8 w-8" @click="setResult(emoji.meaning)" />
     </div>
 </template>
 

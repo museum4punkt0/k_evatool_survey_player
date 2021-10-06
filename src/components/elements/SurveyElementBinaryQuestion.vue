@@ -1,91 +1,80 @@
 <template>
-    <div
-        class="
-            binary-question-element
-            flex flex-wrap flex-col
-            h-96
-            mt-16
-            justify-center
-            items-center
-        "
-    >
-        <p class="pb-5">
-            {{ content.params.question[lang] }}
-        </p>
-        <div>
-            <label
-                class="
-                    pl-3
-                    flex
-                    items-center
-                    rounded-md
-                    nav-button
-                    p-2
-                    mt-5
-                    bg-blue-700
-                    text-white
-                    focus:outline-none
-                "
-                :for="'answer-1'"
-            >
-                <input
-                    :id="'answer-1'"
-                    v-model="selectedAnswer"
-                    type="radio"
-                    class="invisible appearance-none"
-                    :value="content.params.trueValue"
-                    @change="handleAnswer(content.params.trueValue)"
-                />
-                <arrow-circle-right-icon class="h-6 w-6 mr-3 text-white" />
-                {{ content.params.trueLabel[lang] }}
-            </label>
-            <label
-                class="
-                    pl-3
-                    flex
-                    items-center
-                    rounded-md
-                    nav-button
-                    p-2
-                    mt-5
-                    bg-blue-700
-                    text-white
-                    focus:outline-none
-                "
-                :for="'answer-2'"
-            >
-                <input
-                    :id="'answer-2'"
-                    v-model="selectedAnswer"
-                    type="radio"
-                    class="invisible appearance-none"
-                    :value="content.params.falseValue"
-                    @change="handleAnswer(content.params.falseValue)"
-                />
-                <arrow-circle-right-icon class="h-6 w-6 mr-3 text-white" />
-                {{ content.params.falseLabel[lang] }}
-            </label>
-        </div>
-        <div class="flex justify-self-start">
-            <button
-                type="button"
-                class="
-                    confirm
-                    flex
-                    items-center
-                    rounded-md
-                    nav-button
-                    p-2
-                    mt-5
-                    bg-blue-700
-                    text-white
-                    focus:outline-none
-                "
-            >
-                <check-circle-icon class="h-6 w-6 mr-3 text-white" />
-                Eingabe bestätigen
-            </button>
-        </div>
+    <p class="pb-5">
+        {{ content.params.question[lang] }}
+    </p>
+    <div>
+        <label
+            class="
+                pl-3
+                flex
+                items-center
+                rounded-md
+                nav-button
+                p-2
+                mt-5
+                bg-blue-700
+                text-white
+                focus:outline-none
+            "
+            :for="'answer-1'"
+        >
+            <input
+                :id="'answer-1'"
+                v-model="selectedAnswer"
+                type="radio"
+                class="invisible appearance-none"
+                :value="content.params.trueValue"
+                @change="handleAnswer(content.params.trueValue)"
+            />
+            <arrow-circle-right-icon class="h-6 w-6 mr-3 text-white" />
+            {{ content.params.trueLabel[lang] }}
+        </label>
+        <label
+            class="
+                pl-3
+                flex
+                items-center
+                rounded-md
+                nav-button
+                p-2
+                mt-5
+                bg-blue-700
+                text-white
+                focus:outline-none
+            "
+            :for="'answer-2'"
+        >
+            <input
+                :id="'answer-2'"
+                v-model="selectedAnswer"
+                type="radio"
+                class="invisible appearance-none"
+                :value="content.params.falseValue"
+                @change="handleAnswer(content.params.falseValue)"
+            />
+            <arrow-circle-right-icon class="h-6 w-6 mr-3 text-white" />
+            {{ content.params.falseLabel[lang] }}
+        </label>
+    </div>
+    <div class="flex justify-self-start">
+        <button
+            type="button"
+            class="
+                confirm
+                flex
+                items-center
+                rounded-md
+                nav-button
+                p-2
+                mt-5
+                bg-blue-700
+                text-white
+                focus:outline-none
+            "
+        >
+            <check-circle-icon class="h-6 w-6 mr-3 text-white" />
+            Eingabe bestätigen
+        </button>
     </div>
 </template>
 

@@ -1,14 +1,14 @@
 <template>
-    <div
-        class="
-            binary-question-element
-            flex flex-wrap flex-col
-            h-30
-            mt-16
-            justify-center
-            items-center
-        "
-    >
+    <div class="flex flex-wrap flex-col items-center">
+        <!--        class="-->
+        <!--            binary-question-element-->
+        <!--            flex flex-wrap flex-col-->
+        <!--            h-30-->
+        <!--            mt-16-->
+        <!--            justify-center-->
+        <!--            items-center-->
+        <!--        "-->
+        <!--    >-->
         <p class="pb-5">
             {{ content.params.question[lang] }}
         </p>

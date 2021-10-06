@@ -1,5 +1,15 @@
 <template>
-    <div class="survey-content">
+    <div
+        v-if="content.surveyElementType !== 'video'"
+        class="
+            survey-content
+            flex flex-wrap flex-col
+            h-96
+            mt-16
+            justify-center
+            items-center
+        "
+    >
         <SurveyElementBinaryQuestion
             v-if="content && content.surveyElementType === 'binary'"
             :content="content"
@@ -33,18 +43,32 @@
             :survey-results="surveyResults"
         ></SurveyElementStarRating>
 
-        <SurveyElementVideo
-            v-if="content && content.surveyElementType === 'video'"
-            :content="content"
-            :survey="survey"
-        ></SurveyElementVideo>
-
         <SurveyElementYayNay
             v-if="content && content.surveyElementType === 'yayNay'"
             :content="content"
             :survey="survey"
             :survey-results="surveyResults"
         ></SurveyElementYayNay>
+    </div>
+    <div
+        v-if="content && content.surveyElementType === 'video'"
+        class="
+            survey-content
+            video-element
+            mx-auto
+            bg-gray-200
+            font-sans
+            h-screen
+            w-full
+            flex flex-col
+            justify-center
+            items-center
+        "
+    >
+        <SurveyElementVideo
+            :content="content"
+            :survey="survey"
+        ></SurveyElementVideo>
     </div>
 </template>
 

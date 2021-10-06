@@ -1,206 +1,170 @@
 <template>
     <div
-        class="
-            video-element
-            mx-auto
-            bg-gray-200
-            font-sans
-            h-screen
-            w-full
-            flex flex-col
-            justify-center
-            items-center
-        "
+        id="responsiveVideoWrapper"
+        class="relative mx-auto pb-fluid-video flex"
     >
         <div
-            id="responsiveVideoWrapper"
-            class="relative mx-auto pb-fluid-video flex"
+            class="sidebar-left md:grid-cols-12 sm:grid-cols-6 relative p-0 m-0"
         >
-            <div
-                class="
-                    sidebar-left
-                    md:grid-cols-12
-                    sm:grid-cols-6
-                    relative
-                    p-0
-                    m-0
-                "
-            >
-                <div class="video-wrap relative">
-                    <video
-                        ref="videoPlayer"
-                        src="https://ak.picdn.net/shutterstock/videos/1060516912/preview/stock-footage-beautiful-sunlight-in-the-forest.webm"
-                        muted
-                        autoplay
-                        class="mx-auto p-0 m-0 z-10"
-                        @timeupdate="videoTimeUpdate"
-                        @play="playVideo"
-                        @ended="videoEnded"
-                    ></video>
-
-                    <div
-                        v-if="showQuestion || showFeedback || showFormular"
-                        class="
-                            absolute
-                            bg-white
-                            w-2/3
-                            h-2/3
-                            absolute
-                            top-1/2
-                            left-1/2
-                            transform
-                            -translate-x-1/2 -translate-y-2/3
-                            z-20
-                        "
-                    >
-                        <ContentSlider
-                            v-if="showQuestion"
-                            class="z-20"
-                        ></ContentSlider>
-                        <formular v-if="showFormular" class="z-20"></formular>
-                        <div v-if="showFeedback" class="thanks-feedback">
-                            <div class="flex">
-                                <img
-                                    src="../../assets/thanks.svg"
-                                    class="inline"
-                                />
-                                <h3 class="text-blue-800">
-                                    Danke für ihre Bewertung!
-                                </h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        v-if="showQuestion"
-                        class="
-                            mx-auto
-                            question
-                            bg-white
-                            p-4
-                            absolute
-                            bottom-0
-                            right-0
-                        "
-                    >
-                        <!--            {{ store.state.surveys.surveyStep }}-->
-
-                        <h3>Question: {{ answeredSteps }}</h3>
-                        <h3>
-                            StopsVideo:
-                            {{ timeBasedSteps[answeredSteps - 1].stopsVideo }}
-                        </h3>
-                        <ul>
-                            <li>
-                                <button @click="setAnswer(1)">antwort 1</button>
-                            </li>
-                        </ul>
-                        <ul>
-                            <li>
-                                <button @click="setAnswer(2)">antwort 2</button>
-                            </li>
-                        </ul>
-                        <ul>
-                            <li>
-                                <button @click="setAnswer(3)">antwort 3</button>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <ProgressBar
-                    :current-time="mediaCurrentTime"
-                    :duration="mediaDurationTime"
-                    :interactive-steps="interactiveSteps"
-                    :comments="commentsCounter"
-                    @add-comment="addComment"
-                    @changeProgress="changeProgress"
-                    @jumpToItem="jumpToItem"
-                ></ProgressBar>
-                <MediaControls
-                    :current-time="mediaCurrentTime"
-                    :duration="mediaDurationTime"
-                    :media-is-playing="videoIsPlaying"
-                    @play-pause="tooglePlay"
-                ></MediaControls>
+            <div class="video-wrap relative">
+                <video
+                    ref="videoPlayer"
+                    src="https://ak.picdn.net/shutterstock/videos/1060516912/preview/stock-footage-beautiful-sunlight-in-the-forest.webm"
+                    muted
+                    autoplay
+                    class="mx-auto p-0 m-0 z-10"
+                    @timeupdate="videoTimeUpdate"
+                    @play="playVideo"
+                    @ended="videoEnded"
+                ></video>
 
                 <div
+                    v-if="showQuestion || showFeedback || showFormular"
                     class="
-                        text-field
-                        inline-block
-                        text-center
-                        comments
-                        border-2 border-blue-800
+                        absolute
                         bg-white
-                        w-4/5
+                        w-2/3
+                        h-2/3
+                        absolute
+                        top-1/2
+                        left-1/2
+                        transform
+                        -translate-x-1/2 -translate-y-2/3
+                        z-20
                     "
                 >
-                    <microphone-icon
-                        class="h-6 w-6 mr-2 inline text-blue-800"
-                    ></microphone-icon>
-
-                    <!--        <p>SurveyElementVideo</p>-->
-                    <!--        <button @click="pauseVideo">pauseVideo</button>-->
-                    <AudioRecorder
-                        @send-audio-asset="sendAudioAsset"
-                    ></AudioRecorder>
-                    <p class="text-xs p-2 text-gray-400 inline"></p>
-                    <!--                    <p>{{ comment }}</p>-->
-                    <textarea
-                        v-model="comment"
-                        type="text"
-                        class="flex textarea px-5 py-2 text-left text-xs w-full"
-                        placeholder="Schreibe ein Kommentar zur aktuellen Stelle im Video oder klicke auf das Mikrofon für die Spracheingabe"
-                    />
-
-                    <div class="flex justify-between">
-                        <div>
-                            <div class="time text-xs px-6 text-gray-400 inline">
-                                <clock-icon
-                                    class="h-6 w-6 mr-2 inline text-gray-400"
-                                ></clock-icon>
-                                {{ convertTime(mediaCurrentTime) }} / Kommentar
-                                {{ timelineObject.length + 1 }}
-                            </div>
-                        </div>
-                        <div>
-                            <button
-                                class="rounded px-2 py-1"
-                                @click="deleteComment"
-                            >
-                                <trash-icon
-                                    class="h-6 w-6 mr-2 inline text-red-600"
-                                />
-                                Löschen
-                            </button>
-                            <button
-                                class="rounded px-2 py-1"
-                                @click="saveComment"
-                            >
-                                <check-circle-icon
-                                    class="h-6 w-6 mr-2 inline"
-                                />
-                                Speichern
-                            </button>
+                    <ContentSlider
+                        v-if="showQuestion"
+                        class="z-20"
+                    ></ContentSlider>
+                    <formular v-if="showFormular" class="z-20"></formular>
+                    <div v-if="showFeedback" class="thanks-feedback">
+                        <div class="flex">
+                            <img src="../../assets/thanks.svg" class="inline" />
+                            <h3 class="text-blue-800">
+                                Danke für ihre Bewertung!
+                            </h3>
                         </div>
                     </div>
                 </div>
+                <div
+                    v-if="showQuestion"
+                    class="
+                        mx-auto
+                        question
+                        bg-white
+                        p-4
+                        absolute
+                        bottom-0
+                        right-0
+                    "
+                >
+                    <!--            {{ store.state.surveys.surveyStep }}-->
+
+                    <h3>Question: {{ answeredSteps }}</h3>
+                    <h3>
+                        StopsVideo:
+                        {{ timeBasedSteps[answeredSteps - 1].stopsVideo }}
+                    </h3>
+                    <ul>
+                        <li>
+                            <button @click="setAnswer(1)">antwort 1</button>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <button @click="setAnswer(2)">antwort 2</button>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <button @click="setAnswer(3)">antwort 3</button>
+                        </li>
+                    </ul>
+                </div>
             </div>
+            <ProgressBar
+                :current-time="mediaCurrentTime"
+                :duration="mediaDurationTime"
+                :interactive-steps="interactiveSteps"
+                :comments="commentsCounter"
+                @add-comment="addComment"
+                @changeProgress="changeProgress"
+                @jumpToItem="jumpToItem"
+            ></ProgressBar>
+            <MediaControls
+                :current-time="mediaCurrentTime"
+                :duration="mediaDurationTime"
+                :media-is-playing="videoIsPlaying"
+                @play-pause="tooglePlay"
+            ></MediaControls>
+
             <div
                 class="
-                    sidebar sidebar-right
-                    sm:grid-cols-12
-                    md:grid-cols-3
-                    mx-4
+                    text-field
+                    inline-block
+                    text-center
+                    comments
+                    border-2 border-blue-800
+                    bg-white
+                    w-4/5
                 "
             >
-                <TimeLine
-                    :interactive-steps="interactiveSteps"
-                    :answered-steps="answeredSteps"
-                    :content="timelineObject"
-                    :audio-comment="audioComment"
-                    @removeComment="removeComment"
-                    @editComment="editComment"
-                ></TimeLine>
+                <microphone-icon
+                    class="h-6 w-6 mr-2 inline text-blue-800"
+                ></microphone-icon>
+
+                <!--        <p>SurveyElementVideo</p>-->
+                <!--        <button @click="pauseVideo">pauseVideo</button>-->
+                <AudioRecorder
+                    @send-audio-asset="sendAudioAsset"
+                ></AudioRecorder>
+                <p class="text-xs p-2 text-gray-400 inline"></p>
+                <!--                    <p>{{ comment }}</p>-->
+                <textarea
+                    v-model="comment"
+                    type="text"
+                    class="flex textarea px-5 py-2 text-left text-xs w-full"
+                    placeholder="Schreibe ein Kommentar zur aktuellen Stelle im Video oder klicke auf das Mikrofon für die Spracheingabe"
+                />
+
+                <div class="flex justify-between">
+                    <div>
+                        <div class="time text-xs px-6 text-gray-400 inline">
+                            <clock-icon
+                                class="h-6 w-6 mr-2 inline text-gray-400"
+                            ></clock-icon>
+                            {{ convertTime(mediaCurrentTime) }} / Kommentar
+                            {{ timelineObject.length + 1 }}
+                        </div>
+                    </div>
+                    <div>
+                        <button
+                            class="rounded px-2 py-1"
+                            @click="deleteComment"
+                        >
+                            <trash-icon
+                                class="h-6 w-6 mr-2 inline text-red-600"
+                            />
+                            Löschen
+                        </button>
+                        <button class="rounded px-2 py-1" @click="saveComment">
+                            <check-circle-icon class="h-6 w-6 mr-2 inline" />
+                            Speichern
+                        </button>
+                    </div>
+                </div>
             </div>
+        </div>
+        <div class="sidebar sidebar-right sm:grid-cols-12 md:grid-cols-3 mx-4">
+            <TimeLine
+                :interactive-steps="interactiveSteps"
+                :answered-steps="answeredSteps"
+                :content="timelineObject"
+                :audio-comment="audioComment"
+                @removeComment="removeComment"
+                @editComment="editComment"
+            ></TimeLine>
         </div>
     </div>
 </template>

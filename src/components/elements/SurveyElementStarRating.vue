@@ -1,16 +1,14 @@
 <template>
-    <div class="flex flex-wrap flex-col h-96 mt-16 justify-center items-center">
-        <p class="pb-5">
-            {{ content.params.question[lang] }}
-        </p>
-        <StarRating
-            :value="rating"
-            :stars="content.params.numberOfStars"
-            :labels="labels"
-            @input="setRating"
-            @confirm="nextStep"
-        />
-    </div>
+    <p class="pb-5">
+        {{ content.params.question[lang] }}
+    </p>
+    <StarRating
+        :value="rating"
+        :stars="content.params.numberOfStars"
+        :labels="labels"
+        @input="setRating"
+        @confirm="nextStep"
+    />
 </template>
 
 <script>
