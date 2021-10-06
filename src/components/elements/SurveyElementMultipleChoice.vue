@@ -21,6 +21,7 @@
             max. {{ surveyResults.params.maxSelectable }} auswählen
         </p>
         <!--        Selected Answers :{{ selectedOptions }}-->
+        <confirm-button></confirm-button>
     </div>
 </template>
 
@@ -29,10 +30,10 @@ import { ref } from '@vue/reactivity'
 import { onMounted } from '@vue/runtime-core'
 import { useStore } from 'vuex'
 import SelectButton from '../subelements/SelectButton.vue'
-
+import ConfirmButton from '../subelements/ConfirmButton.vue'
 export default {
     name: 'SurveyElementMultipleChoice',
-    components: { SelectButton },
+    components: { SelectButton, ConfirmButton },
     props: {
         content: {
             type: Object,
