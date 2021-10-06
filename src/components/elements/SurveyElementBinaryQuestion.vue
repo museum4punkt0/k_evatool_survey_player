@@ -56,26 +56,7 @@
             {{ content.params.falseLabel[lang] }}
         </label>
     </div>
-    <div class="flex justify-self-start">
-        <button
-            type="button"
-            class="
-                confirm
-                flex
-                items-center
-                rounded-md
-                nav-button
-                p-2
-                mt-5
-                bg-blue-700
-                text-white
-                focus:outline-none
-            "
-        >
-            <check-circle-icon class="h-6 w-6 mr-3 text-white" />
-            Eingabe bestätigen
-        </button>
-    </div>
+    <confirm-button></confirm-button>
 </template>
 
 <script>
@@ -84,10 +65,11 @@ import { onMounted } from '@vue/runtime-core'
 import { useStore } from 'vuex'
 import { CheckCircleIcon, ArrowCircleRightIcon } from '@heroicons/vue/outline'
 import { useRoute } from 'vue-router'
+import ConfirmButton from '../subelements/ConfirmButton.vue'
 
 export default {
     name: 'SurveyElementBinaryQuestion',
-    components: { CheckCircleIcon, ArrowCircleRightIcon },
+    components: { CheckCircleIcon, ArrowCircleRightIcon, ConfirmButton },
     props: {
         content: {
             type: Object,

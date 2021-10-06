@@ -8,37 +8,17 @@
         placeholder="Schreibe einen Kommentar..."
     />
 
-    <div class="flex justify-self-start">
-        <button
-            type="button"
-            class="
-                confirm
-                flex
-                items-center
-                rounded-md
-                nav-button
-                p-2
-                mt-5
-                bg-blue-700
-                text-white
-                focus:outline-none
-            "
-            @click="setRating(rating)"
-        >
-            <check-circle-icon class="h-6 w-6 mr-3 text-white" />
-            Eingabe bestätigen
-        </button>
-    </div>
+    <confirm-button></confirm-button>
 </template>
 
 <script>
 import { computed, ref } from '@vue/reactivity'
 import { useStore } from 'vuex'
 import { CheckCircleIcon } from '@heroicons/vue/outline'
-
+import ConfirmButton from '../subelements/ConfirmButton.vue'
 export default {
     name: 'SurveyElementSimpleText',
-    components: { CheckCircleIcon },
+    components: { CheckCircleIcon, ConfirmButton },
     props: {
         content: {
             type: Object,

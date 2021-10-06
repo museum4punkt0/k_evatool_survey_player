@@ -9,6 +9,8 @@
         @input="setRating"
         @confirm="nextStep"
     />
+
+    <confirm-button></confirm-button>
 </template>
 
 <script>
@@ -17,11 +19,12 @@ import { computed, ref } from '@vue/reactivity'
 import { useStore } from 'vuex'
 import { onMounted } from '@vue/runtime-core'
 import { useRoute } from 'vue-router'
-
+import ConfirmButton from '../subelements/ConfirmButton.vue'
 export default {
     name: 'SurveyElementStarRating',
     components: {
         StarRating,
+        ConfirmButton,
     },
     props: {
         content: {

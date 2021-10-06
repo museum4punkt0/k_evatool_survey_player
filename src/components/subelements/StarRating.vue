@@ -20,27 +20,6 @@
             <p>Mittle</p>
             <p>Viel</p>
         </div>
-
-        <div>
-            <button
-                type="button"
-                class="
-                    confirm
-                    flex
-                    items-center
-                    rounded-md
-                    nav-button
-                    p-2
-                    mt-5
-                    bg-blue-700
-                    text-white
-                "
-                @click="setRating(rating)"
-            >
-                <check-circle-icon class="h-6 w-6 mr-3 text-white" />
-                Eingabe bestätigen
-            </button>
-        </div>
     </div>
 </template>
 
