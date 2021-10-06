@@ -33,7 +33,11 @@
             @touchend="onTouchEnd"
         >
             <div class="px-6 text-center font-light text-sm">
-                <img src="https://picsum.photos/400" alt="" />
+                <img
+                    src="https://picsum.photos/400"
+                    alt=""
+                    @load="imageLoaded"
+                />
                 <p>
                     Front end Developer, avid reader. Love to take a long walk,
                     swim
@@ -70,7 +74,7 @@ export default {
         const position = ref({ x: 0, y: 0, rotation: 0 })
         const transformString = ref()
         const touchElement = ref()
-
+        const loaded = ref(false)
         const mouseDown = ref()
 
         const dragMouseDown = (event) => {
@@ -144,15 +148,25 @@ export default {
                 transformString.value = `transform: translate3D(${positions.value.clientX}px, ${positions.value.clientY}px, 0) rotate(${positions.value.rotation}deg`
             }
         }
-
-        onMounted(() => {
+        const imageLoaded = (img) => {
+            console.log(img)
+            // alert(img.height)
+            loaded.value = true
             touchElement.value = document
                 .getElementsByClassName('touch-element')[0]
                 .getBoundingClientRect()
+        }
+
+        onMounted(() => {
+            // touchElement.value = document
+            //     .getElementsByClassName('touch-element')[0]
+            //     .getBoundingClientRect()
         })
 
         return {
+            loaded,
             hideElement,
+
             dragging,
             threshold,
             thresholdWidth,
@@ -162,6 +176,7 @@ export default {
             positions,
             touchElement,
             transformString,
+            imageLoaded,
             dragMouseDown,
             onMouseMove,
             onTouchMove,
