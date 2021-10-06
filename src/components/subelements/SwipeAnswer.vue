@@ -3,12 +3,12 @@
         class="
             bg-gray-200
             font-sans
-            h-screen
+            h-auto
+            my-16
             w-full
             flex flex-row
             justify-center
             items-center
-            overflow-hidden
         "
     >
         <div
