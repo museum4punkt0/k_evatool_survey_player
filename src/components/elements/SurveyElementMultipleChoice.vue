@@ -1,8 +1,9 @@
 <template>
     <div>
-        <h2 class="my-5 text-gray-900">
-            {{ surveyResults.params.question[$store.state.lang] }}
-        </h2>
+        <h2
+            class="my-5 text-gray-900"
+            v-html="surveyResults.params.question[$store.state.lang]"
+        ></h2>
         <div class="mt-2">
             <select-button
                 v-for="(option, index) in surveyResults.params.options"

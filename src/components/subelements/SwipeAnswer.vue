@@ -11,48 +11,54 @@
             items-center
         "
     >
-        <div
-            id="touch-element"
-            class="
-                card
-                touch-element
-                w-96
-                mx-auto
-                bg-white
-                shadow-xl
-                hover:shadow
-            "
-            :class="[
-                { 'transition-all linear duration-300': !dragging },
-                { 'opacity-0': hideElement },
-            ]"
-            :style="transformString"
-            @mousedown="dragMouseDown"
-            @mousemove="onMouseMove"
-            @touchmove="onTouchMove"
-            @touchend="onTouchEnd"
-        >
-            <div class="px-6 text-center font-light text-sm">
-                <img
-                    src="https://picsum.photos/400"
-                    alt=""
-                    @load="imageLoaded"
-                />
-                <p>
-                    Front end Developer, avid reader. Love to take a long walk,
-                    swim
-                </p>
+        <div class="flex">
+            <img src="../../assets/swipe-left.svg" class="inline swipe-left" />
+            <div
+                id="touch-element"
+                class="
+                    card
+                    touch-element
+                    w-96
+                    mx-auto
+                    bg-white
+                    shadow-xl
+                    hover:shadow
+                "
+                :class="[
+                    { 'transition-all linear duration-300': !dragging },
+                    { 'opacity-0': hideElement },
+                ]"
+                :style="transformString"
+                @mousedown="onMouseDown"
+                @mouseup="onMouseUp"
+                @mousemove="onMouseMove"
+                @touchmove="onTouchMove"
+                @touchend="onTouchEnd"
+            >
+                <div class="text-left justify-start font-light text-sm">
+                    <p v-html="Erläuterung"></p>
+                    <img
+                        src="https://picsum.photos/400"
+                        alt=""
+                        @load="imageLoaded"
+                    />
+                </div>
             </div>
+            <!--        <div class="touch-element">-->
+            <!--            <div class="px-6 text-center font-light text-sm">-->
+            <!--                <img src="https://picsum.photos/400" alt="" />-->
+            <!--                <p>-->
+            <!--                    Front end Developer, avid reader. Love to take a long walk,-->
+            <!--                    swim-->
+            <!--                </p>-->
+            <!--            </div>-->
+            <!--        </div>-->
+
+            <img
+                src="../../assets/swipe-right.svg"
+                class="inline swipe-right"
+            />
         </div>
-        <!--        <div class="touch-element">-->
-        <!--            <div class="px-6 text-center font-light text-sm">-->
-        <!--                <img src="https://picsum.photos/400" alt="" />-->
-        <!--                <p>-->
-        <!--                    Front end Developer, avid reader. Love to take a long walk,-->
-        <!--                    swim-->
-        <!--                </p>-->
-        <!--            </div>-->
-        <!--        </div>-->
     </div>
 </template>
 
@@ -77,7 +83,7 @@ export default {
         const loaded = ref(false)
         const mouseDown = ref()
 
-        const dragMouseDown = (event) => {
+        const onMouseDown = (event) => {
             event.preventDefault()
             console.log(event)
             mouseDown.value = true
@@ -89,19 +95,42 @@ export default {
             // }
             // console.log(positions.value)
         }
+        const onMouseUp = (event) => {
+            event.preventDefault()
+            mouseDown.value = false
+        }
         // const dragMouseUp = (event) => {}
         const onMouseMove = (event) => {
             event.preventDefault()
             console.log(event)
-            positions.value = {
-                clientX: event.clientX - thresholdWidth.value,
-                clientY: event.clientY - thresholdHeight.value,
-                rotation:
-                    maxRotation.value * (event.clientX / thresholdWidth.value),
+            if (mouseDown.value) {
+                positions.value = {
+                    clientX:
+                        event.clientX -
+                        touchElement.value.left -
+                        touchElement.value.width / 2,
+                    clientY:
+                        event.clientY -
+                        touchElement.value.top -
+                        touchElement.value.height / 2,
+                    rotation:
+                        maxRotation.value *
+                        ((event.clientX -
+                            touchElement.value.left -
+                            touchElement.value.width / 2) /
+                            thresholdWidth.value),
+                }
+                transformString.value = `transform: translate3D(${positions.value.clientX}px, ${positions.value.clientY}px, 0) rotate(${positions.value.rotation}deg`
+                console.log(transformString.value)
+            } else {
+                positions.value = {
+                    clientX: 0, // positions.value.clientX,
+                    clientY: 0, //positions.value.clientY,
+                    rotation: 0,
+                }
+                transformString.value = `transform: translate3D(${positions.value.clientX}px, ${positions.value.clientY}px, 0) rotate(${positions.value.rotation}deg`
             }
             console.log(positions.value)
-            transformString.value = `transform: translate3D(${positions.value.clientX}px, ${positions.value.clientY}px, 0) rotate(${positions.value.rotation}deg`
-            console.log(transformString.value)
         }
         const onTouchMove = (event) => {
             event.preventDefault()
@@ -177,7 +206,8 @@ export default {
             touchElement,
             transformString,
             imageLoaded,
-            dragMouseDown,
+            onMouseDown,
+            onMouseUp,
             onMouseMove,
             onTouchMove,
             onTouchEnd,

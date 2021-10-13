@@ -64,7 +64,7 @@ export default {
         onMounted(() => {
             let questionResults = props.surveyResults
             console.log(questionResults.results)
-            result.value = questionResults.results.pop().result_value.meaning
+            // result.value = questionResults.results.pop().result_value.meaning
         })
 
         return {

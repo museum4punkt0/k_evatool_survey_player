@@ -2,17 +2,14 @@
     <div
         class="
             media-player-controls-wrap
-            align-items-center
-            w-full
-            inline-block
-            justify-center
             items-center
+            justify-center
             bg-white
             p-2
         "
     >
-        <div class="media-player-controls d-flex flex-wrap">
-            <div class="group-left inline float-left w-6/12">
+        <div class="media-player-controls flex flex-wrap items-center">
+            <div class="group-left inline flex items-center float-left w-6/12">
                 <div class="play-pause inline float-left" @click="togglePlay()">
                     {{ videoIsPlaying }}
                     <span v-if="mediaIsPlaying">

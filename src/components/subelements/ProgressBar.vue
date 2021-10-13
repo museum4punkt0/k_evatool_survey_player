@@ -4,7 +4,7 @@
             <input
                 type="range"
                 step="any"
-                class="progress seekbar shadow animated"
+                class="progress seekbar shadow animated bg-blue-200"
                 min="0"
                 :max="duration"
                 :value="currentTime"
@@ -152,9 +152,9 @@ export default {
 
 <style lang="scss">
 :root {
-    --videoProgress: 1%;
-    --sliderThumbColor: #1a56db;
-    --sliderProgressColor: #1a56db;
+    --videoProgress: 0%;
+    --sliderThumbColor: #76a9fa;
+    --sliderProgressColor: #76a9fa;
 }
 
 .progress-bar {
@@ -179,7 +179,7 @@ export default {
         margin: 0;
         width: 100%;
         //background-color: rgba(200, 200, 200, 0.4);
-        background-color: #c3ddfd;
+        //background-color: #c3ddfd;
 
         &:focus {
             outline: none;
@@ -294,12 +294,12 @@ export default {
 }
 
 .interactive-step {
-    background-color: #76a9fa;
+    background-color: #1a56db;
     transform: translateX(50%);
 }
 
 .comment {
-    background-color: #fff;
+    background-color: #e5e7eb;
     transform: translateX(-50%);
 }
 

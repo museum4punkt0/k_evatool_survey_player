@@ -9,20 +9,75 @@
         <!--            items-center-->
         <!--        "-->
         <!--    >-->
-        <p class="pb-5">
-            {{ content.params.question[lang] }}
-        </p>
+        <h2 class="pb-5" v-html="content.params.question[lang]"></h2>
         <p v-if="result">Answered: {{ result }}</p>
         <SwipeAnswer @draggedThreshold="setResult"></SwipeAnswer>
-        <div>0/3 Karten eingestuft</div>
-        <div class="inline-block mt-5">
-            <x-circle-icon
-                class="h-8 w-8 mr-3 inline text-red-700"
-            ></x-circle-icon>
-            <check-circle-icon
-                class="h-8 w-8 ml-3 inline text-blue-700"
-            ></check-circle-icon>
+        <div>1/{{ surveyResults.params.assets.length }} Karten eingestuft</div>
+        <div class="inline flex mt-5">
+            <button
+                type="button"
+                class="
+                    confirm
+                    flex
+                    items-center
+                    rounded-md
+                    nav-button
+                    p-2
+                    pr-5
+                    mt-5
+                    mr-3
+                    bg-blue-700
+                    text-white
+                "
+                @click="confirm"
+            >
+                <x-circle-icon
+                    class="h-8 w-8 mr-3 inline text-white"
+                ></x-circle-icon>
+                Nein
+            </button>
+            <button
+                type="button"
+                class="
+                    confirm
+                    flex
+                    items-center
+                    rounded-md
+                    nav-button
+                    p-2
+                    pr-2
+                    mt-5
+                    ml-3
+                    bg-blue-700
+                    text-white
+                "
+                @click="confirm"
+            >
+                <check-circle-icon
+                    class="h-8 w-8 mr-3 inline text-white"
+                ></check-circle-icon>
+                Ja
+            </button>
         </div>
+
+        <button
+            type="button"
+            class="
+                confirm
+                flex
+                items-center
+                rounded-md
+                nav-button
+                p-2
+                mt-5
+                bg-blue-700
+                text-white
+            "
+            @click="confirm"
+        >
+            <check-circle-icon class="h-6 w-6 mr-3 text-white" />
+            Eingabe bestätigen
+        </button>
     </div>
 </template>
 

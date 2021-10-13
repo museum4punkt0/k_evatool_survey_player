@@ -1,7 +1,5 @@
 <template>
-    <p class="pb-5">
-        {{ content.params.question[lang] }}
-    </p>
+    <h2 class="pb-5" v-html="content.params.question[lang]"></h2>
     <StarRating
         :value="rating"
         :stars="content.params.numberOfStars"
@@ -20,6 +18,7 @@ import { useStore } from 'vuex'
 import { onMounted } from '@vue/runtime-core'
 import { useRoute } from 'vue-router'
 import ConfirmButton from '../subelements/ConfirmButton.vue'
+
 export default {
     name: 'SurveyElementStarRating',
     components: {

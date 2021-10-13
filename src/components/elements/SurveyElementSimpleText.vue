@@ -1,7 +1,5 @@
 <template>
-    <p class="pb-5">
-        {{ content.params.text[lang] }}
-    </p>
+    <h2 class="pb-5" v-html="content.params.text[lang]"></h2>
     <textarea
         v-model="simpleText"
         class="bg-transparent text-gray-800 w-3/12 text-2xl"
@@ -16,6 +14,7 @@ import { computed, ref } from '@vue/reactivity'
 import { useStore } from 'vuex'
 import { CheckCircleIcon } from '@heroicons/vue/outline'
 import ConfirmButton from '../subelements/ConfirmButton.vue'
+
 export default {
     name: 'SurveyElementSimpleText',
     components: { CheckCircleIcon, ConfirmButton },

@@ -1,7 +1,5 @@
 <template>
-    <p class="pb-5">
-        {{ content.params.question[lang] }}
-    </p>
+    <h2 class="pb-5" v-html="content.params.question[lang]"></h2>
     <div>
         <label
             class="
@@ -27,7 +25,7 @@
                 @change="handleAnswer(content.params.trueValue)"
             />
             <arrow-circle-right-icon class="h-6 w-6 mr-3 text-white" />
-            {{ content.params.trueLabel[lang] }}
+            <span v-html="content.params.trueLabel[lang]"></span>
         </label>
         <label
             class="
@@ -53,7 +51,7 @@
                 @change="handleAnswer(content.params.falseValue)"
             />
             <arrow-circle-right-icon class="h-6 w-6 mr-3 text-white" />
-            {{ content.params.falseLabel[lang] }}
+            <span v-html="content.params.falseLabel[lang]"></span>
         </label>
     </div>
     <confirm-button></confirm-button>

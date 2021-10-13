@@ -1,6 +1,6 @@
 <template>
     <div
-        v-if="content.surveyElementType !== 'video'"
+        v-if="content?.surveyElementType !== 'video'"
         class="
             survey-content
             flex flex-wrap flex-col
@@ -11,7 +11,7 @@
         "
     >
         <SurveyElementBinaryQuestion
-            v-if="content && content.surveyElementType === 'binary'"
+            v-if="content?.surveyElementType === 'binary'"
             :content="content"
             :survey="survey"
         ></SurveyElementBinaryQuestion>
