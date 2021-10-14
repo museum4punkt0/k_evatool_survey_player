@@ -95,10 +95,11 @@
             <MediaControls
                 :current-time="mediaCurrentTime"
                 :duration="mediaDurationTime"
-                :media-is-playing="videoIsPlaying"
+                :video-is-playing="videoIsPlaying"
                 @play-pause="tooglePlay"
             ></MediaControls>
 
+            <!--            ToDo: move to component-->
             <div
                 class="
                     text-field
@@ -110,24 +111,23 @@
                     w-4/5
                 "
             >
-                <microphone-icon
-                    class="h-6 w-6 mr-2 inline text-blue-800"
-                ></microphone-icon>
-
                 <!--        <p>SurveyElementVideo</p>-->
                 <!--        <button @click="pauseVideo">pauseVideo</button>-->
-                <AudioRecorder
-                    @send-audio-asset="sendAudioAsset"
-                ></AudioRecorder>
-                <p class="text-xs p-2 text-gray-400 inline"></p>
-                <!--                    <p>{{ comment }}</p>-->
-                <textarea
-                    v-model="comment"
-                    type="text"
-                    class="flex textarea px-5 py-2 text-left text-xs w-full"
-                    placeholder="Schreibe ein Kommentar zur aktuellen Stelle im Video oder klicke auf das Mikrofon für die Spracheingabe"
-                />
+                <div class="flex">
+                    <!--                    <AudioRecorder-->
+                    <!--                        @send-audio-asset="sendAudioAsset"-->
+                    <!--                    ></AudioRecorder>-->
+                    <microphone-icon
+                        class="h-6 w-6 mr-2 inline text-blue-800"
+                    ></microphone-icon>
 
+                    <textarea
+                        v-model="comment"
+                        type="text"
+                        class="flex textarea px-5 py-2 text-left text-xs w-full"
+                        placeholder="Schreibe ein Kommentar zur aktuellen Stelle im Video oder klicke auf das Mikrofon für die Spracheingabe"
+                    />
+                </div>
                 <div class="flex justify-between">
                     <div>
                         <div class="time text-xs px-6 text-gray-400 inline">

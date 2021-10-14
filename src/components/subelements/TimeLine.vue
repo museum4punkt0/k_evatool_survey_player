@@ -1,5 +1,5 @@
 <template>
-    <div class="container bg-gray-200 mx-auto w-full h-full">
+    <div class="container bg-gray-200 mx-auto w-full h-full overflow-scroll">
         <div
             class="
                 relative
@@ -18,10 +18,11 @@
                 beantworteten Fragen.
             </p>
         </div>
-        <div class="relative wrap overflow-scroll p-5 mx-2 h-full bg-white">
+        <div
+            class="relative wrap overflow-scroll h-1/2 p-5 mx-2 h-full bg-white"
+        >
             <div
                 class="
-                    border-2-2
                     absolute
                     border-opacity-20 border-gray-700
                     h-full
@@ -177,57 +178,59 @@
                     </div>
                 </div>
             </template>
-
-            <!-- left timeline -->
+        </div>
+        <!-- bottom timeline -->
+        <div
+            class="
+                mb-8
+                flex
+                justify-between
+                flex-row
+                items-start
+                left-timeline
+                bg-white
+                mx-2
+                border-t-2
+                p-2
+            "
+        >
+            <!--                <div class="order-1 w-5/12"></div>-->
             <div
                 class="
-                    mb-8
+                    z-20
                     flex
-                    justify-between
-                    flex-row
-                    items-start
-                    w-full
-                    left-timeline
+                    items-center
+                    order-1
+                    bg-gray-300
+                    shadow-xl
+                    w-8
+                    h-8
+                    rounded-full
                 "
             >
-                <!--                <div class="order-1 w-5/12"></div>-->
-                <div
-                    class="
-                        z-20
-                        flex
-                        items-center
-                        order-1
-                        bg-gray-300
-                        shadow-xl
-                        w-8
-                        h-8
-                        rounded-full
-                    "
+                <h1
+                    v-if="interactiveSteps.length - answeredSteps > 0"
+                    class="mx-auto text-black font-semibold text-lg"
                 >
-                    <h1
-                        v-if="interactiveSteps.length - answeredSteps > 0"
-                        class="mx-auto text-black font-semibold text-lg"
-                    >
-                        <question-mark-circle-icon
-                            class="h-6 w-6 bg-gray-300"
-                        />
-                    </h1>
+                    <question-mark-circle-icon class="h-6 w-6 bg-gray-300" />
+                </h1>
 
-                    <h1 v-else class="mx-auto text-black font-semibold text-lg">
-                        <check-circle-icon class="h-6 w-6 text-blue-600" />
-                    </h1>
-                </div>
-                <div class="order-1 w-10/12 p-1">
-                    <h3
-                        v-if="interactiveSteps.length - answeredSteps > 0"
-                        class="mb-3 text-gray-400 text-xl inline"
-                    >
-                        noch
-                        {{ interactiveSteps.length - answeredSteps }}
-                        Fragen
-                    </h3>
-                    <h3 v-else>Alle Fragen beantwortet</h3>
-                </div>
+                <h1 v-else class="mx-auto text-black font-semibold text-lg">
+                    <check-circle-icon class="h-6 w-6 text-blue-600" />
+                </h1>
+            </div>
+            <div class="order-1 w-10/12 p-1">
+                <h4
+                    v-if="interactiveSteps.length - answeredSteps > 0"
+                    class="mb-3 text-gray-400 text-xl inline"
+                >
+                    noch
+                    {{ interactiveSteps.length - answeredSteps }}
+                    Fragen
+                </h4>
+                <h4 v-else>Alle Fragen beantwortet</h4>
+
+                <confirm-button></confirm-button>
             </div>
         </div>
     </div>
@@ -235,6 +238,8 @@
 
 <script>
 import { ref } from '@vue/reactivity'
+import ConfirmButton from '../subelements/ConfirmButton.vue'
+
 import {
     PlayIcon,
     ChatAltIcon,
@@ -256,6 +261,7 @@ export default {
         QuestionMarkCircleIcon,
         PencilAltIcon,
         CheckCircleIcon,
+        ConfirmButton,
     },
     props: {
         interactiveSteps: {

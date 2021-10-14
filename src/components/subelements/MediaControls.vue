@@ -11,8 +11,7 @@
         <div class="media-player-controls flex flex-wrap items-center">
             <div class="group-left inline flex items-center float-left w-6/12">
                 <div class="play-pause inline float-left" @click="togglePlay()">
-                    {{ videoIsPlaying }}
-                    <span v-if="mediaIsPlaying">
+                    <span v-if="videoIsPlaying">
                         <pause-icon class="h-6 w-6 text-gray-800" />
                     </span>
                     <span v-else>
@@ -93,7 +92,7 @@ export default {
             default: 0,
             required: true,
         },
-        mediaIsPlaying: {
+        videoIsPlaying: {
             type: Boolean,
             default: true,
         },
@@ -102,7 +101,7 @@ export default {
     setup(props, { emit }) {
         const volume = ref(1)
         const togglePlay = () => {
-            emit('play-pause', !props.mediaIsPlaying)
+            emit('play-pause', !props.videoIsPlaying)
         }
         const writeComment = () => {
             emit('play-pause', false)

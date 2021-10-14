@@ -39,8 +39,8 @@ export default {
             default: () => {},
         },
     },
-    // emits: ['next-step'],
-    setup(props) {
+    emits: ['next-step'],
+    setup(props, { emit }) {
         const rating = ref(0)
         const store = useStore()
         const route = useRoute()
@@ -52,9 +52,9 @@ export default {
         })
 
         console.log(props.content)
-        // const nextStep = (i) => {
-        //     emit('next-step')
-        // }
+        const nextStep = (i) => {
+            emit('next-step')
+        }
 
         const setRating = (i) => {
             console.log(i)
@@ -89,7 +89,7 @@ export default {
             console.log(questionResults)
             // rating.value = questionResults.results.pop().result_value.rating
         })
-        return { lang, labels, rating, setRating }
+        return { lang, labels, rating, setRating, nextStep }
     },
 }
 </script>
