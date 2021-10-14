@@ -1,26 +1,34 @@
 <template>
-    <p>SurveyElementEmoji</p>
-    DB Value: {{ result }}
+    <h2 class="pb-5" v-html="content.params.question[lang]"></h2>
 
-    <div
-        v-for="(emoji, index) in surveyResults.params.emojis"
-        :key="'emoji-' + index"
-    >
-        <emoji-happy-icon class="h-8 w-8" @click="setResult(emoji.meaning)" />
+    <div class="flex justify-center items-center">
+        <div
+            v-for="(emoji, index) in surveyResults.params.emojis"
+            :key="'emoji-' + index"
+            @click="setResult(emoji.meaning)"
+        >
+            <span class="p-5 text-3xl">{{ emoji.type }}</span>
+            <!--        <emoji-happy-icon class="h-8 w-8" @click="setResult(emoji.meaning)" />-->
+        </div>
     </div>
+    Selected: {{ result }}
+
+    <confirm-button></confirm-button>
 </template>
 
 <script>
 import { EmojiHappyIcon, EmojiSadIcon } from '@heroicons/vue/outline'
-import { ref } from '@vue/reactivity'
+import { computed, ref } from '@vue/reactivity'
 import { useStore } from 'vuex'
 import { onMounted } from '@vue/runtime-core'
+import ConfirmButton from '../subelements/ConfirmButton.vue'
 
 export default {
     name: 'SurveyElementEmoji',
     components: {
         EmojiHappyIcon,
         EmojiSadIcon,
+        ConfirmButton,
     },
     props: {
         content: {
@@ -37,7 +45,7 @@ export default {
         },
     },
     setup(props) {
-        const result = ref(0)
+        const result = ref()
         const store = useStore()
         const setResult = (i) => {
             console.log(i)
@@ -60,7 +68,9 @@ export default {
                 },
             })
         }
-
+        const lang = computed({
+            get: () => store.state.lang,
+        })
         onMounted(() => {
             let questionResults = props.surveyResults
             console.log(questionResults.results)
@@ -70,6 +80,7 @@ export default {
         return {
             result,
             store,
+            lang,
             setResult,
         }
     },

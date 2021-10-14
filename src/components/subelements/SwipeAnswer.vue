@@ -23,6 +23,7 @@
                     bg-white
                     shadow-xl
                     hover:shadow
+                    rounded-t-xl
                 "
                 :class="[
                     { 'transition-all linear duration-300': !dragging },
@@ -35,8 +36,8 @@
                 @touchmove="onTouchMove"
                 @touchend="onTouchEnd"
             >
-                <div class="text-left justify-start font-light text-sm">
-                    <p v-html="Erläuterung"></p>
+                <div class="text-left">
+                    <h5 class="p-4">Erläuterung</h5>
                     <img
                         src="https://picsum.photos/400"
                         alt=""
