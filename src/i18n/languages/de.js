@@ -15,6 +15,7 @@ export default {
     names: 'Namen | Name | Namen',
     new_survey: 'Neue Umfrage',
     none_selected: 'Nicht ausgewählt',
+    permissionMicrophoneDenied: 'Bitte lassen Sie die Mikrofonbenutzung zu',
     search: 'Suche',
     state_published: 'Veröffentlicht',
     state_unpublished: 'Nicht veröffentlicht',

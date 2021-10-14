@@ -1,100 +1,101 @@
 <template>
     <div class="block">
-        {{ isSupported }}
-        <!--        <input type="file" accept="audio/*" capture />-->
-        <!-- Voice Record Title + Button -->
-        <div class="form-group row">
-            <label for="Audio" class="col-2 col-form-label labelTop">
-                Audio
-            </label>
-            <button class="mr-3" @click="getStream">getStream</button>
-            <button
-                id="button_record"
-                type="button"
-                class="btn mr-3"
-                @click="startRecording()"
-            >
-                startRecording
-            </button>
-            <button
-                id="button_stop"
-                type="button"
-                class="btn mr-3"
-                @click="stopRecording()"
-            >
-                stopRecording
-            </button>
-            <div id="audio" class="audio" controls></div>
-            <audio id="player" type="audio/wav" controls></audio>
-        </div>
         <div
-            v-if="isSupported"
-            class="vue-audio-recorder"
-            :class="{
-                active: isRecording,
-                paused: isPaused,
-            }"
-            @mousedown="startRecording"
-            @mouseleave="stopRecording"
-            @mouseup="stopRecording"
-            @touchstart="startRecording"
-            @touchend="stopRecording"
-            @touchcancel="stopRecording"
+            v-if="hasPermission === 'denied'"
+            @click="askForMicrophonePermission"
         >
-            <span></span>
+            {{ t('permissionMicrophoneDenied') }}
+        </div>
+        <div v-else class="flex justify-center items-center m-3.5">
+            <div
+                v-if="isSupported"
+                class="vue-audio-recorder p-5"
+                :class="{ active: isRecording, paused: isPaused }"
+                @mousedown="startRecording"
+                @mouseleave="stopRecording"
+                @mouseup="stopRecording"
+                @touchstart="startRecording"
+                @touchend="stopRecording"
+                @touchcancel="stopRecording"
+            >
+                <microphone-icon
+                    class="h-6 w-6 inline text-blue-800"
+                ></microphone-icon>
+            </div>
+            <!--            <audio id="player" type="audio/wav" controls></audio>-->
         </div>
     </div>
 </template>
 
 <script>
-import { onMounted } from '@vue/runtime-core'
-import { ref } from '@vue/reactivity'
-// import { useStore } from 'vuex'
+import { ref, onMounted } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { MicrophoneIcon } from '@heroicons/vue/outline'
 
 export default {
     name: 'AudioRecorder',
+    components: {
+        MicrophoneIcon,
+    },
     emits: ['send-audio-asset'],
     setup(props, { emit }) {
+        const { t } = useI18n()
         const isSupported = ref(false)
+        const hasPermission = ref('ask')
         const items = ref([])
-        // const store = useStore()
         const audioDevices = ref()
         const blobString = ref()
         const recorder = ref(null)
-        const startRecording = () => {
-            let device = navigator.mediaDevices.getUserMedia({ audio: true })
+        const isRecording = ref(false)
 
+        const askForMicrophonePermission = () => {
+            return navigator.mediaDevices.getUserMedia({ audio: true })
+        }
+
+        const startRecording = () => {
+            if (isRecording.value) {
+                return
+            }
+            let device = askForMicrophonePermission()
             device.then((stream) => {
-                // use this!
                 recorder.value = new MediaRecorder(stream)
                 recorder.value.start()
+                isRecording.value = true
                 recorder.value.ondataavailable = (e) => {
                     if (e.data && e.data.size > 0) {
                         items.value.push(e.data)
                     }
                     if (recorder.value.state === 'inactive') {
                         let blob = new Blob(items.value, { type: 'audio/wav' })
-                        const player = document.getElementById('player')
-                        console.log(blob)
-                        console.log(URL.createObjectURL(blob))
-                        player.src = URL.createObjectURL(blob)
+                        // const player = document.getElementById('player')
+                        // console.log(blob)
+                        // console.log(URL.createObjectURL(blob))
+                        // player.src = URL.createObjectURL(blob)
 
                         var reader = new FileReader()
                         reader.readAsDataURL(blob)
                         let base64data = null
                         reader.onloadend = () => {
                             base64data = reader.result
-                            console.log(base64data)
+                            // console.log(base64data)
                             blobString.value = base64data
                         }
 
                         getBase64(blob).then((data) => {
-                            console.log(data)
+                            // console.log(data)
                             emit('send-audio-asset', data)
                         })
                     }
                 }
             })
+        }
+        const stopRecording = () => {
+            if (isRecording.value) {
+                console.log(recorder.value)
+                recorder.value.stop()
+                items.value = []
+                isRecording.value = false
+            }
         }
         const getBase64 = (file) => {
             return new Promise((resolve, reject) => {
@@ -104,67 +105,46 @@ export default {
                 reader.onerror = (error) => reject(error)
             })
         }
-        const stopRecording = () => {
-            recorder.value.stop()
-            items.value = []
-        }
-
-        const getStream = async () => {
-            var constraints = { audio: true, video: false }
-
-            navigator.mediaDevices
-                .getUserMedia(constraints)
-                .then((stream) => {
-                    let audio = document.getElementById('audioCapture')
-                    audio.srcObject = stream
-
-                    console.log(audio)
-                    // audio.play()
-                })
-                .catch(function (err) {
-                    console.log(err)
-                })
-
-            // let devices = await navigator.mediaDevices
-            // console.log(devices)
-            const stream = await navigator.mediaDevices.getUserMedia(
-                constraints,
-            )
-            console.log(stream)
-            // this.$_stream = stream
-            // this.$emit('stream', stream)
-            // return stream
-        }
         onMounted(() => {
             if (
                 !navigator.mediaDevices &&
                 !navigator.mediaDevices.getUserMedia
             ) {
+                isSupported.value = false
                 // eslint-disable-next-line
                 console.warn('Media Devices are not supported from your browser.')
                 return
+            } else {
+                isSupported.value = true
             }
-            isSupported.value = true
+            navigator.permissions
+                .query({ name: 'microphone' })
+                .then(function (permissionStatus) {
+                    hasPermission.value = permissionStatus.state
+                    permissionStatus.onchange = function () {
+                        hasPermission.value = this.state
+                    }
+                })
 
             navigator.mediaDevices.enumerateDevices().then((devices) => {
-                console.log(devices)
                 audioDevices.value = devices.filter(
                     (d) => d.kind === 'audioinput',
                 )
+                // console.log(audioDevices.value)
             })
-            console.log(audioDevices.value)
         })
 
         return {
+            t,
             items,
             blobString,
             audioDevices,
             recorder,
             isSupported,
-            getBase64,
-            getStream,
+            hasPermission,
             startRecording,
             stopRecording,
+            askForMicrophonePermission,
         }
     },
 }
