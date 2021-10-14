@@ -114,13 +114,9 @@
                 <!--        <p>SurveyElementVideo</p>-->
                 <!--        <button @click="pauseVideo">pauseVideo</button>-->
                 <div class="flex">
-                    <!--                    <AudioRecorder-->
-                    <!--                        @send-audio-asset="sendAudioAsset"-->
-                    <!--                    ></AudioRecorder>-->
-                    <microphone-icon
-                        class="h-6 w-6 mr-2 inline text-blue-800"
-                    ></microphone-icon>
-
+                    <AudioRecorder
+                        @send-audio-asset="sendAudioAsset"
+                    ></AudioRecorder>
                     <textarea
                         v-model="comment"
                         type="text"

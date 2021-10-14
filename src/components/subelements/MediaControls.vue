@@ -18,7 +18,7 @@
                         <play-icon class="h-6 w-6 text-gray-800" />
                     </span>
                 </div>
-                <div class="volume inline float-left" @click="toggleVolume()">
+                <div class="volume inline float-left" @click="toggleVolume">
                     <span v-if="volume">
                         <volume-up-icon class="h-6 w-6 text-gray-800" />
                     </span>
@@ -70,7 +70,7 @@ import {
     VolumeUpIcon,
     VolumeOffIcon,
 } from '@heroicons/vue/outline'
-import { ref } from '@vue/reactivity'
+import { ref } from 'vue'
 
 export default {
     name: 'MediaControls',

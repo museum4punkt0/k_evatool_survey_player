@@ -27,8 +27,7 @@
 </template>
 
 <script>
-import { ref } from '@vue/reactivity'
-import { onMounted } from '@vue/runtime-core'
+import { ref, onMounted } from 'vue'
 import { useStore } from 'vuex'
 import SelectButton from '../subelements/SelectButton.vue'
 import ConfirmButton from '../subelements/ConfirmButton.vue'
