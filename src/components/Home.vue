@@ -127,7 +127,8 @@ export default {
         }
 
         onMounted(() => {
-            getNextSurvey()
+            // getNextSurvey()
+            console.log(store.state.surveys)
         })
 
         return {

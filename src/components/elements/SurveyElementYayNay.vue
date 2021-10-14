@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-wrap flex-col items-center">
+    <div class="flex flex-wrap flex-col items-center w-full h-6/12">
         <!--        class="-->
         <!--            binary-question-element-->
         <!--            flex flex-wrap flex-col-->
@@ -88,6 +88,7 @@ import { useStore } from 'vuex'
 import { onMounted } from '@vue/runtime-core'
 
 import { XCircleIcon, CheckCircleIcon } from '@heroicons/vue/outline'
+import { useRoute } from 'vue-router'
 
 export default {
     name: 'SurveyElementYayNay',
@@ -109,6 +110,7 @@ export default {
     setup(props) {
         const result = ref(0)
         const store = useStore()
+        const route = useRoute()
         console.log(props.surveyResults)
         const lang = computed({
             get: () => store.state.lang,
@@ -120,7 +122,7 @@ export default {
                 result.value = props.surveyResults.params.falseValue
             }
             store.dispatch('surveyResults/sendSurveyResults', {
-                surveyId: props.content.surveyId,
+                surveyId: route.query.id,
                 data: {
                     surveyStepId: props.content.id,
                     resultValue: {
