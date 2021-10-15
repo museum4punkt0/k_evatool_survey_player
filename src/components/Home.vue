@@ -2,7 +2,6 @@
     <div class="main-page h-screen overflow-hidden bg-gray-200">
         <div class="survey-header-menu top-0 fixed w-screen z-30 bg-white">
             <header-menu></header-menu>
-
             <!--            {{-->
             <!--                store.state.surveyResults.surveyResults.steps.original.data[-->
             <!--                    surveyStep-->
@@ -81,6 +80,7 @@ export default {
         const router = useRouter()
         const backlink = ref()
         const idle = ref(true)
+
         let queries = JSON.parse(JSON.stringify(route.query))
         console.log(queries)
         console.log(window.history.state.back)

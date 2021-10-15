@@ -4,7 +4,7 @@
         class="
             survey-content
             flex flex-wrap flex-col
-            h-96
+            h-auto
             mt-16
             justify-center
             items-center

@@ -9,21 +9,21 @@
             items-center
         "
     >
-        <div class="flex mt-72">
+        <div class="flex mt-16">
             <img src="../../assets/swipe-left.svg" class="inline swipe-left" />
             <div class="mx-auto relative card-container w-8/12 h-2/3">
                 <!--                v-if="currentElement > images.length"-->
                 <div
-                    v-if="currentElement > 4"
+                    v-if="currentElement > images.length"
                     class="flex items-center h-100 top-50 m-auto"
                 >
                     <p>Sie haben alle Fragen beantwortet!</p>
                 </div>
 
                 <div
-                    v-for="c in 4"
+                    v-for="(image, index) in images"
                     v-else
-                    :key="'card-' + c"
+                    :key="'card-' + index"
                     class="
                         card
                         absolute
@@ -37,10 +37,10 @@
                     "
                     :class="[
                         { 'transition-all linear duration-300': !dragging },
-                        { 'opacity-0 duration-0': c < currentElement },
-                        { 'card-active': c === currentElement },
+                        { 'opacity-0 duration-0': index < currentElement },
+                        { 'card-active': index === currentElement },
                     ]"
-                    :style="c === currentElement ? transformString : ''"
+                    :style="index === currentElement ? transformString : ''"
                     @mousedown="onMouseDown"
                     @mouseup="onMouseUp"
                     @mousemove="onMouseMove"
@@ -50,7 +50,7 @@
                     <div class="text-left">
                         <h5 class="p-4">Erläuterung</h5>
                         <img
-                            src="https://picsum.photos/600/700"
+                            :src="image.urls.original"
                             alt=""
                             @load="imageLoaded"
                         />

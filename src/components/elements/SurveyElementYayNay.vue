@@ -10,12 +10,12 @@
         <!--        "-->
         <!--    >-->
         <h2 class="pb-5" v-html="content.params.question[lang]"></h2>
-        <p v-if="results">Answered: {{ results }}</p>
         <SwipeAnswer
             :answer="answer"
+            :images="content.params.assets"
             @draggedThreshold="setResult"
         ></SwipeAnswer>
-        <div>1/{{ surveyResults.params.assets.length }} Karten eingestuft</div>
+        <div>1/{{ content.params.assets.length }} Karten eingestuft</div>
         <div class="inline flex mt-5">
             <button
                 type="button"
