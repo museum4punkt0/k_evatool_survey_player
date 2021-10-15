@@ -1,50 +1,58 @@
 <template>
     <div
-        class='
+        class="
             bg-gray-200
             font-sans
             my-16
             flex flex-wrap
             justify-center
             items-center
-        '
+        "
     >
-        <div class='flex mt-72'>
-
-            <img src='../../assets/swipe-left.svg' class='inline swipe-left' />
-            <div class='mx-auto relative card-container w-8/12 h-2/3'>
+        <div class="flex mt-72">
+            <img src="../../assets/swipe-left.svg" class="inline swipe-left" />
+            <div class="mx-auto relative card-container w-8/12 h-2/3">
+                <!--                v-if="currentElement > images.length"-->
                 <div
-                    v-for='c in 4'
-                    :key="'card-' + c"
-                    class='
-                    card
-                    absolute
-                    touch-element
-                    w-96
-                    mx-auto
-                    bg-white
-                    shadow-xl
-                    hover:shadow
-                    rounded-t-xl
-                '
-                    :class="[
-                    { 'transition-all linear duration-300': !dragging },
-                    { 'opacity-0': c < currentElement },
-                     {'card-active':  c === currentElement}
-                ]"
-                    :style="(c === currentElement)?transformString:''"
-                    @mousedown='onMouseDown'
-                    @mouseup='onMouseUp'
-                    @mousemove='onMouseMove'
-                    @touchmove='onTouchMove'
-                    @touchend='onTouchEnd'
+                    v-if="currentElement > 4"
+                    class="flex items-center h-100 top-50 m-auto"
                 >
-                    <div class='text-left'>
-                        <h5 class='p-4'>Erläuterung</h5>
+                    <p>Sie haben alle Fragen beantwortet!</p>
+                </div>
+
+                <div
+                    v-for="c in 4"
+                    v-else
+                    :key="'card-' + c"
+                    class="
+                        card
+                        absolute
+                        touch-element
+                        w-96
+                        mx-auto
+                        bg-white
+                        shadow-xl
+                        hover:shadow
+                        rounded-t-xl
+                    "
+                    :class="[
+                        { 'transition-all linear duration-300': !dragging },
+                        { 'opacity-0 duration-0': c < currentElement },
+                        { 'card-active': c === currentElement },
+                    ]"
+                    :style="c === currentElement ? transformString : ''"
+                    @mousedown="onMouseDown"
+                    @mouseup="onMouseUp"
+                    @mousemove="onMouseMove"
+                    @touchmove="onTouchMove"
+                    @touchend="onTouchEnd"
+                >
+                    <div class="text-left">
+                        <h5 class="p-4">Erläuterung</h5>
                         <img
-                            src='https://picsum.photos/600/700'
-                            alt=''
-                            @load='imageLoaded'
+                            src="https://picsum.photos/600/700"
+                            alt=""
+                            @load="imageLoaded"
                         />
                     </div>
                 </div>
@@ -59,20 +67,29 @@
                 <!--        </div>-->
             </div>
             <img
-                src='../../assets/swipe-right.svg'
-                class='inline swipe-right'
+                src="../../assets/swipe-right.svg"
+                class="inline swipe-right"
             />
-
         </div>
     </div>
 </template>
 
 <script>
 import { ref } from '@vue/reactivity'
-import { onMounted } from '@vue/runtime-core'
+import { onMounted, watch } from '@vue/runtime-core'
 
 export default {
     name: 'SwipeAnswer',
+    props: {
+        images: {
+            type: Object,
+            default: () => {},
+        },
+        answer: {
+            type: Number,
+            default: -1,
+        },
+    },
     emits: ['draggedThreshold'],
     setup(props, { emit }) {
         const positions = ref({})
@@ -142,7 +159,7 @@ export default {
             let touch = event.targetTouches[0]
 
             dragging.value = true
-
+            console.log(touch.clientX)
             positions.value = {
                 clientX:
                     touch.clientX -
@@ -165,22 +182,33 @@ export default {
             console.log(transformString.value)
         }
         const onTouchEnd = () => {
-            dragging.value = false
-
             if (positions.value.clientX > threshold.value) {
-                emit('draggedThreshold', true)
+                emit('draggedThreshold', {
+                    asset: currentElement.value, //ToDo: change with: props.images.id
+                    value: 'ja',
+                })
+
+                dragging.value = true
                 hideElement.value = true
                 currentElement.value++
+                transformString.value = `transform: translate3D(0px, 0px, 0) rotate(0deg)`
             } else if (positions.value.clientX < -threshold.value) {
-                emit('draggedThreshold', false)
+                emit('draggedThreshold', {
+                    asset: currentElement.value, //ToDo: change with: props.images.id
+                    value: 'nein',
+                })
+                dragging.value = true
                 hideElement.value = true
+                currentElement.value++
+                transformString.value = `transform: translate3D(0px, 0px, 0) rotate(0deg)`
             } else {
+                dragging.value = false
                 positions.value = {
                     clientX: 0, // positions.value.clientX,
                     clientY: 0, //positions.value.clientY,
                     rotation: 0,
                 }
-                transformString.value = `transform: translate3D(${positions.value.clientX}px, ${positions.value.clientY}px, 0) rotate(${positions.value.rotation}deg`
+                transformString.value = `transform: translate3D(${positions.value.clientX}px, ${positions.value.clientY}px, 0) rotate(${positions.value.rotation}deg)`
             }
         }
         const imageLoaded = (img) => {
@@ -192,6 +220,29 @@ export default {
                 .getBoundingClientRect()
         }
 
+        const setAnswer = () => {
+            positions.value.clientY = 50
+            transformString.value = `transition:all 0.3s linear; transform: translate3D(${positions.value.clientX}px, ${positions.value.clientY}px, 0) rotate(${positions.value.rotation}deg`
+
+            setTimeout(() => {
+                onTouchEnd()
+            }, 400)
+        }
+
+        watch(
+            () => props.answer,
+            (val) => {
+                if (val === 1) {
+                    positions.value.clientX = window.innerWidth / 3
+                    positions.value.rotation = 20
+                    setAnswer()
+                } else if (val === 0) {
+                    positions.value.clientX = -window.innerWidth / 3
+                    positions.value.rotation = -20
+                    setAnswer()
+                }
+            },
+        )
         onMounted(() => {
             // touchElement.value = document
             //     .getElementsByClassName('touch-element')[0]
@@ -217,12 +268,13 @@ export default {
             onMouseMove,
             onTouchMove,
             onTouchEnd,
+            setAnswer,
         }
     },
 }
 </script>
 
-<style lang='scss'>
+<style lang="scss">
 .card-container {
     position: relative;
     width: 450px;
@@ -249,6 +301,9 @@ export default {
     &.card-active {
         z-index: 10;
     }
+}
 
+.opacity-0 div {
+    opacity: 0;
 }
 </style>

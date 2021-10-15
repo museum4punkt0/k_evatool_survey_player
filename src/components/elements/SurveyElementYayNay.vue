@@ -10,8 +10,11 @@
         <!--        "-->
         <!--    >-->
         <h2 class="pb-5" v-html="content.params.question[lang]"></h2>
-        <p v-if="result">Answered: {{ result }}</p>
-        <SwipeAnswer @draggedThreshold="setResult"></SwipeAnswer>
+        <p v-if="results">Answered: {{ results }}</p>
+        <SwipeAnswer
+            :answer="answer"
+            @draggedThreshold="setResult"
+        ></SwipeAnswer>
         <div>1/{{ surveyResults.params.assets.length }} Karten eingestuft</div>
         <div class="inline flex mt-5">
             <button
@@ -29,7 +32,7 @@
                     bg-blue-700
                     text-white
                 "
-                @click="confirm"
+                @click.prevent.stop="setAnswer(0)"
             >
                 <x-circle-icon
                     class="h-8 w-8 mr-3 inline text-white"
@@ -51,7 +54,7 @@
                     bg-blue-700
                     text-white
                 "
-                @click="confirm"
+                @click.prevent.stop="setAnswer(1)"
             >
                 <check-circle-icon
                     class="h-8 w-8 mr-3 inline text-white"
@@ -108,44 +111,60 @@ export default {
         },
     },
     setup(props) {
-        const result = ref(0)
+        // const result = ref(0)
         const store = useStore()
         const route = useRoute()
         console.log(props.surveyResults)
         const lang = computed({
             get: () => store.state.lang,
         })
+        const answer = ref()
+        const setAnswer = (ans) => {
+            console.log(answer)
+            answer.value = ans
+            setTimeout(() => {
+                answer.value = null
+            }, 500)
+        }
+        const results = ref([])
         const setResult = (res) => {
-            if (res) {
-                result.value = props.surveyResults.params.trueValue
-            } else {
-                result.value = props.surveyResults.params.falseValue
-            }
+            console.log(res)
+            results.value.push(res)
+
+            console.log(results.value)
+            // if (res) {
+            //     result.value = props.surveyResults.params.trueValue
+            // } else {
+            //     result.value = props.surveyResults.params.falseValue
+            // }
             store.dispatch('surveyResults/sendSurveyResults', {
                 surveyId: route.query.id,
                 data: {
                     surveyStepId: props.content.id,
                     resultValue: {
-                        value: result.value,
+                        images: results.value,
                     },
                     uuid: props.surveyResults.uuid,
-                    languageId:
-                        props.surveyResults.sampleResultPayload.resultData
-                            .languageId,
+                    resultLanguage: 'de',
+                    // props.surveyResults.sampleResultPayload.resultData
+                    //     .languageId,
                 },
             })
         }
 
         onMounted(() => {
             let questionResults = props.surveyResults
+            console.log(questionResults)
             if (questionResults.results.length) {
-                result.value = questionResults.results.pop().result_value.value
+                //     results.value = questionResults.results.pop().result_value.value
             }
         })
         return {
             lang,
-            result,
             store,
+            results,
+            answer,
+            setAnswer,
             setResult,
         }
     },

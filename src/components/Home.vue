@@ -9,7 +9,8 @@
             <!--                ]-->
             <!--            }}-->
         </div>
-        <div class="survey-steps mx-5 pt-28 pb-16 px-4">
+        <IdleScreen v-if="idle" @start="idle = false"></IdleScreen>
+        <div v-else class="survey-steps mx-5 pt-28 pb-16 px-4">
             <!--            <div class="survey-navigation">            </div>-->
             <!--            <h1 class="text-indigo-">{{ store.state.surveys.survey.name }}</h1>-->
             <!--            <div v-if="nextSurvey && nextSurvey.nextStepId">-->
@@ -40,7 +41,10 @@
                 :survey-results="store.state.surveys.surveySteps[surveyStep]"
             ></SurveyElementBuilder>
         </div>
-        <div class="survey-footer-menu bottom-0 fixed w-screen z-30 bg-white">
+        <div
+            v-if="!idle"
+            class="survey-footer-menu bottom-0 fixed w-screen z-30 bg-white"
+        >
             <SurveyNavigation
                 :survey-steps="store.state.surveys.surveySteps.length"
                 :current-step="surveyStep + 1"
@@ -56,6 +60,7 @@ import { useStore } from 'vuex'
 
 import SurveyElementBuilder from './SurveyElementBuilder.vue'
 import HeaderMenu from './HeaderMenu.vue'
+import IdleScreen from './subelements/IdleScreen.vue'
 import SurveyNavigation from './FooterNavigation.vue'
 import { ref } from '@vue/reactivity'
 import { onMounted } from '@vue/runtime-core'
@@ -65,6 +70,7 @@ export default {
     name: 'Home',
     components: {
         HeaderMenu,
+        IdleScreen,
         SurveyElementBuilder,
         SurveyNavigation,
     },
@@ -74,7 +80,7 @@ export default {
         const route = useRoute()
         const router = useRouter()
         const backlink = ref()
-
+        const idle = ref(true)
         let queries = JSON.parse(JSON.stringify(route.query))
         console.log(queries)
         console.log(window.history.state.back)
@@ -132,13 +138,13 @@ export default {
         })
 
         return {
+            idle,
             surveyStep,
             store,
             userLang,
             router,
             route,
             backlink,
-            // surveyContent,
             nextSurvey,
             nextStep,
             prevStep,

@@ -3,24 +3,6 @@
         <div class="flex items-center justify-center w-screen">
             <button
                 class="
-                    imprint
-                    flex
-                    items-center
-                    absolute
-                    left-6
-                    rounded-md
-                    nav-button
-                    p-2
-                    m-l2
-                    bg-gray-200
-                "
-                @click="prevStep()"
-            >
-                <book-open-icon class="h-5 w-5 mr-2"></book-open-icon>
-                Impressum
-            </button>
-            <button
-                class="
                     prev
                     flex
                     items-center
@@ -54,12 +36,46 @@
                     class="h-5 w-5 ml-2"
                 ></chevron-double-right-icon>
             </button>
+            <div class="flex absolute right-6">
+                <button
+                    class="
+                        imprint
+                        flex
+                        items-center
+                        rounded-md
+                        nav-button
+                        p-2
+                        m-l2
+                        bg-gray-200
+                    "
+                    @click="prevStep()"
+                >
+                    <finger-print-icon class="h-5 w-5 mr-2"></finger-print-icon>
+                    Datenschutz
+                </button>
+                <button
+                    class="
+                        imprint
+                        flex
+                        items-center
+                        rounded-md
+                        nav-button
+                        p-2
+                        ml-6
+                        bg-gray-200
+                    "
+                    @click="prevStep()"
+                >
+                    <book-open-icon class="h-5 w-5 mr-2"></book-open-icon>
+                    Impressum
+                </button>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-import { BookOpenIcon } from '@heroicons/vue/solid'
+import { BookOpenIcon, FingerPrintIcon } from '@heroicons/vue/solid'
 import {
     ChevronDoubleLeftIcon,
     ChevronDoubleRightIcon,
@@ -67,7 +83,12 @@ import {
 
 export default {
     name: 'Navigation',
-    components: { BookOpenIcon, ChevronDoubleLeftIcon, ChevronDoubleRightIcon },
+    components: {
+        BookOpenIcon,
+        FingerPrintIcon,
+        ChevronDoubleLeftIcon,
+        ChevronDoubleRightIcon,
+    },
     props: {
         currentStep: {
             type: Number,
