@@ -237,7 +237,6 @@
 </template>
 
 <script>
-import { ref } from '@vue/reactivity'
 import ConfirmButton from '../subelements/ConfirmButton.vue'
 
 import {
@@ -250,7 +249,7 @@ import {
     TrashIcon,
     CheckCircleIcon,
 } from '@heroicons/vue/outline'
-import { onMounted } from '@vue/runtime-core'
+import { onMounted } from 'vue'
 
 export default {
     name: 'TimeLine',

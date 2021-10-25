@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { computed, ref } from '@vue/reactivity'
+import { computed, ref } from 'vue'
 import { useStore } from 'vuex'
 import { CheckCircleIcon } from '@heroicons/vue/outline'
 import ConfirmButton from '../subelements/ConfirmButton.vue'

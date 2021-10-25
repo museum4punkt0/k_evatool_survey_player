@@ -3,6 +3,7 @@
         <div class="flex justify-center mb-3">
             <button
                 v-for="i in parseInt(stars)"
+                :key="i"
                 type="button"
                 :class="{ 'mr-1': i < stars }"
                 @click="setRating(i)"
@@ -26,7 +27,7 @@
 <script>
 import { StarIcon } from '@heroicons/vue/outline'
 import { CheckCircleIcon } from '@heroicons/vue/outline'
-import { ref } from '@vue/reactivity'
+import { ref } from 'vue'
 export default {
     name: 'StarRating',
     components: {
@@ -50,9 +51,10 @@ export default {
             rating.value = i
             emit('input', i)
         }
-        const confirm = (i) => {
+
+        /*const confirm = (i) => {
             emit('input', i)
-        }
+        }*/
 
         return { rating, setRating }
     },

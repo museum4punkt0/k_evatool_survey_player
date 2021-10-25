@@ -136,8 +136,8 @@
 </template>
 
 <script>
-import { onMounted } from '@vue/runtime-core'
-import { ref } from '@vue/reactivity'
+import { onMounted } from 'vue'
+import { ref } from 'vue'
 
 export default {
     name: 'ContentSlider',

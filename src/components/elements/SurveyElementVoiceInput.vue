@@ -24,7 +24,7 @@
 <script>
 import { MicrophoneIcon } from '@heroicons/vue/outline'
 import ConfirmButton from '../subelements/ConfirmButton.vue'
-import { computed } from '@vue/reactivity'
+import { computed } from 'vue'
 import { useStore } from 'vuex'
 
 export default {

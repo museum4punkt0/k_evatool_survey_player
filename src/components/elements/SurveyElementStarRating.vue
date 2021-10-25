@@ -13,9 +13,9 @@
 
 <script>
 import StarRating from '../subelements/StarRating.vue'
-import { computed, ref } from '@vue/reactivity'
+import { computed, ref } from 'vue'
 import { useStore } from 'vuex'
-import { onMounted } from '@vue/runtime-core'
+import { onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import ConfirmButton from '../subelements/ConfirmButton.vue'
 
@@ -52,7 +52,7 @@ export default {
         })
 
         console.log(props.content)
-        const nextStep = (i) => {
+        const nextStep = () => {
             emit('next-step')
         }
 

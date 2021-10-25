@@ -75,8 +75,8 @@
 </template>
 
 <script>
-import { ref } from '@vue/reactivity'
-import { onMounted, watch } from '@vue/runtime-core'
+import { ref } from 'vue'
+import { onMounted, watch } from 'vue'
 
 export default {
     name: 'SwipeAnswer',

@@ -166,8 +166,8 @@
 </template>
 
 <script>
-import { onMounted, toRefs } from '@vue/runtime-core'
-import { ref } from '@vue/reactivity'
+import { onMounted, toRefs } from 'vue'
+import { ref } from 'vue'
 import { useStore } from 'vuex'
 
 import AudioRecorder from '../subelements/AudioRecorder.vue'
@@ -175,7 +175,7 @@ import ProgressBar from '../subelements/ProgressBar.vue'
 import MediaControls from '../subelements/MediaControls.vue'
 import TimeLine from '../subelements/TimeLine.vue'
 import Formular from '../subelements/Formular.vue'
-import ContentSlider from '../subelements/Contentslider.vue'
+import ContentSlider from '../subelements/ContentSlider.vue'
 import {
     TrashIcon,
     CheckCircleIcon,
