@@ -18,9 +18,9 @@
 
 <script>
 import { EmojiHappyIcon, EmojiSadIcon } from '@heroicons/vue/outline'
-import { computed, ref } from '@vue/reactivity'
+import { computed, ref } from 'vue'
 import { useStore } from 'vuex'
-import { onMounted } from '@vue/runtime-core'
+import { onMounted } from 'vue'
 import ConfirmButton from '../subelements/ConfirmButton.vue'
 
 export default {

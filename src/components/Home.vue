@@ -61,8 +61,8 @@ import SurveyElementBuilder from './SurveyElementBuilder.vue'
 import HeaderMenu from './HeaderMenu.vue'
 import IdleScreen from './subelements/IdleScreen.vue'
 import SurveyNavigation from './FooterNavigation.vue'
-import { ref } from '@vue/reactivity'
-import { onMounted } from '@vue/runtime-core'
+import { ref } from 'vue'
+import { onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 export default {

@@ -58,8 +58,8 @@
 </template>
 
 <script>
-import { computed, ref } from '@vue/reactivity'
-import { onMounted } from '@vue/runtime-core'
+import { computed, ref } from 'vue'
+import { onMounted } from 'vue'
 import { useStore } from 'vuex'
 import { CheckCircleIcon, ArrowCircleRightIcon } from '@heroicons/vue/outline'
 import { useRoute } from 'vue-router'
@@ -92,7 +92,7 @@ export default {
         const lang = computed({
             get: () => store.state.lang,
         })
-        const handleAnswer = (value) => {
+        const handleAnswer = () => {
             console.log(selectedAnswer.value)
             // store.dispatch('surveyResults/sendSurveyResults', {
             //     surveyId: route.query.id,
