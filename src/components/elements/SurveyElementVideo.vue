@@ -46,59 +46,59 @@
                             </h3>
                         </div>
                     </div>
-                </div>
-                <div
-                    v-if="showQuestion"
-                    class="
-                        mx-auto
-                        question
-                        bg-white
-                        p-4
-                        absolute
-                        bottom-0
-                        right-0
-                    "
-                >
-                    <!--            {{ store.state.surveys.surveyStep }}-->
 
-                    <h3>Question: {{ answeredSteps }}</h3>
-                    <h3>
-                        StopsVideo:
-                        {{ timeBasedSteps[answeredSteps - 1].stopsVideo }}
-                    </h3>
-                    <ul>
-                        <li>
-                            <button @click="setAnswer(1)">antwort 1</button>
-                        </li>
-                    </ul>
-                    <ul>
-                        <li>
-                            <button @click="setAnswer(2)">antwort 2</button>
-                        </li>
-                    </ul>
-                    <ul>
-                        <li>
-                            <button @click="setAnswer(3)">antwort 3</button>
-                        </li>
-                    </ul>
+                    <div
+                        v-if="showQuestion"
+                        class="
+                            mx-auto
+                            question
+                            bg-white
+                            p-4
+                            absolute
+                            bottom-0
+                            right-0
+                        "
+                    >
+                        <!--            {{ store.state.surveys.surveyStep }}-->
+
+                        <h3>Question: {{ answeredSteps }}</h3>
+                        <h3>
+                            StopsVideo:
+                            {{ timeBasedSteps[answeredSteps - 1].stopsVideo }}
+                        </h3>
+                        <ul>
+                            <li>
+                                <button @click="setAnswer(1)">antwort 1</button>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>
+                                <button @click="setAnswer(2)">antwort 2</button>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>
+                                <button @click="setAnswer(3)">antwort 3</button>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
+                <ProgressBar
+                    :current-time="mediaCurrentTime"
+                    :duration="mediaDurationTime"
+                    :interactive-steps="interactiveSteps"
+                    :comments="commentsCounter"
+                    @add-comment="addComment"
+                    @changeProgress="changeProgress"
+                    @jumpToItem="jumpToItem"
+                ></ProgressBar>
+                <MediaControls
+                    :current-time="mediaCurrentTime"
+                    :duration="mediaDurationTime"
+                    :video-is-playing="videoIsPlaying"
+                    @play-pause="tooglePlay"
+                ></MediaControls>
             </div>
-            <ProgressBar
-                :current-time="mediaCurrentTime"
-                :duration="mediaDurationTime"
-                :interactive-steps="interactiveSteps"
-                :comments="commentsCounter"
-                @add-comment="addComment"
-                @changeProgress="changeProgress"
-                @jumpToItem="jumpToItem"
-            ></ProgressBar>
-            <MediaControls
-                :current-time="mediaCurrentTime"
-                :duration="mediaDurationTime"
-                :video-is-playing="videoIsPlaying"
-                @play-pause="tooglePlay"
-            ></MediaControls>
-
             <!--            ToDo: move to component-->
             <div
                 class="
