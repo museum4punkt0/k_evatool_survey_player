@@ -255,7 +255,7 @@
 </template>
 
 <script>
-import ContentSlider from './Contentslider.vue'
+import ContentSlider from './ContentSlider.vue'
 
 export default {
     name: 'Formular',
