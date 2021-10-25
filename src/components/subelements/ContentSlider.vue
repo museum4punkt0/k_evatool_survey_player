@@ -1,6 +1,10 @@
 <template>
     <div class="slider absolute w-full h-full z-50">
         <div class="relative slides w-full h-full overflow-hidden">
+            {{ step }}
+            <!--            {{ content.id }}-->
+            {{ store.state.surveys.surveyStep }}
+
             <div
                 class="
                     absolute
@@ -20,7 +24,7 @@
                     slide
                 "
             >
-                Frage 1
+                Frage ID {{ content.id }}
             </div>
             <div
                 class="
@@ -138,7 +142,7 @@
 <script>
 import { onMounted } from 'vue'
 import { ref } from 'vue'
-
+import { useStore } from 'vuex'
 export default {
     name: 'ContentSlider',
     props: {
@@ -146,11 +150,15 @@ export default {
             type: Object,
             default: null,
         },
+        step: {
+            type: Object,
+            default: null,
+        },
     },
     setup() {
         const currentIndex = ref(0)
         const slidesCounter = ref()
-
+        const store = useStore()
         const nextSlide = () => {
             if (currentIndex.value < slidesCounter.value - 1) {
                 console.log('nextSlide')
@@ -191,11 +199,16 @@ export default {
 
         onMounted(() => {
             slidesCounter.value = document.querySelectorAll('.slide').length
+            store.dispatch('surveys/getSurveyStepById', {
+                surveyId: 2,
+                stepId: 43,
+            })
         })
 
         return {
             currentIndex,
             slidesCounter,
+            store,
             nextSlide,
             previousSlide,
         }

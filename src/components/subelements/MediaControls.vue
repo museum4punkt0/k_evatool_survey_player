@@ -18,7 +18,10 @@
                         <play-icon class="h-6 w-6 text-gray-800" />
                     </span>
                 </div>
-                <div class="volume inline float-left" @click="toggleVolume">
+                <div
+                    class="volume inline float-left mx-3"
+                    @click="toggleVolume"
+                >
                     <span v-if="volume">
                         <volume-up-icon class="h-6 w-6 text-gray-800" />
                     </span>
@@ -32,10 +35,10 @@
                     <button
                         class="
                             rounded-2xl
-                            text-blue-800 text-xs
-                            px-1
+                            text-gray-400 text-xs
+                            px-3
                             py-1
-                            border-2 border-gray-800
+                            bg-gray-100
                         "
                         @click="writeComment()"
                     >
@@ -47,7 +50,9 @@
             </div>
             <div class="group-right inline-block text-left w-6/12">
                 <div class="timer">
-                    {{ parseInt(currentTime) }}/{{ duration }}
+                    {{ convertTime(parseInt(currentTime)) }}/{{
+                        convertTime(duration)
+                    }}
                 </div>
             </div>
         </div>
@@ -97,20 +102,32 @@ export default {
             default: true,
         },
     },
-    emits: ['play-pause'],
+    emits: ['play-pause', 'toggle-comment'],
     setup(props, { emit }) {
         const volume = ref(1)
         const togglePlay = () => {
             emit('play-pause', !props.videoIsPlaying)
         }
         const writeComment = () => {
-            emit('play-pause', false)
+            if (props.videoIsPlaying) {
+                emit('play-pause', false)
+            }
+            emit('toggle-comment', true)
+        }
+
+        const convertTime = (sec) => {
+            let minutes = Math.floor(sec / 60)
+            minutes = minutes < 10 ? '0' + minutes : minutes
+            let seconds = Math.round(sec - minutes * 60)
+            seconds = seconds < 10 ? '0' + seconds : seconds
+            return minutes + ':' + seconds
         }
 
         return {
             volume,
             togglePlay,
             writeComment,
+            convertTime,
         }
     },
 }

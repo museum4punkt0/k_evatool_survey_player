@@ -6,7 +6,7 @@
         >
             {{ t('permissionMicrophoneDenied') }}
         </div>
-        <div v-else class="flex justify-center items-center m-3.5">
+        <div v-else class="flex justify-center items-center">
             <div
                 v-if="isSupported"
                 class="vue-audio-recorder p-5"

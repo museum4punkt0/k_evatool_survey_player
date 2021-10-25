@@ -25,11 +25,14 @@ export default {
                 return error
             })
     },
-    async SURVEYS_getSurveyStepById(stepId) {
-        const url = 'evaluation-tool/survey-steps/' + stepId
+    async SURVEYS_getSurveyStepById(surveyId, stepId) {
+        // const url = 'evaluation-tool/survey-steps/' + stepId
+        const url = 'evaluation-tool/surveys/' + surveyId + '/steps/' + stepId
+
         return axios
             .get(url)
             .then((response) => {
+                console.log(response)
                 return response.data.data
             })
             .catch((error) => {

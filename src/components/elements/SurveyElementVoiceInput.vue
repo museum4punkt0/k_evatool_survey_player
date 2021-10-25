@@ -4,7 +4,7 @@
 
         <!--        // ToDo placeholder lang-->
         <textarea
-            class="bg-transparent"
+            class="bg-transparent focus:outline-none"
             cols="30"
             rows="3"
             placeholder="Klicke auf das Mikrofon zur Spracheingabe, was du sagst, wird dann in Text umgewandelt."
@@ -60,4 +60,9 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+textarea {
+    box-sizing: border-box;
+    resize: none;
+}
+</style>

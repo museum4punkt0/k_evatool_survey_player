@@ -75,9 +75,9 @@ export default {
                         rating: rating.value,
                     },
                     uuid: props.surveyResults.uuid,
-                    resultLanguageId:
-                        props.surveyResults.sampleResultPayload.resultData
-                            .resultLanguageId,
+                    resultLanguage: 'de',
+                    // props.surveyResults.sampleResultPayload.resultData
+                    //     .resultLanguageId,
                 },
             })
 
@@ -87,6 +87,8 @@ export default {
         onMounted(() => {
             let questionResults = props.surveyResults
             console.log(questionResults)
+            console.log(questionResults)
+            console.log(rating)
             // rating.value = questionResults.results.pop().result_value.rating
         })
         return { lang, labels, rating, setRating, nextStep }

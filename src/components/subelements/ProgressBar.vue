@@ -118,7 +118,7 @@ export default {
 
             document.documentElement.style.setProperty(
                 '--videoProgress',
-                `${(props.currentTime / props.duration) * 100}%`,
+                `${(props.currentTime / props.duration) * 100 - 0.5}%`,
             )
         })
 
@@ -129,7 +129,7 @@ export default {
                 console.log(value)
                 document.documentElement.style.setProperty(
                     '--videoProgress',
-                    `${(props.currentTime / props.duration) * 100}%`,
+                    `${(props.currentTime / props.duration) * 100 - 0.5}%`,
                 )
             },
         )
@@ -213,7 +213,7 @@ export default {
             width: 100%;
             height: 16px;
             cursor: pointer;
-            animate: 0.2s;
+            //animate: 0.2s;
             background: linear-gradient(
                 to right,
                 var(--sliderProgressColor) 0%,
@@ -236,7 +236,7 @@ export default {
             width: 100%;
             height: 5px;
             cursor: pointer;
-            animate: 0.2s;
+            //animate: 0.2s;
             background: linear-gradient(
                 to right,
                 var(--sliderProgressColor) 0%,
@@ -257,7 +257,7 @@ export default {
             width: 100%;
             height: 5px;
             cursor: pointer;
-            animate: 0.2s;
+            //animate: 0.2s;
             background: transparent;
             border-color: transparent;
             color: transparent;
@@ -295,7 +295,7 @@ export default {
 
 .interactive-step {
     background-color: #1a56db;
-    transform: translateX(50%);
+    transform: translateX(0%);
 }
 
 .comment {

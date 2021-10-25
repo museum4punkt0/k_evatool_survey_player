@@ -107,7 +107,7 @@ export default {
         //store.dispatch('setUserLanguage', userLang)
         store.dispatch('surveys/getSurvey', surveyId)
         // store.dispatch('surveys/getSurveySteps', surveyId)
-        // store.dispatch('surveyResults/setSurveyResults', surveyId)
+        store.dispatch('surveyResults/setSurveyResults', surveyId)
 
         console.log(route.query)
         console.log(router)

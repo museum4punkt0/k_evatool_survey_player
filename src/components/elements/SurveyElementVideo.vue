@@ -1,10 +1,11 @@
 <template>
     <div class="relative mx-auto w-full pb-fluid-video flex">
         <div class="sidebar sidebar-left w-2/3 relative p-0 m-0">
-            <div class="video-wrap relative">
+            <div class="video-wrap bg-white overflow-hidden relative z-100">
+                <!--                src="https://ak.picdn.net/shutterstock/videos/1060516912/preview/stock-footage-beautiful-sunlight-in-the-forest.webm"-->
                 <video
                     ref="videoPlayer"
-                    src="https://ak.picdn.net/shutterstock/videos/1060516912/preview/stock-footage-beautiful-sunlight-in-the-forest.webm"
+                    :src="content.params.videoAsset.urls.original"
                     muted
                     autoplay
                     class="mx-auto p-0 m-0 z-10"
@@ -30,6 +31,8 @@
                 >
                     <ContentSlider
                         v-if="showQuestion"
+                        :content="content"
+                        :step="currentStepData()"
                         class="z-20"
                     ></ContentSlider>
                     <formular v-if="showFormular" class="z-20"></formular>
@@ -92,6 +95,7 @@
                     :duration="mediaDurationTime"
                     :video-is-playing="videoIsPlaying"
                     @play-pause="tooglePlay"
+                    @toggle-comment="toggleComment"
                 ></MediaControls>
             </div>
             <!--            ToDo: move to component-->
@@ -104,18 +108,20 @@
                     border-2 border-blue-800
                     bg-white
                     w-4/5
+                    z-10
                 "
+                :class="{ slideDown: commentBox }"
             >
                 <!--        <p>SurveyElementVideo</p>-->
                 <!--        <button @click="pauseVideo">pauseVideo</button>-->
-                <div class="flex">
+                <div class="flex justify-center items-center">
                     <AudioRecorder
                         @send-audio-asset="sendAudioAsset"
                     ></AudioRecorder>
                     <textarea
                         v-model="comment"
                         type="text"
-                        class="flex textarea px-5 py-2 text-left text-xs w-full"
+                        class="textarea px-5 text-left text-xs w-full"
                         placeholder="Schreibe ein Kommentar zur aktuellen Stelle im Video oder klicke auf das Mikrofon für die Spracheingabe"
                     />
                 </div>
@@ -220,8 +226,15 @@ export default {
         const videoIsPlaying = ref(true)
         const showFeedback = ref(false)
         const showFormular = ref(false)
+        const commentBox = ref(false)
+
         const audioComment = ref(false)
         const route = useRoute()
+
+        console.log(timeBasedSteps)
+        const currentStepData = () => {
+            return timeBasedSteps.value[answeredSteps.value - 1]
+        }
 
         const comment = ref()
         const timelineObject = ref([])
@@ -259,6 +272,11 @@ export default {
         const deleteComment = () => {
             comment.value = ''
         }
+
+        const toggleComment = () => {
+            commentBox.value = !commentBox.value
+        }
+
         const saveComment = () => {
             if (comment.value || audioComment.value) {
                 let message = comment.value
@@ -425,6 +443,8 @@ export default {
             showFeedback,
             showFormular,
             audioComment,
+            commentBox,
+            currentStepData,
             videoEnded,
             tooglePlay,
             sendAudioAsset,
@@ -442,12 +462,13 @@ export default {
             changeProgress,
             editComment,
             jumpToItem,
+            toggleComment,
         }
     },
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 video {
     /* override other styles to make responsive */
     width: 100% !important;
@@ -473,5 +494,18 @@ video {
 textarea {
     box-sizing: border-box;
     resize: none;
+}
+
+.comments {
+    opacity: 0;
+    transition: all 0.3s linear;
+    &.slideDown {
+        opacity: 1;
+        transition: all 0.3s linear;
+    }
+}
+
+.video-wrap {
+    z-index: 100;
 }
 </style>

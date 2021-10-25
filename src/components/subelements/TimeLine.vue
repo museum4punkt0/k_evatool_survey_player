@@ -7,7 +7,7 @@
                 overflow-scroll
                 p-5
                 mx-2
-                bg-blue-800
+                bg-blue-700
                 p-4
                 text-white
             "

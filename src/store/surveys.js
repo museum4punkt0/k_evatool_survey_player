@@ -34,8 +34,11 @@ export default {
         // const survey = await SURVEYS.SURVEYS_getSurveySteps(surveyId)
         // commit('setSurveySteps', survey)
         //},
-        async getSurveyStepById({ commit }, stepId) {
-            const step = await SURVEYS.SURVEYS_getSurveyStepById(stepId)
+        async getSurveyStepById({ commit }, data) {
+            const step = await SURVEYS.SURVEYS_getSurveyStepById(
+                data.surveyId,
+                data.stepId,
+            )
             commit('setSurveyStepById', step)
         },
         async getSurveyElementById({ commit }, elementId) {
