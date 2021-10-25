@@ -1,5 +1,5 @@
 <template>
-    <div class="main-page h-screen overflow-hidden bg-gray-200">
+    <div class="main-page h-screen overflow-y-scroll bg-gray-200">
         <div class="survey-header-menu top-0 fixed w-screen z-30 bg-white">
             <header-menu></header-menu>
             <!--            {{-->

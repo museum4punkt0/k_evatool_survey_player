@@ -1,11 +1,6 @@
 <template>
-    <div
-        id="responsiveVideoWrapper"
-        class="relative mx-auto pb-fluid-video flex"
-    >
-        <div
-            class="sidebar-left md:grid-cols-12 sm:grid-cols-6 relative p-0 m-0"
-        >
+    <div class="relative mx-auto w-full pb-fluid-video flex">
+        <div class="sidebar sidebar-left w-2/3 relative p-0 m-0">
             <div class="video-wrap relative">
                 <video
                     ref="videoPlayer"
@@ -152,7 +147,7 @@
                 </div>
             </div>
         </div>
-        <div class="sidebar sidebar-right sm:grid-cols-12 md:grid-cols-3 mx-4">
+        <div class="sidebar sidebar-right w-1/3 mx-4">
             <TimeLine
                 :interactive-steps="interactiveSteps"
                 :answered-steps="answeredSteps"
@@ -461,7 +456,7 @@ video {
 .sidebar {
     position: relative;
     right: 0px;
-    width: 30vw;
+    /*width: 30vw;*/
     height: 100vh;
     overflow-y: scroll;
 }
