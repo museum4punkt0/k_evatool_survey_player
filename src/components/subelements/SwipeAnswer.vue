@@ -14,7 +14,7 @@
             <div class="mx-auto relative card-container w-8/12 h-2/3">
                 <!--                v-if="currentElement > images.length"-->
                 <div
-                    v-if="currentElement > images.length"
+                    v-if="currentElement === images.length"
                     class="flex items-center h-100 top-50 m-auto"
                 >
                     <p>Sie haben alle Fragen beantwortet!</p>
