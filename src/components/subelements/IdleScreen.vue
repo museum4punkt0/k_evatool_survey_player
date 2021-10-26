@@ -6,6 +6,8 @@
             <h2>
                 Vielen Dank für’s Vorbeischauen. Hier kannst du unsere Inhalte
                 direkt bewerten und somit für ein besseres Angebot sorgen.
+                <br />
+                Backlink: {{ getReferrer() }}
             </h2>
             <button
                 type="button"
@@ -31,6 +33,7 @@
 
 <script>
 import { CheckCircleIcon } from '@heroicons/vue/outline'
+import { onMounted } from 'vue'
 
 export default {
     name: 'IdleScreen',
@@ -40,8 +43,23 @@ export default {
         const confirm = () => {
             emit('start', true)
         }
+        const getReferrer = () => {
+            let preUrl = document.referrer
+
+            if (preUrl == null) {
+                return 'The previous page url is empty'
+            } else {
+                return preUrl
+            }
+        }
+        onMounted(() => {
+            console.log(getReferrer())
+            localStorage.setItem('ev-tool-backlink', getReferrer())
+            localStorage.setItem('backlink', getReferrer())
+        })
         return {
             confirm,
+            getReferrer,
         }
     },
 }

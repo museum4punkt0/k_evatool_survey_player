@@ -2,6 +2,7 @@
     <div class="main-page h-screen overflow-y-scroll bg-gray-100">
         <div class="survey-header-menu top-0 fixed w-screen z-50 bg-white">
             <header-menu></header-menu>
+
             <!--            {{ store.state.currentStep }}-->
         </div>
         <IdleScreen v-if="idle" @start="idle = false"></IdleScreen>
@@ -55,6 +56,8 @@ export default {
         const backlink = ref()
         const idle = ref(true)
 
+        backlink.value = document.referer ? document.referer : '/'
+
         let queries = JSON.parse(JSON.stringify(route.query))
         console.log(queries)
         console.log(window.history.state.back)
@@ -63,7 +66,8 @@ export default {
         //     window.history.state.back !==
         //         localStorage.getItem('ev-tool-backlink')
         // )
-        // backlink.value = window.history.state.back
+        backlink.value = window.history.state.back
+
         // localStorage.setItem('ev-tool-backlink', backlink.value)
         // queries.backlink = backlink.value
         //
@@ -112,7 +116,7 @@ export default {
             // getNextSurvey()
             console.log(store.state.surveys)
             console.log(window)
-            console.log(document)
+            console.log(document.referrer)
         })
 
         return {

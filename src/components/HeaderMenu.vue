@@ -6,7 +6,7 @@
             </a>
         </div>
         <div class="right-menu">
-            <button class="ml-5 rounded-md p-2 bg-gray-200">
+            <button class="ml-5 rounded-md p-2 bg-gray-200" @click="openPage">
                 <!--                <arrow-left-icon class="h-4 w-4 inline"></arrow-left-icon>-->
                 <x-icon class="h-4 w-4 inline"></x-icon>
                 <span class="hidden md:inline-block">Umfrage schließen</span>
@@ -27,6 +27,7 @@ import {
     MenuIcon,
 } from '@heroicons/vue/outline'
 import { HomeIcon } from '@heroicons/vue/solid'
+import { useRouter } from 'vue-router'
 
 export default {
     name: 'HeaderMenu',
@@ -36,6 +37,22 @@ export default {
         ShareIcon,
         MenuIcon,
         HomeIcon,
+    },
+    setup() {
+        const router = useRouter()
+        // const route = useRoute()
+        const openPage = () => {
+            // route.push(window.getItem('backlink'))
+
+            let backlink = '' //JSON.parse(JSON.stringify(route.query))
+            backlink = localStorage.getItem('ev-tool-backlink')
+            // router.push(queries.backlink)
+            router.push({ path: backlink })
+            // router.replace({ query: queries })
+        }
+        return {
+            openPage,
+        }
     },
 }
 </script>

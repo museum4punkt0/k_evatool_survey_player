@@ -14,20 +14,37 @@
                     @play="playVideo"
                     @ended="videoEnded"
                 ></video>
-
+                <div
+                    v-if="showQuestion"
+                    class="
+                        overlay
+                        fixed
+                        w-screen
+                        h-screen
+                        bg-black
+                        opacity-50
+                        left-0
+                        top-0
+                        z-40
+                        md:hidden
+                    "
+                ></div>
                 <div
                     v-if="showQuestion || showFeedback || showFormular"
                     class="
-                        absolute
+                        md:absolute
                         bg-white
-                        w-2/3
-                        h-2/3
-                        absolute
+                        w-4/5
+                        h-4/5
+                        md:w-2/3 md:h-2/3
                         top-1/2
                         left-1/2
                         transform
-                        -translate-x-1/2 -translate-y-2/3
-                        z-20
+                        -translate-x-1/2 -translate-y-1/2
+                        md:-translate-y-2/3
+                        xl:z-30
+                        z-50
+                        fixed
                     "
                 >
                     <ContentSlider
@@ -39,7 +56,7 @@
 
                     <ModalContent
                         v-if="showQuestion"
-                        class="z-30"
+                        class="z-20 md:relative"
                         :step-question="
                             content.timeBasedStepsResolved[answeredSteps - 1]
                         "
