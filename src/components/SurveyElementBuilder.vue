@@ -3,11 +3,12 @@
         v-if="content?.surveyElementType !== 'video'"
         class="
             survey-content
-            md:flex
-            flex-wrap flex-col
+            flex flex-wrap flex-col
             md:h-auto md:mt-16
             justify-center
             items-center
+            h-full
+            pb-36
         "
     >
         <SurveyElementBinaryQuestion

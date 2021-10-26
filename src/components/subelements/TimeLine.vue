@@ -224,6 +224,7 @@
                     shadow-xl
                     w-8
                     h-8
+                    mx-3
                     rounded-full
                 "
             >

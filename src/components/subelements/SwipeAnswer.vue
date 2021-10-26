@@ -9,9 +9,21 @@
             items-center
         "
     >
-        <div class="flex mt-16">
-            <img src="../../assets/swipe-left.svg" class="inline swipe-left" />
-            <div class="mx-auto relative card-container w-8/12 h-2/3">
+        <div class="flex mt-16 h-1/2 relative">
+            <img
+                src="../../assets/swipe-left.svg"
+                class="
+                    inline
+                    swipe-left
+                    absolute
+                    md:relative
+                    z-20
+                    top-1/2
+                    left-10
+                    -translate-y-1/2
+                "
+            />
+            <div class="mx-auto absolute card-container w-8/12 h-2/3 z-10">
                 <!--                v-if="currentElement > images.length"-->
                 <div
                     v-if="currentElement === images.length"
@@ -29,7 +41,6 @@
                         absolute
                         touch-element
                         w-96
-                        mx-auto
                         bg-white
                         shadow-xl
                         hover:shadow
@@ -68,7 +79,16 @@
             </div>
             <img
                 src="../../assets/swipe-right.svg"
-                class="inline swipe-right"
+                class="
+                    inline
+                    swipe-right
+                    absolute
+                    md:relative
+                    z-20
+                    top-1/2
+                    right-10
+                    -translate-y-1/2
+                "
             />
         </div>
     </div>
@@ -281,6 +301,8 @@ export default {
     left: 50%;
     transform: translateX(-50%);
     height: 570px;
+    display: flex;
+    justify-content: center;
 }
 
 .card:nth-child(2) {

@@ -1,5 +1,5 @@
 <template>
-    <div class="flex justify-between items-center px-5 py-2 mx-5">
+    <div class="flex justify-between items-center px-5 py-2 mx-5 z-50">
         <div class="left-menu">
             <a href="http://localhost:3001/#/?id=2">
                 <img src="../assets/logo.svg" class="inline" />

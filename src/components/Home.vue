@@ -1,11 +1,11 @@
 <template>
     <div class="main-page h-screen overflow-y-scroll bg-gray-100">
-        <div class="survey-header-menu top-0 fixed w-screen z-30 bg-white">
+        <div class="survey-header-menu top-0 fixed w-screen z-50 bg-white">
             <header-menu></header-menu>
             <!--            {{ store.state.currentStep }}-->
         </div>
         <IdleScreen v-if="idle" @start="idle = false"></IdleScreen>
-        <div v-else class="survey-steps mx-5 pt-28 pb-16 px-4">
+        <div v-else class="survey-steps mx-5 pt-28 pb-16 px-4 h-full z-40">
             <SurveyElementBuilder
                 v-if="store.state.surveys.surveySteps"
                 :content="

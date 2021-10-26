@@ -1,7 +1,7 @@
 <template>
     <div class="relative md:mx-auto md:w-full pb-fluid-video md:flex">
         <div class="sidebar sidebar-left w-full md:w-2/3 relative p-0 m-0">
-            <div class="video-wrap bg-white overflow-hidden relative z-100">
+            <div class="video-wrap bg-white overflow-hidden relative z-20">
                 <!--                src="https://ak.picdn.net/shutterstock/videos/1060516912/preview/stock-footage-beautiful-sunlight-in-the-forest.webm"-->
                 <!--                {{ content.timeBasedStepsResolved }}-->
                 <video
@@ -39,7 +39,7 @@
 
                     <ModalContent
                         v-if="showQuestion"
-                        class="z-20"
+                        class="z-30"
                         :step-question="
                             content.timeBasedStepsResolved[answeredSteps - 1]
                         "

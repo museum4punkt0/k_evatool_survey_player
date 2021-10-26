@@ -6,7 +6,7 @@
             fixed
             w-full
             md:w-screen
-            z-30
+            z-50
             bg-white
         "
     >
