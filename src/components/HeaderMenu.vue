@@ -27,7 +27,6 @@ import {
     MenuIcon,
 } from '@heroicons/vue/outline'
 import { HomeIcon } from '@heroicons/vue/solid'
-import { useRouter } from 'vue-router'
 
 export default {
     name: 'HeaderMenu',
@@ -39,16 +38,9 @@ export default {
         HomeIcon,
     },
     setup() {
-        const router = useRouter()
-        // const route = useRoute()
         const openPage = () => {
-            // route.push(window.getItem('backlink'))
-
-            let backlink = '' //JSON.parse(JSON.stringify(route.query))
-            backlink = localStorage.getItem('ev-tool-backlink')
-            // router.push(queries.backlink)
-            router.push({ path: backlink })
-            // router.replace({ query: queries })
+            let backlink = localStorage.getItem('ev-tool-backlink')
+            location.href = backlink
         }
         return {
             openPage,
