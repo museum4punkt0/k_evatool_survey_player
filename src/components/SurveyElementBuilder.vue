@@ -3,9 +3,9 @@
         v-if="content?.surveyElementType !== 'video'"
         class="
             survey-content
-            flex flex-wrap flex-col
-            h-auto
-            mt-16
+            md:flex
+            flex-wrap flex-col
+            md:h-auto md:mt-16
             justify-center
             items-center
         "
@@ -69,12 +69,13 @@
         class="
             survey-content
             video-element
-            mx-auto
+            md:mx-auto
             bg-gray-200
             font-sans
             h-screen
             w-full
-            flex flex-col
+            md:flex
+            flex-col
             justify-center
             items-center
         "

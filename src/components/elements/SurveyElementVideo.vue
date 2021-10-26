@@ -1,6 +1,6 @@
 <template>
-    <div class="relative mx-auto w-full pb-fluid-video flex">
-        <div class="sidebar sidebar-left w-2/3 relative p-0 m-0">
+    <div class="relative md:mx-auto md:w-full pb-fluid-video md:flex">
+        <div class="sidebar sidebar-left w-full md:w-2/3 relative p-0 m-0">
             <div class="video-wrap bg-white overflow-hidden relative z-100">
                 <!--                src="https://ak.picdn.net/shutterstock/videos/1060516912/preview/stock-footage-beautiful-sunlight-in-the-forest.webm"-->
                 <!--                {{ content.timeBasedStepsResolved }}-->
@@ -110,14 +110,18 @@
             <!--            ToDo: move to component-->
             <div
                 class="
-                    text-field
+                    left-1/2
+                    my-3
+                    -translate-x-1/2
                     inline-block
                     text-center
                     comments
                     border-2 border-blue-800
                     bg-white
-                    w-4/5
+                    w-full
+                    md:w-4/5
                     z-10
+                    relative
                 "
                 :class="{ slideDown: commentBox }"
             >
@@ -168,7 +172,7 @@
                 </div>
             </div>
         </div>
-        <div class="sidebar sidebar-right w-1/3 mx-4">
+        <div class="sidebar sidebar-right w-full md:w-1/3 md:mx-4">
             <TimeLine
                 :interactive-steps="interactiveSteps"
                 :answered-steps="answeredSteps"
@@ -494,13 +498,13 @@ video {
     height: auto !important;
 }
 
-.sidebar {
-    position: relative;
-    right: 0px;
-    /*width: 30vw;*/
-    height: 100vh;
-    overflow-y: scroll;
-}
+//.sidebar {
+//    position: relative;
+//    right: 0px;
+//    /*width: 30vw;*/
+//    height: 100vh;
+//    overflow-y: scroll;
+//}
 
 .text-field {
     float: left;
@@ -518,6 +522,7 @@ textarea {
 .comments {
     opacity: 0;
     transition: all 0.3s linear;
+
     &.slideDown {
         opacity: 1;
         transition: all 0.3s linear;

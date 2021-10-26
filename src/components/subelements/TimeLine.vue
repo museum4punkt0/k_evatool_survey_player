@@ -1,12 +1,22 @@
 <template>
-    <div class="container bg-gray-200 mx-auto w-full h-full overflow-scroll">
+    <div
+        class="
+            timelione-container
+            bg-gray-200
+            md:mx-auto
+            mx-0
+            px-0
+            w-full
+            h-full
+            overflow-scroll
+        "
+    >
         <div
             class="
                 relative
                 wrap
                 overflow-scroll
-                p-5
-                mx-2
+                md:p-5 md:mx-2
                 bg-blue-700
                 p-4
                 text-white
@@ -19,7 +29,16 @@
             </p>
         </div>
         <div
-            class="relative wrap overflow-scroll h-1/2 p-5 mx-2 h-full bg-white"
+            class="
+                relative
+                wrap
+                overflow-scroll
+                h-1/2
+                p-5
+                md:mx-2
+                h-full
+                bg-white
+            "
         >
             <div
                 class="
@@ -189,7 +208,7 @@
                 items-start
                 left-timeline
                 bg-white
-                mx-2
+                md:mx-2
                 border-t-2
                 p-2
             "
