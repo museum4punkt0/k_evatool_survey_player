@@ -1,9 +1,9 @@
 <template>
     <div class="slider absolute w-full h-full z-50">
         <div class="relative slides w-full h-full overflow-hidden">
-            {{ step }}
-            <!--            {{ content.id }}-->
-            {{ store.state.surveys.surveyStep }}
+            <!--            {{ step }}-->
+            <!--            &lt;!&ndash;            {{ content.id }}&ndash;&gt;-->
+            <!--            {{ store.state.surveys.surveyStep }}-->
 
             <div
                 class="

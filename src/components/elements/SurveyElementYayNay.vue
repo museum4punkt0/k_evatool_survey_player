@@ -54,24 +54,25 @@
             </button>
         </div>
 
-        <button
-            type="button"
-            class="
-                confirm
-                flex
-                items-center
-                rounded-md
-                nav-button
-                p-2
-                mt-5
-                bg-blue-700
-                text-white
-            "
-            @click="confirm"
-        >
-            <check-circle-icon class="h-6 w-6 mr-3 text-white" />
-            Eingabe bestätigen
-        </button>
+        <!--        <button-->
+        <!--            type="button"-->
+        <!--            class="-->
+        <!--                confirm-->
+        <!--                flex-->
+        <!--                items-center-->
+        <!--                rounded-md-->
+        <!--                nav-button-->
+        <!--                p-2-->
+        <!--                mt-5-->
+        <!--                bg-blue-700-->
+        <!--                text-white-->
+        <!--            "-->
+        <!--            @click="confirm"-->
+        <!--        >-->
+        <!--            <check-circle-icon class="h-6 w-6 mr-3 text-white" />-->
+        <!--            Eingabe bestätigen-->
+        <!--        </button>-->
+        <confirm-button></confirm-button>
     </div>
 </template>
 
@@ -83,10 +84,10 @@ import { onMounted } from 'vue'
 
 import { XCircleIcon, CheckCircleIcon } from '@heroicons/vue/outline'
 import { useRoute } from 'vue-router'
-
+import ConfirmButton from '../subelements/ConfirmButton.vue'
 export default {
     name: 'SurveyElementYayNay',
-    components: { SwipeAnswer, XCircleIcon, CheckCircleIcon },
+    components: { SwipeAnswer, XCircleIcon, CheckCircleIcon, ConfirmButton },
     props: {
         content: {
             type: Object,
@@ -136,9 +137,7 @@ export default {
                         images: results.value,
                     },
                     uuid: props.surveyResults.uuid,
-                    resultLanguage: 'de',
-                    // props.surveyResults.sampleResultPayload.resultData
-                    //     .languageId,
+                    resultLanguage: store.state.lang,
                 },
             })
         }
@@ -146,9 +145,9 @@ export default {
         onMounted(() => {
             let questionResults = props.surveyResults
             console.log(questionResults)
-            if (questionResults.results.length) {
-                //     results.value = questionResults.results.pop().result_value.value
-            }
+            // if (questionResults.results.length) {
+            //     //     results.value = questionResults.results.pop().result_value.value
+            // }
         })
         return {
             lang,

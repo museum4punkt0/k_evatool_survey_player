@@ -94,22 +94,22 @@ export default {
         })
         const handleAnswer = () => {
             console.log(selectedAnswer.value)
-            // store.dispatch('surveyResults/sendSurveyResults', {
-            //     surveyId: route.query.id,
-            //     // resultLanguageId:
-            //     //     props.surveyResults.sampleResultPayload.resultData
-            //     //         .resultLanguageId,
-            //     data: {
-            //         surveyStepId: props.content.id,
-            //         resultValue: {
-            //             value: selectedAnswer.value,
-            //         },
-            //         //         uuid: props.surveyResults.uuid,
-            //         //         resultLanguageId:
-            //         //             props.surveyResults.sampleResultPayload.resultData
-            //         //                 .resultLanguageId,
-            //     },
-            // })
+            store.dispatch('surveyResults/sendSurveyResults', {
+                surveyId: route.query.id,
+                data: {
+                    surveyStepId: props.content.id,
+                    resultValue: {
+                        value: selectedAnswer.value,
+                    },
+
+                    uuid: props.surveyResults.uuid,
+                    resultLanguage: store.state.lang,
+                    //         uuid: props.surveyResults.uuid,
+                    //         resultLanguageId:
+                    //             props.surveyResults.sampleResultPayload.resultData
+                    //                 .resultLanguageId,
+                },
+            })
         }
         const handleResults = (results) => {
             console.log(results)

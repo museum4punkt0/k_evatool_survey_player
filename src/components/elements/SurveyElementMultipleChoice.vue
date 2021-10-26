@@ -31,6 +31,8 @@ import { ref, onMounted } from 'vue'
 import { useStore } from 'vuex'
 import SelectButton from '../subelements/SelectButton.vue'
 import ConfirmButton from '../subelements/ConfirmButton.vue'
+import { useRoute } from 'vue-router'
+
 export default {
     name: 'SurveyElementMultipleChoice',
     components: { SelectButton, ConfirmButton },
@@ -51,6 +53,7 @@ export default {
     setup(props) {
         const selectedOptions = ref([])
         const store = useStore()
+        const route = useRoute()
         // const allowSkip = ref(props.content.allowSkip)
         const resultBasedNextSteps = ref(props.content.resultBasedNextSteps)
 
@@ -59,7 +62,25 @@ export default {
         }
         const handleResults = (results) => {
             console.log(results)
-            console.log(resultBasedNextSteps)
+            console.log(selectedOptions.value)
+            if (
+                props.surveyResults.params.minSelectable <=
+                    selectedOptions.value.length &&
+                props.surveyResults.params.maxSelectable >=
+                    selectedOptions.value.length
+            ) {
+                store.dispatch('surveyResults/sendSurveyResults', {
+                    surveyId: route.query.id,
+                    data: {
+                        surveyStepId: props.content.id,
+                        resultValue: {
+                            selected: selectedOptions.value,
+                        },
+                        uuid: props.surveyResults.uuid,
+                        resultLanguage: store.state.lang,
+                    },
+                })
+            }
         }
 
         onMounted(() => {
@@ -77,6 +98,7 @@ export default {
 
         return {
             store,
+            route,
             selectedOptions,
             resultBasedNextSteps,
             handleAnswer,
@@ -86,6 +108,7 @@ export default {
     methods: {
         changeValue(value) {
             console.log(value)
+
             if (
                 1 === parseInt(this.surveyResults.params.minSelectable) &&
                 1 === parseInt(this.surveyResults.params.maxSelectable)
@@ -104,6 +127,7 @@ export default {
                     this.selectedOptions.splice(index, 1)
                 }
             }
+            this.handleResults()
         },
         disabled(value) {
             if (

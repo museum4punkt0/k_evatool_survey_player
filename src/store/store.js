@@ -10,12 +10,19 @@ export default createStore({
     },
     state: {
         lang: 'de',
-        suveyid: null,
+        suveyId: null,
         languages: [],
+        currentStep: 0,
     },
     mutations: {
-        setSuveyId(state, suveyid) {
-            state.suveyid = suveyid
+        setSuveyId(state, suveyId) {
+            state.suveyId = suveyId
+        },
+        setCurrentStep(state) {
+            state.currentStep++
+        },
+        decCurrentStep(state) {
+            state.currentStep--
         },
         setLanguages(state, languages) {
             state.languages = languages
@@ -33,8 +40,14 @@ export default createStore({
         },
     },
     actions: {
-        setSurveyId({ commit }, id) {
-            commit('setSurveyId', id)
+        setSurveyId({ commit }, suveyId) {
+            commit('setSurveyId', suveyId)
+        },
+        setCurrentStep({ commit }) {
+            commit('setCurrentStep')
+        },
+        decCurrentStep({ commit }) {
+            commit('decCurrentStep')
         },
         // async setUserLanguage({ commit }, lang) {
         async setUserLanguage() {

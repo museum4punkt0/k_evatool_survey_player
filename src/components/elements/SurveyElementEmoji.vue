@@ -22,6 +22,7 @@ import { computed, ref } from 'vue'
 import { useStore } from 'vuex'
 import { onMounted } from 'vue'
 import ConfirmButton from '../subelements/ConfirmButton.vue'
+import { useRoute } from 'vue-router'
 
 export default {
     name: 'SurveyElementEmoji',
@@ -46,25 +47,21 @@ export default {
     },
     setup(props) {
         const result = ref()
+        const route = useRoute()
         const store = useStore()
         const setResult = (i) => {
             console.log(i)
             result.value = i
 
             store.dispatch('surveyResults/sendSurveyResults', {
-                surveyId: props.content.surveyId,
-                // resultLanguageId:
-                //     props.surveyResults.sampleResultPayload.resultData
-                //         .resultLanguageId,
+                surveyId: route.query.id,
                 data: {
                     surveyStepId: props.content.id,
                     resultValue: {
                         meaning: result.value,
                     },
                     uuid: props.surveyResults.uuid,
-                    resultLanguageId:
-                        props.surveyResults.sampleResultPayload.resultData
-                            .resultLanguageId,
+                    resultLanguage: store.state.lang,
                 },
             })
         }
@@ -79,6 +76,7 @@ export default {
 
         return {
             result,
+            route,
             store,
             lang,
             setResult,

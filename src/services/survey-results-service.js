@@ -15,6 +15,19 @@ export default {
                 return error
             })
     },
+    async getUuidResults(surveyId, uuid) {
+        console.log(surveyId)
+        const url = 'evaluation-tool/surveys/' + surveyId + '/run?uuid=' + uuid
+
+        return axios
+            .get(url)
+            .then((response) => {
+                return response.data
+            })
+            .catch((error) => {
+                return error
+            })
+    },
     async sendAudioResults(data, surveyId, surveyStepId, surveyStepResultId) {
         console.log(data, surveyId, surveyStepId, surveyStepResultId)
         const url =

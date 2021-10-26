@@ -1,7 +1,8 @@
 <template>
-    <div class="main-page h-screen overflow-y-scroll bg-gray-200">
+    <div class="main-page h-screen overflow-y-scroll bg-gray-100">
         <div class="survey-header-menu top-0 fixed w-screen z-30 bg-white">
             <header-menu></header-menu>
+            <!--            {{ store.state.currentStep }}-->
             <!--            {{-->
             <!--                store.state.surveyResults.surveyResults.steps.original.data[-->
             <!--                    surveyStep-->
@@ -35,9 +36,13 @@
 
             <SurveyElementBuilder
                 v-if="store.state.surveys.surveySteps"
-                :content="store.state.surveys.surveySteps[surveyStep]"
+                :content="
+                    store.state.surveys.surveySteps[store.state.currentStep]
+                "
                 :survey="store.state.surveys.survey"
-                :survey-results="store.state.surveys.surveySteps[surveyStep]"
+                :survey-results="
+                    store.state.surveys.surveySteps[store.state.currentStep]
+                "
             ></SurveyElementBuilder>
         </div>
         <div
@@ -115,6 +120,8 @@ export default {
         const nextStep = () => {
             console.log('nextStep')
             surveyStep.value++
+
+            store.dispatch('setCurrentStep')
             getNextSurvey()
         }
         const prevStep = () => {

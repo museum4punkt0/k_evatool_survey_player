@@ -18,7 +18,9 @@
                 ></chevron-double-left-icon>
                 Zurück
             </button>
-            <span class="mx-4 p-0">{{ currentStep }}/{{ surveySteps }}</span>
+            <span class="mx-4 p-0">
+                {{ store.state.currentStep + 1 }}/{{ surveySteps }}
+            </span>
             <button
                 class="
                     next
@@ -80,6 +82,7 @@ import {
     ChevronDoubleLeftIcon,
     ChevronDoubleRightIcon,
 } from '@heroicons/vue/outline'
+import { useStore } from 'vuex'
 
 export default {
     name: 'Navigation',
@@ -101,6 +104,7 @@ export default {
     },
     emits: ['next-step', 'prev-step'],
     setup(props, { emit }) {
+        const store = useStore()
         const nextStep = () => {
             if (props.currentStep < props.surveySteps) {
                 console.log('nextStep')
@@ -112,9 +116,11 @@ export default {
                 console.log('prevStep')
                 emit('prev-step')
             }
+            store.dispatch('decCurrentStep')
         }
 
         return {
+            store,
             nextStep,
             prevStep,
         }

@@ -14,6 +14,7 @@
             v-if="content?.surveyElementType === 'binary'"
             :content="content"
             :survey="survey"
+            :survey-results="surveyResults"
         ></SurveyElementBinaryQuestion>
 
         <SurveyElementEmoji

@@ -16,6 +16,15 @@ export default {
             console.log(surveyResults)
             commit('setSurveyResults', surveyResults)
         },
+        async getUuidResults({ commit }, data) {
+            const surveyResults = await SURVEY_RESULTS.getUuidResults(
+                data.surveyId,
+                data.uuid,
+            )
+            console.log(surveyResults)
+            commit('setSurveyResults', surveyResults)
+        },
+
         async sendSurveyResults({ commit }, resultData) {
             console.log(resultData)
             await SURVEY_RESULTS.sendResults(

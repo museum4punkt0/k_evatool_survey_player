@@ -11,12 +11,27 @@
         ></textarea>
 
         <div class="flex">
-            <microphone-icon
-                class="h-6 w-6 inline text-blue-800"
-            ></microphone-icon>
-            <p>Sprache zu Text starten</p>
+            <button
+                type="button"
+                class="
+                    confirm
+                    flex
+                    items-center
+                    rounded-md
+                    nav-button
+                    p-2
+                    mt-5
+                    bg-gray-200
+                    text-gray-900 text-white
+                "
+                @click="confirm"
+            >
+                <microphone-icon
+                    class="h-6 w-6 my-2 inline text-gray-900"
+                ></microphone-icon>
+                <p class="px-2">Sprache zu Text starten</p>
+            </button>
         </div>
-
         <confirm-button></confirm-button>
     </div>
 </template>

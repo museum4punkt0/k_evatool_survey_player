@@ -8,7 +8,7 @@
         @confirm="nextStep"
     />
 
-    <confirm-button></confirm-button>
+    <confirm-button @confirm="nextStep()"></confirm-button>
 </template>
 
 <script>
@@ -75,19 +75,25 @@ export default {
                         rating: rating.value,
                     },
                     uuid: props.surveyResults.uuid,
-                    resultLanguage: 'de',
-                    // props.surveyResults.sampleResultPayload.resultData
-                    //     .resultLanguageId,
+                    resultLanguage: store.state.lang,
                 },
             })
 
+            store.dispatch('surveyResults/getUuidResults', {
+                surveyId: props.survey.id,
+                uuid: window.localStorage.getItem('surveyUUID'),
+            })
+            console.log(props.survey)
+            console.log(props.surveyResults)
+            console.log(store.state.surveyResults.surveyResults)
             // let questionResults = props.surveyResults
             // rating.value = questionResults.results.pop().result_value.rating
         }
         onMounted(() => {
             let questionResults = props.surveyResults
+            console.log(props.survey)
             console.log(questionResults)
-            console.log(questionResults)
+            console.log(store.state.surveyResults.surveyResults)
             console.log(rating)
             // rating.value = questionResults.results.pop().result_value.rating
         })

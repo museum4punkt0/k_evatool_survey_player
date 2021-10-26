@@ -23,16 +23,20 @@
 
 <script>
 import { CheckCircleIcon } from '@heroicons/vue/outline'
+import { useStore } from 'vuex'
 
 export default {
     name: 'ConfirmButton',
     components: { CheckCircleIcon },
     emits: ['confirm'],
     setup(props, { emit }) {
+        const store = useStore()
         const confirm = (i) => {
             emit('confirm', i)
+            store.dispatch('setCurrentStep')
         }
         return {
+            store,
             confirm,
         }
     },
