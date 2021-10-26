@@ -9,11 +9,12 @@
             <button class="ml-5 rounded-md p-2 bg-gray-200">
                 <!--                <arrow-left-icon class="h-4 w-4 inline"></arrow-left-icon>-->
                 <x-icon class="h-4 w-4 inline"></x-icon>
-                Umfrage schließen
+                <span class="hidden md:inline-block">Umfrage schließen</span>
             </button>
-            <menu-icon class="h-6 w-6 mx-4 inline"></menu-icon>
-            <share-icon class="h-6 w-6 mx-4 inline"></share-icon>
-            <home-icon class="h-6 w-6 mx-2 inline"></home-icon>
+
+            <menu-icon class="h-6 w-6 ml-4 md:mr-2 inline"></menu-icon>
+            <share-icon class="h-6 w-6 mx-4 hidden md:inline"></share-icon>
+            <home-icon class="h-6 w-6 mx-2 hidden md:inline"></home-icon>
         </div>
     </div>
 </template>

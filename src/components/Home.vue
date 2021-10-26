@@ -3,37 +3,9 @@
         <div class="survey-header-menu top-0 fixed w-screen z-30 bg-white">
             <header-menu></header-menu>
             <!--            {{ store.state.currentStep }}-->
-            <!--            {{-->
-            <!--                store.state.surveyResults.surveyResults.steps.original.data[-->
-            <!--                    surveyStep-->
-            <!--                ]-->
-            <!--            }}-->
         </div>
         <IdleScreen v-if="idle" @start="idle = false"></IdleScreen>
         <div v-else class="survey-steps mx-5 pt-28 pb-16 px-4">
-            <!--            <div class="survey-navigation">            </div>-->
-            <!--            <h1 class="text-indigo-">{{ store.state.surveys.survey.name }}</h1>-->
-            <!--            <div v-if="nextSurvey && nextSurvey.nextStepId">-->
-            <!--                Next Step:{{ nextSurvey.nextStepId }}-->
-            <!--            </div>-->
-
-            <!--            {{ store.state.surveys.surveySteps }}-->
-            <!--            {{ store.state.surveyResults.surveyResults.steps }}-->
-            <!--            <SurveyElementBuilder-->
-            <!--                v-if="-->
-            <!--                    store.state.surveys.surveySteps &&-->
-            <!--                    store.state.surveyResults.surveyResults &&-->
-            <!--                    store.state.surveyResults.surveyResults.steps &&-->
-            <!--                    store.state.surveyResults.surveyResults.steps[surveyStep]-->
-            <!--                "-->
-            <!--                :survey="store.state.surveys.surveySteps[surveyStep]"-->
-            <!--                :survey-results="-->
-            <!--                    store.state.surveyResults.surveyResults.steps[surveyStep]-->
-            <!--                "-->
-            <!--            ></SurveyElementBuilder>-->
-            <!--            {{ store.state.surveys.surveySteps }}-->
-            <!--             {{ store.state.surveys.surveySteps[surveyStep] }}-->
-
             <SurveyElementBuilder
                 v-if="store.state.surveys.surveySteps"
                 :content="
@@ -45,17 +17,14 @@
                 "
             ></SurveyElementBuilder>
         </div>
-        <div
+
+        <SurveyNavigation
             v-if="!idle"
-            class="survey-footer-menu bottom-0 fixed w-screen z-30 bg-white"
-        >
-            <SurveyNavigation
-                :survey-steps="store.state.surveys.surveySteps.length"
-                :current-step="surveyStep + 1"
-                @next-step="nextStep()"
-                @prev-step="prevStep()"
-            ></SurveyNavigation>
-        </div>
+            :survey-steps="store.state.surveys.surveySteps.length"
+            :current-step="surveyStep + 1"
+            @next-step="nextStep()"
+            @prev-step="prevStep()"
+        ></SurveyNavigation>
     </div>
 </template>
 
