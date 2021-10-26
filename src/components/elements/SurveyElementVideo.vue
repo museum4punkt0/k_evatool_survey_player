@@ -3,6 +3,7 @@
         <div class="sidebar sidebar-left w-2/3 relative p-0 m-0">
             <div class="video-wrap bg-white overflow-hidden relative z-100">
                 <!--                src="https://ak.picdn.net/shutterstock/videos/1060516912/preview/stock-footage-beautiful-sunlight-in-the-forest.webm"-->
+                <!--                {{ content.timeBasedStepsResolved }}-->
                 <video
                     ref="videoPlayer"
                     :src="content.params.videoAsset.urls.original"
@@ -30,23 +31,31 @@
                     "
                 >
                     <ContentSlider
-                        v-if="showQuestion"
+                        v-if="showQuestion && 1 < 0"
                         :content="content"
                         :step="currentStepData()"
                         class="z-20"
                     ></ContentSlider>
+
+                    <ModalContent
+                        v-if="showQuestion"
+                        class="z-20"
+                        :step-question="
+                            content.timeBasedStepsResolved[answeredSteps - 1]
+                        "
+                    ></ModalContent>
                     <formular v-if="showFormular" class="z-20"></formular>
                     <div v-if="showFeedback" class="thanks-feedback">
                         <div class="flex">
                             <img src="../../assets/thanks.svg" class="inline" />
                             <h3 class="text-blue-800">
-                                Danke für ihre Bewertung!
+                                Danke für Ihre Bewertung!
                             </h3>
                         </div>
                     </div>
 
                     <div
-                        v-if="showQuestion"
+                        v-if="showQuestion && 1 < 0"
                         class="
                             mx-auto
                             question
@@ -121,7 +130,13 @@
                     <textarea
                         v-model="comment"
                         type="text"
-                        class="textarea px-5 text-left text-xs w-full"
+                        class="
+                            textarea
+                            px-5
+                            text-left text-xs
+                            w-full
+                            focus:outline-none
+                        "
                         placeholder="Schreibe ein Kommentar zur aktuellen Stelle im Video oder klicke auf das Mikrofon für die Spracheingabe"
                     />
                 </div>
@@ -177,6 +192,8 @@ import MediaControls from '../subelements/MediaControls.vue'
 import TimeLine from '../subelements/TimeLine.vue'
 import Formular from '../subelements/Formular.vue'
 import ContentSlider from '../subelements/ContentSlider.vue'
+import ModalContent from '../subelements/ModalContent.vue'
+
 import {
     TrashIcon,
     CheckCircleIcon,
@@ -201,6 +218,8 @@ export default {
         MicrophoneIcon,
         Formular,
         ContentSlider,
+
+        ModalContent,
     },
     props: {
         content: {

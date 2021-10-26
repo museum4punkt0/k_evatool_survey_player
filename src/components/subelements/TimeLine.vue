@@ -87,12 +87,12 @@
                             "
                         >
                             {{ comment.body }}
-                            <audio
-                                id="player"
-                                type="audio/wav"
-                                :src="audioComment"
-                                controls
-                            ></audio>
+                            <!--                            <audio-->
+                            <!--                                id="player"-->
+                            <!--                                type="audio/wav"-->
+                            <!--                                :src="audioComment"-->
+                            <!--                                controls-->
+                            <!--                            ></audio>-->
                         </p>
                         <div class="mt-5 text-sm">
                             <button

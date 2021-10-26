@@ -29,9 +29,9 @@ export default {
             commit('setSurvey', survey.survey)
             commit('setSurveySteps', survey.steps)
 
-            // if (!window.localStorage.getItem('surveyUUID')) {
-            window.localStorage.setItem('surveyUUID', survey.uuid)
-            // }
+            if (!window.localStorage.getItem('surveyUUID')) {
+                window.localStorage.setItem('surveyUUID', survey.uuid)
+            }
         },
         //async getSurveySteps({ commit }, surveyId) {
         // const survey = await SURVEYS.SURVEYS_getSurveySteps(surveyId)

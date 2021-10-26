@@ -49,7 +49,11 @@ export default {
             })
     },
     async sendResults(surveyId, data) {
-        const url = 'evaluation-tool/surveys/' + surveyId + '/run'
+        const url =
+            'evaluation-tool/surveys/' +
+            surveyId +
+            '/run?uuid=' +
+            window.localStorage.getItem('surveyUUID')
         return axios
             .post(url, data)
             .then((res) => {
