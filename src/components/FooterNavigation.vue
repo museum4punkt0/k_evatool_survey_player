@@ -1,5 +1,6 @@
 <template>
     <div class="survey-navigation-inner flex items-center h-16">
+        <div class="ml-3 text-sm text-gray-500">{{ version }}</div>
         <div class="flex items-center justify-center w-screen">
             <button
                 class="
@@ -81,6 +82,8 @@ import {
     ChevronDoubleRightIcon,
 } from '@heroicons/vue/outline'
 
+import { version } from '../../package.json'
+
 export default {
     name: 'Navigation',
     components: {
@@ -117,6 +120,7 @@ export default {
         return {
             nextStep,
             prevStep,
+            version,
         }
     },
 }
