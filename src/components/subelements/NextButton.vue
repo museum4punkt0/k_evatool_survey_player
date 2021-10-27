@@ -16,14 +16,13 @@
             @click="confirm"
         >
             <check-circle-icon class="h-6 w-6 mr-3 text-white" />
-            {{ t('action_confirm') }}
+            {{ t('action_next') }}
         </button>
     </div>
 </template>
 
 <script>
-// import { CheckCircleIcon } from '@heroicons/vue/outline'
-import { CheckCircleIcon } from '@heroicons/vue/solid'
+import { CheckCircleIcon } from '@heroicons/vue/outline'
 import { useStore } from 'vuex'
 import { useI18n } from 'vue-i18n'
 

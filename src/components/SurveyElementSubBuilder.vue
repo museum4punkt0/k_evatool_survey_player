@@ -1,6 +1,5 @@
 <template>
     <div
-        v-if="content?.surveyElementType !== 'video'"
         class="
             survey-content
             flex flex-wrap flex-col
@@ -42,6 +41,7 @@
             :content="content"
             :survey="survey"
             :survey-results="surveyResults"
+            @confirm="confirmed"
         ></SurveyElementStarRating>
         <SurveyElementTextInput
             v-if="content && content.surveyElementType === 'textInput'"
@@ -63,26 +63,6 @@
             :survey="survey"
             :survey-results="surveyResults"
         ></SurveyElementYayNay>
-    </div>
-    <div
-        v-if="content && content.surveyElementType === 'video'"
-        class="
-            survey-content
-            video-element
-            mx-auto
-            bg-gray-200
-            font-sans
-            h-screen
-            w-full
-            flex flex-col
-            justify-center
-            items-center
-        "
-    >
-        <SurveyElementVideo
-            :content="content"
-            :survey="survey"
-        ></SurveyElementVideo>
     </div>
 </template>
 

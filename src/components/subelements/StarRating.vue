@@ -17,9 +17,13 @@
             </button>
         </div>
         <div class="labels flex justify-between">
-            <p>Wenig</p>
-            <p>Mittle</p>
-            <p>Viel</p>
+            <p
+                v-for="(label, index) in labels"
+                :key="'emoji-lanel-' + index"
+                class="mx-5"
+            >
+                {{ label[lang] }}
+            </p>
         </div>
     </div>
 </template>
@@ -27,7 +31,8 @@
 <script>
 import { StarIcon } from '@heroicons/vue/outline'
 import { CheckCircleIcon } from '@heroicons/vue/outline'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
+import { useStore } from 'vuex'
 export default {
     name: 'StarRating',
     components: {
@@ -43,20 +48,28 @@ export default {
             type: Number,
             default: 5,
         },
+        labels: {
+            type: Array,
+            default: null,
+        },
     },
     emits: ['input'],
     setup(props, { emit }) {
         const rating = ref()
+        const store = useStore()
         const setRating = (i) => {
             rating.value = i
             emit('input', i)
         }
+        const lang = computed({
+            get: () => store.state.lang,
+        })
 
         /*const confirm = (i) => {
             emit('input', i)
         }*/
 
-        return { rating, setRating }
+        return { rating, lang, store, setRating }
     },
 }
 </script>

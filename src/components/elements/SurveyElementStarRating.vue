@@ -3,6 +3,7 @@
     <StarRating
         :value="rating"
         :stars="content.params.numberOfStars"
+        :params="content.params"
         :labels="labels"
         @input="setRating"
         @confirm="nextStep"
@@ -44,8 +45,12 @@ export default {
         const rating = ref(0)
         const store = useStore()
         const route = useRoute()
-        const labels = ref({})
-        labels.value = ['Wenig', 'Mittel', 'Viel']
+        const labels = ref()
+        labels.value = [
+            props.content.params.lowestValueLabel,
+            props.content.params.middleValueLabel,
+            props.content.params.highestValueLabel,
+        ]
 
         const lang = computed({
             get: () => store.state.lang,

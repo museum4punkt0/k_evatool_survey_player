@@ -59,8 +59,15 @@ export default {
         backlink.value = document.referer ? document.referer : '/'
 
         let queries = JSON.parse(JSON.stringify(route.query))
-        console.log(queries)
-        console.log(window.history.state.back)
+        if (queries.backlink) {
+            window.localStorage.setItem('backlink', queries.backlink)
+            window.localStorage.setItem(' ev-tool-backlink', queries.backlink)
+
+            delete queries.backlink
+            console.log(queries)
+            router.replace({ query: queries })
+        }
+
         // if (
         //     !localStorage.getItem('ev-tool-backlink') ||
         //     window.history.state.back !==

@@ -94,9 +94,9 @@ export default {
 
             // seekbar.value = (props.duration * seekbar.value) / props.duration
 
-            console.log(seekToValue.value)
+            console.log(seekToValue)
             console.log(seekbar.value.value)
-            emit('addComment', parseFloat(props.currentTime))
+            // emit('addComment', parseFloat(props.currentTime))
             emit('changeProgress', parseFloat(seekbar.value.value))
 
             document.documentElement.style.setProperty(

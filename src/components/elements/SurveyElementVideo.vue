@@ -8,12 +8,26 @@
                     ref="videoPlayer"
                     :src="content.params.videoAsset.urls.original"
                     muted
-                    autoplay
                     class="mx-auto p-0 m-0 z-10"
                     @timeupdate="videoTimeUpdate"
                     @play="playVideo"
                     @ended="videoEnded"
                 ></video>
+                <div
+                    v-if="!started"
+                    class="
+                        overlay
+                        absolute
+                        w-screen
+                        h-screen
+                        bg-black
+                        opacity-50
+                        left-0
+                        top-0
+                        z-40
+                    "
+                    @click="start"
+                ></div>
                 <div
                     v-if="showQuestion"
                     class="
@@ -194,6 +208,7 @@
                 :interactive-steps="interactiveSteps"
                 :answered-steps="answeredSteps"
                 :content="timelineObject"
+                :time-based-steps="content.timeBasedStepsResolved"
                 :audio-comment="audioComment"
                 @removeComment="removeComment"
                 @editComment="editComment"
@@ -267,7 +282,7 @@ export default {
         const showFeedback = ref(false)
         const showFormular = ref(false)
         const commentBox = ref(false)
-
+        const started = ref(false)
         const audioComment = ref(false)
         const route = useRoute()
 
@@ -418,6 +433,11 @@ export default {
         const changeProgress = (seekToValue) => {
             videoPlayer.value.currentTime = seekToValue
         }
+
+        const start = () => {
+            started.value = true
+            playVideo()
+        }
         const playVideo = () => {
             console.log('playVideo')
             videoPlayer.value.play()
@@ -484,6 +504,8 @@ export default {
             showFormular,
             audioComment,
             commentBox,
+            start,
+            started,
             currentStepData,
             videoEnded,
             tooglePlay,

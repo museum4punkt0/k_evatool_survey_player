@@ -3,10 +3,12 @@
     <!--    {{ content.params }}-->
     <textarea
         v-model="text"
-        class="bg-transparent text-gray-800 w-3/12 text-2xl"
+        class="bg-gray-50 text-gray-800 w-3/12 text-2xl p-2"
         :placeholder="t('write_comment_placeholder')"
         @change="inputText"
     />
+
+    <confirm-button></confirm-button>
 </template>
 
 <script>
@@ -14,9 +16,12 @@ import { computed, ref } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-
+import { CheckCircleIcon } from '@heroicons/vue/outline'
+import ConfirmButton from '../subelements/ConfirmButton.vue'
 export default {
     name: 'SurveyElementTextInput',
+
+    components: { CheckCircleIcon, ConfirmButton },
     props: {
         content: {
             type: Object,

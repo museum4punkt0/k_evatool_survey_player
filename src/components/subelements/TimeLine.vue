@@ -40,6 +40,7 @@
                 bg-white
             "
         >
+            {{ timeBasedSteps[answeredSteps - 1] }}
             <div
                 class="
                     absolute
@@ -171,8 +172,10 @@
                     <div class="order-1 w-10/12 p-1">
                         <div class="inline-block">
                             <h3 class="mb-3 text-gray-400 text-xl inline">
-                                Frage
-                                {{ comment.index }}
+                                {{
+                                    timeBasedSteps[comment.index - 1].step
+                                        .params.question[lang]
+                                }}
                             </h3>
                             <p class="text-gray-400">
                                 {{ convertTime(comment.time) }}
@@ -244,11 +247,9 @@
                     v-if="interactiveSteps.length - answeredSteps > 0"
                     class="mb-3 text-gray-400 text-xl inline"
                 >
-                    noch
-                    {{ interactiveSteps.length - answeredSteps }}
-                    Fragen
+                    {{ answeredSteps }}/{{ interactiveSteps.length }}
+                    Fragen beantwortet
                 </h4>
-                <h4 v-else>Alle Fragen beantwortet</h4>
 
                 <confirm-button></confirm-button>
             </div>
@@ -258,7 +259,7 @@
 
 <script>
 import ConfirmButton from '../subelements/ConfirmButton.vue'
-
+import NextButton from '../subelements/NextButton.vue'
 import {
     PlayIcon,
     ChatAltIcon,
@@ -269,7 +270,8 @@ import {
     TrashIcon,
     CheckCircleIcon,
 } from '@heroicons/vue/outline'
-import { onMounted } from 'vue'
+import { computed, onMounted } from 'vue'
+import { useStore } from 'vuex'
 
 export default {
     name: 'TimeLine',
@@ -281,6 +283,7 @@ export default {
         PencilAltIcon,
         CheckCircleIcon,
         ConfirmButton,
+        NextButton,
     },
     props: {
         interactiveSteps: {
@@ -299,9 +302,17 @@ export default {
             type: String,
             default: null,
         },
+        timeBasedSteps: {
+            type: Object,
+            default: null,
+        },
     },
     emits: ['removeComment', 'editComment'],
     setup(props, { emit }) {
+        const store = useStore()
+        const lang = computed({
+            get: () => store.state.lang,
+        })
         onMounted(() => {
             console.log(props)
         })
@@ -322,6 +333,8 @@ export default {
         }
 
         return {
+            lang,
+            store,
             convertTime,
             removeComment,
             editComment,
