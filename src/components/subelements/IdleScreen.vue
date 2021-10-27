@@ -4,10 +4,7 @@
 
         <div class="m-auto mt-36 w-6/12">
             <h2>
-                Vielen Dank für’s Vorbeischauen. Hier kannst du unsere Inhalte
-                direkt bewerten und somit für ein besseres Angebot sorgen.
-                <br />
-                Backlink: {{ getReferrer() }}
+                {{ t('idle_text') }}
             </h2>
             <button
                 type="button"
@@ -33,13 +30,15 @@
 
 <script>
 import { CheckCircleIcon } from '@heroicons/vue/outline'
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 export default {
     name: 'IdleScreen',
     components: { CheckCircleIcon },
     emits: ['start'],
     setup(props, { emit }) {
+        const { t } = useI18n()
         const confirm = () => {
             emit('start', true)
         }
@@ -58,6 +57,7 @@ export default {
             // window.localStorage.setItem('backlink', getReferrer())
         })
         return {
+            t,
             confirm,
             getReferrer,
         }

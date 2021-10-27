@@ -4,30 +4,39 @@
             <div class="video-wrap bg-white overflow-hidden relative z-20">
                 <!--                src="https://ak.picdn.net/shutterstock/videos/1060516912/preview/stock-footage-beautiful-sunlight-in-the-forest.webm"-->
                 <!--                {{ content.timeBasedStepsResolved }}-->
-                <video
-                    ref="videoPlayer"
-                    :src="content.params.videoAsset.urls.original"
-                    muted
-                    class="mx-auto p-0 m-0 z-10"
-                    @timeupdate="videoTimeUpdate"
-                    @play="playVideo"
-                    @ended="videoEnded"
-                ></video>
-                <div
-                    v-if="!started"
-                    class="
-                        overlay
-                        absolute
-                        w-screen
-                        h-screen
-                        bg-black
-                        opacity-50
-                        left-0
-                        top-0
-                        z-40
-                    "
-                    @click="start"
-                ></div>
+                <div class="relative">
+                    <video
+                        ref="videoPlayer"
+                        :src="content.params.videoAsset.urls.original"
+                        muted
+                        class="mx-auto p-0 m-0 z-10"
+                        @timeupdate="videoTimeUpdate"
+                        @play="playVideo"
+                        @ended="videoEnded"
+                    ></video>
+                    <div
+                        v-if="!started || !videoIsPlaying"
+                        class="
+                            overlay
+                            absolute
+                            w-full
+                            h-full
+                            bg-black
+                            opacity-50
+                            left-0
+                            top-0
+                            z-20
+                            flex
+                            items-center
+                            justify-center
+                        "
+                        @click="start"
+                    >
+                        <play-icon
+                            class="h-32 w-32 z-100 inline text-white"
+                        ></play-icon>
+                    </div>
+                </div>
                 <div
                     v-if="showQuestion"
                     class="
@@ -172,7 +181,7 @@
                             w-full
                             focus:outline-none
                         "
-                        placeholder="Schreibe ein Kommentar zur aktuellen Stelle im Video oder klicke auf das Mikrofon für die Spracheingabe"
+                        :placeholder="t('write_video_comment_placeholder')"
                     />
                 </div>
                 <div class="flex justify-between">
@@ -181,7 +190,8 @@
                             <clock-icon
                                 class="h-6 w-6 mr-2 inline text-gray-400"
                             ></clock-icon>
-                            {{ convertTime(mediaCurrentTime) }} / Kommentar
+                            {{ convertTime(mediaCurrentTime) }} /
+                            {{ t('comments', 1) }}
                             {{ timelineObject.length + 1 }}
                         </div>
                     </div>
@@ -193,11 +203,11 @@
                             <trash-icon
                                 class="h-6 w-6 mr-2 inline text-red-600"
                             />
-                            Löschen
+                            {{ t('action_delete') }}
                         </button>
                         <button class="rounded px-2 py-1" @click="saveComment">
                             <check-circle-icon class="h-6 w-6 mr-2 inline" />
-                            Speichern
+                            {{ t('action_save') }}
                         </button>
                     </div>
                 </div>
@@ -231,6 +241,7 @@ import ContentSlider from '../subelements/ContentSlider.vue'
 import ModalContent from '../subelements/ModalContent.vue'
 
 import {
+    PlayIcon,
     TrashIcon,
     CheckCircleIcon,
     ClockIcon,
@@ -238,6 +249,7 @@ import {
 } from '@heroicons/vue/outline'
 
 import { useRoute } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 
 // import SurveyElementBuilder from '../SurveyElementBuilder.vue'
 
@@ -248,6 +260,7 @@ export default {
         ProgressBar,
         MediaControls,
         TimeLine,
+        PlayIcon,
         TrashIcon,
         ClockIcon,
         CheckCircleIcon,
@@ -272,6 +285,7 @@ export default {
         },
     },
     setup(props) {
+        const { t } = useI18n()
         const videoPlayer = ref(null)
         const interactiveSteps = ref([])
         const answeredSteps = ref(0)
@@ -414,16 +428,16 @@ export default {
                     timeBasedSteps.value[answeredSteps.value].stepId,
                 )
 
-                questionsCounter.value = timelineObject.value.filter(
-                    (x) => x.type === 'question',
-                )
+                // questionsCounter.value = timelineObject.value.filter(
+                //     (x) => x.type === 'question',
+                // )
 
-                timelineObject.value.push({
-                    body: '',
-                    type: 'question',
-                    time: currentTime,
-                    index: questionsCounter.value.length + 1,
-                })
+                // timelineObject.value.push({
+                //     body: '',
+                //     type: 'question',
+                //     time: currentTime,
+                //     index: questionsCounter.value.length + 1,
+                // })
 
                 showQuestion.value = true
                 answeredSteps.value++
@@ -484,9 +498,22 @@ export default {
                 let stopAtSecond = convertTimeCode(timestep.timecode)
                 interactiveSteps.value.push(stopAtSecond)
             })
+
+            props.content.timeBasedStepsResolved.forEach((el, index) => {
+                console.log(el)
+                timelineObject.value.push({
+                    body: '',
+                    type: 'question',
+                    time: convertTimeCode(el.timecode),
+                    index: index,
+                })
+            })
+
+            console.log(timelineObject.value)
         })
 
         return {
+            t,
             questionsCounter,
             commentsCounter,
             showQuestion,

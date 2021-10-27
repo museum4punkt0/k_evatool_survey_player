@@ -5,14 +5,16 @@
     <!--        class="bg-transparent text-gray-800 w-3/12 text-2xl"-->
     <!--        placeholder="Schreibe einen Kommentar..."-->
     <!--    />-->
+    <NextButton></NextButton>
 </template>
 
 <script>
 import { computed, ref } from 'vue'
 import { useStore } from 'vuex'
-
+import NextButton from '../subelements/NextButton.vue'
 export default {
     name: 'SurveyElementSimpleText',
+    components: { NextButton },
     props: {
         content: {
             type: Object,
@@ -35,6 +37,8 @@ export default {
         const lang = computed({
             get: () => store.state.lang,
         })
+
+        // const nextStep = () => {}
         return {
             lang,
             store,

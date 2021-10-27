@@ -22,10 +22,9 @@
                 text-white
             "
         >
-            <h3>Übersicht</h3>
+            <h3>{{ t('overview') }}</h3>
             <p>
-                Hier siehst du die Übersicht aller erstellten Kommentare und
-                beantworteten Fragen.
+                {{ t('overview_description') }}
             </p>
         </div>
         <div
@@ -40,18 +39,17 @@
                 bg-white
             "
         >
-            {{ timeBasedSteps[answeredSteps - 1] }}
+            <!--            {{ timeBasedSteps[answeredSteps - 1] }}-->
             <div
                 class="
                     absolute
                     border-opacity-20 border-gray-700
                     h-full
                     border
-                    ml-4
+                    ml-7
                 "
             ></div>
             <!-- right timeline -->
-
             <template
                 v-for="(comment, index) in content"
                 :key="'comment-' + index"
@@ -93,9 +91,12 @@
                         </h1>
                     </div>
                     <div class="order-1 w-10/12 p-1">
-                        <h3 class="text-gray-800 inline text-xl">Kommentar</h3>
+                        <h3 class="text-gray-800 text-xl">
+                            {{ t('comments', 1) }}
+                        </h3>
                         <p class="text-gray-400 inline">
-                            bei {{ convertTime(comment.time) }}
+                            {{ t('answered_at') }}
+                            {{ convertTime(comment.time) }}
                         </p>
                         <p
                             class="
@@ -122,7 +123,7 @@
                                 <trash-icon
                                     class="h-6 w-6 mr-2 inline text-red-600"
                                 />
-                                Löschen
+                                {{ t('action_delete') }}
                             </button>
                             <button
                                 class="rounded-3xl border-2 px-4 ml-5 py-1"
@@ -131,7 +132,7 @@
                                 <pencil-alt-icon
                                     class="h-6 w-6 mr-2 inline text-blue-600"
                                 />
-                                Ansehen & Bearbeiten
+                                {{ t('view_edit') }}
                             </button>
                         </div>
                     </div>
@@ -155,47 +156,89 @@
                             z-20
                             flex
                             items-center
-                            order-1
-                            bg-gray-300
-                            shadow-xl
-                            w-8
-                            h-8
+                            bg-blue-700
+                            border-white border-8
+                            w-14
+                            h-14
                             rounded-full
                         "
+                        :class="{
+                            'bg-green-400': index < answeredSteps + 1,
+                        }"
                     >
                         <h1 class="mx-auto text-black font-semibold text-lg">
+                            <check-icon
+                                v-if="index < answeredSteps + 1"
+                                class="
+                                    h-6
+                                    w-6
+                                    bg-green-400
+                                    rounded-full
+                                    text-white
+                                "
+                            />
                             <question-mark-circle-icon
-                                class="h-6 w-6 bg-gray-300 text-blue-600"
+                                v-else
+                                class="
+                                    h-6
+                                    w-6
+                                    bg-blue-700
+                                    rounded-full
+                                    text-white
+                                "
+                                :class="{
+                                    'bg-green-400': index < answeredSteps + 1,
+                                }"
                             />
                         </h1>
                     </div>
                     <div class="order-1 w-10/12 p-1">
                         <div class="inline-block">
-                            <h3 class="mb-3 text-gray-400 text-xl inline">
+                            <h3
+                                class="mb-3 text-blue-700 text-xl inline"
+                                :class="{
+                                    'text-green-400': index < answeredSteps + 1,
+                                }"
+                            >
                                 {{
-                                    timeBasedSteps[comment.index - 1].step
-                                        .params.question[lang]
+                                    timeBasedSteps[index].step.params.question[
+                                        lang
+                                    ]
                                 }}
+                                <!--                                {{-->
+                                <!--                                    timeBasedSteps[comment.index - 1].step-->
+                                <!--                                        .params.question[lang]-->
+                                <!--                                }}-->
                             </h3>
                             <p class="text-gray-400">
+                                {{ t('question_at') }}
                                 {{ convertTime(comment.time) }}
                             </p>
                         </div>
+
                         <button
-                            class="
-                                rounded-3xl
-                                align-top
-                                border-2
-                                px-4
-                                ml-5
-                                py-1
-                            "
+                            v-if="index < answeredSteps + 1"
+                            class="rounded-3xl align-top border-2 px-4 py-1"
                             @click="editComment(comment)"
                         >
                             <pencil-alt-icon
                                 class="h-6 w-6 mr-2 inline text-blue-600"
                             />
-                            Ansehen & Bearbeiten
+                            {{ t('view_edit') }}
+                        </button>
+                        <button
+                            v-else
+                            class="rounded-3xl align-top border-2 px-4 py-1"
+                            @click="editComment(comment)"
+                        >
+                            <fast-forward-icon
+                                class="h-6 w-6 mr-2 inline text-blue-600"
+                            />
+                            <!--                            <pencil-alt-icon-->
+                            <!--                                class="h-6 w-6 mr-2 inline text-blue-600"-->
+                            <!--                            />-->
+                            <!--                            {{ t('view_edit') }}-->
+                            {{ t('jump_to_question') }}
                         </button>
                     </div>
                 </div>
@@ -208,7 +251,7 @@
                 flex
                 justify-between
                 flex-row
-                items-start
+                items-center
                 left-timeline
                 bg-white
                 md:mx-2
@@ -223,35 +266,36 @@
                     flex
                     items-center
                     order-1
-                    bg-gray-300
-                    shadow-xl
-                    w-8
-                    h-8
+                    bg-blue-700
+                    w-14
+                    h-14
+                    border-white border-8
                     mx-3
                     rounded-full
                 "
+                :class="{
+                    'bg-green-400': interactiveSteps.length - answeredSteps > 0,
+                }"
             >
-                <h1
-                    v-if="interactiveSteps.length - answeredSteps > 0"
-                    class="mx-auto text-black font-semibold text-lg"
-                >
-                    <question-mark-circle-icon class="h-6 w-6 bg-gray-300" />
-                </h1>
+                <!--                <h1-->
+                <!--                    v-if="interactiveSteps.length - answeredSteps > 0"-->
+                <!--                    class="mx-auto text-black font-semibold text-lg"-->
+                <!--                >-->
+                <!--                    <question-mark-circle-icon class="h-6 w-6 text-white" />-->
+                <!--                </h1>-->
 
-                <h1 v-else class="mx-auto text-black font-semibold text-lg">
-                    <check-circle-icon class="h-6 w-6 text-blue-600" />
+                <h1 class="mx-auto text-black font-semibold text-lg">
+                    <check-circle-icon class="h-5 w-5 text-white" />
                 </h1>
             </div>
-            <div class="order-1 w-10/12 p-1">
-                <h4
-                    v-if="interactiveSteps.length - answeredSteps > 0"
-                    class="mb-3 text-gray-400 text-xl inline"
-                >
+            <div class="order-1 w-10/12 p-1 flex justify-between items-center">
+                <!--                v-if="interactiveSteps.length - answeredSteps > 0"-->
+                <h4 class="text-gray-400 text-xl inline">
                     {{ answeredSteps }}/{{ interactiveSteps.length }}
-                    Fragen beantwortet
+                    {{ t('questions_answered') }}
                 </h4>
 
-                <confirm-button></confirm-button>
+                <next-button></next-button>
             </div>
         </div>
     </div>
@@ -263,19 +307,23 @@ import NextButton from '../subelements/NextButton.vue'
 import {
     PlayIcon,
     ChatAltIcon,
+    CheckCircleIcon,
+    CheckIcon,
     QuestionMarkCircleIcon,
 } from '@heroicons/vue/solid'
 import {
     PencilAltIcon,
     TrashIcon,
-    CheckCircleIcon,
+    FastForwardIcon,
 } from '@heroicons/vue/outline'
 import { computed, onMounted } from 'vue'
 import { useStore } from 'vuex'
+import { useI18n } from 'vue-i18n'
 
 export default {
     name: 'TimeLine',
     components: {
+        CheckIcon,
         PlayIcon,
         ChatAltIcon,
         TrashIcon,
@@ -284,6 +332,7 @@ export default {
         CheckCircleIcon,
         ConfirmButton,
         NextButton,
+        FastForwardIcon,
     },
     props: {
         interactiveSteps: {
@@ -309,6 +358,7 @@ export default {
     },
     emits: ['removeComment', 'editComment'],
     setup(props, { emit }) {
+        const { t } = useI18n()
         const store = useStore()
         const lang = computed({
             get: () => store.state.lang,
@@ -333,6 +383,7 @@ export default {
         }
 
         return {
+            t,
             lang,
             store,
             convertTime,

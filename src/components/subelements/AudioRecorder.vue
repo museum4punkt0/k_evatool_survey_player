@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { MicrophoneIcon } from '@heroicons/vue/outline'
 
@@ -36,6 +36,12 @@ export default {
     name: 'AudioRecorder',
     components: {
         MicrophoneIcon,
+    },
+    props: {
+        recording: {
+            type: Boolean,
+            default: false,
+        },
     },
     emits: ['send-audio-asset'],
     setup(props, { emit }) {
@@ -105,6 +111,18 @@ export default {
                 reader.onerror = (error) => reject(error)
             })
         }
+
+        watch(
+            () => props.recording,
+            (value) => {
+                console.log(value)
+                if (value) {
+                    startRecording()
+                } else {
+                    stopRecording()
+                }
+            },
+        )
         onMounted(() => {
             if (
                 !navigator.mediaDevices &&

@@ -295,12 +295,12 @@ export default {
 <style lang="scss">
 .card-container {
     position: relative;
-    width: 40vw;
+    //width: 40vw;
     left: 50%;
     padding: 20px;
     display: inline-block;
     transform: translateX(-50%);
-    height: 570px;
+    //height: 570px;
     justify-content: center;
 }
 
