@@ -19,10 +19,14 @@ export default createStore({
             state.suveyId = suveyId
         },
         setCurrentStep(state) {
-            state.currentStep++
+            if (state.currentStep + 1 < state.surveys.surveySteps.length) {
+                state.currentStep++
+            }
         },
         decCurrentStep(state) {
-            state.currentStep--
+            if (state.currentStep > 0) {
+                state.currentStep--
+            }
         },
         setLanguages(state, languages) {
             state.languages = languages

@@ -16,12 +16,19 @@
             />
         </div>
         <p class="text-gray-700">
-            mind. {{ surveyResults.params.minSelectable }} auswählen
+            {{
+                t('min_selectable', {
+                    selectable: surveyResults.params.minSelectable,
+                })
+            }}
         </p>
         <p class="text-gray-700">
-            max. {{ surveyResults.params.maxSelectable }} auswählen
+            {{
+                t('max_selectable', {
+                    selectable: surveyResults.params.maxSelectable,
+                })
+            }}
         </p>
-        <!--        Selected Answers :{{ selectedOptions }}-->
         <confirm-button></confirm-button>
     </div>
 </template>
@@ -32,6 +39,7 @@ import { useStore } from 'vuex'
 import SelectButton from '../subelements/SelectButton.vue'
 import ConfirmButton from '../subelements/ConfirmButton.vue'
 import { useRoute } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 
 export default {
     name: 'SurveyElementMultipleChoice',
@@ -54,6 +62,7 @@ export default {
         const selectedOptions = ref([])
         const store = useStore()
         const route = useRoute()
+        const { t } = useI18n()
         // const allowSkip = ref(props.content.allowSkip)
         const resultBasedNextSteps = ref(props.content.resultBasedNextSteps)
 
@@ -97,6 +106,7 @@ export default {
         })
 
         return {
+            t,
             store,
             route,
             selectedOptions,

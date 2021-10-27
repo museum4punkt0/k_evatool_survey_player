@@ -1,17 +1,22 @@
 <template>
     <h2 class="pb-5" v-html="content.params.question[lang]"></h2>
 
-    <div class="flex justify-center items-center">
+    <div class="flex mb-2 justify-center items-center">
         <div
             v-for="(emoji, index) in surveyResults.params.emojis"
             :key="'emoji-' + index"
             @click="setResult(emoji.meaning)"
         >
-            <span class="p-5 text-3xl">{{ emoji.type }}</span>
+            <span
+                class="p-5 text-3xl"
+                :class="{ selected: result === emoji.meaning }"
+            >
+                {{ emoji.type }}
+            </span>
             <!--        <emoji-happy-icon class="h-8 w-8" @click="setResult(emoji.meaning)" />-->
         </div>
     </div>
-    Selected: {{ result }}
+    <!--    Selected: {{ result }}-->
 
     <confirm-button></confirm-button>
 </template>
@@ -85,4 +90,8 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.selected {
+    border-bottom: 2px solid blue;
+}
+</style>

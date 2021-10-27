@@ -6,7 +6,7 @@
             :images="content.params.assets"
             @draggedThreshold="setResult"
         ></SwipeAnswer>
-        <div>1/{{ content.params.assets.length }} Karten eingestuft</div>
+        <!--        <div>1/{{ content.params.assets.length }} Karten eingestuft</div>-->
         <div class="inline flex mt-5">
             <button
                 type="button"
@@ -28,7 +28,7 @@
                 <x-circle-icon
                     class="h-8 w-8 mr-3 inline text-white"
                 ></x-circle-icon>
-                Nein
+
                 {{ t('action_no') }}
             </button>
             <button
@@ -73,7 +73,7 @@
         <!--            <check-circle-icon class="h-6 w-6 mr-3 text-white" />-->
         <!--            Eingabe bestätigen-->
         <!--        </button>-->
-        <confirm-button></confirm-button>
+        <!--        <confirm-button></confirm-button>-->
     </div>
 </template>
 

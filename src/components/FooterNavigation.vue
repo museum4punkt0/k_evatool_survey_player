@@ -25,7 +25,8 @@
                         <chevron-double-left-icon
                             class="h-5 w-5 mr-1"
                         ></chevron-double-left-icon>
-                        Zurück
+
+                        {{ t('action_prev') }}
                     </button>
                     <span class="mx-4 p-0">
                         {{ store.state.currentStep + 1 }}/{{ surveySteps }}
@@ -34,7 +35,7 @@
                         class="next flex items-center rounded-md nav-button p-2"
                         @click="nextStep()"
                     >
-                        Weiter
+                        {{ t('action_next') }}
                         <chevron-double-right-icon
                             class="h-5 w-5 ml-2"
                         ></chevron-double-right-icon>
@@ -99,6 +100,7 @@ import {
 import { useStore } from 'vuex'
 
 import { version } from '../../package.json'
+import { useI18n } from 'vue-i18n'
 
 export default {
     name: 'Navigation',
@@ -121,6 +123,7 @@ export default {
     emits: ['next-step', 'prev-step'],
     setup(props, { emit }) {
         const store = useStore()
+        const { t } = useI18n()
         const nextStep = () => {
             if (props.currentStep < props.surveySteps) {
                 console.log('nextStep')
@@ -136,10 +139,11 @@ export default {
         }
 
         return {
+            t,
             store,
+            version,
             nextStep,
             prevStep,
-            version,
         }
     },
 }

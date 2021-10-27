@@ -1,14 +1,5 @@
 <template>
-    <div
-        class="
-            bg-gray-200
-            font-sans
-            my-16
-            flex flex-wrap
-            justify-center
-            items-center
-        "
-    >
+    <div class="font-sans my-16 flex flex-wrap justify-center items-center">
         <div class="flex mt-16 h-1/2 relative">
             <img
                 src="../../assets/swipe-left.svg"
@@ -20,36 +11,35 @@
                     z-20
                     top-1/2
                     left-10
-                    -translate-y-1/2
                 "
             />
             <div class="mx-auto absolute card-container w-8/12 h-2/3 z-10">
                 <!--                v-if="currentElement > images.length"-->
-                <div
-                    v-if="currentElement === images.length"
-                    class="flex items-center h-100 top-50 m-auto"
-                >
-                    <p>Sie haben alle Fragen beantwortet!</p>
-                </div>
+                <!--                <div-->
+                <!--                    v-if="currentElement === images.length"-->
+                <!--                    class="flex items-center h-100 top-50 m-auto"-->
+                <!--                >-->
+                <!--                    <p>Sie haben alle Fragen beantwortet!</p>-->
+                <!--                </div>-->
 
                 <div
                     v-for="(image, index) in images"
-                    v-else
                     :key="'card-' + index"
                     class="
                         card
                         absolute
                         touch-element
                         w-96
-                        bg-white
-                        shadow-xl
                         hover:shadow
                         rounded-t-xl
+                        bg-white
                     "
                     :class="[
                         { 'transition-all linear duration-300': !dragging },
                         { 'opacity-0 duration-0': index < currentElement },
-                        { 'card-active': index === currentElement },
+                        {
+                            'card-active  shadow-xl': index === currentElement,
+                        },
                     ]"
                     :style="index === currentElement ? transformString : ''"
                     @mousedown="onMouseDown"
@@ -87,7 +77,6 @@
                     z-20
                     top-1/2
                     right-10
-                    -translate-y-1/2
                 "
             />
         </div>
@@ -97,6 +86,7 @@
 <script>
 import { ref } from 'vue'
 import { onMounted, watch } from 'vue'
+import { useStore } from 'vuex'
 
 export default {
     name: 'SwipeAnswer',
@@ -112,6 +102,7 @@ export default {
     },
     emits: ['draggedThreshold'],
     setup(props, { emit }) {
+        const store = useStore()
         const positions = ref({})
         const dragging = ref(true)
         const hideElement = ref(false)
@@ -246,6 +237,12 @@ export default {
 
             setTimeout(() => {
                 onTouchEnd()
+
+                if (currentElement.value === props.images.length) {
+                    setTimeout(() => {
+                        store.dispatch('setCurrentStep')
+                    }, 1000)
+                }
             }, 400)
         }
 
@@ -271,6 +268,7 @@ export default {
 
         return {
             loaded,
+            store,
             hideElement,
             currentElement,
             dragging,
@@ -297,11 +295,12 @@ export default {
 <style lang="scss">
 .card-container {
     position: relative;
-    width: 450px;
+    width: 40vw;
     left: 50%;
+    padding: 20px;
+    display: inline-block;
     transform: translateX(-50%);
     height: 570px;
-    display: flex;
     justify-content: center;
 }
 
