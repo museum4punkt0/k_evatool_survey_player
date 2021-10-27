@@ -1,13 +1,11 @@
 <template>
     <div class="flex flex-wrap flex-col">
         <h2 class="pb-5" v-html="content.params.question[lang]"></h2>
-
-        <!--        // ToDo placeholder lang-->
         <textarea
             class="bg-transparent focus:outline-none"
             cols="30"
             rows="3"
-            placeholder="Klicke auf das Mikrofon zur Spracheingabe, was du sagst, wird dann in Text umgewandelt."
+            :placeholder="t('voice_recorder_placeholder')"
         ></textarea>
 
         <div class="flex">
@@ -41,7 +39,7 @@ import { MicrophoneIcon } from '@heroicons/vue/outline'
 import ConfirmButton from '../subelements/ConfirmButton.vue'
 import { computed } from 'vue'
 import { useStore } from 'vuex'
-
+import { useI18n } from 'vue-i18n'
 export default {
     name: 'SurveyElementVoiceInput',
     components: {
@@ -64,12 +62,15 @@ export default {
     },
     setup() {
         const store = useStore()
+        const { t } = useI18n()
+
         const lang = computed({
             get: () => store.state.lang,
         })
         return {
             store,
             lang,
+            t,
         }
     },
 }

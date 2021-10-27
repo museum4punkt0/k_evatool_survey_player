@@ -16,7 +16,7 @@
             @click="confirm"
         >
             <check-circle-icon class="h-6 w-6 mr-3 text-white" />
-            Eingabe bestätigen
+            {{ t('action_confirm') }}
         </button>
     </div>
 </template>
@@ -24,6 +24,7 @@
 <script>
 import { CheckCircleIcon } from '@heroicons/vue/outline'
 import { useStore } from 'vuex'
+import { useI18n } from 'vue-i18n'
 
 export default {
     name: 'ConfirmButton',
@@ -31,11 +32,13 @@ export default {
     emits: ['confirm'],
     setup(props, { emit }) {
         const store = useStore()
+        const { t } = useI18n()
         const confirm = (i) => {
             emit('confirm', i)
             store.dispatch('setCurrentStep')
         }
         return {
+            t,
             store,
             confirm,
         }

@@ -1,12 +1,14 @@
 <template>
     <div class="flex justify-between items-center px-5 py-2 mx-5 z-50">
         <div class="left-menu">
-            <a href="http://localhost:3001/#/?id=2">
-                <img src="../assets/logo.svg" class="inline" />
-            </a>
+            <img src="../assets/logo.svg" class="inline" />
         </div>
         <div class="right-menu">
-            <button class="ml-5 rounded-md p-2 bg-gray-200" @click="openPage">
+            <button
+                v-if="backlink"
+                class="ml-5 rounded-md p-2 bg-gray-200"
+                @click="openPage"
+            >
                 <!--                <arrow-left-icon class="h-4 w-4 inline"></arrow-left-icon>-->
                 <x-icon class="h-4 w-4 inline"></x-icon>
                 <span class="hidden md:inline-block">Umfrage schließen</span>
@@ -27,6 +29,7 @@ import {
     MenuIcon,
 } from '@heroicons/vue/outline'
 import { HomeIcon } from '@heroicons/vue/solid'
+import { ref } from 'vue'
 
 export default {
     name: 'HeaderMenu',
@@ -38,11 +41,13 @@ export default {
         HomeIcon,
     },
     setup() {
+        const backlink = ref()
+        backlink.value = localStorage.getItem('ev-tool-backlink')
         const openPage = () => {
-            let backlink = localStorage.getItem('ev-tool-backlink')
-            location.href = backlink
+            window.location.href = backlink.value
         }
         return {
+            backlink,
             openPage,
         }
     },

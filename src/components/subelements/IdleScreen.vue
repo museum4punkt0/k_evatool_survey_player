@@ -54,8 +54,8 @@ export default {
         }
         onMounted(() => {
             console.log(getReferrer())
-            localStorage.setItem('ev-tool-backlink', getReferrer())
-            localStorage.setItem('backlink', getReferrer())
+            window.localStorage.setItem('ev-tool-backlink', getReferrer())
+            window.localStorage.setItem('backlink', getReferrer())
         })
         return {
             confirm,

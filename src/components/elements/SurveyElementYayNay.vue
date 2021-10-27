@@ -29,6 +29,7 @@
                     class="h-8 w-8 mr-3 inline text-white"
                 ></x-circle-icon>
                 Nein
+                {{ t('action_no') }}
             </button>
             <button
                 type="button"
@@ -50,7 +51,7 @@
                 <check-circle-icon
                     class="h-8 w-8 mr-3 inline text-white"
                 ></check-circle-icon>
-                Ja
+                {{ t('action_yes') }}
             </button>
         </div>
 
@@ -85,6 +86,7 @@ import { onMounted } from 'vue'
 import { XCircleIcon, CheckCircleIcon } from '@heroicons/vue/outline'
 import { useRoute } from 'vue-router'
 import ConfirmButton from '../subelements/ConfirmButton.vue'
+import { useI18n } from 'vue-i18n'
 export default {
     name: 'SurveyElementYayNay',
     components: { SwipeAnswer, XCircleIcon, CheckCircleIcon, ConfirmButton },
@@ -106,6 +108,7 @@ export default {
         // const result = ref(0)
         const store = useStore()
         const route = useRoute()
+        const { t } = useI18n()
         console.log(props.surveyResults)
         const lang = computed({
             get: () => store.state.lang,
@@ -150,6 +153,7 @@ export default {
             // }
         })
         return {
+            t,
             lang,
             store,
             results,
