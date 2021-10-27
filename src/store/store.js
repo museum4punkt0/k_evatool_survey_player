@@ -44,8 +44,8 @@ export default createStore({
         },
     },
     actions: {
-        setSurveyId({ commit }, suveyId) {
-            commit('setSurveyId', suveyId)
+        setSurveyId({ commit }, surveyId) {
+            commit('setSurveyId', surveyId)
         },
         setCurrentStep({ commit }) {
             commit('setCurrentStep')
