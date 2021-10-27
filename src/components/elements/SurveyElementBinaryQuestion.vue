@@ -95,7 +95,7 @@ export default {
         const handleAnswer = () => {
             console.log(selectedAnswer.value)
             store.dispatch('surveyResults/sendSurveyResults', {
-                surveyId: route.query.id,
+                surveyId: route.query.survey,
                 data: {
                     surveyStepId: props.content.id,
                     resultValue: {

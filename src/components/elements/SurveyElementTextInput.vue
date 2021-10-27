@@ -45,7 +45,7 @@ export default {
             console.log(text.value)
 
             store.dispatch('surveyResults/sendSurveyResults', {
-                surveyId: route.query.id,
+                surveyId: route.query.survey,
                 // resultLanguageId:
                 //     props.surveyResults.sampleResultPayload.resultData
                 //         .resultLanguageId,

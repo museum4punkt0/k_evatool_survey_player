@@ -199,10 +199,10 @@ export default {
 
         onMounted(() => {
             slidesCounter.value = document.querySelectorAll('.slide').length
-            store.dispatch('surveys/getSurveyStepById', {
+            /*store.dispatch('surveys/getSurveyStepById', {
                 surveyId: 2,
                 stepId: 43,
-            })
+            })*/
         })
 
         return {

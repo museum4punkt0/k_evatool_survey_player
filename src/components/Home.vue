@@ -73,8 +73,8 @@ export default {
         //
         // router.replace({ query: queries })
 
-        const surveyId = route.query.id || 1
-        queries.id = route.query.id || 1
+        const surveySlug = route.query.survey || ''
+        queries.survey = route.query.survey || ''
         router.replace({ query: queries })
         const userLang = route.query.lang || ''
 
@@ -83,9 +83,9 @@ export default {
 
         //store.dispatch('getLanguages', userLang)
         //store.dispatch('setUserLanguage', userLang)
-        store.dispatch('surveys/getSurvey', surveyId)
+        store.dispatch('surveys/getSurvey', surveySlug)
         // store.dispatch('surveys/getSurveySteps', surveyId)
-        store.dispatch('surveyResults/setSurveyResults', surveyId)
+        store.dispatch('surveyResults/setSurveyResults', surveySlug)
 
         console.log(route.query)
         console.log(router)

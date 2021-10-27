@@ -2,8 +2,8 @@ import axios from 'axios'
 
 axios.defaults.headers['X-DEMO'] = true
 export default {
-    async SURVEYS_getSurvey(surveyId) {
-        const url = 'evaluation-tool/surveys/' + surveyId + '/run'
+    async SURVEYS_getSurvey(surveySlug) {
+        const url = 'evaluation-tool/surveys/' + surveySlug + '/run'
         return axios
             .get(url)
             .then((response) => {
@@ -14,7 +14,7 @@ export default {
                 return error
             })
     },
-    async SURVEYS_getSurveySteps(surveyId) {
+    /*async SURVEYS_getSurveySteps(surveyId) {
         const url = 'evaluation-tool/surveys/' + surveyId + '/survey-steps'
         return axios
             .get(url)
@@ -24,8 +24,8 @@ export default {
             .catch((error) => {
                 return error
             })
-    },
-    async SURVEYS_getSurveyStepById(surveyId, stepId) {
+    },*/
+    /*async SURVEYS_getSurveyStepById(surveyId, stepId) {
         // const url = 'evaluation-tool/survey-steps/' + stepId
         const url = 'evaluation-tool/surveys/' + surveyId + '/steps/' + stepId
 
@@ -49,5 +49,5 @@ export default {
             .catch((error) => {
                 return error
             })
-    },
+    },*/
 }

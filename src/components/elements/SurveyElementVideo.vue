@@ -452,7 +452,7 @@ export default {
         const sendAudioAsset = (wav) => {
             console.log(props.content)
             store.dispatch('surveyResults/sendSurveyAudioAsset', {
-                surveyStepResultId: route.query.id,
+                surveyStepResultId: route.query.survey,
                 audio: wav,
             })
             audioComment.value = wav
