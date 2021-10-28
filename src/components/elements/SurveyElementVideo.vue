@@ -3,7 +3,7 @@
         <div class="sidebar sidebar-left w-full md:w-2/3 relative p-0 m-0">
             <div class="video-wrap bg-white overflow-hidden relative z-20">
                 <!--                src="https://ak.picdn.net/shutterstock/videos/1060516912/preview/stock-footage-beautiful-sunlight-in-the-forest.webm"-->
-                <!--                {{ content.timeBasedStepsResolved }}-->
+                <!--                {{ content.timeBasedSteps }}-->
                 <div class="relative">
                     <video
                         ref="videoPlayer"
@@ -82,7 +82,7 @@
                         v-if="showQuestion"
                         class="z-20 md:relative"
                         :step-question="
-                            content.timeBasedStepsResolved[answeredSteps - 1]
+                            content.timeBasedSteps[answeredSteps - 1]
                         "
                         @confirmed-answer="confirmdAnswer"
                     ></ModalContent>
@@ -221,7 +221,7 @@
                 :answered-steps="answeredSteps"
                 :answered-steps-object="answeredStepsObject"
                 :content="timelineObject"
-                :time-based-steps="content.timeBasedStepsResolved"
+                :time-based-steps="content.timeBasedSteps"
                 :audio-comment="audioComment"
                 @removeComment="removeComment"
                 @editComment="editComment"
@@ -308,9 +308,7 @@ export default {
             return timeBasedSteps.value[answeredSteps.value - 1]
         }
         const confirmdAnswer = (id) => {
-            answeredStepsObject.value.push(
-                props.content.timeBasedStepsResolved[id],
-            )
+            answeredStepsObject.value.push(props.content.timeBasedSteps[id])
         }
 
         const comment = ref()
@@ -507,7 +505,7 @@ export default {
                 interactiveSteps.value.push(stopAtSecond)
             })
 
-            props.content.timeBasedStepsResolved.forEach((el, index) => {
+            props.content.timeBasedSteps.forEach((el, index) => {
                 console.log(el)
                 timelineObject.value.push({
                     body: '',
