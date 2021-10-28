@@ -4,11 +4,16 @@ axios.defaults.headers['X-DEMO'] = true
 export default {
     async getResults(surveySlug) {
         console.log(surveySlug)
-        const url = 'evaluation-tool/surveys/' + surveySlug + '/run'
-
+        const url =
+            'evaluation-tool/surveys/' +
+            surveySlug +
+            '/run?uuid=' +
+            window.localStorage.getItem('surveyUUID')
+        console.log(url)
         return axios
             .get(url)
             .then((response) => {
+                console.log(response.data)
                 return response.data
             })
             .catch((error) => {
@@ -23,6 +28,7 @@ export default {
         return axios
             .get(url)
             .then((response) => {
+                console.log(response.data)
                 return response.data
             })
             .catch((error) => {

@@ -4,10 +4,14 @@ export default {
     namespaced: true,
     state: {
         surveyResults: null,
+        surveyUuidResults: null,
     },
     mutations: {
         setSurveyResults(state, surveyResults) {
             state.surveyResults = surveyResults
+        },
+        setSurveyUuidResults(state, surveyResults) {
+            state.setSurveyUuidResults = surveyResults
         },
     },
     actions: {
@@ -22,7 +26,7 @@ export default {
                 data.uuid,
             )
             console.log(surveyResults)
-            commit('setSurveyResults', surveyResults)
+            commit('setSurveyUuidResults', surveyResults)
         },
 
         async sendSurveyResults({ commit }, resultData) {

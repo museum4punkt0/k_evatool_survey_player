@@ -5,6 +5,8 @@
     <!--        class="bg-transparent text-gray-800 w-3/12 text-2xl"-->
     <!--        placeholder="Schreibe einen Kommentar..."-->
     <!--    />-->
+
+    <!--    {{ surveyResults }}-->
     <NextButton></NextButton>
 </template>
 

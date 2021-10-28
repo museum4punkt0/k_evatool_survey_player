@@ -101,7 +101,14 @@ export default {
             console.log(store.state.surveyResults.surveyResults)
             console.log(rating)
             // rating.value = questionResults.results.pop().result_value.rating
+
+            if (questionResults.resultByUuid) {
+                rating.value = questionResults.resultByUuid.rating
+            } else {
+                //rating.value = questionResults.resultByUuid.rating
+            }
         })
+
         return { lang, labels, rating, setRating, nextStep }
     },
 }

@@ -9,6 +9,7 @@
                         ref="videoPlayer"
                         :src="content.params.videoAsset.urls.original"
                         muted
+                        preload
                         class="mx-auto p-0 m-0 z-10"
                         @timeupdate="videoTimeUpdate"
                         @play="playVideo"
@@ -83,6 +84,7 @@
                         :step-question="
                             content.timeBasedStepsResolved[answeredSteps - 1]
                         "
+                        @confirmed-answer="confirmdAnswer"
                     ></ModalContent>
                     <formular v-if="showFormular" class="z-20"></formular>
                     <div v-if="showFeedback" class="thanks-feedback">
@@ -217,6 +219,7 @@
             <TimeLine
                 :interactive-steps="interactiveSteps"
                 :answered-steps="answeredSteps"
+                :answered-steps-object="answeredStepsObject"
                 :content="timelineObject"
                 :time-based-steps="content.timeBasedStepsResolved"
                 :audio-comment="audioComment"
@@ -299,10 +302,15 @@ export default {
         const started = ref(false)
         const audioComment = ref(false)
         const route = useRoute()
-
+        const answeredStepsObject = ref()
         console.log(timeBasedSteps)
         const currentStepData = () => {
             return timeBasedSteps.value[answeredSteps.value - 1]
+        }
+        const confirmdAnswer = (id) => {
+            answeredStepsObject.value.push(
+                props.content.timeBasedStepsResolved[id],
+            )
         }
 
         const comment = ref()
@@ -552,6 +560,7 @@ export default {
             editComment,
             jumpToItem,
             toggleComment,
+            confirmdAnswer,
         }
     },
 }

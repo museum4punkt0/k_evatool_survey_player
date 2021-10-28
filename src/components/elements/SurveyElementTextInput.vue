@@ -12,12 +12,13 @@
 </template>
 
 <script>
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { CheckCircleIcon } from '@heroicons/vue/outline'
 import ConfirmButton from '../subelements/ConfirmButton.vue'
+
 export default {
     name: 'SurveyElementTextInput',
 
@@ -65,6 +66,17 @@ export default {
             })
         }
         console.log(props)
+
+        onMounted(() => {
+            let questionResults = props.surveyResults
+
+            if (questionResults.resultByUuid) {
+                text.value = questionResults.resultByUuid.text
+            } else {
+                //  text.value = questionResults.resultByUuid.text
+            }
+        })
+
         return {
             t,
             lang,

@@ -1,6 +1,6 @@
 <template>
     <h2 class="pb-5" v-html="content.params.question[lang]"></h2>
-
+    <!--    {{ survey }}-->
     <div class="flex mb-2 justify-center items-center">
         <div
             v-for="(emoji, index) in surveyResults.params.emojis"
@@ -77,6 +77,13 @@ export default {
             let questionResults = props.surveyResults
             console.log(questionResults.results)
             // result.value = questionResults.results.pop().result_value.meaning
+
+            if (questionResults.resultByUuid) {
+                result.value = questionResults.resultByUuid.meaning
+            }
+            // else {
+            //     result.value = questionResults.resultByUuid.meaning
+            // }
         })
 
         return {

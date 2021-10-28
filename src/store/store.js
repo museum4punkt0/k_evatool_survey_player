@@ -18,9 +18,17 @@ export default createStore({
         setSuveyId(state, suveyId) {
             state.suveyId = suveyId
         },
-        setCurrentStep(state) {
-            if (state.currentStep + 1 < state.surveys.surveySteps.length) {
-                state.currentStep++
+        setCurrentStep(state, step) {
+            if (step) {
+                state.currentStep = step
+            } else {
+                if (state.currentStep + 1 < state.surveys.surveySteps.length) {
+                    state.currentStep++
+                    window.localStorage.setItem(
+                        'ev-tool-current-step',
+                        state.currentStep,
+                    )
+                }
             }
         },
         decCurrentStep(state) {
@@ -47,8 +55,8 @@ export default createStore({
         setSurveyId({ commit }, surveyId) {
             commit('setSurveyId', surveyId)
         },
-        setCurrentStep({ commit }) {
-            commit('setCurrentStep')
+        setCurrentStep({ commit }, step) {
+            commit('setCurrentStep', step)
         },
         decCurrentStep({ commit }) {
             commit('decCurrentStep')

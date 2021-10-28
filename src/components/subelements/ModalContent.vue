@@ -16,6 +16,7 @@
                 :content="stepQuestion.step"
                 :survey="stepQuestion.step"
                 :survey-results="stepQuestion.step"
+                @confirmed-answer="confirmedAnswer"
             ></SurveyElementSubBuilder>
         </div>
     </div>
@@ -25,6 +26,7 @@
 import SurveyElementSubBuilder from '../SurveyElementSubBuilder.vue'
 import { onMounted } from 'vue'
 import { useStore } from 'vuex'
+
 export default {
     name: 'ModalContent',
     components: { SurveyElementSubBuilder },
@@ -38,13 +40,19 @@ export default {
             default: null,
         },
     },
-    setup() {
+    emits: ['confirmed-answer'],
+    setup(props, { emit }) {
         const store = useStore()
+
+        const confirmedAnswer = (id) => {
+            emit('confirmed-answer', id)
+        }
 
         onMounted(() => {})
 
         return {
             store,
+            confirmedAnswer,
         }
     },
 }

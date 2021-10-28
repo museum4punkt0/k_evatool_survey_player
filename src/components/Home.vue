@@ -13,8 +13,13 @@
                     store.state.surveys.surveySteps[store.state.currentStep]
                 "
                 :survey="store.state.surveys.survey"
-                :survey-results="
+                :result="
                     store.state.surveys.surveySteps[store.state.currentStep]
+                "
+                :survey-results="
+                    store.state.surveyResults['surveyResults']?.steps[
+                        store.state.currentStep
+                    ]
                 "
             ></SurveyElementBuilder>
         </div>
@@ -49,12 +54,12 @@ export default {
         SurveyNavigation,
     },
     setup() {
-        const surveyStep = ref(0)
         const store = useStore()
         const route = useRoute()
         const router = useRouter()
         const backlink = ref()
         const idle = ref(true)
+        const surveyStep = ref()
 
         backlink.value = document.referer ? document.referer : '/'
 
@@ -111,7 +116,6 @@ export default {
         }
 
         const getNextSurvey = async () => {
-            // alert('next')
             console.log(store.state.surveys.surveySteps)
             nextSurvey.value = await store.state.surveys.surveySteps[
                 surveyStep.value
@@ -119,11 +123,26 @@ export default {
             console.log(nextSurvey)
         }
 
-        onMounted(() => {
+        onMounted(async () => {
             // getNextSurvey()
             console.log(store.state.surveys)
             console.log(window)
             console.log(document.referrer)
+
+            await store.dispatch('surveyResults/getUuidResults', {
+                surveyId: surveySlug,
+                uuid: window.localStorage.getItem('surveyUUID'),
+            })
+
+            console.log(store.state.surveyResults['surveyResults'].steps)
+
+            surveyStep.value = parseInt(
+                window.localStorage.getItem('ev-tool-current-step'),
+            )
+            store.dispatch('setCurrentStep', surveyStep.value)
+            if (surveyStep.value > 0) {
+                idle.value = false
+            }
         })
 
         return {

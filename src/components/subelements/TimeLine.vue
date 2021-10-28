@@ -316,7 +316,7 @@ import {
     TrashIcon,
     FastForwardIcon,
 } from '@heroicons/vue/outline'
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useStore } from 'vuex'
 import { useI18n } from 'vue-i18n'
 
@@ -342,6 +342,10 @@ export default {
         answeredSteps: {
             type: Number,
             default: 0,
+        },
+        answeredStepsObject: {
+            type: Object,
+            default: null,
         },
         content: {
             type: Object,
@@ -386,6 +390,7 @@ export default {
             t,
             lang,
             store,
+
             convertTime,
             removeComment,
             editComment,

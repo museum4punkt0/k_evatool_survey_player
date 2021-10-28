@@ -92,17 +92,19 @@ export default {
             }
         }
 
-        onMounted(() => {
-            /*
+        const getResults = (answer) => {
             let questionResults = props.surveyResults
-            if (questionResults.results.length) {
-                selectedOptions.value =
-                    questionResults.results.pop().result_value.selected
+            console.log(questionResults)
+
+            if (questionResults.resultByUuid) {
+                selectedOptions.value = questionResults.resultByUuid.selected
             } else {
-                selectedOptions.value =
-                    questionResults.results.pop().result_value.selected
+                //selectedOptions.value = questionResults.resultByUuid.selected
             }
-            */
+        }
+
+        onMounted(() => {
+            getResults()
         })
 
         return {
@@ -113,6 +115,7 @@ export default {
             resultBasedNextSteps,
             handleAnswer,
             handleResults,
+            getResults,
         }
     },
     methods: {

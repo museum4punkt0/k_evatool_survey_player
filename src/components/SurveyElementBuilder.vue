@@ -1,4 +1,6 @@
 <template>
+    <!--    {{ content?.surveyElementType }}-->
+    <!--    {{ surveyResults }}-->
     <div
         v-if="content?.surveyElementType !== 'video'"
         class="
@@ -36,6 +38,7 @@
             v-if="content && content.surveyElementType === 'simpleText'"
             :content="content"
             :survey="survey"
+            :survey-results="surveyResults"
         ></SurveyElementSimpleText>
 
         <SurveyElementStarRating
@@ -122,6 +125,10 @@ export default {
             default: null,
         },
         surveyResults: {
+            type: Object,
+            default: null,
+        },
+        result: {
             type: Object,
             default: null,
         },

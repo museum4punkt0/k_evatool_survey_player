@@ -2,7 +2,7 @@
     "name": "evaluation-tool-survey-player",
     "description": "Evaluation Tool Survey Player",
     "private": true,
-    "version": "1.0.53",
+    "version": "1.0.54",
     "scripts": {
         "dev": "vite",
         "build": "vite build",
