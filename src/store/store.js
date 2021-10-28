@@ -29,6 +29,12 @@ export default createStore({
                         state.currentStep,
                     )
                 }
+                if (
+                    state.currentStep + 1 ===
+                    state.surveys.surveySteps.length
+                ) {
+                    window.localStorage.setItem('ev-tool-current-step', 0)
+                }
             }
         },
         decCurrentStep(state) {
