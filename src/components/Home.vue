@@ -133,7 +133,7 @@ export default {
                 surveyId: surveySlug,
                 uuid: window.localStorage.getItem('surveyUUID'),
             })
-
+            console.log(store.state.surveyResults)
             console.log(store.state.surveyResults['surveyResults'].steps)
 
             surveyStep.value = parseInt(

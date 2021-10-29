@@ -25,6 +25,8 @@ export default {
         'Hier siehst du die Übersicht aller erstellten Kommentare und beantworteten Fragen.',
     view_edit: 'Ansehen & Bearbeiten',
     voice_recorder_placeholder:
+        'Klicke auf das Mikrofon, um eine Audioaufnahme zu starten.',
+    voice_to_text_recorder_placeholder:
         'Klicke auf das Mikrofon zur Spracheingabe, was du sagst, wird dann in Text umgewandelt.',
     write_comment_placeholder: 'Schreibe einen Kommentar...',
     write_video_comment_placeholder:

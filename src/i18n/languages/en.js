@@ -25,6 +25,8 @@ export default {
         'Here you can see an overview of all comments made and questions answered.',
     view_edit: 'view & edit',
     voice_recorder_placeholder:
+        'Click on the microphone to start an audio recording. ',
+    voice_to_text_recorder_placeholder:
         'Click on the microphone to speak, what you say will then be converted to text.',
     write_comment_placeholder: 'Write a comment...',
     write_video_comment_placeholder:

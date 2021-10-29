@@ -9,7 +9,7 @@
         <div v-else class="flex justify-center items-center">
             <div
                 v-if="isSupported"
-                class="vue-audio-recorder p-5"
+                class="vue-audio-recorder p-2"
                 :class="{ active: isRecording, paused: isPaused }"
                 @mousedown="startRecording"
                 @mouseleave="stopRecording"
@@ -19,8 +19,10 @@
                 @touchcancel="stopRecording"
             >
                 <microphone-icon
+                    v-if="!recording"
                     class="h-6 w-6 inline text-blue-800"
                 ></microphone-icon>
+                <stop-icon v-else class="h-6 w-6 inline text-white"></stop-icon>
             </div>
             <!--            <audio id="player" type="audio/wav" controls></audio>-->
         </div>
@@ -30,12 +32,13 @@
 <script>
 import { ref, onMounted, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { MicrophoneIcon } from '@heroicons/vue/outline'
+import { MicrophoneIcon, StopIcon } from '@heroicons/vue/solid'
 
 export default {
     name: 'AudioRecorder',
     components: {
         MicrophoneIcon,
+        StopIcon,
     },
     props: {
         recording: {

@@ -1,18 +1,20 @@
 <template>
-    <div>
+    <div class="">
         <button
             type="button"
             class="
                 confirm
                 flex
                 items-center
-                rounded-md
+                rounded-xl
                 nav-button
-                p-2
+                p-4
                 mt-5
                 bg-blue-700
                 text-white
             "
+            :disabled="disabled"
+            :class="{ 'bg-gray-400': disabled }"
             @click="confirm"
         >
             <check-circle-icon class="h-6 w-6 mr-3 text-white" />
@@ -30,6 +32,12 @@ import { useI18n } from 'vue-i18n'
 export default {
     name: 'ConfirmButton',
     components: { CheckCircleIcon },
+    props: {
+        disabled: {
+            type: Boolean,
+            default: false,
+        },
+    },
     emits: ['confirm'],
     setup(props, { emit }) {
         const store = useStore()

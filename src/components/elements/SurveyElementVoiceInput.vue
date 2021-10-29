@@ -2,12 +2,27 @@
     <div class="flex flex-wrap flex-col">
         <h2 class="pb-5" v-html="content.params.question[lang]"></h2>
         <textarea
-            class="bg-transparent focus:outline-none"
+            v-if="recordedTime < 0"
+            class="bg-transparent text-red-700 text-3xl focus:outline-none"
             cols="30"
-            rows="3"
+            disabled
             :placeholder="t('voice_recorder_placeholder')"
         ></textarea>
 
+        <div
+            v-else
+            class="bg-transparent text-red-700 text-3xl focus:outline-none"
+        >
+            {{ convertTime(recordedTime) }}
+        </div>
+        <audio
+            v-if="audioData"
+            id="player"
+            preload="auto"
+            :src="audioData"
+            type="audio/wav"
+            controls
+        ></audio>
         <div class="flex">
             <button
                 type="button"
@@ -15,7 +30,7 @@
                     confirm
                     flex
                     items-center
-                    rounded-md
+                    rounded-xl
                     nav-button
                     p-2
                     mt-5
@@ -34,22 +49,18 @@
                     :recording="recording"
                     @send-audio-asset="sendAudioAsset"
                 ></AudioRecorder>
-                <p class="px-2">Sprache zu Text starten</p>
+                <p class="px-2" :class="{ 'text-white': recording }">
+                    Sprache zu Text starten
+                </p>
             </button>
         </div>
-        <audio
-            v-if="audioData"
-            id="player"
-            :src="audioData"
-            type="audio/wav"
-            controls
-        ></audio>
-        <confirm-button></confirm-button>
+
+        <confirm-button :disabled="recording"></confirm-button>
     </div>
 </template>
 
 <script>
-import { MicrophoneIcon } from '@heroicons/vue/outline'
+import { MicrophoneIcon } from '@heroicons/vue/solid'
 import ConfirmButton from '../subelements/ConfirmButton.vue'
 
 import { useStore } from 'vuex'
@@ -82,7 +93,8 @@ export default {
         const audioData = ref()
         const { t } = useI18n()
         const recording = ref()
-
+        const recordedTime = ref(-1)
+        const timer = ref()
         const lang = computed({
             get: () => store.state.lang,
         })
@@ -92,17 +104,37 @@ export default {
             audioData.value = data
         }
 
+        const convertTime = (duration) => {
+            let minutes = Math.floor(duration / 60)
+            minutes = minutes < 10 ? '0' + minutes : minutes
+            let seconds = Math.round(duration - minutes * 60)
+            seconds = seconds < 10 ? '0' + seconds : seconds
+            return minutes + ':' + seconds
+        }
+
         const toggleRecording = () => {
             recording.value = !recording.value
+
+            if (recording.value) {
+                recordedTime.value = 0
+                timer.value = setInterval(() => {
+                    recordedTime.value++
+                }, 1000)
+            } else {
+                clearInterval(timer.value)
+            }
         }
         return {
             store,
             lang,
             t,
+            timer,
             recording,
             audioData,
+            recordedTime,
             sendAudioAsset,
             toggleRecording,
+            convertTime,
         }
     },
 }
