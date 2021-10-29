@@ -7,6 +7,7 @@ export default {
     action_no: 'Nein',
     action_next: 'Weiter',
     action_prev: 'Zurück',
+    action_audio_text: 'Sprache zu Text starten',
     at: 'bei',
     idle_text:
         'Vielen Dank für’s Vorbeischauen. Hier kannst du unsere Inhalte direkt bewerten und somit für ein besseres Angebot sorgen.',

@@ -42,16 +42,31 @@
                 ]"
                 @click="toggleRecording"
             >
-                <!--                <microphone-icon-->
-                <!--                    class="h-6 w-6 my-2 inline text-gray-900"-->
-                <!--                ></microphone-icon>-->
                 <AudioRecorder
                     :recording="recording"
                     @send-audio-asset="sendAudioAsset"
                 ></AudioRecorder>
                 <p class="px-2" :class="{ 'text-white': recording }">
-                    Sprache zu Text starten
+                    {{ t('action_audio_text') }}
                 </p>
+            </button>
+            <button
+                v-if="!recording && recordedTime"
+                class="
+                    confirm
+                    flex
+                    items-center
+                    rounded-xl
+                    nav-button
+                    p-2
+                    mt-5
+                    ml-4
+                    bg-gray-200
+                "
+                @click="deleteAudio"
+            >
+                <trash-icon class="h-6 w-6 mr-2 inline text-grey-600" />
+                {{ t('action_delete') }}
             </button>
         </div>
 
@@ -60,19 +75,21 @@
 </template>
 
 <script>
-import { MicrophoneIcon } from '@heroicons/vue/solid'
+import { MicrophoneIcon, TrashIcon } from '@heroicons/vue/solid'
 import ConfirmButton from '../subelements/ConfirmButton.vue'
 
 import { useStore } from 'vuex'
 import { useI18n } from 'vue-i18n'
 import AudioRecorder from '../subelements/AudioRecorder.vue'
 import { computed, ref } from 'vue'
+
 export default {
     name: 'SurveyElementVoiceInput',
     components: {
         MicrophoneIcon,
         ConfirmButton,
         AudioRecorder,
+        TrashIcon,
     },
     props: {
         content: {
@@ -89,12 +106,13 @@ export default {
         },
     },
     setup() {
+        const { t } = useI18n()
         const store = useStore()
         const audioData = ref()
-        const { t } = useI18n()
         const recording = ref()
         const recordedTime = ref(-1)
         const timer = ref()
+
         const lang = computed({
             get: () => store.state.lang,
         })
@@ -110,6 +128,10 @@ export default {
             let seconds = Math.round(duration - minutes * 60)
             seconds = seconds < 10 ? '0' + seconds : seconds
             return minutes + ':' + seconds
+        }
+
+        const deleteAudio = () => {
+            console.log('delete')
         }
 
         const toggleRecording = () => {
@@ -135,6 +157,7 @@ export default {
             sendAudioAsset,
             toggleRecording,
             convertTime,
+            deleteAudio,
         }
     },
 }

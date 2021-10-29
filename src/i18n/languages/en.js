@@ -7,6 +7,7 @@ export default {
     action_no: 'No',
     action_next: 'Next',
     action_prev: 'Prev',
+    action_audio_text: 'Start speech to text',
     at: 'at',
     idle_text:
         'Thank you for looking. Here you can rate our content directly and thus ensure a better offer.',
