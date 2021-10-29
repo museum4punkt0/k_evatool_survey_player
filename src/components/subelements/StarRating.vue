@@ -16,11 +16,11 @@
                 />
             </button>
         </div>
-        <div class="labels flex justify-between">
+        <div class="labels flex justify-start">
             <p
                 v-for="(label, index) in labels"
                 :key="'emoji-lanel-' + index"
-                class="mx-5"
+                class="mr-5"
             >
                 {{ label[lang] }}
             </p>

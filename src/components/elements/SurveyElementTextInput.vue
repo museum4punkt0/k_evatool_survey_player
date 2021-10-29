@@ -3,7 +3,7 @@
     <!--    {{ content.params }}-->
     <textarea
         v-model="text"
-        class="bg-gray-50 text-gray-800 w-3/12 text-2xl p-2"
+        class="bg-gray-50 w-full text-gray-800 text-2xl p-2"
         :placeholder="t('write_comment_placeholder')"
         @change="inputText"
     />
@@ -64,6 +64,7 @@ export default {
                     resultLanguage: store.state.lang,
                 },
             })
+            store.dispatch('setCurrentStep')
         }
         console.log(props)
 

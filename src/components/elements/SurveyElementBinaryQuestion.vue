@@ -110,6 +110,7 @@ export default {
                     //                 .resultLanguageId,
                 },
             })
+            store.dispatch('setCurrentStep')
         }
         const handleResults = (results) => {
             console.log(results)

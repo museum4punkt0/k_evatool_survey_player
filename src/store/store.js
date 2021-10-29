@@ -24,16 +24,16 @@ export default createStore({
             } else {
                 if (state.currentStep + 1 < state.surveys.surveySteps.length) {
                     state.currentStep++
-                    window.localStorage.setItem(
-                        'ev-tool-current-step',
-                        state.currentStep,
-                    )
+                    // window.localStorage.setItem(
+                    //     'ev-tool-current-step',
+                    //     state.currentStep,
+                    // )
                 }
                 if (
                     state.currentStep + 1 ===
                     state.surveys.surveySteps.length
                 ) {
-                    window.localStorage.setItem('ev-tool-current-step', 0)
+                    // window.localStorage.setItem('ev-tool-current-step', 0)
                 }
             }
         },

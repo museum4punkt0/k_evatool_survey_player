@@ -144,6 +144,7 @@ export default {
                 }, 1000)
             } else {
                 clearInterval(timer.value)
+                store.dispatch('setCurrentStep')
             }
         }
         return {

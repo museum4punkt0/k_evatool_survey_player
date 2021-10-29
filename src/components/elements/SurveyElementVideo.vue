@@ -352,10 +352,9 @@ export default {
             commentBox.value = !commentBox.value
         }
 
-        const saveComment = () => {
+        const saveComment = async () => {
             if (comment.value || audioComment.value) {
                 let message = comment.value
-
                 commentsCounter.value = timelineObject.value.filter(
                     (x) => x.type === 'comment',
                 )
@@ -365,7 +364,7 @@ export default {
                     time: mediaCurrentTime.value,
                     index: commentsCounter.value.length + 1,
                 })
-                comment.value = ''
+
                 commentsCounter.value = timelineObject.value.filter(
                     (x) => x.type === 'comment',
                 )
@@ -374,6 +373,22 @@ export default {
                     return a.time - b.time
                 }) // Sort youngest first
             }
+
+            await store.dispatch('surveyResults/sendSurveyResults', {
+                surveyId: route.query.survey,
+                data: {
+                    surveyStepId: props.content.id,
+                    resultValue: {
+                        text: comment.value,
+                    },
+
+                    uuid: props.surveyResults.uuid,
+                    resultLanguage: store.state.lang,
+                    timecode: convertTimeFull(mediaCurrentTime.value),
+                },
+            })
+            comment.value = ''
+            store.dispatch('setCurrentStep')
         }
 
         const setAnswer = (id) => {
@@ -488,6 +503,15 @@ export default {
             seconds = seconds < 10 ? '0' + seconds : seconds
             return minutes + ':' + seconds
         }
+        // ToDo
+        const convertTimeFull = (duration) => {
+            let hours = '00:00'
+            let minutes = Math.floor(duration / 60)
+            minutes = minutes < 10 ? '0' + minutes : minutes
+            let seconds = Math.round(duration - minutes * 60)
+            seconds = seconds < 10 ? '0' + seconds : seconds
+            return hours + ':' + minutes + ':' + seconds
+        }
 
         const sendAudioAsset = (wav) => {
             console.log(props.content)
@@ -528,6 +552,7 @@ export default {
             timeBasedSteps,
             videoPlayer,
             store,
+            route,
             videoIsPlaying,
             mediaCurrentTime,
             mediaDurationTime,
@@ -544,6 +569,7 @@ export default {
             tooglePlay,
             sendAudioAsset,
             convertTimeCode,
+            convertTimeFull,
             videoTimeUpdate,
             setAnswer,
             nextQuestion,

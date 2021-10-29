@@ -200,11 +200,12 @@
                                     'text-green-400': index < answeredSteps + 1,
                                 }"
                             >
-                                {{
-                                    timeBasedSteps[index].step.params.question[
-                                        lang
-                                    ]
-                                }}
+                                <!--                                {{-->
+                                <!--                                    timeBasedSteps[index].step.params.question[-->
+                                <!--                                        lang-->
+                                <!--                                    ]-->
+                                <!--                                }}-->
+
                                 <!--                                {{-->
                                 <!--                                    timeBasedSteps[comment.index - 1].step-->
                                 <!--                                        .params.question[lang]-->

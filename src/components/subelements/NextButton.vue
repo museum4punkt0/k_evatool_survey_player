@@ -34,7 +34,6 @@ export default {
         const { t } = useI18n()
         const confirm = () => {
             emit('confirm')
-            store.dispatch('setCurrentStep')
         }
         return {
             t,

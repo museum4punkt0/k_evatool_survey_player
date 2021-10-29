@@ -6,67 +6,69 @@
         class="
             survey-content
             flex flex-wrap flex-col
-            md:h-auto md:mt-16
+            md:h-full md:mt-16
             justify-center
             items-center
             h-full
             pb-36
         "
     >
-        <SurveyElementBinaryQuestion
-            v-if="content?.surveyElementType === 'binary'"
-            :content="content"
-            :survey="survey"
-            :survey-results="surveyResults"
-        ></SurveyElementBinaryQuestion>
+        <div class="flex flex-wrap flex-col items-start w-1/3">
+            <SurveyElementBinaryQuestion
+                v-if="content?.surveyElementType === 'binary'"
+                :content="content"
+                :survey="survey"
+                :survey-results="surveyResults"
+            ></SurveyElementBinaryQuestion>
 
-        <SurveyElementEmoji
-            v-if="content && content.surveyElementType === 'emoji'"
-            :content="content"
-            :survey="survey"
-            :survey-results="surveyResults"
-        ></SurveyElementEmoji>
+            <SurveyElementEmoji
+                v-if="content && content.surveyElementType === 'emoji'"
+                :content="content"
+                :survey="survey"
+                :survey-results="surveyResults"
+            ></SurveyElementEmoji>
 
-        <SurveyElementMultipleChoice
-            v-if="content && content.surveyElementType === 'multipleChoice'"
-            :content="content"
-            :survey="survey"
-            :survey-results="surveyResults"
-        ></SurveyElementMultipleChoice>
+            <SurveyElementMultipleChoice
+                v-if="content && content.surveyElementType === 'multipleChoice'"
+                :content="content"
+                :survey="survey"
+                :survey-results="surveyResults"
+            ></SurveyElementMultipleChoice>
 
-        <SurveyElementSimpleText
-            v-if="content && content.surveyElementType === 'simpleText'"
-            :content="content"
-            :survey="survey"
-            :survey-results="surveyResults"
-        ></SurveyElementSimpleText>
+            <SurveyElementSimpleText
+                v-if="content && content.surveyElementType === 'simpleText'"
+                :content="content"
+                :survey="survey"
+                :survey-results="surveyResults"
+            ></SurveyElementSimpleText>
 
-        <SurveyElementStarRating
-            v-if="content && content.surveyElementType === 'starRating'"
-            :content="content"
-            :survey="survey"
-            :survey-results="surveyResults"
-        ></SurveyElementStarRating>
-        <SurveyElementTextInput
-            v-if="content && content.surveyElementType === 'textInput'"
-            :content="content"
-            :survey="survey"
-            :survey-results="surveyResults"
-        ></SurveyElementTextInput>
+            <SurveyElementStarRating
+                v-if="content && content.surveyElementType === 'starRating'"
+                :content="content"
+                :survey="survey"
+                :survey-results="surveyResults"
+            ></SurveyElementStarRating>
+            <SurveyElementTextInput
+                v-if="content && content.surveyElementType === 'textInput'"
+                :content="content"
+                :survey="survey"
+                :survey-results="surveyResults"
+            ></SurveyElementTextInput>
 
-        <SurveyElementVoiceInput
-            v-if="content && content.surveyElementType === 'voiceInput'"
-            :content="content"
-            :survey="survey"
-            :survey-results="surveyResults"
-        ></SurveyElementVoiceInput>
+            <SurveyElementVoiceInput
+                v-if="content && content.surveyElementType === 'voiceInput'"
+                :content="content"
+                :survey="survey"
+                :survey-results="surveyResults"
+            ></SurveyElementVoiceInput>
 
-        <SurveyElementYayNay
-            v-if="content && content.surveyElementType === 'yayNay'"
-            :content="content"
-            :survey="survey"
-            :survey-results="surveyResults"
-        ></SurveyElementYayNay>
+            <SurveyElementYayNay
+                v-if="content && content.surveyElementType === 'yayNay'"
+                :content="content"
+                :survey="survey"
+                :survey-results="surveyResults"
+            ></SurveyElementYayNay>
+        </div>
     </div>
     <div
         v-if="content && content.surveyElementType === 'video'"
@@ -87,6 +89,7 @@
         <SurveyElementVideo
             :content="content"
             :survey="survey"
+            :survey-results="surveyResults"
         ></SurveyElementVideo>
     </div>
 </template>

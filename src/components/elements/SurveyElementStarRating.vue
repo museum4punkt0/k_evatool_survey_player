@@ -66,7 +66,7 @@ export default {
             rating.value = i
 
             console.log(props.surveyResults)
-            console.log(props.surveyResults.sampleResultPayload.resultData)
+            // console.log(props.surveyResults.sampleResultPayload.resultData)
 
             console.log(props.content)
             store.dispatch('surveyResults/sendSurveyResults', {
@@ -83,9 +83,10 @@ export default {
                     resultLanguage: store.state.lang,
                 },
             })
+            store.dispatch('setCurrentStep')
 
             store.dispatch('surveyResults/getUuidResults', {
-                surveyId: props.survey.id,
+                surveyId: route.query.survey,
                 uuid: window.localStorage.getItem('surveyUUID'),
             })
             console.log(props.survey)

@@ -7,13 +7,14 @@
     <!--    />-->
 
     <!--    {{ surveyResults }}-->
-    <NextButton></NextButton>
+    <NextButton @confirm="nextStep"></NextButton>
 </template>
 
 <script>
 import { computed, ref } from 'vue'
 import { useStore } from 'vuex'
 import NextButton from '../subelements/NextButton.vue'
+import { useRoute } from 'vue-router'
 export default {
     name: 'SurveyElementSimpleText',
     components: { NextButton },
@@ -34,19 +35,35 @@ export default {
     setup(props) {
         const simpleText = ref()
         const store = useStore()
+        const route = useRoute()
         const allowSkip = ref(props.content.allowSkip)
         const resultBasedNextSteps = ref(props.content.resultBasedNextSteps)
         const lang = computed({
             get: () => store.state.lang,
         })
 
-        // const nextStep = () => {}
+        const nextStep = () => {
+            store.dispatch('surveyResults/sendSurveyResults', {
+                surveyId: route.query.survey,
+                data: {
+                    surveyStepId: props.content.id,
+                    resultValue: {
+                        read: true,
+                    },
+                    uuid: props.surveyResults.uuid,
+                    resultLanguage: store.state.lang,
+                },
+            })
+            store.dispatch('setCurrentStep')
+        }
         return {
             lang,
             store,
+            route,
             simpleText,
             allowSkip,
             resultBasedNextSteps,
+            nextStep,
         }
     },
 }

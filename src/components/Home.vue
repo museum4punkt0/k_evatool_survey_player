@@ -7,20 +7,28 @@
         </div>
         <IdleScreen v-if="idle" @start="idle = false"></IdleScreen>
         <div v-else class="survey-steps mx-5 pt-28 pb-16 px-4 h-full z-40">
+            <!--            <SurveyElementBuilder-->
+            <!--                v-if="store.state.surveys.surveySteps"-->
+            <!--                :content="-->
+            <!--                    store.state.surveys.surveySteps[store.state.currentStep]-->
+            <!--                "-->
+            <!--                :survey="store.state.surveys.survey"-->
+            <!--                :result="-->
+            <!--                    store.state.surveys.surveySteps[store.state.currentStep]-->
+            <!--                "-->
+            <!--                :survey-results="-->
+            <!--                    store.state.surveyResults['surveyResults']?.steps[-->
+            <!--                        store.state.currentStep-->
+            <!--                    ]-->
+            <!--                "-->
+            <!--            ></SurveyElementBuilder>-->
+
             <SurveyElementBuilder
                 v-if="store.state.surveys.surveySteps"
-                :content="
-                    store.state.surveys.surveySteps[store.state.currentStep]
-                "
+                :content="currentStep"
                 :survey="store.state.surveys.survey"
-                :result="
-                    store.state.surveys.surveySteps[store.state.currentStep]
-                "
-                :survey-results="
-                    store.state.surveyResults['surveyResults']?.steps[
-                        store.state.currentStep
-                    ]
-                "
+                :result="currentStep"
+                :survey-results="currentStep"
             ></SurveyElementBuilder>
         </div>
 
@@ -41,7 +49,7 @@ import SurveyElementBuilder from './SurveyElementBuilder.vue'
 import HeaderMenu from './HeaderMenu.vue'
 import IdleScreen from './subelements/IdleScreen.vue'
 import SurveyNavigation from './FooterNavigation.vue'
-import { ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
@@ -58,7 +66,8 @@ export default {
         const route = useRoute()
         const router = useRouter()
         const backlink = ref()
-        const idle = ref(true)
+        const currentStep = ref()
+        const idle = ref(false)
         const surveyStep = ref()
 
         backlink.value = document.referer ? document.referer : '/'
@@ -133,17 +142,58 @@ export default {
                 surveyId: surveySlug,
                 uuid: window.localStorage.getItem('surveyUUID'),
             })
+
+            // await store.dispatch('surveys/getSurvey', {
+            //     surveyId: surveySlug,
+            //     uuid: window.localStorage.getItem('surveyUUID'),
+            // })
             console.log(store.state.surveyResults)
             console.log(store.state.surveyResults['surveyResults'].steps)
 
-            surveyStep.value = parseInt(
-                window.localStorage.getItem('ev-tool-current-step'),
+            let surveySteps = store.state.surveyResults['surveyResults'].steps
+            console.log(
+                store.state.surveyResults['surveyResults'].survey.statusByUuid
+                    .currentStep,
             )
-            store.dispatch('setCurrentStep', surveyStep.value)
+            let currentStepId =
+                store.state.surveyResults['surveyResults'].survey.statusByUuid
+                    .currentStep
+            currentStep.value = surveySteps.find((x) => x.id === currentStepId)
+
+            console.log(currentStep)
+
+            // surveyStep.value = parseInt(
+            //     window.localStorage.getItem('ev-tool-current-step'),
+            // )
+            // store.dispatch('setCurrentStep', surveyStep.value)
             if (surveyStep.value > 0) {
                 idle.value = false
             }
         })
+
+        watch(
+            () => store.state.currentStep,
+            () => {
+                setTimeout(async () => {
+                    await store.dispatch('surveyResults/getUuidResults', {
+                        surveyId: surveySlug,
+                        uuid: window.localStorage.getItem('surveyUUID'),
+                    })
+                    let surveySteps =
+                        store.state.surveyResults['surveyResults'].steps
+                    console.log(
+                        store.state.surveyResults['surveyResults'].survey
+                            .statusByUuid.currentStep,
+                    )
+                    let currentStepId = await store.state.surveyResults[
+                        'surveyResults'
+                    ].survey.statusByUuid.currentStep
+                    currentStep.value = surveySteps.find(
+                        (x) => x.id === currentStepId,
+                    )
+                }, 500)
+            },
+        )
 
         return {
             idle,
@@ -154,6 +204,7 @@ export default {
             route,
             backlink,
             nextSurvey,
+            currentStep,
             nextStep,
             prevStep,
         }

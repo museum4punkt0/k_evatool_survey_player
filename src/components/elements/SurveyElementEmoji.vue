@@ -69,6 +69,7 @@ export default {
                     resultLanguage: store.state.lang,
                 },
             })
+            store.dispatch('setCurrentStep')
         }
         const lang = computed({
             get: () => store.state.lang,

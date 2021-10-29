@@ -89,6 +89,7 @@ export default {
                         resultLanguage: store.state.lang,
                     },
                 })
+                store.dispatch('setCurrentStep')
             }
         }
 
