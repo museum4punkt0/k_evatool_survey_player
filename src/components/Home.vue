@@ -52,6 +52,7 @@ import SurveyNavigation from './FooterNavigation.vue'
 import { ref, watch } from 'vue'
 import { onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { v4 as uuidv4 } from 'uuid'
 
 export default {
     name: 'Home',
@@ -133,9 +134,14 @@ export default {
         }
 
         onMounted(async () => {
+            // check for uuid
+            if (!localStorage.getItem('surveyUuid')) {
+                await localStorage.setItem('surveyUuid', uuidv4())
+            }
+
             await store.dispatch('surveyResults/getUuidResults', {
                 surveyId: surveySlug,
-                uuid: localStorage.getItem('surveyUUID'),
+                uuid: localStorage.getItem('surveyUuid'),
             })
 
             let surveySteps = store.state.surveyResults.surveyUuidResults.steps
@@ -156,7 +162,7 @@ export default {
                 setTimeout(async () => {
                     await store.dispatch('surveyResults/getUuidResults', {
                         surveyId: surveySlug,
-                        uuid: window.localStorage.getItem('surveyUUID'),
+                        uuid: window.localStorage.getItem('surveyUuid'),
                     })
                     let surveySteps =
                         store.state.surveyResults.surveyUuidResults.steps

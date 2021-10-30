@@ -16,7 +16,9 @@ export default {
                 data.surveyId,
                 data.uuid,
             )
+
             commit('setSurveyUuidResults', surveyResults)
+
             return surveyResults
         },
         async sendSurveyResults({ commit }, resultData) {
@@ -28,7 +30,7 @@ export default {
 
             const surveyResults = await SURVEY_RESULTS.getUuidResults(
                 resultData.surveyId,
-                localStorage.getItem('surveyUUID'),
+                localStorage.getItem('surveyUuid'),
             )
             commit('setSurveyUuidResults', surveyResults)
         },
@@ -36,7 +38,7 @@ export default {
             await SURVEY_RESULTS.sendAudioResults(resultData)
             const surveyResults = await SURVEY_RESULTS.getUuidResults(
                 resultData.surveyStepResultId,
-                localStorage.getItem('surveyUUID'),
+                localStorage.getItem('surveyUuid'),
             )
             commit('setSurveyUuidResults', surveyResults)
         },
