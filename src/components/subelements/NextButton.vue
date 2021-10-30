@@ -8,12 +8,13 @@
             rounded-md
             nav-button
             p-2
+            pr-3
             bg-blue-700
             text-white
         "
         @click="confirm"
     >
-        <check-circle-icon class="h-6 w-6 mr-3 text-white" />
+        <check-circle-icon class="h-6 w-6 mr-2 text-white" />
         {{ t('action_next') }}
     </button>
 </template>

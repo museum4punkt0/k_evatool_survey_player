@@ -19,7 +19,7 @@
         <div class="labels flex justify-start">
             <p
                 v-for="(label, index) in labels"
-                :key="'emoji-lanel-' + index"
+                :key="'emoji-label-' + index"
                 class="mr-5"
             >
                 {{ label[lang] }}

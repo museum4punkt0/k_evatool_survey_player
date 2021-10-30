@@ -135,7 +135,7 @@ export default {
         // const dragMouseUp = (event) => {}
         const onMouseMove = (event) => {
             event.preventDefault()
-            console.log(event)
+            // console.log(event)
             if (mouseDown.value) {
                 positions.value = {
                     clientX:
@@ -154,7 +154,6 @@ export default {
                             thresholdWidth.value),
                 }
                 transformString.value = `transform: translate3D(${positions.value.clientX}px, ${positions.value.clientY}px, 0) rotate(${positions.value.rotation}deg`
-                console.log(transformString.value)
             } else {
                 positions.value = {
                     clientX: 0, // positions.value.clientX,
@@ -163,7 +162,7 @@ export default {
                 }
                 transformString.value = `transform: translate3D(${positions.value.clientX}px, ${positions.value.clientY}px, 0) rotate(${positions.value.rotation}deg`
             }
-            console.log(positions.value)
+            // console.log(positions.value)
         }
         const onTouchMove = (event) => {
             event.preventDefault()
@@ -187,10 +186,8 @@ export default {
                         touchElement.value.width / 2) /
                         thresholdWidth.value),
             }
-            console.log(positions.value)
 
             transformString.value = `transform: translate3D(${positions.value.clientX}px, ${positions.value.clientY}px, 0) rotate(${positions.value.rotation}deg`
-            console.log(transformString.value)
         }
         const onTouchEnd = () => {
             if (positions.value.clientX > threshold.value) {
@@ -222,9 +219,7 @@ export default {
                 transformString.value = `transform: translate3D(${positions.value.clientX}px, ${positions.value.clientY}px, 0) rotate(${positions.value.rotation}deg)`
             }
         }
-        const imageLoaded = (img) => {
-            console.log(img)
-            // alert(img.height)
+        const imageLoaded = () => {
             loaded.value = true
             touchElement.value = document
                 .getElementsByClassName('card-active')[0]

@@ -6,10 +6,9 @@
         :params="content.params"
         :labels="labels"
         @input="setRating"
-        @confirm="nextStep"
     />
 
-    <confirm-button @confirm="nextStep()"></confirm-button>
+    <confirm-button @confirm="nextStep"></confirm-button>
 </template>
 
 <script>
@@ -40,8 +39,8 @@ export default {
             default: () => {},
         },
     },
-    emits: ['next-step'],
-    setup(props, { emit }) {
+
+    setup(props) {
         const rating = ref(0)
         const store = useStore()
         const route = useRoute()
@@ -56,24 +55,14 @@ export default {
             get: () => store.state.lang,
         })
 
-        console.log(props.content)
         const nextStep = () => {
-            emit('next-step')
+            store.dispatch('setCurrentStep')
         }
 
         const setRating = (i) => {
-            console.log(i)
             rating.value = i
-
-            console.log(props.surveyResults)
-            // console.log(props.surveyResults.sampleResultPayload.resultData)
-
-            console.log(props.content)
             store.dispatch('surveyResults/sendSurveyResults', {
                 surveyId: route.query.survey,
-                // resultLanguageId:
-                //     props.surveyResults.sampleResultPayload.resultData
-                //         .resultLanguageId,
                 data: {
                     surveyStepId: props.content.id,
                     resultValue: {
@@ -83,17 +72,6 @@ export default {
                     resultLanguage: store.state.lang,
                 },
             })
-            store.dispatch('setCurrentStep')
-
-            store.dispatch('surveyResults/getUuidResults', {
-                surveyId: route.query.survey,
-                uuid: window.localStorage.getItem('surveyUUID'),
-            })
-            console.log(props.survey)
-            console.log(props.surveyResults)
-            console.log(store.state.surveyResults.surveyResults)
-            // let questionResults = props.surveyResults
-            // rating.value = questionResults.results.pop().result_value.rating
         }
         onMounted(() => {
             let questionResults = props.surveyResults

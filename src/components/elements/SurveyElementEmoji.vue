@@ -1,6 +1,5 @@
 <template>
     <h2 class="pb-5" v-html="content.params.question[lang]"></h2>
-    <!--    {{ survey }}-->
     <div class="flex mb-2 justify-center items-center">
         <div
             v-for="(emoji, index) in surveyResults.params.emojis"
@@ -13,12 +12,10 @@
             >
                 {{ emoji.type }}
             </span>
-            <!--        <emoji-happy-icon class="h-8 w-8" @click="setResult(emoji.meaning)" />-->
         </div>
     </div>
-    <!--    Selected: {{ result }}-->
 
-    <confirm-button></confirm-button>
+    <confirm-button @confirm="confirm"></confirm-button>
 </template>
 
 <script>
@@ -69,11 +66,15 @@ export default {
                     resultLanguage: store.state.lang,
                 },
             })
-            store.dispatch('setCurrentStep')
         }
         const lang = computed({
             get: () => store.state.lang,
         })
+
+        const confirm = () => {
+            store.dispatch('setCurrentStep')
+        }
+
         onMounted(() => {
             let questionResults = props.surveyResults
             console.log(questionResults.results)
@@ -93,6 +94,7 @@ export default {
             store,
             lang,
             setResult,
+            confirm,
         }
     },
 }

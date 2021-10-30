@@ -10,31 +10,20 @@ export default createStore({
     },
     state: {
         lang: 'de',
-        suveyId: null,
+        surveyId: null,
         languages: [],
         currentStep: 0,
     },
     mutations: {
-        setSuveyId(state, suveyId) {
-            state.suveyId = suveyId
+        setSurveyId(state, surveyId) {
+            state.surveyId = surveyId
         },
-        setCurrentStep(state, step) {
+        setCurrentStep(state, step = null) {
             if (step) {
                 state.currentStep = step
             } else {
-                if (state.currentStep + 1 < state.surveys.surveySteps.length) {
-                    state.currentStep++
-                    // window.localStorage.setItem(
-                    //     'ev-tool-current-step',
-                    //     state.currentStep,
-                    // )
-                }
-                if (
-                    state.currentStep + 1 ===
-                    state.surveys.surveySteps.length
-                ) {
-                    // window.localStorage.setItem('ev-tool-current-step', 0)
-                }
+                state.currentStep =
+                    state.surveyResults.surveyUuidResults.survey.statusByUuid.currentStep
             }
         },
         decCurrentStep(state) {
@@ -61,8 +50,8 @@ export default createStore({
         setSurveyId({ commit }, surveyId) {
             commit('setSurveyId', surveyId)
         },
-        setCurrentStep({ commit }, step) {
-            commit('setCurrentStep', step)
+        setCurrentStep({ commit }) {
+            commit('setCurrentStep')
         },
         decCurrentStep({ commit }) {
             commit('decCurrentStep')

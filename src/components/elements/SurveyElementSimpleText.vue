@@ -1,12 +1,6 @@
 <template>
     <h2 class="pb-5" v-html="content.params.text[lang]"></h2>
-    <!--    <textarea-->
-    <!--        v-model="simpleText"-->
-    <!--        class="bg-transparent text-gray-800 w-3/12 text-2xl"-->
-    <!--        placeholder="Schreibe einen Kommentar..."-->
-    <!--    />-->
 
-    <!--    {{ surveyResults }}-->
     <NextButton @confirm="nextStep"></NextButton>
 </template>
 
@@ -42,8 +36,8 @@ export default {
             get: () => store.state.lang,
         })
 
-        const nextStep = () => {
-            store.dispatch('surveyResults/sendSurveyResults', {
+        const nextStep = async () => {
+            await store.dispatch('surveyResults/sendSurveyResults', {
                 surveyId: route.query.survey,
                 data: {
                     surveyStepId: props.content.id,
@@ -54,7 +48,7 @@ export default {
                     resultLanguage: store.state.lang,
                 },
             })
-            store.dispatch('setCurrentStep')
+            await store.dispatch('setCurrentStep')
         }
         return {
             lang,

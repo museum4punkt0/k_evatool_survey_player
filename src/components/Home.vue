@@ -49,7 +49,7 @@ import SurveyElementBuilder from './SurveyElementBuilder.vue'
 import HeaderMenu from './HeaderMenu.vue'
 import IdleScreen from './subelements/IdleScreen.vue'
 import SurveyNavigation from './FooterNavigation.vue'
-import { computed, ref, watch } from 'vue'
+import { ref, watch } from 'vue'
 import { onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
@@ -104,12 +104,12 @@ export default {
 
         //store.dispatch('getLanguages', userLang)
         //store.dispatch('setUserLanguage', userLang)
-        store.dispatch('surveys/getSurvey', surveySlug)
+        // store.dispatch('surveys/getSurvey', surveySlug)
         // store.dispatch('surveys/getSurveySteps', surveyId)
-        store.dispatch('surveyResults/setSurveyResults', surveySlug)
+        // store.dispatch('surveyResults/setSurveyResults', surveySlug)
 
-        console.log(route.query)
-        console.log(router)
+        // console.log(route.query)
+        // console.log(router)
 
         const nextStep = () => {
             console.log('nextStep')
@@ -133,39 +133,18 @@ export default {
         }
 
         onMounted(async () => {
-            // getNextSurvey()
-            console.log(store.state.surveys)
-            console.log(window)
-            console.log(document.referrer)
-
             await store.dispatch('surveyResults/getUuidResults', {
                 surveyId: surveySlug,
-                uuid: window.localStorage.getItem('surveyUUID'),
+                uuid: localStorage.getItem('surveyUUID'),
             })
 
-            // await store.dispatch('surveys/getSurvey', {
-            //     surveyId: surveySlug,
-            //     uuid: window.localStorage.getItem('surveyUUID'),
-            // })
-            console.log(store.state.surveyResults)
-            console.log(store.state.surveyResults['surveyResults'].steps)
+            let surveySteps = store.state.surveyResults.surveyUuidResults.steps
 
-            let surveySteps = store.state.surveyResults['surveyResults'].steps
-            console.log(
-                store.state.surveyResults['surveyResults'].survey.statusByUuid
-                    .currentStep,
-            )
             let currentStepId =
-                store.state.surveyResults['surveyResults'].survey.statusByUuid
+                store.state.surveyResults.surveyUuidResults.survey.statusByUuid
                     .currentStep
             currentStep.value = surveySteps.find((x) => x.id === currentStepId)
 
-            console.log(currentStep)
-
-            // surveyStep.value = parseInt(
-            //     window.localStorage.getItem('ev-tool-current-step'),
-            // )
-            // store.dispatch('setCurrentStep', surveyStep.value)
             if (surveyStep.value > 0) {
                 idle.value = false
             }
@@ -180,14 +159,9 @@ export default {
                         uuid: window.localStorage.getItem('surveyUUID'),
                     })
                     let surveySteps =
-                        store.state.surveyResults['surveyResults'].steps
-                    console.log(
-                        store.state.surveyResults['surveyResults'].survey
-                            .statusByUuid.currentStep,
-                    )
-                    let currentStepId = await store.state.surveyResults[
-                        'surveyResults'
-                    ].survey.statusByUuid.currentStep
+                        store.state.surveyResults.surveyUuidResults.steps
+                    let currentStepId = await store.state.surveyResults
+                        .surveyUuidResults.survey.statusByUuid.currentStep
                     currentStep.value = surveySteps.find(
                         (x) => x.id === currentStepId,
                     )

@@ -2,7 +2,7 @@
     <div>
         <h2
             class="my-5 text-gray-900"
-            v-html="surveyResults.params.question[$store.state.lang]"
+            v-html="surveyResults.params.question[store.state.lang]"
         ></h2>
         <div class="mt-2">
             <select-button
@@ -29,7 +29,7 @@
                 })
             }}
         </p>
-        <confirm-button></confirm-button>
+        <confirm-button @confirm="confirm"></confirm-button>
     </div>
 </template>
 
@@ -63,7 +63,7 @@ export default {
         const store = useStore()
         const route = useRoute()
         const { t } = useI18n()
-        // const allowSkip = ref(props.content.allowSkip)
+
         const resultBasedNextSteps = ref(props.content.resultBasedNextSteps)
 
         const handleAnswer = (answer) => {
@@ -89,13 +89,11 @@ export default {
                         resultLanguage: store.state.lang,
                     },
                 })
-                store.dispatch('setCurrentStep')
             }
         }
 
-        const getResults = (answer) => {
+        const getResults = () => {
             let questionResults = props.surveyResults
-            console.log(questionResults)
 
             if (questionResults.resultByUuid) {
                 selectedOptions.value = questionResults.resultByUuid.selected
@@ -108,6 +106,10 @@ export default {
             getResults()
         })
 
+        const confirm = () => {
+            store.dispatch('setCurrentStep')
+        }
+
         return {
             t,
             store,
@@ -117,17 +119,15 @@ export default {
             handleAnswer,
             handleResults,
             getResults,
+            confirm,
         }
     },
     methods: {
         changeValue(value) {
-            console.log(value)
-
             if (
                 1 === parseInt(this.surveyResults.params.minSelectable) &&
                 1 === parseInt(this.surveyResults.params.maxSelectable)
             ) {
-                console.log('min & max = 1')
                 if (this.selectedOptions.includes(value)) {
                     this.selectedOptions = []
                 } else {
@@ -144,15 +144,12 @@ export default {
             this.handleResults()
         },
         disabled(value) {
-            if (
+            return (
                 parseInt(this.surveyResults.params.maxSelectable) > 1 &&
                 this.selectedOptions.length >=
                     parseInt(this.surveyResults.params.maxSelectable) &&
                 !this.selectedOptions.includes(value)
-            ) {
-                return true
-            }
-            return false
+            )
         },
     },
 }

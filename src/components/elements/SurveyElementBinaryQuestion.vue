@@ -9,10 +9,15 @@
                 rounded-md
                 nav-button
                 p-2
+                pr-3
                 mt-5
-                bg-blue-700
                 text-white
                 focus:outline-none
+            "
+            :class="
+                selectedAnswer === content.params.trueValue
+                    ? 'bg-blue-700'
+                    : 'bg-blue-400'
             "
             :for="'answer-1'"
         >
@@ -35,10 +40,16 @@
                 rounded-md
                 nav-button
                 p-2
+                pr-3
                 mt-5
                 bg-blue-700
                 text-white
                 focus:outline-none
+            "
+            :class="
+                selectedAnswer === content.params.falseValue
+                    ? 'bg-blue-700'
+                    : 'bg-blue-400'
             "
             :for="'answer-2'"
         >
@@ -54,7 +65,7 @@
             <span v-html="content.params.falseLabel[lang]"></span>
         </label>
     </div>
-    <confirm-button></confirm-button>
+    <confirm-button @confirm="confirm"></confirm-button>
 </template>
 
 <script>
@@ -86,14 +97,11 @@ export default {
         const selectedAnswer = ref()
         const store = useStore()
         const route = useRoute()
-        // const allowSkip = ref(props.content.allowSkip)
-        // console.log(allowSkip)
         const resultBasedNextSteps = ref(props.content.resultBasedNextSteps)
         const lang = computed({
             get: () => store.state.lang,
         })
         const handleAnswer = () => {
-            console.log(selectedAnswer.value)
             store.dispatch('surveyResults/sendSurveyResults', {
                 surveyId: route.query.survey,
                 data: {
@@ -104,35 +112,22 @@ export default {
 
                     uuid: props.surveyResults.uuid,
                     resultLanguage: store.state.lang,
-                    //         uuid: props.surveyResults.uuid,
-                    //         resultLanguageId:
-                    //             props.surveyResults.sampleResultPayload.resultData
-                    //                 .resultLanguageId,
                 },
             })
-            store.dispatch('setCurrentStep')
         }
-        const handleResults = (results) => {
-            console.log(results)
-            console.log(resultBasedNextSteps)
+        const handleResults = () => {
+            // console.log(results)
+            // console.log(resultBasedNextSteps)
         }
 
         onMounted(() => {
-            let questionResults = props.surveyResults
-            console.log(questionResults)
-            // if (questionResults.results.length) {
-            //     selectedAnswer.value =
-            //         questionResults.results.pop().result_value.value
-            // }
+            // let questionResults = props.surveyResults
         })
 
-        // onMounted(() => {
-        //     let questionResults = props.surveyResults
-        //     if (questionResults.results.length) {
-        //         selectedAnswer.value =
-        //             questionResults.results.pop().result_value.value
-        //     }
-        // })
+        const confirm = () => {
+            store.dispatch('setCurrentStep')
+        }
+
         return {
             store,
             route,
@@ -141,6 +136,7 @@ export default {
             resultBasedNextSteps,
             handleAnswer,
             handleResults,
+            confirm,
         }
     },
 }

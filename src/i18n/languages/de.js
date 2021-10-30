@@ -9,6 +9,7 @@ export default {
     action_prev: 'Zurück',
     action_audio_text: 'Sprache zu Text starten',
     at: 'bei',
+    close_survey: 'Umfrage schließen',
     idle_text:
         'Vielen Dank für’s Vorbeischauen. Hier kannst du unsere Inhalte direkt bewerten und somit für ein besseres Angebot sorgen.',
     question_at: 'Frage bei',

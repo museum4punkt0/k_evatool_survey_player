@@ -3,32 +3,22 @@ import SURVEY_RESULTS from '../services/survey-results-service'
 export default {
     namespaced: true,
     state: {
-        surveyResults: null,
         surveyUuidResults: null,
     },
     mutations: {
-        setSurveyResults(state, surveyResults) {
-            state.surveyResults = surveyResults
-        },
         setSurveyUuidResults(state, surveyResults) {
-            state.setSurveyUuidResults = surveyResults
+            state.surveyUuidResults = surveyResults
         },
     },
     actions: {
-        async setSurveyResults({ commit }, surveyId) {
-            const surveyResults = await SURVEY_RESULTS.getResults(surveyId)
-            console.log(surveyResults)
-            commit('setSurveyResults', surveyResults)
-        },
         async getUuidResults({ commit }, data) {
             const surveyResults = await SURVEY_RESULTS.getUuidResults(
                 data.surveyId,
                 data.uuid,
             )
-            console.log(surveyResults)
             commit('setSurveyUuidResults', surveyResults)
+            return surveyResults
         },
-
         async sendSurveyResults({ commit }, resultData) {
             console.log(resultData)
             await SURVEY_RESULTS.sendResults(
@@ -36,18 +26,19 @@ export default {
                 resultData.data,
             )
 
-            const surveyResults = await SURVEY_RESULTS.getResults(
+            const surveyResults = await SURVEY_RESULTS.getUuidResults(
                 resultData.surveyId,
+                localStorage.getItem('surveyUUID'),
             )
-            commit('setSurveyResults', surveyResults)
+            commit('setSurveyUuidResults', surveyResults)
         },
         async sendSurveyAudioAsset({ commit }, resultData) {
-            console.log(resultData)
             await SURVEY_RESULTS.sendAudioResults(resultData)
-            const surveyResults = await SURVEY_RESULTS.getResults(
+            const surveyResults = await SURVEY_RESULTS.getUuidResults(
                 resultData.surveyStepResultId,
+                localStorage.getItem('surveyUUID'),
             )
-            commit('setSurveyResults', surveyResults)
+            commit('setSurveyUuidResults', surveyResults)
         },
     },
 }

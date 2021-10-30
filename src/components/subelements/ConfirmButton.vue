@@ -8,7 +8,8 @@
                 items-center
                 rounded-xl
                 nav-button
-                p-4
+                p-2
+                pr-3
                 mt-5
                 bg-blue-700
                 text-white
@@ -24,7 +25,6 @@
 </template>
 
 <script>
-// import { CheckCircleIcon } from '@heroicons/vue/outline'
 import { CheckCircleIcon } from '@heroicons/vue/solid'
 import { useStore } from 'vuex'
 import { useI18n } from 'vue-i18n'

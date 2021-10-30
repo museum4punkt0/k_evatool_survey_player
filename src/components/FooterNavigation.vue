@@ -11,8 +11,9 @@
         "
     >
         <div class="survey-navigation-inner flex items-center h-16">
-            <div class="ml-3 top-1 text-sm text-gray-500 absolute">
-                {{ version }}
+            <div class="ml-3 text-xs text-gray-500 absolute">
+                Version
+                <strong>{{ version }}</strong>
             </div>
             <div
                 class="md:flex items-center justify-center md:w-screen sm:w-100"
@@ -29,7 +30,7 @@
                         {{ t('action_prev') }}
                     </button>
                     <span class="mx-4 p-0">
-                        {{ store.state.currentStep + 1 }}/{{ surveySteps }}
+                        <!--                        {{ store.state.currentStep + 1 }}/{{ surveySteps }}-->
                     </span>
                     <button
                         class="next flex items-center rounded-md nav-button p-2"
