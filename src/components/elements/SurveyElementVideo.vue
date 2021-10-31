@@ -41,12 +41,13 @@
                 </div>
                 <!--                src="https://ak.picdn.net/shutterstock/videos/1060516912/preview/stock-footage-beautiful-sunlight-in-the-forest.webm"-->
                 <!--                {{ content.timeBasedSteps }}-->
+                <!--                :src="content.params.videoAsset.urls.original"-->
                 <!--                src="https://evatool-backend.twoavy.com/evaluation-tool/lichtspiel_digitale_werkstatt.mp4"-->
                 <!--                :src="content.params.videoAsset.urls.original"-->
                 <div class="relative">
                     <video
                         ref="videoPlayer"
-                        :src="content.params.videoAsset.urls.original"
+                        src="https://evatool-backend.twoavy.com/evaluation-tool/lichtspiel_digitale_werkstatt.mp4"
                         preload
                         class="mx-auto p-0 m-0 z-10"
                         @timeupdate="videoTimeUpdate"
@@ -592,7 +593,7 @@ export default {
                     type: 'question',
                     time: convertTimeCode(el.timecode),
                     index: index,
-                    answered: false,
+                    answered: el.step.isAnswered,
                     question: el.step.params?.question || '',
                     text: el.step.params?.text || '',
                 })

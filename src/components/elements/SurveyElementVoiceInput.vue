@@ -114,7 +114,7 @@ export default {
             default: false,
         },
     },
-    setup() {
+    setup(props) {
         const { t } = useI18n()
         const store = useStore()
         const route = useRoute()
@@ -147,18 +147,24 @@ export default {
             recordedTime.value = -1
             store.dispatch('setStepAnswering', false)
         }
-        const nextStep = (props) => {
-            // store.dispatch('surveyResults/sendSurveyResults', {
-            //     surveyId: route.query.survey,
-            //     data: {
-            //         surveyStepId: props.content.id,
-            //         resultValue: {
-            //             audio: audioData.value,
-            //         },
-            //         uuid: props.surveyResults.uuid,
-            //         resultLanguage: store.state.lang,
-            //     },
+        const nextStep = async () => {
+            const surveySlug = route.query.survey || ''
+            // await store.dispatch('surveyResults/getUuidResults', {
+            //     surveyId: surveySlug,
+            //     uuid: localStorage.getItem('surveyUuid'),
             // })
+
+            store.dispatch('surveyResults/sendSurveyResults', {
+                surveyId: surveySlug,
+                data: {
+                    surveyStepId: props.content.id,
+                    resultValue: {
+                        audio: audioData.value,
+                    },
+                    uuid: props.surveyResults.uuid,
+                    resultLanguage: store.state.lang,
+                },
+            })
             store.dispatch('setCurrentStep')
         }
 

@@ -16,6 +16,7 @@
         <div class="flex flex-wrap flex-col items-start w-1/3">
             <SurveyElementBinaryQuestion
                 v-if="content?.surveyElementType === 'binary'"
+                :key="'binary-' + content.id"
                 :content="content"
                 :survey="survey"
                 :survey-results="surveyResults"
@@ -23,6 +24,7 @@
 
             <SurveyElementEmoji
                 v-if="content && content.surveyElementType === 'emoji'"
+                :key="'emoji-' + content.id"
                 :content="content"
                 :survey="survey"
                 :survey-results="surveyResults"
@@ -30,6 +32,7 @@
 
             <SurveyElementMultipleChoice
                 v-if="content && content.surveyElementType === 'multipleChoice'"
+                :key="'multiplechoice-' + content.id"
                 :content="content"
                 :survey="survey"
                 :survey-results="surveyResults"
@@ -37,6 +40,7 @@
 
             <SurveyElementSimpleText
                 v-if="content && content.surveyElementType === 'simpleText'"
+                :key="'simpletext-' + content.id"
                 :content="content"
                 :survey="survey"
                 :survey-results="surveyResults"
@@ -44,12 +48,14 @@
 
             <SurveyElementStarRating
                 v-if="content && content.surveyElementType === 'starRating'"
+                :key="'starrating-' + content.id"
                 :content="content"
                 :survey="survey"
                 :survey-results="surveyResults"
             ></SurveyElementStarRating>
             <SurveyElementTextInput
                 v-if="content && content.surveyElementType === 'textInput'"
+                :key="'textinput-' + content.id"
                 :content="content"
                 :survey="survey"
                 :survey-results="surveyResults"
@@ -57,6 +63,7 @@
 
             <SurveyElementVoiceInput
                 v-if="content && content.surveyElementType === 'voiceInput'"
+                :key="'voiceinput-' + content.id"
                 :content="content"
                 :survey="survey"
                 :survey-results="surveyResults"
@@ -64,6 +71,7 @@
 
             <SurveyElementYayNay
                 v-if="content && content.surveyElementType === 'yayNay'"
+                :key="'yaynay-' + content.id"
                 :content="content"
                 :survey="survey"
                 :survey-results="surveyResults"

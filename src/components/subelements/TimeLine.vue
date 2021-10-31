@@ -295,12 +295,17 @@
             <div class="order-1 w-10/12 p-1 flex justify-between items-center">
                 <!--                v-if="interactiveSteps.length - answeredSteps > 0"-->
                 <h4 class="text-gray-400 text-xl inline">
-                    {{ answeredSteps }}/{{ interactiveSteps.length }}
+                    {{ content.filter((x) => x.answered === true).length }}/{{
+                        interactiveSteps.length
+                    }}
                     {{ t('questions_answered') }}
                 </h4>
 
                 <next-button
-                    v-if="answeredSteps === interactiveSteps.length"
+                    v-if="
+                        content.filter((x) => x.answered === true).length ===
+                        interactiveSteps.length
+                    "
                     @confirm="confirm"
                 ></next-button>
             </div>
