@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col">
-        <div class="flex justify-center mb-3">
+        <div class="flex w-full justify-between mb-3">
             <button
                 v-for="i in parseInt(stars)"
                 :key="i"
@@ -16,12 +16,8 @@
                 />
             </button>
         </div>
-        <div class="labels flex justify-start">
-            <p
-                v-for="(label, index) in labels"
-                :key="'emoji-label-' + index"
-                class="mr-5"
-            >
+        <div class="labels flex justify-between w-full">
+            <p v-for="(label, index) in labels" :key="'emoji-label-' + index">
                 {{ label[lang] }}
             </p>
         </div>
@@ -33,6 +29,7 @@ import { StarIcon } from '@heroicons/vue/outline'
 import { CheckCircleIcon } from '@heroicons/vue/outline'
 import { computed, ref } from 'vue'
 import { useStore } from 'vuex'
+
 export default {
     name: 'StarRating',
     components: {
@@ -78,5 +75,17 @@ export default {
 .text-blue {
     color: #1a56db;
     fill: #1a56db;
+}
+
+.labels:nth-child(1) p {
+    text-align: left;
+}
+
+.labels:nth-child(2) p {
+    text-align: center;
+}
+
+.labels:nth-child(3) p {
+    text-align: right;
 }
 </style>
