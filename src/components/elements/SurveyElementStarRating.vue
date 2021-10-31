@@ -8,10 +8,10 @@
         @input="setRating"
     />
 
-    <confirm-butto
+    <confirm-button
         :sub-element="subElement"
         @confirm="nextStep"
-    ></confirm-butto>
+    ></confirm-button>
 </template>
 
 <script>

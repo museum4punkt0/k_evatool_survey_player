@@ -119,7 +119,7 @@ export default {
 
             document.documentElement.style.setProperty(
                 '--videoProgress',
-                `${(props.currentTime / props.duration) * 100 - 0.5}%`,
+                `${(props.currentTime / props.duration) * 100}%`,
             )
         })
 
@@ -130,7 +130,7 @@ export default {
                 console.log(value)
                 document.documentElement.style.setProperty(
                     '--videoProgress',
-                    `${(props.currentTime / props.duration) * 100 - 0.5}%`,
+                    `${(props.currentTime / props.duration) * 100}%`,
                 )
             },
         )
