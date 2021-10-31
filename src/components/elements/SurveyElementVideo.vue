@@ -46,7 +46,7 @@
                 <div class="relative">
                     <video
                         ref="videoPlayer"
-                        src="https://ak.picdn.net/shutterstock/videos/1060516912/preview/stock-footage-beautiful-sunlight-in-the-forest.webm"
+                        :src="content.params.videoAsset.urls.original"
                         preload
                         class="mx-auto p-0 m-0 z-10"
                         @timeupdate="videoTimeUpdate"
