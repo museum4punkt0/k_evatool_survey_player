@@ -232,8 +232,7 @@
 </template>
 
 <script>
-import { onMounted, toRefs, watch } from 'vue'
-import { ref } from 'vue'
+import { onMounted, ref, toRefs, watch } from 'vue'
 import { useStore } from 'vuex'
 
 import AudioRecorder from '../subelements/AudioRecorder.vue'
@@ -244,12 +243,14 @@ import Formular from '../subelements/Formular.vue'
 import ContentSlider from '../subelements/ContentSlider.vue'
 import ModalContent from '../subelements/ModalContent.vue'
 
+import msToTimeCode from 'ms-to-timecode'
+
 import {
-    PlayIcon,
-    TrashIcon,
     CheckCircleIcon,
     ClockIcon,
     MicrophoneIcon,
+    PlayIcon,
+    TrashIcon,
 } from '@heroicons/vue/outline'
 
 import { useRoute } from 'vue-router'
@@ -512,12 +513,14 @@ export default {
         }
         // ToDo
         const convertTimeFull = (duration) => {
-            let hours = '00:00'
-            let minutes = Math.floor(duration / 60)
-            minutes = minutes < 10 ? '0' + minutes : minutes
-            let seconds = Math.round(duration - minutes * 60)
-            seconds = seconds < 10 ? '0' + seconds : seconds
-            return hours + ':' + minutes + ':' + seconds
+            return msToTimeCode(duration * 1000, 25)
+
+            /*let hours = "00:00";
+            let minutes = Math.floor(duration / 60);
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            let seconds = Math.round(duration - minutes * 60);
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+            return hours + ":" + minutes + ":" + seconds;*/
         }
 
         const sendAudioAsset = (wav) => {
