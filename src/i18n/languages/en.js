@@ -7,7 +7,7 @@ export default {
     action_no: 'No',
     action_next: 'Next',
     action_prev: 'Prev',
-    action_audio_text: 'Start speech to text',
+    action_audio_text: 'Start recording',
     at: 'at',
     idle_text:
         'Thank you for looking. Here you can rate our content directly and thus ensure a better offer.',
@@ -27,10 +27,9 @@ export default {
     view_edit: 'view & edit',
     voice_recorder_placeholder:
         'Click on the microphone to start an audio recording. ',
-    voice_to_text_recorder_placeholder:
-        'Click on the microphone to speak, what you say will then be converted to text.',
+    voice_to_text_recorder_placeholder: 'Click on the microphone to speak.',
     write_comment: 'Leave a comment in the timeline',
     write_comment_placeholder: 'Write a comment...',
     write_video_comment_placeholder:
-        'Write a comment on the current point in the video or click the microphone for voice input',
+        'Write a comment on the current point in the video.',
 }

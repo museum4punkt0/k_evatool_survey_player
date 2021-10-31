@@ -7,7 +7,7 @@ export default {
     action_no: 'Nein',
     action_next: 'Weiter',
     action_prev: 'Zurück',
-    action_audio_text: 'Sprache zu Text starten',
+    action_audio_text: 'Aufnahme starten',
     at: 'bei',
     close_survey: 'Umfrage schließen',
     idle_text:
@@ -32,9 +32,9 @@ export default {
     voice_recorder_placeholder:
         'Klicke auf das Mikrofon, um eine Audioaufnahme zu starten.',
     voice_to_text_recorder_placeholder:
-        'Klicke auf das Mikrofon zur Spracheingabe, was du sagst, wird dann in Text umgewandelt.',
+        'Klicke auf das Mikrofon zur Spracheingabe.',
     write_comment: 'Kommentar in Timeline hinterlasse',
     write_comment_placeholder: 'Schreibe einen Kommentar...',
     write_video_comment_placeholder:
-        'Schreibe ein Kommentar zur aktuellen Stelle im Video oder klicke auf das Mikrofon für die Spracheingabe',
+        'Schreibe ein Kommentar zur aktuellen Stelle im Video.',
 }

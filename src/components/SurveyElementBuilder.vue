@@ -27,68 +27,72 @@
                     :survey="survey"
                     :survey-results="surveyResults"
                 ></SurveyElementBinaryQuestion>
-            <SurveyElementBinaryQuestion
-                v-if="content?.surveyElementType === 'binary'"
-                :key="'binary-' + content.id"
-                :content="content"
-                :survey="survey"
-                :survey-results="surveyResults"
-            ></SurveyElementBinaryQuestion>
+                <SurveyElementBinaryQuestion
+                    v-if="content?.surveyElementType === 'binary'"
+                    :key="'binary-' + content.id"
+                    :content="content"
+                    :survey="survey"
+                    :survey-results="surveyResults"
+                ></SurveyElementBinaryQuestion>
 
-            <SurveyElementEmoji
-                v-if="content && content.surveyElementType === 'emoji'"
-                :key="'emoji-' + content.id"
-                :content="content"
-                :survey="survey"
-                :survey-results="surveyResults"
-            ></SurveyElementEmoji>
+                <SurveyElementEmoji
+                    v-if="content && content.surveyElementType === 'emoji'"
+                    :key="'emoji-' + content.id"
+                    :content="content"
+                    :survey="survey"
+                    :survey-results="surveyResults"
+                ></SurveyElementEmoji>
 
-            <SurveyElementMultipleChoice
-                v-if="content && content.surveyElementType === 'multipleChoice'"
-                :key="'multiplechoice-' + content.id"
-                :content="content"
-                :survey="survey"
-                :survey-results="surveyResults"
-            ></SurveyElementMultipleChoice>
+                <SurveyElementMultipleChoice
+                    v-if="
+                        content &&
+                        content.surveyElementType === 'multipleChoice'
+                    "
+                    :key="'multiplechoice-' + content.id"
+                    :content="content"
+                    :survey="survey"
+                    :survey-results="surveyResults"
+                ></SurveyElementMultipleChoice>
 
-            <SurveyElementSimpleText
-                v-if="content && content.surveyElementType === 'simpleText'"
-                :key="'simpletext-' + content.id"
-                :content="content"
-                :survey="survey"
-                :survey-results="surveyResults"
-            ></SurveyElementSimpleText>
+                <SurveyElementSimpleText
+                    v-if="content && content.surveyElementType === 'simpleText'"
+                    :key="'simpletext-' + content.id"
+                    :content="content"
+                    :survey="survey"
+                    :survey-results="surveyResults"
+                ></SurveyElementSimpleText>
 
-            <SurveyElementStarRating
-                v-if="content && content.surveyElementType === 'starRating'"
-                :key="'starrating-' + content.id"
-                :content="content"
-                :survey="survey"
-                :survey-results="surveyResults"
-            ></SurveyElementStarRating>
-            <SurveyElementTextInput
-                v-if="content && content.surveyElementType === 'textInput'"
-                :key="'textinput-' + content.id"
-                :content="content"
-                :survey="survey"
-                :survey-results="surveyResults"
-            ></SurveyElementTextInput>
+                <SurveyElementStarRating
+                    v-if="content && content.surveyElementType === 'starRating'"
+                    :key="'starrating-' + content.id"
+                    :content="content"
+                    :survey="survey"
+                    :survey-results="surveyResults"
+                ></SurveyElementStarRating>
+                <SurveyElementTextInput
+                    v-if="content && content.surveyElementType === 'textInput'"
+                    :key="'textinput-' + content.id"
+                    :content="content"
+                    :survey="survey"
+                    :survey-results="surveyResults"
+                ></SurveyElementTextInput>
 
-            <SurveyElementVoiceInput
-                v-if="content && content.surveyElementType === 'voiceInput'"
-                :key="'voiceinput-' + content.id"
-                :content="content"
-                :survey="survey"
-                :survey-results="surveyResults"
-            ></SurveyElementVoiceInput>
+                <SurveyElementVoiceInput
+                    v-if="content && content.surveyElementType === 'voiceInput'"
+                    :key="'voiceinput-' + content.id"
+                    :content="content"
+                    :survey="survey"
+                    :survey-results="surveyResults"
+                ></SurveyElementVoiceInput>
 
-            <SurveyElementYayNay
-                v-if="content && content.surveyElementType === 'yayNay'"
-                :key="'yaynay-' + content.id"
-                :content="content"
-                :survey="survey"
-                :survey-results="surveyResults"
-            ></SurveyElementYayNay>
+                <SurveyElementYayNay
+                    v-if="content && content.surveyElementType === 'yayNay'"
+                    :key="'yaynay-' + content.id"
+                    :content="content"
+                    :survey="survey"
+                    :survey-results="surveyResults"
+                ></SurveyElementYayNay>
+            </template>
         </div>
     </div>
     <div
