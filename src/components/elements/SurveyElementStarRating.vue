@@ -75,10 +75,10 @@ export default {
         }
         onMounted(() => {
             let questionResults = props.surveyResults
-            console.log(props.survey)
-            console.log(questionResults)
-            console.log(store.state.surveyResults.surveyResults)
-            console.log(rating)
+            // console.log(props.survey)
+            // console.log(questionResults)
+            // console.log(store.state.surveyResults.surveyResults)
+            // console.log(rating)
             // rating.value = questionResults.results.pop().result_value.rating
 
             if (questionResults.resultByUuid) {
