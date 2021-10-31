@@ -56,27 +56,8 @@
                 {{ t('action_yes') }}
             </button>
         </div>
-
-        <!--        <button-->
-        <!--            type="button"-->
-        <!--            class="-->
-        <!--                confirm-->
-        <!--                flex-->
-        <!--                items-center-->
-        <!--                rounded-md-->
-        <!--                nav-button-->
-        <!--                p-2-->
-        <!--                mt-5-->
-        <!--                bg-blue-700-->
-        <!--                text-white-->
-        <!--            "-->
-        <!--            @click="confirm"-->
-        <!--        >-->
-        <!--            <check-circle-icon class="h-6 w-6 mr-3 text-white" />-->
-        <!--            Eingabe bestätigen-->
-        <!--        </button>-->
-        <!--        <confirm-button></confirm-button>-->
     </div>
+    <confirm-button @confirm="confirm"></confirm-button>
 </template>
 
 <script>
@@ -107,18 +88,18 @@ export default {
         },
     },
     setup(props) {
-        // const result = ref(0)
         const store = useStore()
         const route = useRoute()
         const { t } = useI18n()
-        console.log(props.surveyResults)
+        // console.log(props.surveyResults)
         const lang = computed({
             get: () => store.state.lang,
         })
-        const answer = ref()
-        const setAnswer = (ans) => {
-            console.log(answer)
-            answer.value = ans
+
+        const answer = ref(null)
+
+        const setAnswer = (answerValue) => {
+            answer.value = answerValue
             setTimeout(() => {
                 answer.value = null
             }, 500)
@@ -129,11 +110,7 @@ export default {
             results.value.push(res)
 
             console.log(results.value)
-            // if (res) {
-            //     result.value = props.surveyResults.params.trueValue
-            // } else {
-            //     result.value = props.surveyResults.params.falseValue
-            // }
+
             store.dispatch('surveyResults/sendSurveyResults', {
                 surveyId: route.query.survey,
                 data: {
@@ -145,16 +122,14 @@ export default {
                     resultLanguage: store.state.lang,
                 },
             })
+        }
+
+        const confirm = () => {
             store.dispatch('setCurrentStep')
         }
 
-        onMounted(() => {
-            let questionResults = props.surveyResults
-            console.log(questionResults)
-            // if (questionResults.results.length) {
-            //     //     results.value = questionResults.results.pop().result_value.value
-            // }
-        })
+        onMounted(() => {})
+
         return {
             t,
             lang,
@@ -163,6 +138,7 @@ export default {
             answer,
             setAnswer,
             setResult,
+            confirm,
         }
     },
     // setup() {
