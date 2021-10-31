@@ -207,7 +207,7 @@ export default {
             if (clientX > threshold.value) {
                 emit('draggedThreshold', {
                     asset: props.images[currentElement.value].id,
-                    value: 'ja',
+                    value: 'ja', // Todo: Use "trueValue"
                 })
 
                 dragging.value = true
@@ -217,7 +217,7 @@ export default {
             } else if (clientX < -threshold.value) {
                 emit('draggedThreshold', {
                     asset: props.images[currentElement.value].id,
-                    value: 'nein',
+                    value: 'nein', // Todo: Use "falseValue"
                 })
                 dragging.value = true
                 hideElement.value = true
