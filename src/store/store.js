@@ -14,6 +14,7 @@ export default createStore({
         languages: [],
         currentStep: 0,
         currentVideoStep: 0,
+        stepAnswering: false,
     },
     mutations: {
         setSurveyId(state, surveyId) {
@@ -26,6 +27,7 @@ export default createStore({
                 state.currentStep =
                     state.surveyResults.surveyUuidResults.survey.statusByUuid.currentStep
             }
+            state.stepAnswering = false
         },
         setCurrentVideoStep(state) {
             state.currentVideoStep++
@@ -37,6 +39,9 @@ export default createStore({
         },
         setLanguages(state, languages) {
             state.languages = languages
+        },
+        setStepAnswering(state, value) {
+            state.stepAnswering = value
         },
         setUserLanguage(state, lang) {
             // set userLanguage or set defaultLanguage if userLanguage not found
@@ -62,6 +67,9 @@ export default createStore({
         },
         decCurrentStep({ commit }) {
             commit('decCurrentStep')
+        },
+        setStepAnswering({ commit }, value) {
+            commit('setStepAnswering', value)
         },
         // async setUserLanguage({ commit }, lang) {
         async setUserLanguage() {

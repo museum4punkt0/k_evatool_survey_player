@@ -57,12 +57,16 @@
             </button>
         </div>
     </div>
-    <confirm-button class="mx-auto" @confirm="confirm"></confirm-button>
+    <confirm-button
+        class="mx-auto"
+        :sub-element="subElement"
+        @confirm="confirm"
+    ></confirm-button>
 </template>
 
 <script>
 import SwipeAnswer from '../subelements/SwipeAnswer.vue'
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useStore } from 'vuex'
 import { onMounted } from 'vue'
 
@@ -86,6 +90,10 @@ export default {
             type: Object,
             default: () => {},
         },
+        subElement: {
+            type: Boolean,
+            default: false,
+        },
     },
     setup(props) {
         const store = useStore()
@@ -108,7 +116,7 @@ export default {
         const setResult = (res) => {
             console.log(res)
             results.value.push(res)
-
+            store.dispatch('setStepAnswering', true)
             console.log(results.value)
 
             store.dispatch('surveyResults/sendSurveyResults', {
@@ -133,8 +141,6 @@ export default {
         const confirm = () => {
             store.dispatch('setCurrentStep')
         }
-
-        onMounted(() => {})
 
         return {
             t,

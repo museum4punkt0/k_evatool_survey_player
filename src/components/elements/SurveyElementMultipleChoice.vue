@@ -29,12 +29,15 @@
                 })
             }}
         </p>
-        <confirm-button @confirm="confirm"></confirm-button>
+        <confirm-button
+            :sub-element="subElement"
+            @confirm="confirm"
+        ></confirm-button>
     </div>
 </template>
 
 <script>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { useStore } from 'vuex'
 import SelectButton from '../subelements/SelectButton.vue'
 import ConfirmButton from '../subelements/ConfirmButton.vue'
@@ -56,6 +59,10 @@ export default {
         surveyResults: {
             type: Object,
             default: () => {},
+        },
+        subElement: {
+            type: Boolean,
+            default: false,
         },
     },
     setup(props) {
@@ -87,6 +94,9 @@ export default {
                         resultLanguage: store.state.lang,
                     },
                 })
+                store.dispatch('setStepAnswering', true)
+            } else {
+                store.dispatch('setStepAnswering', false)
             }
         }
 

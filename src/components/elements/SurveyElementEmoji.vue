@@ -15,12 +15,15 @@
         </div>
     </div>
 
-    <confirm-button @confirm="confirm"></confirm-button>
+    <confirm-button
+        :sub-element="subElement"
+        @confirm="confirm"
+    ></confirm-button>
 </template>
 
 <script>
 import { EmojiHappyIcon, EmojiSadIcon } from '@heroicons/vue/outline'
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useStore } from 'vuex'
 import { onMounted } from 'vue'
 import ConfirmButton from '../subelements/ConfirmButton.vue'
@@ -45,6 +48,10 @@ export default {
         surveyResults: {
             type: Object,
             default: () => {},
+        },
+        subElement: {
+            type: Boolean,
+            default: false,
         },
     },
     setup(props) {
@@ -74,7 +81,12 @@ export default {
         const confirm = () => {
             store.dispatch('setCurrentStep')
         }
-
+        watch(
+            () => result.value,
+            () => {
+                store.dispatch('setStepAnswering', true)
+            },
+        )
         onMounted(() => {
             let questionResults = props.surveyResults
             console.log(questionResults.results)

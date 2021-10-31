@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useStore } from 'vuex'
 import NextButton from '../subelements/NextButton.vue'
 import { useRoute } from 'vue-router'
@@ -55,6 +55,11 @@ export default {
             })
             await store.dispatch('setCurrentStep')
         }
+
+        onMounted(() => {
+            store.dispatch('setStepAnswering', true)
+        })
+
         return {
             lang,
             store,

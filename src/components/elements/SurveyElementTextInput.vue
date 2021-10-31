@@ -8,7 +8,7 @@
         @change="inputText"
     />
 
-    <confirm-button></confirm-button>
+    <confirm-button :sub-element="subElement"></confirm-button>
 </template>
 
 <script>
@@ -35,6 +35,10 @@ export default {
         surveyResults: {
             type: Object,
             default: () => {},
+        },
+        subElement: {
+            type: Boolean,
+            default: false,
         },
     },
     setup(props) {
@@ -76,6 +80,8 @@ export default {
             } else {
                 //  text.value = questionResults.resultByUuid.text
             }
+
+            store.dispatch('setStepAnswering', true)
         })
 
         return {

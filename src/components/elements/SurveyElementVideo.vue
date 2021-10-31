@@ -41,10 +41,12 @@
                 </div>
                 <!--                src="https://ak.picdn.net/shutterstock/videos/1060516912/preview/stock-footage-beautiful-sunlight-in-the-forest.webm"-->
                 <!--                {{ content.timeBasedSteps }}-->
+
+                <!--                :src="content.params.videoAsset.urls.original"-->
                 <div class="relative">
                     <video
                         ref="videoPlayer"
-                        :src="content.params.videoAsset.urls.original"
+                        src="https://ak.picdn.net/shutterstock/videos/1060516912/preview/stock-footage-beautiful-sunlight-in-the-forest.webm"
                         preload
                         class="mx-auto p-0 m-0 z-10"
                         @timeupdate="videoTimeUpdate"
@@ -288,6 +290,10 @@ export default {
             type: Object,
             default: () => {},
         },
+        subElement: {
+            type: Boolean,
+            default: false,
+        },
     },
     setup(props) {
         const { t } = useI18n()
@@ -296,6 +302,7 @@ export default {
         const answeredSteps = ref(0)
         const showQuestion = ref(false)
         const timeBasedSteps = ref(props.content.timeBasedSteps)
+        const timeBasedStepsData = ref()
         const store = useStore()
         const videoIsPlaying = ref(true)
         const showFeedback = ref(false)
@@ -534,7 +541,7 @@ export default {
 
         watch(
             () => store.state.currentVideoStep,
-            (value, oldvalue) => {
+            (value) => {
                 setTimeout(async () => {
                     confirmdAnswer(value - 1)
                     playVideo()
@@ -544,8 +551,15 @@ export default {
                         uuid: window.localStorage.getItem('surveyUuid'),
                     })
 
-                    let currentStepId = await store.state.surveyResults
-                    console.log(currentStepId)
+                    // let currentStepId = await store.state.surveyResults
+                    // console.log(currentStepId)
+
+                    let surveySteps =
+                        store.state.surveyResults.surveyUuidResults
+                    console.log(surveySteps)
+                    // let currentStepId = await store.state.surveyResults
+                    //     .surveyUuidResults.survey.statusByUuid.currentStep
+                    // console.log(currentStepId)
                     // await store.dispatch('surveyResults/getUuidResults', {
                     //     surveyId: surveySlug,
                     //     uuid: window.localStorage.getItem('surveyUuid'),
@@ -590,6 +604,7 @@ export default {
             answeredSteps,
             interactiveSteps,
             timeBasedSteps,
+            timeBasedStepsData,
             videoPlayer,
             store,
             route,

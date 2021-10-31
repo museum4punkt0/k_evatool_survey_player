@@ -27,28 +27,28 @@
                 class="md:flex items-center justify-center md:w-screen sm:w-100"
             >
                 <div class="flex justify-center items-center w-screen">
-                    <button
-                        class="prev flex items-center rounded-md nav-button p-2"
-                        @click="prevStep()"
-                    >
-                        <chevron-double-left-icon
-                            class="h-5 w-5 mr-1"
-                        ></chevron-double-left-icon>
+                    <!--                    <button-->
+                    <!--                        class="prev flex items-center rounded-md nav-button p-2"-->
+                    <!--                        @click="prevStep()"-->
+                    <!--                    >-->
+                    <!--                        <chevron-double-left-icon-->
+                    <!--                            class="h-5 w-5 mr-1"-->
+                    <!--                        ></chevron-double-left-icon>-->
 
-                        {{ t('action_prev') }}
-                    </button>
-                    <span class="mx-4 p-0">
-                        <!--                        {{ store.state.currentStep + 1 }}/{{ surveySteps }}-->
-                    </span>
-                    <button
-                        class="next flex items-center rounded-md nav-button p-2"
-                        @click="nextStep()"
-                    >
-                        {{ t('action_next') }}
-                        <chevron-double-right-icon
-                            class="h-5 w-5 ml-2"
-                        ></chevron-double-right-icon>
-                    </button>
+                    <!--                        {{ t('action_prev') }}-->
+                    <!--                    </button>-->
+                    <!--                    <span class="mx-4 p-0">-->
+                    <!--                        &lt;!&ndash;                        {{ store.state.currentStep + 1 }}/{{ surveySteps }}&ndash;&gt;-->
+                    <!--                    </span>-->
+                    <!--                    <button-->
+                    <!--                        class="next flex items-center rounded-md nav-button p-2"-->
+                    <!--                        @click="nextStep()"-->
+                    <!--                    >-->
+                    <!--                        {{ t('action_next') }}-->
+                    <!--                        <chevron-double-right-icon-->
+                    <!--                            class="h-5 w-5 ml-2"-->
+                    <!--                        ></chevron-double-right-icon>-->
+                    <!--                    </button>-->
                 </div>
                 <div
                     class="

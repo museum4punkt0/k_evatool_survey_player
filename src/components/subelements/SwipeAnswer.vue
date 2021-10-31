@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-wrap justify-center items-center">
+    <div class="flex flex-wrap justify-center items-center w.full h-3/4">
         <div class="flex relative">
             <div
                 class="
@@ -20,7 +20,7 @@
                     {{ surveyResults.params.falseLabel[lang] }}
                 </span>
             </div>
-            <div class="mx-auto absolute card-container w-8/12 h-2/3 z-10">
+            <div class="mx-auto absolute card-container w-full z-10">
                 <div
                     v-for="(image, index) in images"
                     :key="'card-' + index"
@@ -358,7 +358,8 @@ export default {
 <style lang="scss">
 .card-container {
     position: relative;
-    width: 40vw;
+    //width: 40vw;
+    width: 32rem;
     left: 50%;
     padding: 20px 20px 60% 20px;
     display: inline-block;

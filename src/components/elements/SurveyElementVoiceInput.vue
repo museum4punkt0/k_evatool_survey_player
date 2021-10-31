@@ -70,7 +70,11 @@
             </button>
         </div>
 
-        <confirm-button :disabled="recording"></confirm-button>
+        <confirm-button
+            :disabled="recording"
+            :sub-element="subElement"
+            @confirm="nextStep"
+        ></confirm-button>
     </div>
 </template>
 
@@ -82,6 +86,7 @@ import { useStore } from 'vuex'
 import { useI18n } from 'vue-i18n'
 import AudioRecorder from '../subelements/AudioRecorder.vue'
 import { computed, ref } from 'vue'
+import { useRoute } from 'vue-router'
 
 export default {
     name: 'SurveyElementVoiceInput',
@@ -104,10 +109,15 @@ export default {
             type: Object,
             default: () => {},
         },
+        subElement: {
+            type: Boolean,
+            default: false,
+        },
     },
     setup() {
         const { t } = useI18n()
         const store = useStore()
+        const route = useRoute()
         const audioData = ref()
         const recording = ref()
         const recordedTime = ref(-1)
@@ -132,6 +142,24 @@ export default {
 
         const deleteAudio = () => {
             console.log('delete')
+            audioData.value = null
+
+            recordedTime.value = -1
+            store.dispatch('setStepAnswering', false)
+        }
+        const nextStep = (props) => {
+            // store.dispatch('surveyResults/sendSurveyResults', {
+            //     surveyId: route.query.survey,
+            //     data: {
+            //         surveyStepId: props.content.id,
+            //         resultValue: {
+            //             audio: audioData.value,
+            //         },
+            //         uuid: props.surveyResults.uuid,
+            //         resultLanguage: store.state.lang,
+            //     },
+            // })
+            store.dispatch('setCurrentStep')
         }
 
         const toggleRecording = () => {
@@ -144,9 +172,11 @@ export default {
                 }, 1000)
             } else {
                 clearInterval(timer.value)
-                store.dispatch('setCurrentStep')
+                // store.dispatch('setCurrentStep')
+                store.dispatch('setStepAnswering', true)
             }
         }
+
         return {
             store,
             lang,
@@ -156,6 +186,7 @@ export default {
             audioData,
             recordedTime,
             sendAudioAsset,
+            nextStep,
             toggleRecording,
             convertTime,
             deleteAudio,

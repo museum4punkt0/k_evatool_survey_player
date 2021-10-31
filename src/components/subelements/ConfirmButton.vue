@@ -14,8 +14,10 @@
                 bg-blue-700
                 text-white
             "
-            :disabled="disabled"
-            :class="{ 'bg-gray-400': disabled }"
+            :disabled="disabled || !store.state.stepAnswering"
+            :class="{
+                'bg-gray-400': disabled || !store.state.stepAnswering,
+            }"
             @click.prevent="confirm"
         >
             <check-circle-icon class="h-6 w-6 mr-3 text-white" />

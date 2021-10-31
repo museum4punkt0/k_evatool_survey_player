@@ -8,15 +8,15 @@
         @input="setRating"
     />
 
-    <confirm-button
+    <confirm-butto
         :sub-element="subElement"
         @confirm="nextStep"
-    ></confirm-button>
+    ></confirm-butto>
 </template>
 
 <script>
 import StarRating from '../subelements/StarRating.vue'
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useStore } from 'vuex'
 import { onMounted } from 'vue'
 import { useRoute } from 'vue-router'
@@ -80,6 +80,14 @@ export default {
                 },
             })
         }
+
+        watch(
+            () => rating.value,
+            () => {
+                store.dispatch('setStepAnswering', true)
+            },
+        )
+
         onMounted(() => {
             let questionResults = props.surveyResults
             // console.log(props.survey)

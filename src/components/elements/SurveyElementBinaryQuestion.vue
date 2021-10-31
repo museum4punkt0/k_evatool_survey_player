@@ -65,11 +65,14 @@
             <span v-html="content.params.falseLabel[lang]"></span>
         </label>
     </div>
-    <confirm-button @confirm="confirm"></confirm-button>
+    <confirm-button
+        :sub-element="subElement"
+        @confirm="confirm"
+    ></confirm-button>
 </template>
 
 <script>
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { onMounted } from 'vue'
 import { useStore } from 'vuex'
 import { CheckCircleIcon, ArrowCircleRightIcon } from '@heroicons/vue/outline'
@@ -91,6 +94,10 @@ export default {
         surveyResults: {
             type: Object,
             default: () => {},
+        },
+        subElement: {
+            type: Boolean,
+            default: false,
         },
     },
     setup(props) {
@@ -119,6 +126,13 @@ export default {
             // console.log(results)
             // console.log(resultBasedNextSteps)
         }
+
+        watch(
+            () => selectedAnswer.value,
+            () => {
+                store.dispatch('setStepAnswering', true)
+            },
+        )
 
         onMounted(() => {
             // let questionResults = props.surveyResults
