@@ -20,7 +20,7 @@
                     class="rounded bg-green-400 text-white px-3 py-2 ml-3"
                     @click="resetUuid"
                 >
-                    new uuid
+                    {{ t('new_uuid') }}
                 </button>
             </div>
             <div
