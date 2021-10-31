@@ -14,14 +14,6 @@
                 "
             />
             <div class="mx-auto absolute card-container w-8/12 h-2/3 z-10">
-                <!--                v-if="currentElement > images.length"-->
-                <!--                <div-->
-                <!--                    v-if="currentElement === images.length"-->
-                <!--                    class="flex items-center h-100 top-50 m-auto"-->
-                <!--                >-->
-                <!--                    <p>Sie haben alle Fragen beantwortet!</p>-->
-                <!--                </div>-->
-
                 <div
                     v-for="(image, index) in images"
                     :key="'card-' + index"
@@ -207,7 +199,7 @@ export default {
             if (clientX > threshold.value) {
                 emit('draggedThreshold', {
                     asset: props.images[currentElement.value].id,
-                    value: 'ja', // Todo: Use "trueValue"
+                    value: props.surveyResults.params.falseValue,
                 })
 
                 dragging.value = true
@@ -217,7 +209,7 @@ export default {
             } else if (clientX < -threshold.value) {
                 emit('draggedThreshold', {
                     asset: props.images[currentElement.value].id,
-                    value: 'nein', // Todo: Use "falseValue"
+                    value: props.surveyResults.params.falseValue,
                 })
                 dragging.value = true
                 hideElement.value = true
@@ -238,7 +230,7 @@ export default {
             if (positions.value.clientX > threshold.value) {
                 emit('draggedThreshold', {
                     asset: props.images[currentElement.value].id,
-                    value: 'ja',
+                    value: props.surveyResults.params.trueValue,
                 })
 
                 dragging.value = true
@@ -248,7 +240,7 @@ export default {
             } else if (positions.value.clientX < -threshold.value) {
                 emit('draggedThreshold', {
                     asset: props.images[currentElement.value].id,
-                    value: 'nein',
+                    value: props.surveyResults.params.falseValue,
                 })
                 dragging.value = true
                 hideElement.value = true
@@ -354,9 +346,11 @@ export default {
     transform: translateX(-50%);
     justify-content: center;
 }
+
 .card {
     margin: auto;
 }
+
 .card:nth-child(1) {
     z-index: 2;
     //transform: translateX(0%) translateY(0) scale(1);
@@ -380,6 +374,7 @@ export default {
 .card {
     opacity: 0;
 }
+
 .card.card-active {
     z-index: 10;
     opacity: 1;
