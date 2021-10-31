@@ -1,7 +1,8 @@
 <template>
-    <h2 class="pb-5" v-html="content.params.text[lang]"></h2>
-
-    <NextButton @confirm="nextStep"></NextButton>
+    <div class="px-5">
+        <h2 class="pb-5" v-html="content.params.text[lang]"></h2>
+        <NextButton :sub-element="subElement" @confirm="nextStep"></NextButton>
+    </div>
 </template>
 
 <script>
