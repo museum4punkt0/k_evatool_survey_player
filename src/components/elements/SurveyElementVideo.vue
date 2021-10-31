@@ -199,7 +199,7 @@
                         </div>
                     </div>
                     <div>
-                        <button
+                        <!--                        <button
                             class="rounded px-2 py-1"
                             @click="deleteComment"
                         >
@@ -207,7 +207,7 @@
                                 class="h-6 w-6 mr-2 inline text-red-600"
                             />
                             {{ t('action_delete') }}
-                        </button>
+                        </button>-->
                         <button class="rounded px-2 py-1" @click="saveComment">
                             <check-circle-icon class="h-6 w-6 mr-2 inline" />
                             {{ t('action_save') }}
@@ -524,7 +524,6 @@ export default {
         }
 
         const sendAudioAsset = (wav) => {
-            console.log(props.content)
             store.dispatch('surveyResults/sendSurveyAudioAsset', {
                 surveyStepResultId: route.query.survey,
                 audio: wav,
