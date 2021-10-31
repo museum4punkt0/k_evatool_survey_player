@@ -195,23 +195,22 @@
                     <div class="order-1 w-10/12 p-1">
                         <div class="inline-block">
                             <h3
+                                v-if="content[index]?.question"
                                 class="mb-3 text-blue-700 text-xl inline"
                                 :class="{
                                     'text-green-400': content[index].answered,
                                 }"
-                            >
-                                {{ content[index].question[lang] }}
-                                <!--                                {{-->
-                                <!--                                    timeBasedSteps[index].step.params.question[-->
-                                <!--                                        lang-->
-                                <!--                                    ]-->
-                                <!--                                }}-->
+                                v-html="content[index].question[lang]"
+                            ></h3>
+                            <h3
+                                v-if="content[index]?.text"
+                                class="mb-3 text-blue-700 text-xl inline"
+                                :class="{
+                                    'text-green-400': content[index].answered,
+                                }"
+                                v-html="content[index].text[lang]"
+                            ></h3>
 
-                                <!--                                {{-->
-                                <!--                                    timeBasedSteps[comment.index - 1].step-->
-                                <!--                                        .params.question[lang]-->
-                                <!--                                }}-->
-                            </h3>
                             <p class="text-gray-400">
                                 {{ t('question_at') }}
                                 {{ convertTime(comment.time) }}

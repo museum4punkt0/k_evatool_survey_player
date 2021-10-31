@@ -593,7 +593,8 @@ export default {
                     time: convertTimeCode(el.timecode),
                     index: index,
                     answered: false,
-                    question: el.step.params.question,
+                    question: el.step.params?.question || '',
+                    text: el.step.params?.text || '',
                 })
             })
 
