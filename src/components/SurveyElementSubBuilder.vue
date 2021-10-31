@@ -14,6 +14,7 @@
             :content="content"
             :survey="survey"
             :survey-results="surveyResults"
+            :sub-element="true"
         ></SurveyElementBinaryQuestion>
 
         <SurveyElementEmoji
@@ -21,6 +22,7 @@
             :content="content"
             :survey="survey"
             :survey-results="surveyResults"
+            :sub-element="true"
         ></SurveyElementEmoji>
 
         <SurveyElementMultipleChoice
@@ -28,12 +30,14 @@
             :content="content"
             :survey="survey"
             :survey-results="surveyResults"
+            :sub-element="true"
         ></SurveyElementMultipleChoice>
 
         <SurveyElementSimpleText
             v-if="content && content.surveyElementType === 'simpleText'"
             :content="content"
             :survey="survey"
+            :sub-element="true"
         ></SurveyElementSimpleText>
 
         <SurveyElementStarRating
@@ -41,6 +45,7 @@
             :content="content"
             :survey="survey"
             :survey-results="surveyResults"
+            :sub-element="true"
             @confirm="confirmed"
         ></SurveyElementStarRating>
         <SurveyElementTextInput
@@ -48,6 +53,7 @@
             :content="content"
             :survey="survey"
             :survey-results="surveyResults"
+            :sub-element="true"
         ></SurveyElementTextInput>
 
         <SurveyElementVoiceInput
@@ -55,6 +61,7 @@
             :content="content"
             :survey="survey"
             :survey-results="surveyResults"
+            :sub-element="true"
         ></SurveyElementVoiceInput>
 
         <SurveyElementYayNay
@@ -62,6 +69,7 @@
             :content="content"
             :survey="survey"
             :survey-results="surveyResults"
+            :sub-element="true"
         ></SurveyElementYayNay>
     </div>
 </template>

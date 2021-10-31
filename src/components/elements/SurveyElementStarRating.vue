@@ -8,7 +8,10 @@
         @input="setRating"
     />
 
-    <confirm-button @confirm="nextStep"></confirm-button>
+    <confirm-button
+        :sub-element="subElement"
+        @confirm="nextStep"
+    ></confirm-button>
 </template>
 
 <script>
@@ -37,6 +40,10 @@ export default {
         surveyResults: {
             type: Object,
             default: () => {},
+        },
+        subElement: {
+            type: Boolean,
+            default: false,
         },
     },
 

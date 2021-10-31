@@ -29,6 +29,7 @@ export default {
         'Click on the microphone to start an audio recording. ',
     voice_to_text_recorder_placeholder:
         'Click on the microphone to speak, what you say will then be converted to text.',
+    write_comment: 'Leave a comment in the timeline',
     write_comment_placeholder: 'Write a comment...',
     write_video_comment_placeholder:
         'Write a comment on the current point in the video or click the microphone for voice input',

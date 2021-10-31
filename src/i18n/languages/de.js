@@ -30,6 +30,7 @@ export default {
         'Klicke auf das Mikrofon, um eine Audioaufnahme zu starten.',
     voice_to_text_recorder_placeholder:
         'Klicke auf das Mikrofon zur Spracheingabe, was du sagst, wird dann in Text umgewandelt.',
+    write_comment: 'Kommentar in Timeline hinterlasse',
     write_comment_placeholder: 'Schreibe einen Kommentar...',
     write_video_comment_placeholder:
         'Schreibe ein Kommentar zur aktuellen Stelle im Video oder klicke auf das Mikrofon für die Spracheingabe',

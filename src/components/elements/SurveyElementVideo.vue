@@ -2,42 +2,6 @@
     <div class="relative md:mx-auto md:w-full pb-fluid-video md:flex">
         <div class="sidebar sidebar-left w-full md:w-2/3 relative p-0 m-0">
             <div class="video-wrap bg-white overflow-hidden relative z-20">
-                <!--                src="https://ak.picdn.net/shutterstock/videos/1060516912/preview/stock-footage-beautiful-sunlight-in-the-forest.webm"-->
-                <!--                {{ content.timeBasedSteps }}-->
-                <div class="relative">
-                    <video
-                        ref="videoPlayer"
-                        :src="content.params.videoAsset.urls.original"
-                        muted
-                        preload
-                        class="mx-auto p-0 m-0 z-10"
-                        @timeupdate="videoTimeUpdate"
-                        @play="playVideo"
-                        @ended="videoEnded"
-                    ></video>
-                    <div
-                        v-if="!started || !videoIsPlaying"
-                        class="
-                            overlay
-                            absolute
-                            w-full
-                            h-full
-                            bg-black
-                            opacity-50
-                            left-0
-                            top-0
-                            z-20
-                            flex
-                            items-center
-                            justify-center
-                        "
-                        @click="start"
-                    >
-                        <play-icon
-                            class="h-32 w-32 z-100 inline text-white"
-                        ></play-icon>
-                    </div>
-                </div>
                 <div
                     v-if="showQuestion"
                     class="
@@ -53,6 +17,42 @@
                         md:hidden
                     "
                 ></div>
+                <div
+                    v-if="!started"
+                    class="
+                        overlay
+                        absolute
+                        w-full
+                        h-full
+                        bg-black
+                        opacity-50
+                        left-0
+                        top-0
+                        z-20
+                        flex
+                        items-center
+                        justify-center
+                    "
+                    @click="start"
+                >
+                    <play-icon
+                        class="h-32 w-32 z-100 inline text-white"
+                    ></play-icon>
+                </div>
+                <!--                src="https://ak.picdn.net/shutterstock/videos/1060516912/preview/stock-footage-beautiful-sunlight-in-the-forest.webm"-->
+                <!--                {{ content.timeBasedSteps }}-->
+                <div class="relative">
+                    <video
+                        ref="videoPlayer"
+                        :src="content.params.videoAsset.urls.original"
+                        preload
+                        class="mx-auto p-0 m-0 z-10"
+                        @timeupdate="videoTimeUpdate"
+                        @play="playVideo"
+                        @ended="videoEnded"
+                    ></video>
+                </div>
+
                 <div
                     v-if="showQuestion || showFeedback || showFormular"
                     class="
@@ -110,26 +110,26 @@
                     >
                         <!--            {{ store.state.surveys.surveyStep }}-->
 
-                        <h3>Question: {{ answeredSteps }}</h3>
-                        <h3>
-                            StopsVideo:
-                            {{ timeBasedSteps[answeredSteps - 1].stopsVideo }}
-                        </h3>
-                        <ul>
-                            <li>
-                                <button @click="setAnswer(1)">antwort 1</button>
-                            </li>
-                        </ul>
-                        <ul>
-                            <li>
-                                <button @click="setAnswer(2)">antwort 2</button>
-                            </li>
-                        </ul>
-                        <ul>
-                            <li>
-                                <button @click="setAnswer(3)">antwort 3</button>
-                            </li>
-                        </ul>
+                        <!--                        <h3>Question: {{ answeredSteps }}</h3>-->
+                        <!--                        <h3>-->
+                        <!--                            StopsVideo:-->
+                        <!--                            {{ timeBasedSteps[answeredSteps - 1].stopsVideo }}-->
+                        <!--                        </h3>-->
+                        <!--                        <ul>-->
+                        <!--                            <li>-->
+                        <!--                                <button @click="setAnswer(1)">antwort 1</button>-->
+                        <!--                            </li>-->
+                        <!--                        </ul>-->
+                        <!--                        <ul>-->
+                        <!--                            <li>-->
+                        <!--                                <button @click="setAnswer(2)">antwort 2</button>-->
+                        <!--                            </li>-->
+                        <!--                        </ul>-->
+                        <!--                        <ul>-->
+                        <!--                            <li>-->
+                        <!--                                <button @click="setAnswer(3)">antwort 3</button>-->
+                        <!--                            </li>-->
+                        <!--                        </ul>-->
                     </div>
                 </div>
                 <ProgressBar
@@ -147,6 +147,7 @@
                     :video-is-playing="videoIsPlaying"
                     @play-pause="tooglePlay"
                     @toggle-comment="toggleComment"
+                    @toggle-volume="toggleVolume"
                 ></MediaControls>
             </div>
             <!--            ToDo: move to component-->
@@ -231,7 +232,7 @@
 </template>
 
 <script>
-import { onMounted, toRefs } from 'vue'
+import { onMounted, toRefs, watch } from 'vue'
 import { ref } from 'vue'
 import { useStore } from 'vuex'
 
@@ -302,7 +303,7 @@ export default {
         const started = ref(false)
         const audioComment = ref(false)
         const route = useRoute()
-        const answeredStepsObject = ref()
+        const answeredStepsObject = ref([])
         console.log(timeBasedSteps)
         const currentStepData = () => {
             return timeBasedSteps.value[answeredSteps.value - 1]
@@ -352,6 +353,10 @@ export default {
             commentBox.value = !commentBox.value
         }
 
+        const toggleVolume = (value) => {
+            videoPlayer.value.muted = value
+        }
+
         const saveComment = async () => {
             if (comment.value || audioComment.value) {
                 let message = comment.value
@@ -388,7 +393,7 @@ export default {
                 },
             })
             comment.value = ''
-            store.dispatch('setCurrentStep')
+            // store.dispatch('setCurrentStep')
         }
 
         const setAnswer = (id) => {
@@ -420,7 +425,7 @@ export default {
         }
 
         const videoEnded = () => {
-            showFeedback.value = true
+            // showFeedback.value = true
         }
 
         const videoTimeUpdate = () => {
@@ -470,8 +475,10 @@ export default {
         }
 
         const start = () => {
-            started.value = true
-            playVideo()
+            if (!started.value) {
+                started.value = true
+                playVideo()
+            }
         }
         const playVideo = () => {
             console.log('playVideo')
@@ -521,6 +528,35 @@ export default {
             })
             audioComment.value = wav
         }
+
+        watch(
+            () => store.state.currentVideoStep,
+            (value, oldvalue) => {
+                setTimeout(async () => {
+                    confirmdAnswer(value - 1)
+                    playVideo()
+                    const surveySlug = route.query.survey || ''
+                    await store.dispatch('surveyResults/getUuidResults', {
+                        surveyId: surveySlug,
+                        uuid: window.localStorage.getItem('surveyUuid'),
+                    })
+
+                    let currentStepId = await store.state.surveyResults
+                    console.log(currentStepId)
+                    // await store.dispatch('surveyResults/getUuidResults', {
+                    //     surveyId: surveySlug,
+                    //     uuid: window.localStorage.getItem('surveyUuid'),
+                    // })
+                    // let surveySteps =
+                    //     store.state.surveyResults.surveyUuidResults.steps
+                    // let currentStepId = await store.state.surveyResults
+                    //     .surveyUuidResults.survey.statusByUuid.currentStep
+                    // currentStep.value = surveySteps.find(
+                    //     (x) => x.id === currentStepId,
+                    // )
+                }, 300)
+            },
+        )
 
         onMounted(() => {
             console.log('mounted!')
@@ -584,6 +620,7 @@ export default {
             editComment,
             jumpToItem,
             toggleComment,
+            toggleVolume,
             confirmdAnswer,
         }
     },

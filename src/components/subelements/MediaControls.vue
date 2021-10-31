@@ -43,7 +43,7 @@
                         @click="writeComment()"
                     >
                         <pencil-alt-icon class="h-6 w-6 inline" />
-                        Kommentar in Timeline hinterlasse
+                        {{ t('write_comment') }}
                     </button>
                 </div>
                 <!--                <div class="text-blue-800"></div>-->
@@ -76,6 +76,7 @@ import {
     VolumeOffIcon,
 } from '@heroicons/vue/outline'
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 export default {
     name: 'MediaControls',
@@ -102,12 +103,18 @@ export default {
             default: true,
         },
     },
-    emits: ['play-pause', 'toggle-comment'],
+    emits: ['play-pause', 'toggle-comment', 'toggle-volume'],
     setup(props, { emit }) {
-        const volume = ref(1)
+        const { t } = useI18n()
+        const volume = ref(true)
         const togglePlay = () => {
             emit('play-pause', !props.videoIsPlaying)
         }
+        const toggleVolume = () => {
+            volume.value = !volume.value
+            emit('toggle-volume', volume.value)
+        }
+
         const writeComment = () => {
             if (props.videoIsPlaying) {
                 emit('play-pause', false)
@@ -124,10 +131,12 @@ export default {
         }
 
         return {
+            t,
             volume,
             togglePlay,
             writeComment,
             convertTime,
+            toggleVolume,
         }
     },
 }

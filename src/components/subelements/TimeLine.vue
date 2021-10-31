@@ -163,12 +163,12 @@
                             rounded-full
                         "
                         :class="{
-                            'bg-green-400': index < answeredSteps + 1,
+                            'bg-green-400': index < answeredSteps,
                         }"
                     >
                         <h1 class="mx-auto text-black font-semibold text-lg">
                             <check-icon
-                                v-if="index < answeredSteps + 1"
+                                v-if="index < answeredSteps"
                                 class="
                                     h-6
                                     w-6
@@ -187,7 +187,7 @@
                                     text-white
                                 "
                                 :class="{
-                                    'bg-green-400': index < answeredSteps + 1,
+                                    'bg-green-400': index < answeredSteps,
                                 }"
                             />
                         </h1>
@@ -197,7 +197,7 @@
                             <h3
                                 class="mb-3 text-blue-700 text-xl inline"
                                 :class="{
-                                    'text-green-400': index < answeredSteps + 1,
+                                    'text-green-400': index < answeredSteps,
                                 }"
                             >
                                 <!--                                {{-->
@@ -218,7 +218,7 @@
                         </div>
 
                         <button
-                            v-if="index < answeredSteps + 1"
+                            v-if="index < answeredSteps"
                             class="rounded-3xl align-top border-2 px-4 py-1"
                             @click="editComment(comment)"
                         >
@@ -317,7 +317,7 @@ import {
     TrashIcon,
     FastForwardIcon,
 } from '@heroicons/vue/outline'
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useStore } from 'vuex'
 import { useI18n } from 'vue-i18n'
 
