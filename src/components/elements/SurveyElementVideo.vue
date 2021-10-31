@@ -41,7 +41,7 @@
                 </div>
                 <!--                src="https://ak.picdn.net/shutterstock/videos/1060516912/preview/stock-footage-beautiful-sunlight-in-the-forest.webm"-->
                 <!--                {{ content.timeBasedSteps }}-->
-                src="https://evatool-backend.twoavy.com/evaluation-tool/lichtspiel_digitale_werkstatt.mp4"
+                <!--                src="https://evatool-backend.twoavy.com/evaluation-tool/lichtspiel_digitale_werkstatt.mp4"-->
                 <!--                :src="content.params.videoAsset.urls.original"-->
                 <div class="relative">
                     <video
@@ -197,7 +197,7 @@
                             ></clock-icon>
                             {{ convertTime(mediaCurrentTime) }} /
                             {{ t('comments', 1) }}
-                            {{ timelineObject.length + 1 }}
+                            {{ commentsCounter.length + 1 }}
                         </div>
                     </div>
                     <div>
