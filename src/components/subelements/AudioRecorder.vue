@@ -134,19 +134,22 @@ export default {
             ) {
                 isSupported.value = false
                 // eslint-disable-next-line
-                console.warn('Media Devices are not supported from your browser.')
+            console.warn('Media Devices are not supported from your browser.')
                 return
             } else {
                 isSupported.value = true
             }
-            navigator.permissions
-                .query({ name: 'microphone' })
-                .then(function (permissionStatus) {
-                    hasPermission.value = permissionStatus.state
-                    permissionStatus.onchange = function () {
-                        hasPermission.value = this.state
-                    }
-                })
+
+            if (navigator.permissions) {
+                navigator.permissions
+                    .query({ name: 'microphone' })
+                    .then(function (permissionStatus) {
+                        hasPermission.value = permissionStatus.state
+                        permissionStatus.onchange = function () {
+                            hasPermission.value = this.state
+                        }
+                    })
+            }
 
             navigator.mediaDevices.enumerateDevices().then((devices) => {
                 audioDevices.value = devices.filter(
