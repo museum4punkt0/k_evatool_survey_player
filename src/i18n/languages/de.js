@@ -18,6 +18,7 @@ export default {
     languages: 'Sprachen | Sprache | Sprachen',
     min_selectable: 'mind. { selectable } auswählen',
     max_selectable: 'max. { selectable } auswählen',
+    new_uuid: 'Neue ID vergeben',
     steps: 'Schritte | Schritt | Schritt',
     surveys: 'Umfragen | Umfrage | Umfragen',
     select: 'auswählen',
