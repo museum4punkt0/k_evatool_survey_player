@@ -22,6 +22,8 @@ export default {
     steps: 'Schritte | Schritt | Schritt',
     surveys: 'Umfragen | Umfrage | Umfragen',
     select: 'auswählen',
+    survey_complete: 'Umfrage erfolgreich abgeschlossen!',
+    survey_complete_thank_you: 'Vielen Dank für Ihre Teilnahme.',
     jump_to_question: 'Springe zur Frage',
     overview: 'Übersicht',
     overview_description:
