@@ -50,7 +50,7 @@ export default {
                     resultValue: {
                         read: true,
                     },
-                    uuid: props.surveyResults.uuid,
+                    uuid: localStorage.getItem('surveyUuid'),
                     resultLanguage: store.state.lang,
                 },
             })
