@@ -13,6 +13,7 @@ export default createStore({
         surveyId: null,
         languages: [],
         currentStep: 0,
+        currentVideoStep: 0,
     },
     mutations: {
         setSurveyId(state, surveyId) {
@@ -25,6 +26,9 @@ export default createStore({
                 state.currentStep =
                     state.surveyResults.surveyUuidResults.survey.statusByUuid.currentStep
             }
+        },
+        setCurrentVideoStep(state) {
+            state.currentVideoStep++
         },
         decCurrentStep(state) {
             if (state.currentStep > 0) {
@@ -52,6 +56,9 @@ export default createStore({
         },
         setCurrentStep({ commit }) {
             commit('setCurrentStep')
+        },
+        setCurrentVideoStep({ commit }) {
+            commit('setCurrentVideoStep')
         },
         decCurrentStep({ commit }) {
             commit('decCurrentStep')

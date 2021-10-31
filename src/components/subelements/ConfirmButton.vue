@@ -16,7 +16,7 @@
             "
             :disabled="disabled"
             :class="{ 'bg-gray-400': disabled }"
-            @click="confirm"
+            @click.prevent="confirm"
         >
             <check-circle-icon class="h-6 w-6 mr-3 text-white" />
             {{ t('action_confirm') }}
@@ -37,13 +37,21 @@ export default {
             type: Boolean,
             default: false,
         },
+        subElement: {
+            type: Boolean,
+            default: false,
+        },
     },
-    emits: ['confirm'],
+    emits: ['confirm', 'confirmVideo'],
     setup(props, { emit }) {
         const store = useStore()
         const { t } = useI18n()
         const confirm = () => {
-            emit('confirm')
+            if (props.subElement) {
+                store.dispatch('setCurrentVideoStep')
+            } else {
+                emit('confirm')
+            }
             // store.dispatch('setCurrentStep')
         }
         return {
