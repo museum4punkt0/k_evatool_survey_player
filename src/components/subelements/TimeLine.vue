@@ -95,7 +95,7 @@
                             {{ t('comments', 1) }}
                         </h3>
                         <p class="text-gray-400 inline">
-                            {{ t('answered_at') }}
+                            {{ t('question_at') }}
                             {{ convertTime(comment.time) }}
                         </p>
                         <p

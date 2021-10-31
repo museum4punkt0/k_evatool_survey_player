@@ -57,7 +57,7 @@
             </button>
         </div>
     </div>
-    <!--    <confirm-button @confirm="confirm"></confirm-button>-->
+    <confirm-button class="mx-auto" @confirm="confirm"></confirm-button>
 </template>
 
 <script>
@@ -123,11 +123,11 @@ export default {
                 },
             })
 
-            if (props.content.params.assets.length === results.value.length) {
-                setTimeout(() => {
-                    store.dispatch('setCurrentStep')
-                }, 500)
-            }
+            // if (props.content.params.assets.length === results.value.length) {
+            //     setTimeout(() => {
+            //         store.dispatch('setCurrentStep')
+            //     }, 500)
+            // }
         }
 
         const confirm = () => {
