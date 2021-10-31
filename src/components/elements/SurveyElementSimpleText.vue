@@ -25,6 +25,10 @@ export default {
             type: Object,
             default: () => {},
         },
+        subElement: {
+            type: Boolean,
+            default: false,
+        },
     },
     setup(props) {
         const simpleText = ref()

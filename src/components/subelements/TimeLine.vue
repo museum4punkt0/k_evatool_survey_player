@@ -353,7 +353,7 @@ export default {
             default: null,
         },
         audioComment: {
-            type: String,
+            type: Boolean,
             default: null,
         },
         timeBasedSteps: {

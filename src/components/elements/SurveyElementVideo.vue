@@ -232,7 +232,7 @@
 </template>
 
 <script>
-import { onMounted, toRefs, watch } from 'vue'
+import { onMounted, watch } from 'vue'
 import { ref } from 'vue'
 import { useStore } from 'vuex'
 
@@ -420,22 +420,25 @@ export default {
             console.log(itemId)
             // answeredSteps.value = itemId
             // console.log(questionsCounter.value)
-            // // videoPlayer.value.currentTime = questionsCounter.value[itemId]
-            // console.log(questionsCounter.value[itemId])
+
+            videoPlayer.value.currentTime = parseInt(
+                questionsCounter.value[itemId],
+            )
+            mediaCurrentTime.value = videoPlayer.value.currentTime
+            console.log(questionsCounter.value[itemId])
         }
 
         const videoEnded = () => {
             // showFeedback.value = true
         }
-
         const videoTimeUpdate = () => {
             console.log('videoTimeUpdate')
-            const currentTime = parseInt(videoPlayer.value.currentTime)
-            const { content } = toRefs(props)
-            console.log(content)
+            // const currentTime = parseInt(videoPlayer.value.currentTime)
+            // const { content } = toRefs(props)
+            // console.log(content)
 
             mediaCurrentTime.value = videoPlayer.value.currentTime
-            mediaDurationTime.value = parseInt(videoPlayer.value.duration)
+            mediaDurationTime.value = videoPlayer.value.duration
             console.log(mediaCurrentTime.value)
             // if (interactiveSteps.value.indexOf(currentTime) > -1) {
             if (
@@ -449,10 +452,10 @@ export default {
                     pauseVideo()
                 }
                 console.log(timeBasedSteps.value[answeredSteps.value].stepId)
-                store.dispatch(
-                    'surveys/getSurveyStepById',
-                    timeBasedSteps.value[answeredSteps.value].stepId,
-                )
+                // store.dispatch(
+                //     'surveys/getSurveyStepById',
+                //     timeBasedSteps.value[answeredSteps.value].stepId,
+                // )
 
                 // questionsCounter.value = timelineObject.value.filter(
                 //     (x) => x.type === 'question',
@@ -471,6 +474,7 @@ export default {
         }
 
         const changeProgress = (seekToValue) => {
+            mediaCurrentTime.value = seekToValue
             videoPlayer.value.currentTime = seekToValue
         }
 
@@ -580,6 +584,7 @@ export default {
 
         return {
             t,
+            answeredStepsObject,
             questionsCounter,
             commentsCounter,
             showQuestion,

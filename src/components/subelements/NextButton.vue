@@ -29,12 +29,23 @@ import { useI18n } from 'vue-i18n'
 export default {
     name: 'ConfirmButton',
     components: { CheckCircleIcon },
+    props: {
+        subElement: {
+            type: Boolean,
+            default: false,
+        },
+    },
     emits: ['confirm'],
     setup(props, { emit }) {
         const store = useStore()
         const { t } = useI18n()
         const confirm = () => {
-            emit('confirm')
+            // emit('confirm')
+            if (props.subElement) {
+                store.dispatch('setCurrentVideoStep')
+            } else {
+                emit('confirm')
+            }
         }
         return {
             t,

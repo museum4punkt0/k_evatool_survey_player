@@ -8,8 +8,8 @@
                 min="0"
                 :max="duration"
                 :value="currentTime"
-                @change="changeTheTime"
-                @input="changeTheTime"
+                @change="changeTheTime()"
+                @input="changeTheTime()"
             />
             <div
                 v-for="(step, index) in interactiveSteps"
@@ -62,7 +62,7 @@ export default {
     emits: ['changeProgress', 'addComment'],
     setup(props, { emit }) {
         const moving = ref(false)
-        const seekbar = ref(0)
+        const seekbar = ref()
 
         // const mediaCurrentTime = props.currentTime
         // const mediaDuration = props.duration
@@ -77,14 +77,13 @@ export default {
         //     //     this.mediaPlayer.play()
         //     // }
         // }
-        const seekbarMin = ref(0)
-        const seekbarMax = ref(0)
+        // const seekbarMin = ref(0)
+        // const seekbarMax = ref(0)
 
         // const seekbar = ref()
 
         const showContent = (content) => {
             console.log(content)
-
             emit('jumpToItem', content)
         }
 
@@ -98,7 +97,9 @@ export default {
             console.log(seekbar.value.value)
             // emit('addComment', parseFloat(props.currentTime))
             emit('changeProgress', parseFloat(seekbar.value.value))
-
+            console.log(props.currentTime)
+            console.log(props.duration)
+            console.log((props.currentTime / props.duration) * 100)
             document.documentElement.style.setProperty(
                 '--videoProgress',
                 `${(props.currentTime / props.duration) * 100}%`,
@@ -125,7 +126,7 @@ export default {
         watch(
             () => props.currentTime,
             (value) => {
-                seekbar.value.value = props.currentTime.value
+                seekbar.value.value = value
                 console.log(value)
                 document.documentElement.style.setProperty(
                     '--videoProgress',
@@ -136,8 +137,8 @@ export default {
         return {
             moving,
             seekbar,
-            seekbarMin,
-            seekbarMax,
+            // seekbarMin,
+            // seekbarMax,
             // mediaCurrentTime,
             // mediaDuration,
             changeTheTime,

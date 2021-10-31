@@ -56,6 +56,7 @@ export default {
         const blobString = ref()
         const recorder = ref(null)
         const isRecording = ref(false)
+        const isPaused = ref(false)
 
         const askForMicrophonePermission = () => {
             return navigator.mediaDevices.getUserMedia({ audio: true })
@@ -161,6 +162,8 @@ export default {
             blobString,
             audioDevices,
             recorder,
+            isPaused,
+            isRecording,
             isSupported,
             hasPermission,
             startRecording,
