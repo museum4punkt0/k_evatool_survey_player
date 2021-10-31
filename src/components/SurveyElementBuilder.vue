@@ -14,60 +14,71 @@
         "
     >
         <div class="flex flex-wrap flex-col items-start w-1/3">
-            <SurveyElementBinaryQuestion
-                v-if="content?.surveyElementType === 'binary'"
-                :content="content"
-                :survey="survey"
-                :survey-results="surveyResults"
-            ></SurveyElementBinaryQuestion>
+            <survey-done
+                v-if="
+                    store.state.surveyResults.surveyUuidResults?.survey
+                        ?.statusByUuid?.currentStep === -1
+                "
+            />
+            <template v-else>
+                <SurveyElementBinaryQuestion
+                    v-if="content?.surveyElementType === 'binary'"
+                    :content="content"
+                    :survey="survey"
+                    :survey-results="surveyResults"
+                ></SurveyElementBinaryQuestion>
 
-            <SurveyElementEmoji
-                v-if="content && content.surveyElementType === 'emoji'"
-                :content="content"
-                :survey="survey"
-                :survey-results="surveyResults"
-            ></SurveyElementEmoji>
+                <SurveyElementEmoji
+                    v-if="content && content.surveyElementType === 'emoji'"
+                    :content="content"
+                    :survey="survey"
+                    :survey-results="surveyResults"
+                ></SurveyElementEmoji>
 
-            <SurveyElementMultipleChoice
-                v-if="content && content.surveyElementType === 'multipleChoice'"
-                :content="content"
-                :survey="survey"
-                :survey-results="surveyResults"
-            ></SurveyElementMultipleChoice>
+                <SurveyElementMultipleChoice
+                    v-if="
+                        content &&
+                        content.surveyElementType === 'multipleChoice'
+                    "
+                    :content="content"
+                    :survey="survey"
+                    :survey-results="surveyResults"
+                ></SurveyElementMultipleChoice>
 
-            <SurveyElementSimpleText
-                v-if="content && content.surveyElementType === 'simpleText'"
-                :content="content"
-                :survey="survey"
-                :survey-results="surveyResults"
-            ></SurveyElementSimpleText>
+                <SurveyElementSimpleText
+                    v-if="content && content.surveyElementType === 'simpleText'"
+                    :content="content"
+                    :survey="survey"
+                    :survey-results="surveyResults"
+                ></SurveyElementSimpleText>
 
-            <SurveyElementStarRating
-                v-if="content && content.surveyElementType === 'starRating'"
-                :content="content"
-                :survey="survey"
-                :survey-results="surveyResults"
-            ></SurveyElementStarRating>
-            <SurveyElementTextInput
-                v-if="content && content.surveyElementType === 'textInput'"
-                :content="content"
-                :survey="survey"
-                :survey-results="surveyResults"
-            ></SurveyElementTextInput>
+                <SurveyElementStarRating
+                    v-if="content && content.surveyElementType === 'starRating'"
+                    :content="content"
+                    :survey="survey"
+                    :survey-results="surveyResults"
+                ></SurveyElementStarRating>
+                <SurveyElementTextInput
+                    v-if="content && content.surveyElementType === 'textInput'"
+                    :content="content"
+                    :survey="survey"
+                    :survey-results="surveyResults"
+                ></SurveyElementTextInput>
 
-            <SurveyElementVoiceInput
-                v-if="content && content.surveyElementType === 'voiceInput'"
-                :content="content"
-                :survey="survey"
-                :survey-results="surveyResults"
-            ></SurveyElementVoiceInput>
+                <SurveyElementVoiceInput
+                    v-if="content && content.surveyElementType === 'voiceInput'"
+                    :content="content"
+                    :survey="survey"
+                    :survey-results="surveyResults"
+                ></SurveyElementVoiceInput>
 
-            <SurveyElementYayNay
-                v-if="content && content.surveyElementType === 'yayNay'"
-                :content="content"
-                :survey="survey"
-                :survey-results="surveyResults"
-            ></SurveyElementYayNay>
+                <SurveyElementYayNay
+                    v-if="content && content.surveyElementType === 'yayNay'"
+                    :content="content"
+                    :survey="survey"
+                    :survey-results="surveyResults"
+                ></SurveyElementYayNay>
+            </template>
         </div>
     </div>
     <div
@@ -104,10 +115,13 @@ import SurveyElementSimpleText from './elements/SurveyElementSimpleText.vue'
 import SurveyElementVideo from './elements/SurveyElementVideo.vue'
 import SurveyElementVoiceInput from './elements/SurveyElementVoiceInput.vue'
 import SurveyElementYayNay from './elements/SurveyElementYayNay.vue'
+import SurveyDone from './SurveyDone.vue'
+import { useStore } from 'vuex'
 
 export default {
     name: 'SurveyElementBuilder',
     components: {
+        SurveyDone,
         SurveyElementBinaryQuestion,
         SurveyElementEmoji,
         SurveyElementMultipleChoice,
@@ -135,6 +149,10 @@ export default {
             type: Object,
             default: null,
         },
+    },
+    setup() {
+        const store = useStore()
+        return { store }
     },
 }
 </script>
