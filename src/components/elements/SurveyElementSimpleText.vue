@@ -10,6 +10,7 @@ import { computed, onMounted, ref } from 'vue'
 import { useStore } from 'vuex'
 import NextButton from '../subelements/NextButton.vue'
 import { useRoute } from 'vue-router'
+
 export default {
     name: 'SurveyElementSimpleText',
     components: { NextButton },
@@ -53,7 +54,9 @@ export default {
                     resultLanguage: store.state.lang,
                 },
             })
-            if (!props.subElement) {
+            if (props.subElement) {
+                await store.dispatch('setCurrentVideoStep')
+            } else {
                 await store.dispatch('setCurrentStep')
             }
         }
