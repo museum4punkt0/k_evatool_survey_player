@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col">
+    <div class="flex flex-col w-full">
         <div class="flex w-full justify-between mb-3">
             <button
                 v-for="i in parseInt(stars)"
