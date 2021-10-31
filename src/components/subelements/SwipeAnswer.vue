@@ -1,8 +1,7 @@
 <template>
     <div class="flex flex-wrap justify-center items-center">
         <div class="flex relative">
-            <img
-                src="../../assets/swipe-left.svg"
+            <div
                 class="
                     inline
                     swipe-left
@@ -11,8 +10,16 @@
                     z-20
                     top-1/2
                     left-10
+                    flex flex-col
+                    justify-center
+                    items-center
                 "
-            />
+            >
+                <img src="../../assets/swipe-left.svg" />
+                <span class="text-center">
+                    {{ surveyResults.params.falseLabel[lang] }}
+                </span>
+            </div>
             <div class="mx-auto absolute card-container w-8/12 h-2/3 z-10">
                 <div
                     v-for="(image, index) in images"
@@ -65,8 +72,7 @@
                 <!--            </div>-->
                 <!--        </div>-->
             </div>
-            <img
-                src="../../assets/swipe-right.svg"
+            <div
                 class="
                     inline
                     swipe-right
@@ -75,14 +81,22 @@
                     z-20
                     top-1/2
                     right-10
+                    flex flex-col
+                    justify-center
+                    items-center
                 "
-            />
+            >
+                <img src="../../assets/swipe-right.svg" />
+                <span class="text-center">
+                    {{ surveyResults.params.trueLabel[lang] }}
+                </span>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { onMounted, watch } from 'vue'
 import { useStore } from 'vuex'
 
@@ -126,6 +140,10 @@ export default {
         const loaded = ref(false)
         const mouseDown = ref()
         const currentElement = ref(0)
+
+        const lang = computed({
+            get: () => store.state.lang,
+        })
 
         const onMouseDown = (event) => {
             event.preventDefault()
@@ -309,6 +327,7 @@ export default {
         })
 
         return {
+            lang,
             loaded,
             store,
             hideElement,

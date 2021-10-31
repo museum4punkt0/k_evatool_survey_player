@@ -122,6 +122,12 @@ export default {
                     resultLanguage: store.state.lang,
                 },
             })
+
+            if (props.content.params.assets.length === results.value.length) {
+                setTimeout(() => {
+                    store.dispatch('setCurrentStep')
+                }, 500)
+            }
         }
 
         const confirm = () => {
