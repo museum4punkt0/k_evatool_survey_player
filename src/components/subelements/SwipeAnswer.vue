@@ -137,15 +137,7 @@ export default {
 
         const onMouseDown = (event) => {
             event.preventDefault()
-            console.log(event)
             mouseDown.value = true
-            // positions.value = {
-            //     clientX: event.clientX - thresholdWidth.value,
-            //     clientY: event.clientY - thresholdHeight.value,
-            //     rotation:
-            //         maxRotation.value * (event.clientX / thresholdWidth.value),
-            // }
-            // console.log(positions.value)
         }
         const onMouseUp = (event) => {
             event.preventDefault()
@@ -214,8 +206,8 @@ export default {
         const getAnswerPosition = (clientX) => {
             if (clientX > threshold.value) {
                 emit('draggedThreshold', {
-                    asset: props.images[currentElement.value].id, //ToDo: change with: props.images.id
-                    value: 'ja',
+                    asset: props.images[currentElement.value].id,
+                    value: 'ja', // Todo: Use "trueValue"
                 })
 
                 dragging.value = true
@@ -224,8 +216,8 @@ export default {
                 transformString.value = `transform: translate3D(0px, 0px, 0) rotate(0deg)`
             } else if (clientX < -threshold.value) {
                 emit('draggedThreshold', {
-                    asset: props.images[currentElement.value].id, //ToDo: change with: props.images.id
-                    value: 'nein',
+                    asset: props.images[currentElement.value].id,
+                    value: 'nein', // Todo: Use "falseValue"
                 })
                 dragging.value = true
                 hideElement.value = true
@@ -288,7 +280,7 @@ export default {
 
                 if (currentElement.value === props.images.length) {
                     setTimeout(() => {
-                        store.dispatch('setCurrentStep')
+                        // store.dispatch('setCurrentStep')
                     }, 1000)
                 }
             }, 400)

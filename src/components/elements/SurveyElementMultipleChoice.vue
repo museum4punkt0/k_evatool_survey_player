@@ -66,12 +66,10 @@ export default {
 
         const resultBasedNextSteps = ref(props.content.resultBasedNextSteps)
 
-        const handleAnswer = (answer) => {
-            console.log(answer)
+        const handleAnswer = () => {
+            // console.log(answer)
         }
-        const handleResults = (results) => {
-            console.log(results)
-            console.log(selectedOptions.value)
+        const handleResults = () => {
             if (
                 props.surveyResults.params.minSelectable <=
                     selectedOptions.value.length &&
