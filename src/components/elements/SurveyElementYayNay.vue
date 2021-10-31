@@ -57,7 +57,7 @@
             </button>
         </div>
     </div>
-    <confirm-button @confirm="confirm"></confirm-button>
+    <!--    <confirm-button @confirm="confirm"></confirm-button>-->
 </template>
 
 <script>

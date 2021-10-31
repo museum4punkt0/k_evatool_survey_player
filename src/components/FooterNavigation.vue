@@ -14,6 +14,14 @@
             <div class="ml-3 text-xs text-gray-500 absolute">
                 Version
                 <strong>{{ version }}</strong>
+
+                <button
+                    v-if="demoMode"
+                    class="rounded bg-green-400 text-white px-3 py-2 ml-3"
+                    @click="resetUuid"
+                >
+                    new uuid
+                </button>
             </div>
             <div
                 class="md:flex items-center justify-center md:w-screen sm:w-100"
@@ -94,14 +102,16 @@
 
 <script>
 import { BookOpenIcon, FingerPrintIcon } from '@heroicons/vue/solid'
+import { useRoute } from 'vue-router'
 import {
     ChevronDoubleLeftIcon,
     ChevronDoubleRightIcon,
 } from '@heroicons/vue/outline'
 import { useStore } from 'vuex'
-
+import { ref } from 'vue'
 import { version } from '../../package.json'
 import { useI18n } from 'vue-i18n'
+import { onMounted } from 'vue'
 
 export default {
     name: 'Navigation',
@@ -124,6 +134,9 @@ export default {
     emits: ['next-step', 'prev-step'],
     setup(props, { emit }) {
         const store = useStore()
+        const route = useRoute()
+
+        const demoMode = ref(false)
         const { t } = useI18n()
         const nextStep = () => {
             if (props.currentStep < props.surveySteps) {
@@ -139,12 +152,25 @@ export default {
             store.dispatch('decCurrentStep')
         }
 
+        const resetUuid = () => {
+            window.localStorage.setItem('surveyUuid', '')
+            window.location.reload()
+        }
+        onMounted(() => {
+            if (route.query.demo && route.query.demo === 'true') {
+                demoMode.value = true
+            }
+        })
+
         return {
             t,
+            route,
             store,
             version,
+            demoMode,
             nextStep,
             prevStep,
+            resetUuid,
         }
     },
 }
