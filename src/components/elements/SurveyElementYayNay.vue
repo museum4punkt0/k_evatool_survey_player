@@ -89,6 +89,7 @@ import { XCircleIcon, CheckCircleIcon } from '@heroicons/vue/outline'
 import { useRoute } from 'vue-router'
 import ConfirmButton from '../subelements/ConfirmButton.vue'
 import { useI18n } from 'vue-i18n'
+
 export default {
     name: 'SurveyElementYayNay',
     components: { SwipeAnswer, XCircleIcon, CheckCircleIcon, ConfirmButton },
@@ -124,6 +125,7 @@ export default {
             }, 500)
         }
         const results = ref([])
+        results.value.images = []
         const setResult = (res) => {
             console.log(res)
             results.value.push(res)
@@ -141,11 +143,17 @@ export default {
                     resultValue: {
                         images: results.value,
                     },
+
                     uuid: props.surveyResults.uuid,
                     resultLanguage: store.state.lang,
                 },
             })
-            store.dispatch('setCurrentStep')
+
+            if (props.content.params.assets.length === results.value.length) {
+                setTimeout(() => {
+                    store.dispatch('setCurrentStep')
+                }, 500)
+            }
         }
 
         onMounted(() => {

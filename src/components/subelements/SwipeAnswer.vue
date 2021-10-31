@@ -214,7 +214,7 @@ export default {
         const getAnswerPosition = (clientX) => {
             if (clientX > threshold.value) {
                 emit('draggedThreshold', {
-                    asset: currentElement.value, //ToDo: change with: props.images.id
+                    asset: props.images[currentElement.value].id, //ToDo: change with: props.images.id
                     value: 'ja',
                 })
 
@@ -224,7 +224,7 @@ export default {
                 transformString.value = `transform: translate3D(0px, 0px, 0) rotate(0deg)`
             } else if (clientX < -threshold.value) {
                 emit('draggedThreshold', {
-                    asset: currentElement.value, //ToDo: change with: props.images.id
+                    asset: props.images[currentElement.value].id, //ToDo: change with: props.images.id
                     value: 'nein',
                 })
                 dragging.value = true
@@ -245,7 +245,7 @@ export default {
         const onTouchEnd = () => {
             if (positions.value.clientX > threshold.value) {
                 emit('draggedThreshold', {
-                    asset: currentElement.value, //ToDo: change with: props.images.id
+                    asset: props.images[currentElement.value].id,
                     value: 'ja',
                 })
 
@@ -255,7 +255,7 @@ export default {
                 transformString.value = `transform: translate3D(0px, 0px, 0) rotate(0deg)`
             } else if (positions.value.clientX < -threshold.value) {
                 emit('draggedThreshold', {
-                    asset: currentElement.value, //ToDo: change with: props.images.id
+                    asset: props.images[currentElement.value].id,
                     value: 'nein',
                 })
                 dragging.value = true
