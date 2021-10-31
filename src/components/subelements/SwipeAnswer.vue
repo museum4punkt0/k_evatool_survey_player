@@ -1,6 +1,6 @@
 <template>
-    <div class="font-sans my-16 flex flex-wrap justify-center items-center">
-        <div class="flex mt-16 h-1/2 relative">
+    <div class="flex flex-wrap justify-center items-center">
+        <div class="flex relative">
             <img
                 src="../../assets/swipe-left.svg"
                 class="
@@ -30,15 +30,18 @@
                         absolute
                         touch-element
                         w-96
+                        h-96
                         hover:shadow
                         rounded-t-xl
                         bg-white
+                        w-full
                     "
                     :class="[
                         { 'transition-all linear duration-300': !dragging },
-                        { 'opacity-0 duration-0': index < currentElement },
+                        { ' duration-0': index < currentElement },
                         {
-                            'card-active  shadow-xl': index === currentElement,
+                            'card-active opacity-1 shadow-xl':
+                                index === currentElement,
                         },
                     ]"
                     :style="index === currentElement ? transformString : ''"
@@ -48,13 +51,16 @@
                     @touchmove="onTouchMove"
                     @touchend="onTouchEnd"
                 >
-                    <div class="text-left">
-                        <h5 class="p-4">Erläuterung</h5>
-                        <img
-                            :src="image.urls.original"
-                            alt=""
-                            @load="imageLoaded"
-                        />
+                    <div
+                        class="text-left w-full h-full"
+                        :style="getBGImage(image.urls.original)"
+                    >
+                        <!--                        <h5 class="p-4">Erläuterung</h5>-->
+                        <!--                        <img-->
+                        <!--                            :src="image.urls.original"-->
+                        <!--                            alt=""-->
+                        <!--                            @load="imageLoaded"-->
+                        <!--                        />-->
                     </div>
                 </div>
                 <!--        <div class="touch-element">-->
@@ -99,6 +105,18 @@ export default {
             type: Number,
             default: -1,
         },
+        content: {
+            type: Object,
+            default: () => {},
+        },
+        survey: {
+            type: Object,
+            default: () => {},
+        },
+        surveyResults: {
+            type: Object,
+            default: () => {},
+        },
     },
     emits: ['draggedThreshold'],
     setup(props, { emit }) {
@@ -115,7 +133,8 @@ export default {
         const touchElement = ref()
         const loaded = ref(false)
         const mouseDown = ref()
-        const currentElement = ref(1)
+        const currentElement = ref(0)
+
         const onMouseDown = (event) => {
             event.preventDefault()
             console.log(event)
@@ -131,6 +150,7 @@ export default {
         const onMouseUp = (event) => {
             event.preventDefault()
             mouseDown.value = false
+            getAnswerPosition(positions.value.clientX)
         }
         // const dragMouseUp = (event) => {}
         const onMouseMove = (event) => {
@@ -162,6 +182,7 @@ export default {
                 }
                 transformString.value = `transform: translate3D(${positions.value.clientX}px, ${positions.value.clientY}px, 0) rotate(${positions.value.rotation}deg`
             }
+
             // console.log(positions.value)
         }
         const onTouchMove = (event) => {
@@ -189,6 +210,38 @@ export default {
 
             transformString.value = `transform: translate3D(${positions.value.clientX}px, ${positions.value.clientY}px, 0) rotate(${positions.value.rotation}deg`
         }
+
+        const getAnswerPosition = (clientX) => {
+            if (clientX > threshold.value) {
+                emit('draggedThreshold', {
+                    asset: currentElement.value, //ToDo: change with: props.images.id
+                    value: 'ja',
+                })
+
+                dragging.value = true
+                hideElement.value = true
+                currentElement.value++
+                transformString.value = `transform: translate3D(0px, 0px, 0) rotate(0deg)`
+            } else if (clientX < -threshold.value) {
+                emit('draggedThreshold', {
+                    asset: currentElement.value, //ToDo: change with: props.images.id
+                    value: 'nein',
+                })
+                dragging.value = true
+                hideElement.value = true
+                currentElement.value++
+                transformString.value = `transform: translate3D(0px, 0px, 0) rotate(0deg)`
+            } else {
+                dragging.value = false
+                positions.value = {
+                    clientX: 0, // positions.value.clientX,
+                    clientY: 0, //positions.value.clientY,
+                    rotation: 0,
+                }
+                transformString.value = `transform: translate3D(${positions.value.clientX}px, ${positions.value.clientY}px, 0) rotate(${positions.value.rotation}deg)`
+            }
+        }
+
         const onTouchEnd = () => {
             if (positions.value.clientX > threshold.value) {
                 emit('draggedThreshold', {
@@ -240,6 +293,13 @@ export default {
                 }
             }, 400)
         }
+        const getBGImage = (image) => {
+            return (
+                'background:url(' +
+                image +
+                ')no-repeat; background-size:contain; background-position:center;'
+            )
+        }
 
         watch(
             () => props.answer,
@@ -259,6 +319,9 @@ export default {
             // touchElement.value = document
             //     .getElementsByClassName('touch-element')[0]
             //     .getBoundingClientRect()
+            touchElement.value = document
+                .getElementsByClassName('card-active')[0]
+                .getBoundingClientRect()
         })
 
         return {
@@ -282,6 +345,8 @@ export default {
             onTouchMove,
             onTouchEnd,
             setAnswer,
+            getBGImage,
+            getAnswerPosition,
         }
     },
 }
@@ -292,34 +357,47 @@ export default {
     position: relative;
     width: 40vw;
     left: 50%;
-    padding: 20px;
+    padding: 20px 20px 60% 20px;
     display: inline-block;
     transform: translateX(-50%);
-    height: 570px;
     justify-content: center;
 }
-
-.card:nth-child(2) {
-    opacity: 1;
-    z-index: 1;
-    transform: translateY(10px) scale(0.98);
-}
-
-.card:nth-child(3) {
-    opacity: 1;
-    z-index: 1;
-    transform: translateY(20px) scale(0.96);
-}
-
 .card {
-    z-index: 1;
-
+    margin: auto;
+}
+.card:nth-child(1) {
+    z-index: 2;
+    //transform: translateX(0%) translateY(0) scale(1);
     &.card-active {
         z-index: 10;
     }
 }
 
-.opacity-0 div {
+.card:nth-child(2) {
+    //opacity: 1;
+    //z-index: 1;
+    //transform: translateX(0%) translateY(10px) scale(0.98);
+}
+
+.card:nth-child(3) {
+    //opacity: 1;
+    //z-index: 1;
+    //transform: translateX(-0%) translateY(20px) scale(0.96);
+}
+
+.card {
     opacity: 0;
+}
+.card.card-active {
+    z-index: 10;
+    opacity: 1;
+    transition: opacity 0.3s linear;
+}
+
+//.opacity-0 div {
+//    opacity: 0;
+//}
+.opacity-1 div {
+    opacity: 1;
 }
 </style>

@@ -1,9 +1,11 @@
 <template>
-    <div class="flex flex-wrap flex-col items-center w-full h-6/12">
+    <div class="flex flex-wrap justify-center items-center w-full h-6/12">
         <h2 class="pb-5" v-html="content.params.question[lang]"></h2>
         <SwipeAnswer
             :answer="answer"
             :images="content.params.assets"
+            :content="content"
+            :survey-results="surveyResults"
             @draggedThreshold="setResult"
         ></SwipeAnswer>
         <!--        <div>1/{{ content.params.assets.length }} Karten eingestuft</div>-->
