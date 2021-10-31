@@ -86,7 +86,7 @@
                         :step-question="
                             content.timeBasedSteps[answeredSteps - 1]
                         "
-                        @confirmed-answer="confirmdAnswer"
+                        @confirmed-answer="confirmedAnswer"
                     ></ModalContent>
                     <formular v-if="showFormular" class="z-20"></formular>
                     <div v-if="showFeedback" class="thanks-feedback">
@@ -316,8 +316,11 @@ export default {
         const currentStepData = () => {
             return timeBasedSteps.value[answeredSteps.value - 1]
         }
-        const confirmdAnswer = (id) => {
+        const confirmedAnswer = (id) => {
             answeredStepsObject.value.push(props.content.timeBasedSteps[id])
+            timelineObject.value.filter((x) => x.type === 'question')[
+                answeredSteps.value - 1
+            ].answered = true
         }
 
         const comment = ref()
@@ -543,7 +546,7 @@ export default {
             () => store.state.currentVideoStep,
             (value) => {
                 setTimeout(async () => {
-                    confirmdAnswer(value - 1)
+                    confirmedAnswer(value - 1)
                     playVideo()
                     const surveySlug = route.query.survey || ''
                     await store.dispatch('surveyResults/getUuidResults', {
@@ -589,6 +592,8 @@ export default {
                     type: 'question',
                     time: convertTimeCode(el.timecode),
                     index: index,
+                    answered: false,
+                    question: el.step.params.question,
                 })
             })
 
@@ -640,7 +645,7 @@ export default {
             jumpToItem,
             toggleComment,
             toggleVolume,
-            confirmdAnswer,
+            confirmedAnswer,
         }
     },
 }

@@ -15,6 +15,7 @@ export default createStore({
         currentStep: 0,
         currentVideoStep: 0,
         stepAnswering: false,
+        editVideoQuestionId: -1,
     },
     mutations: {
         setSurveyId(state, surveyId) {
@@ -43,6 +44,9 @@ export default createStore({
         setStepAnswering(state, value) {
             state.stepAnswering = value
         },
+        editVideoQuestionId(state, value) {
+            state.editVideoQuestionId = value
+        },
         setUserLanguage(state, lang) {
             // set userLanguage or set defaultLanguage if userLanguage not found
             if (state.languages.find((x) => x.code === lang)) {
@@ -70,6 +74,9 @@ export default createStore({
         },
         setStepAnswering({ commit }, value) {
             commit('setStepAnswering', value)
+        },
+        editVideoQuestionId({ commit }, value) {
+            commit('editVideoQuestionId', value)
         },
         // async setUserLanguage({ commit }, lang) {
         async setUserLanguage() {
