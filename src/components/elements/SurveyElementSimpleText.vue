@@ -1,7 +1,7 @@
 <template>
     <div class="px-5">
         <h2 class="pb-5" v-html="content.params.text[lang]"></h2>
-        <NextButton :sub-element="subElement" @confirm="nextStep"></NextButton>
+        <NextButton @confirm="nextStep"></NextButton>
     </div>
 </template>
 
@@ -53,7 +53,9 @@ export default {
                     resultLanguage: store.state.lang,
                 },
             })
-            await store.dispatch('setCurrentStep')
+            if (!props.subElement) {
+                await store.dispatch('setCurrentStep')
+            }
         }
 
         onMounted(() => {
