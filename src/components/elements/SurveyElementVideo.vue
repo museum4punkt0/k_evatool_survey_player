@@ -199,7 +199,7 @@
                         </div>
                     </div>
                     <div>
-                        <button
+                        <!--                        <button
                             class="rounded px-2 py-1"
                             @click="deleteComment"
                         >
@@ -207,7 +207,7 @@
                                 class="h-6 w-6 mr-2 inline text-red-600"
                             />
                             {{ t('action_delete') }}
-                        </button>
+                        </button>-->
                         <button class="rounded px-2 py-1" @click="saveComment">
                             <check-circle-icon class="h-6 w-6 mr-2 inline" />
                             {{ t('action_save') }}
@@ -232,8 +232,7 @@
 </template>
 
 <script>
-import { onMounted, watch } from 'vue'
-import { ref } from 'vue'
+import { onMounted, ref, toRefs, watch } from 'vue'
 import { useStore } from 'vuex'
 
 import AudioRecorder from '../subelements/AudioRecorder.vue'
@@ -244,12 +243,14 @@ import Formular from '../subelements/Formular.vue'
 import ContentSlider from '../subelements/ContentSlider.vue'
 import ModalContent from '../subelements/ModalContent.vue'
 
+import msToTimeCode from 'ms-to-timecode'
+
 import {
-    PlayIcon,
-    TrashIcon,
     CheckCircleIcon,
     ClockIcon,
     MicrophoneIcon,
+    PlayIcon,
+    TrashIcon,
 } from '@heroicons/vue/outline'
 
 import { useRoute } from 'vue-router'
@@ -420,17 +421,14 @@ export default {
             console.log(itemId)
             // answeredSteps.value = itemId
             // console.log(questionsCounter.value)
-
-            videoPlayer.value.currentTime = parseInt(
-                questionsCounter.value[itemId],
-            )
-            mediaCurrentTime.value = videoPlayer.value.currentTime
-            console.log(questionsCounter.value[itemId])
+            // // videoPlayer.value.currentTime = questionsCounter.value[itemId]
+            // console.log(questionsCounter.value[itemId])
         }
 
         const videoEnded = () => {
             // showFeedback.value = true
         }
+
         const videoTimeUpdate = () => {
             console.log('videoTimeUpdate')
             // const currentTime = parseInt(videoPlayer.value.currentTime)
@@ -516,16 +514,17 @@ export default {
         }
         // ToDo
         const convertTimeFull = (duration) => {
-            let hours = '00:00'
-            let minutes = Math.floor(duration / 60)
-            minutes = minutes < 10 ? '0' + minutes : minutes
-            let seconds = Math.round(duration - minutes * 60)
-            seconds = seconds < 10 ? '0' + seconds : seconds
-            return hours + ':' + minutes + ':' + seconds
+            return msToTimeCode(duration * 1000, 25)
+
+            /*let hours = "00:00";
+            let minutes = Math.floor(duration / 60);
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            let seconds = Math.round(duration - minutes * 60);
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+            return hours + ":" + minutes + ":" + seconds;*/
         }
 
         const sendAudioAsset = (wav) => {
-            console.log(props.content)
             store.dispatch('surveyResults/sendSurveyAudioAsset', {
                 surveyStepResultId: route.query.survey,
                 audio: wav,

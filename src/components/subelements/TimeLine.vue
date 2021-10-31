@@ -116,15 +116,15 @@
                             <!--                            ></audio>-->
                         </p>
                         <div class="mt-5 text-sm">
-                            <button
-                                class="rounded-3xl border-2 px-4 px-2 py-1"
-                                @click="removeComment(comment)"
-                            >
-                                <trash-icon
-                                    class="h-6 w-6 mr-2 inline text-red-600"
-                                />
-                                {{ t('action_delete') }}
-                            </button>
+                            <!--                            <button
+                  class="rounded-3xl border-2 px-4 px-2 py-1"
+                  @click="removeComment(comment)"
+              >
+                  <trash-icon
+                      class="h-6 w-6 mr-2 inline text-red-600"
+                  />
+                  {{ t('action_delete') }}
+              </button>-->
                             <button
                                 class="rounded-3xl border-2 px-4 ml-5 py-1"
                                 @click="editComment(comment)"
@@ -216,31 +216,32 @@
                                 {{ convertTime(comment.time) }}
                             </p>
                         </div>
-
-                        <button
-                            v-if="index < answeredSteps"
-                            class="rounded-3xl align-top border-2 px-4 py-1"
-                            @click="editComment(comment)"
-                        >
-                            <pencil-alt-icon
-                                class="h-6 w-6 mr-2 inline text-blue-600"
-                            />
-                            {{ t('view_edit') }}
-                        </button>
-                        <button
-                            v-else
-                            class="rounded-3xl align-top border-2 px-4 py-1"
-                            @click="editComment(comment)"
-                        >
-                            <fast-forward-icon
-                                class="h-6 w-6 mr-2 inline text-blue-600"
-                            />
-                            <!--                            <pencil-alt-icon-->
-                            <!--                                class="h-6 w-6 mr-2 inline text-blue-600"-->
-                            <!--                            />-->
-                            <!--                            {{ t('view_edit') }}-->
-                            {{ t('jump_to_question') }}
-                        </button>
+                        <div class="w-full mt-2">
+                            <button
+                                v-if="index < answeredSteps"
+                                class="rounded-3xl align-top border-2 px-4 py-1"
+                                @click="editComment(comment)"
+                            >
+                                <pencil-alt-icon
+                                    class="h-6 w-6 mr-2 inline text-blue-600"
+                                />
+                                {{ t('view_edit') }}
+                            </button>
+                            <button
+                                v-else
+                                class="rounded-3xl align-top border-2 px-4 py-1"
+                                @click="editComment(comment)"
+                            >
+                                <fast-forward-icon
+                                    class="h-6 w-6 mr-2 inline text-blue-600"
+                                />
+                                <!--                            <pencil-alt-icon-->
+                                <!--                                class="h-6 w-6 mr-2 inline text-blue-600"-->
+                                <!--                            />-->
+                                <!--                            {{ t('view_edit') }}-->
+                                {{ t('jump_to_question') }}
+                            </button>
+                        </div>
                     </div>
                 </div>
             </template>
@@ -296,7 +297,10 @@
                     {{ t('questions_answered') }}
                 </h4>
 
-                <next-button></next-button>
+                <next-button
+                    v-if="answeredSteps === interactiveSteps.length"
+                    @confirm="confirm"
+                ></next-button>
             </div>
         </div>
     </div>
@@ -387,11 +391,15 @@ export default {
             emit('editComment', comment)
         }
 
+        const confirm = () => {
+            store.dispatch('setCurrentStep')
+        }
+
         return {
             t,
             lang,
             store,
-
+            confirm,
             convertTime,
             removeComment,
             editComment,
