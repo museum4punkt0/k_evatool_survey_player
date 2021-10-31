@@ -354,7 +354,7 @@ export default {
         }
 
         const toggleVolume = (value) => {
-            videoPlayer.value.muted = value
+            videoPlayer.value.muted = !value
         }
 
         const saveComment = async () => {
