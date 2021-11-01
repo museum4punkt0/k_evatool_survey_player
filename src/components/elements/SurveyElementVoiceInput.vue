@@ -77,7 +77,6 @@
 
         <confirm-button
             :disabled="recording"
-            :sub-element="subElement"
             @confirm="nextStep"
         ></confirm-button>
     </div>
@@ -171,7 +170,11 @@ export default {
                 },
             })
 
-            await store.dispatch('setCurrentStep')
+            if (props.subElement) {
+                await store.dispatch('setCurrentVideoStep')
+            } else {
+                await store.dispatch('setCurrentStep')
+            }
         }
 
         const toggleRecording = () => {
