@@ -199,10 +199,10 @@
                             ></clock-icon>
                             {{ convertTime(mediaCurrentTime) }} /
                             {{ t('comments', 1) }}
-                            <!--                            <span v-if="comment">-->
-                            <!--                                {{ commentBoxObject.index }}-->
-                            <!--                            </span>-->
-                            <span class="ml-2">
+                            <span v-if="comment">
+                                {{ commentBoxObject.index }}
+                            </span>
+                            <span v-else class="">
                                 {{ commentsCounter.length + 1 }}
                             </span>
                         </div>
