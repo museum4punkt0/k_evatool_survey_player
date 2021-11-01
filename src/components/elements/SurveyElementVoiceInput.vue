@@ -77,7 +77,6 @@
 
         <confirm-button
             :disabled="recording"
-            :sub-element="subElement"
             @confirm="nextStep"
         ></confirm-button>
     </div>
@@ -153,25 +152,29 @@ export default {
             store.dispatch('setStepAnswering', false)
         }
         const nextStep = async () => {
-            const surveySlug = route.query.survey || ''
-            // await store.dispatch('surveyResults/getUuidResults', {
-            //     surveyId: surveySlug,
-            //     uuid: localStorage.getItem('surveyUuid'),
-            // })
+            if (props.subElement) {
+                await store.dispatch('setCurrentVideoStep')
+            } else {
+                const surveySlug = route.query.survey || ''
+                // await store.dispatch('surveyResults/getUuidResults', {
+                //     surveyId: surveySlug,
+                //     uuid: localStorage.getItem('surveyUuid'),
+                // })
 
-            await store.dispatch('surveyResults/sendSurveyResults', {
-                surveyId: surveySlug,
-                data: {
-                    surveyStepId: props.content.id,
-                    resultValue: {
-                        audio: audioData.value,
+                await store.dispatch('surveyResults/sendSurveyResults', {
+                    surveyId: surveySlug,
+                    data: {
+                        surveyStepId: props.content.id,
+                        resultValue: {
+                            audio: audioData.value,
+                        },
+                        uuid: props.surveyResults.uuid,
+                        resultLanguage: store.state.lang,
                     },
-                    uuid: props.surveyResults.uuid,
-                    resultLanguage: store.state.lang,
-                },
-            })
+                })
 
-            await store.dispatch('setCurrentStep')
+                await store.dispatch('setCurrentStep')
+            }
         }
 
         const toggleRecording = () => {
