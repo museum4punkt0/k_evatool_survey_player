@@ -47,7 +47,12 @@
                     @send-audio-asset="sendAudioAsset"
                 ></AudioRecorder>
                 <p class="px-2" :class="{ 'text-white': recording }">
-                    {{ t('action_audio_text') }}
+                    <template v-if="recording">
+                        {{ t('action_audio_stop_recording') }}
+                    </template>
+                    <template v-else>
+                        {{ t('action_audio_start_recording') }}
+                    </template>
                 </p>
             </button>
             <button
@@ -154,7 +159,7 @@ export default {
             //     uuid: localStorage.getItem('surveyUuid'),
             // })
 
-            store.dispatch('surveyResults/sendSurveyResults', {
+            await store.dispatch('surveyResults/sendSurveyResults', {
                 surveyId: surveySlug,
                 data: {
                     surveyStepId: props.content.id,
@@ -165,7 +170,8 @@ export default {
                     resultLanguage: store.state.lang,
                 },
             })
-            store.dispatch('setCurrentStep')
+
+            await store.dispatch('setCurrentStep')
         }
 
         const toggleRecording = () => {
