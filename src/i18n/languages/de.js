@@ -7,7 +7,8 @@ export default {
     action_no: 'Nein',
     action_next: 'Weiter',
     action_prev: 'Zurück',
-    action_audio_text: 'Aufnahme starten',
+    action_audio_start_recording: 'Aufnahme starten',
+    action_audio_stop_recording: 'Aufnahme beenden',
     at: 'bei',
     close_survey: 'Umfrage schließen',
     idle_text:
