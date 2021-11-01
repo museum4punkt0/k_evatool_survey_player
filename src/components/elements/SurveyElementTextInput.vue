@@ -55,10 +55,10 @@ export default {
         })
 
         const inputText = () => {}
-        const nextStep = () => {
+        const nextStep = async () => {
             console.log(text.value)
 
-            store.dispatch('surveyResults/sendSurveyResults', {
+            await store.dispatch('surveyResults/sendSurveyResults', {
                 surveyId: route.query.survey,
                 data: {
                     surveyStepId: props.content.id,
