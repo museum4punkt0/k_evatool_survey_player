@@ -344,7 +344,7 @@ export default {
         ) {
             comment.value = 'Please enter text in text box below'
         }
-        //
+
         const mediaCurrentTime = ref(0)
         const mediaDurationTime = ref(0)
         const addComment = (time) => {
@@ -462,14 +462,14 @@ export default {
         }
 
         const videoTimeUpdate = () => {
-            console.log('videoTimeUpdate')
+            // console.log('videoTimeUpdate')
             // const currentTime = parseInt(videoPlayer.value.currentTime)
             // const { content } = toRefs(props)
             // console.log(content)
 
             mediaCurrentTime.value = videoPlayer.value.currentTime
             mediaDurationTime.value = videoPlayer.value.duration
-            console.log(mediaCurrentTime.value)
+            // console.log(mediaCurrentTime.value)
             // if (interactiveSteps.value.indexOf(currentTime) > -1) {
             if (
                 interactiveSteps.value[answeredSteps.value] ===
@@ -603,23 +603,28 @@ export default {
 
         onMounted(() => {
             console.log('mounted!')
-            timeBasedSteps.value.forEach((timestep) => {
-                let stopAtSecond = convertTimeCode(timestep.timecode)
-                interactiveSteps.value.push(stopAtSecond)
-            })
 
-            props.content.timeBasedSteps.forEach((el, index) => {
-                console.log(el)
-                timelineObject.value.push({
-                    body: '',
-                    type: 'question',
-                    time: convertTimeCode(el.timecode),
-                    index: index,
-                    answered: el.step.isAnswered,
-                    question: el.step.params?.question || '',
-                    text: el.step.params?.text || '',
+            if (timeBasedSteps.value) {
+                timeBasedSteps.value.forEach((timestep) => {
+                    let stopAtSecond = convertTimeCode(timestep.timecode)
+                    interactiveSteps.value.push(stopAtSecond)
                 })
-            })
+            }
+
+            if (props.content.timeBasedSteps) {
+                props.content.timeBasedSteps.forEach((el, index) => {
+                    console.log(el)
+                    timelineObject.value.push({
+                        body: '',
+                        type: 'question',
+                        time: convertTimeCode(el.timecode),
+                        index: index,
+                        answered: el.step.isAnswered,
+                        question: el.step.params?.question || '',
+                        text: el.step.params?.text || '',
+                    })
+                })
+            }
 
             console.log(timelineObject.value)
         })
