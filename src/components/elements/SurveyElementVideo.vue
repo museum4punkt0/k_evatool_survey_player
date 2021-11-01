@@ -175,6 +175,7 @@
                 <!--        <button @click="pauseVideo">pauseVideo</button>-->
                 <div class="flex justify-center items-center">
                     <AudioRecorder
+                        v-if="1 < 0"
                         @send-audio-asset="sendAudioAsset"
                     ></AudioRecorder>
                     <textarea
@@ -198,7 +199,12 @@
                             ></clock-icon>
                             {{ convertTime(mediaCurrentTime) }} /
                             {{ t('comments', 1) }}
-                            {{ commentsCounter.length + 1 }}
+                            <!--                            <span v-if="comment">-->
+                            <!--                                {{ commentBoxObject.index }}-->
+                            <!--                            </span>-->
+                            <span>
+                                {{ commentsCounter.length + 1 }}
+                            </span>
                         </div>
                     </div>
                     <div>
@@ -235,7 +241,7 @@
 </template>
 
 <script>
-import { onMounted, ref, toRefs, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { useStore } from 'vuex'
 
 import AudioRecorder from '../subelements/AudioRecorder.vue'
@@ -309,6 +315,7 @@ export default {
         const showFeedback = ref(false)
         const showFormular = ref(false)
         const commentBox = ref(false)
+        const commentBoxObject = ref()
         const started = ref(false)
         const audioComment = ref(false)
         const route = useRoute()
@@ -351,10 +358,23 @@ export default {
                 (x) => x.type === 'comment',
             )
         }
-        const editComment = (comment) => {
+        const editComment = (commentObj) => {
             console.log(comment)
-            answeredSteps.value = comment.index
-            videoPlayer.value.currentTime = comment.time
+            videoPlayer.value.currentTime = commentObj.time
+            if (commentObj.type === 'question') {
+                answeredSteps.value = commentObj.index
+                commentBox.value = false
+                comment.value = ''
+            } else {
+                commentsCounter.value = timelineObject.value.filter(
+                    (x) => x.type === 'comment',
+                )
+                answeredSteps.value = 0
+                showQuestion.value = false
+                commentBox.value = true
+                commentBoxObject.value = commentObj
+                comment.value = commentObj.body
+            }
         }
 
         const deleteComment = () => {
@@ -626,6 +646,7 @@ export default {
             commentBox,
             start,
             started,
+            commentBoxObject,
             currentStepData,
             videoEnded,
             tooglePlay,

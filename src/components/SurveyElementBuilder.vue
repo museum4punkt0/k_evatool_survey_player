@@ -23,12 +23,6 @@
             <template v-else>
                 <SurveyElementBinaryQuestion
                     v-if="content?.surveyElementType === 'binary'"
-                    :content="content"
-                    :survey="survey"
-                    :survey-results="surveyResults"
-                ></SurveyElementBinaryQuestion>
-                <SurveyElementBinaryQuestion
-                    v-if="content?.surveyElementType === 'binary'"
                     :key="'binary-' + content.id"
                     :content="content"
                     :survey="survey"

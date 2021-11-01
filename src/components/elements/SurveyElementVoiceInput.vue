@@ -51,7 +51,7 @@
                 </p>
             </button>
             <button
-                v-if="!recording && recordedTime"
+                v-if="!recording && recordedTime > -1"
                 class="
                     confirm
                     flex
@@ -85,7 +85,7 @@ import ConfirmButton from '../subelements/ConfirmButton.vue'
 import { useStore } from 'vuex'
 import { useI18n } from 'vue-i18n'
 import AudioRecorder from '../subelements/AudioRecorder.vue'
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
 export default {
@@ -182,6 +182,16 @@ export default {
                 store.dispatch('setStepAnswering', true)
             }
         }
+
+        onMounted(() => {
+            let questionResults = props.surveyResults
+            console.log(questionResults)
+            // if (questionResults.resultByUuid) {
+            //     recording.value = questionResults.resultByUuid.recording
+            // } else {
+            //     //  text.value = questionResults.resultByUuid.text
+            // }
+        })
 
         return {
             store,
