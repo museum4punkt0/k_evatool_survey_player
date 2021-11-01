@@ -199,10 +199,10 @@
                             ></clock-icon>
                             {{ convertTime(mediaCurrentTime) }} /
                             {{ t('comments', 1) }}
-                            <span v-if="comment">
+                            <span v-if="comment && commentBoxObject">
                                 {{ commentBoxObject.index }}
                             </span>
-                            <span v-else class="">
+                            <span v-else class="ml-1">
                                 {{ commentsCounter.length + 1 }}
                             </span>
                         </div>
@@ -235,6 +235,7 @@
                 :audio-comment="audioComment"
                 @removeComment="removeComment"
                 @editComment="editComment"
+                @nextStep="nextStep"
             ></TimeLine>
         </div>
     </div>
@@ -427,6 +428,29 @@ export default {
             })
             comment.value = ''
             // store.dispatch('setCurrentStep')
+        }
+
+        const nextStep = async () => {
+            if (commentsCounter.value.length < 1) {
+                await store.dispatch('surveyResults/sendSurveyResults', {
+                    surveyId: route.query.survey,
+                    data: {
+                        surveyStepId: props.content.id,
+                        resultValue: {
+                            text: 'no comment',
+                        },
+
+                        uuid: props.surveyResults.uuid,
+                        resultLanguage: store.state.lang,
+                        timecode: convertTimeFull(
+                            videoPlayer.value.currentTime,
+                        ),
+                    },
+                })
+                store.dispatch('setCurrentStep')
+            } else {
+                store.dispatch('setCurrentStep')
+            }
         }
 
         const setAnswer = (id) => {
@@ -671,6 +695,7 @@ export default {
             toggleComment,
             toggleVolume,
             confirmedAnswer,
+            nextStep,
         }
     },
 }
