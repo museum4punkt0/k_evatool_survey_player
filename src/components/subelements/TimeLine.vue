@@ -375,7 +375,7 @@ export default {
             default: null,
         },
     },
-    emits: ['removeComment', 'editComment'],
+    emits: ['removeComment', 'editComment', 'nextStep'],
     setup(props, { emit }) {
         const { t } = useI18n()
         const store = useStore()
@@ -402,7 +402,8 @@ export default {
         }
 
         const confirm = () => {
-            store.dispatch('setCurrentStep')
+            // store.dispatch('setCurrentStep')
+            emit('nextStep')
         }
 
         return {
