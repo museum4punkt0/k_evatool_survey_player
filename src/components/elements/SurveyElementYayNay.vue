@@ -42,7 +42,7 @@
                     rounded-md
                     nav-button
                     p-2
-                    pr-2
+                    pr-5
                     mt-5
                     ml-3
                     bg-blue-700
@@ -58,7 +58,7 @@
         </div>
     </div>
     <confirm-button
-        class="mx-auto"
+        class="mx-auto mt-3"
         :sub-element="subElement"
         @confirm="confirm"
     ></confirm-button>
