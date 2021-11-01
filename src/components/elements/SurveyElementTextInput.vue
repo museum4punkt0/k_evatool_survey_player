@@ -8,7 +8,10 @@
         @change="inputText"
     />
 
-    <confirm-button :sub-element="subElement"></confirm-button>
+    <confirm-button
+        :sub-element="subElement"
+        @confirm="nextStep"
+    ></confirm-button>
 </template>
 
 <script>
@@ -51,14 +54,12 @@ export default {
             get: () => store.state.lang,
         })
 
-        const inputText = () => {
+        const inputText = () => {}
+        const nextStep = () => {
             console.log(text.value)
 
             store.dispatch('surveyResults/sendSurveyResults', {
                 surveyId: route.query.survey,
-                // resultLanguageId:
-                //     props.surveyResults.sampleResultPayload.resultData
-                //         .resultLanguageId,
                 data: {
                     surveyStepId: props.content.id,
                     resultValue: {
@@ -91,6 +92,7 @@ export default {
             store,
             route,
             inputText,
+            nextStep,
         }
     },
 }

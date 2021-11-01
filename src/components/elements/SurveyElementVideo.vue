@@ -202,7 +202,7 @@
                             <!--                            <span v-if="comment">-->
                             <!--                                {{ commentBoxObject.index }}-->
                             <!--                            </span>-->
-                            <span>
+                            <span class="ml-2">
                                 {{ commentsCounter.length + 1 }}
                             </span>
                         </div>
@@ -361,6 +361,7 @@ export default {
         const editComment = (commentObj) => {
             console.log(comment)
             videoPlayer.value.currentTime = commentObj.time
+
             if (commentObj.type === 'question') {
                 answeredSteps.value = commentObj.index
                 commentBox.value = false
@@ -421,7 +422,7 @@ export default {
 
                     uuid: props.surveyResults.uuid,
                     resultLanguage: store.state.lang,
-                    timecode: convertTimeFull(mediaCurrentTime.value),
+                    timecode: convertTimeFull(videoPlayer.value.currentTime),
                 },
             })
             comment.value = ''
@@ -505,6 +506,7 @@ export default {
         const changeProgress = (seekToValue) => {
             mediaCurrentTime.value = seekToValue
             videoPlayer.value.currentTime = seekToValue
+            comment.value = ''
         }
 
         const start = () => {
