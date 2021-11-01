@@ -397,12 +397,20 @@ export default {
                 commentsCounter.value = timelineObject.value.filter(
                     (x) => x.type === 'comment',
                 )
-                timelineObject.value.push({
-                    body: message,
-                    type: 'comment',
-                    time: mediaCurrentTime.value,
-                    index: commentsCounter.value.length + 1,
-                })
+
+                let commentExist = timelineObject.value.find(
+                    (x) => x.time === mediaCurrentTime.value,
+                )
+                if (commentExist) {
+                    commentExist.body = message
+                } else {
+                    timelineObject.value.push({
+                        body: message,
+                        type: 'comment',
+                        time: mediaCurrentTime.value,
+                        index: commentsCounter.value.length + 1,
+                    })
+                }
 
                 commentsCounter.value = timelineObject.value.filter(
                     (x) => x.type === 'comment',
