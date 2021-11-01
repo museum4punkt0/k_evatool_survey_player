@@ -11,6 +11,7 @@
             items-center
             h-full
             pb-36
+            overflow-scroll
         "
     >
         <div class="flex flex-wrap flex-col items-start w-1/3">

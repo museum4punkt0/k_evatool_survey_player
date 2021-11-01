@@ -7,6 +7,7 @@
             mt-16
             justify-center
             items-center
+            overflow-scroll
         "
     >
         <SurveyElementBinaryQuestion
