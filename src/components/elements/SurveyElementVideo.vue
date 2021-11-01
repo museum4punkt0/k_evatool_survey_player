@@ -47,7 +47,7 @@
                 <div class="relative">
                     <video
                         ref="videoPlayer"
-                        src="https://evatool-backend.twoavy.com/evaluation-tool/lichtspiel_digitale_werkstatt.mp4"
+                        :src="content.params.videoAsset.urls.original"
                         preload
                         class="mx-auto p-0 m-0 z-10"
                         @timeupdate="videoTimeUpdate"
