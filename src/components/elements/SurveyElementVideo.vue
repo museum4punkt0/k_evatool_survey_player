@@ -431,7 +431,7 @@ export default {
         }
 
         const nextStep = async () => {
-            if (commentsCounter.value.length < 1) {
+            if (commentsCounter.value.length === 0) {
                 await store.dispatch('surveyResults/sendSurveyResults', {
                     surveyId: route.query.survey,
                     data: {
@@ -447,9 +447,9 @@ export default {
                         ),
                     },
                 })
-                store.dispatch('setCurrentStep')
+                await store.dispatch('setCurrentStep')
             } else {
-                store.dispatch('setCurrentStep')
+                await store.dispatch('setCurrentStep')
             }
         }
 
