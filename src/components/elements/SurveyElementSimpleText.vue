@@ -1,7 +1,7 @@
 <template>
     <div class="px-5">
         <h2 class="pb-5" v-html="content.params.text[lang]"></h2>
-        <NextButton :sub-element="subElement" @confirm="nextStep"></NextButton>
+        <NextButton @confirm="nextStep"></NextButton>
     </div>
 </template>
 
@@ -10,6 +10,7 @@ import { computed, onMounted, ref } from 'vue'
 import { useStore } from 'vuex'
 import NextButton from '../subelements/NextButton.vue'
 import { useRoute } from 'vue-router'
+
 export default {
     name: 'SurveyElementSimpleText',
     components: { NextButton },
@@ -49,11 +50,15 @@ export default {
                     resultValue: {
                         read: true,
                     },
-                    uuid: props.surveyResults.uuid,
+                    uuid: localStorage.getItem('surveyUuid'),
                     resultLanguage: store.state.lang,
                 },
             })
-            await store.dispatch('setCurrentStep')
+            if (props.subElement) {
+                await store.dispatch('setCurrentVideoStep')
+            } else {
+                await store.dispatch('setCurrentStep')
+            }
         }
 
         onMounted(() => {
