@@ -14,7 +14,7 @@
             overflow-scroll
         "
     >
-        <div class="flex flex-wrap flex-col items-start w-1/3">
+        <div class="flex flex-wrap flex-col items-start w-full mt-36 xl:w-1/3">
             <survey-done
                 v-if="
                     store.state.surveyResults.surveyUuidResults?.survey
