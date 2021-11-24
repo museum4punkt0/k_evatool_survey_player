@@ -1,16 +1,6 @@
 <template>
-    <div
-        class="
-            survey-footer-menu
-            bottom-0
-            fixed
-            w-full
-            md:w-screen
-            z-50
-            bg-white
-        "
-    >
-        <div class="survey-navigation-inner flex items-center h-16">
+    <div class="survey-footer-menu bottom-0 fixed w-full md:w-screen z-100">
+        <div class="survey-navigation-inner flex items-center h-8 xl:h-16">
             <div class="ml-3 text-xs text-gray-500 absolute">
                 Version
                 <strong>{{ version }}</strong>
@@ -24,7 +14,14 @@
                 </button>
             </div>
             <div
-                class="md:flex items-center justify-center md:w-screen sm:w-100"
+                class="
+                    md:flex
+                    bg-white
+                    items-center
+                    justify-center
+                    md:w-screen
+                    sm:w-100
+                "
             >
                 <div class="flex justify-center items-center w-screen">
                     <!--                    <button-->
@@ -56,7 +53,7 @@
                         relative
                         justify-center
                         xl:absolute xl:right-6
-                        bg-gray-100
+                        bg-white
                         md:bg-transparent
                     "
                 >
@@ -176,4 +173,8 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.survey-footer-menu {
+    z-index: 100;
+}
+</style>

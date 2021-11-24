@@ -5,7 +5,8 @@
         v-if="content?.surveyElementType !== 'video'"
         class="
             survey-content
-            flex flex-wrap flex-col
+            flex flex-wrap
+            xl:flex-col
             md:h-full md:mt-16
             justify-center
             items-center
@@ -14,7 +15,15 @@
             overflow-scroll
         "
     >
-        <div class="flex flex-wrap flex-col items-start w-full mt-36 xl:w-1/3">
+        <div
+            class="
+                flex flex-wrap flex-col
+                items-start
+                w-full
+                mt-2
+                xl:mt-36 xl:w-1/3
+            "
+        >
             <survey-done
                 v-if="
                     store.state.surveyResults.surveyUuidResults?.survey

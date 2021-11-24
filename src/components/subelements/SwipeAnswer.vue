@@ -1,7 +1,8 @@
 <template>
-    <div class="flex flex-wrap justify-center items-center w.full h-3/4">
-        <div class="flex relative">
+    <div class="flex flex-wrap justify-center items-center w-full h-full">
+        <div class="flex m-0 p-0 w-full">
             <div
+                v-if="currentElement !== images.length"
                 class="
                     inline
                     swipe-left
@@ -15,12 +16,19 @@
                     items-center
                 "
             >
-                <img src="../../assets/swipe-left.svg" />
-                <span class="text-center">
+                <img
+                    class="hidden xl:visible"
+                    src="../../assets/swipe-left.svg"
+                />
+                <img
+                    class="visible xl:hidden"
+                    src="../../assets/swipe-left-white.svg"
+                />
+                <span class="text-center hidden xl:visible">
                     {{ surveyResults.params.falseLabel[lang] }}
                 </span>
             </div>
-            <div class="mx-auto absolute card-container w-full z-10">
+            <div class="relative card-container z-10 w-1/2 md:w-96 h-1/2 pb-4">
                 <div
                     v-for="(image, index) in images"
                     :key="'card-' + index"
@@ -28,12 +36,14 @@
                         card
                         absolute
                         touch-element
-                        w-96
-                        h-96
+                        md:w-96
+                        h-full
+                        md:h-50
                         hover:shadow
                         rounded-t-xl
                         bg-white
                         w-full
+                        p-2
                     "
                     :class="[
                         { 'transition-all linear duration-300': !dragging },
@@ -71,8 +81,32 @@
                 <!--                </p>-->
                 <!--            </div>-->
                 <!--        </div>-->
+                <div
+                    class="
+                        card
+                        absolute
+                        touch-element
+                        h-full
+                        md:h-50
+                        hover:shadow
+                        rounded-t-xl
+                        bg-white
+                        w-full
+                        flex
+                        justify-center
+                        items-center
+                    "
+                    :class="{
+                        'last-card': currentElement === images.length,
+                    }"
+                >
+                    <div class="endcard w-auto h-auto">
+                        <img src="../../assets/endcard.svg" />
+                    </div>
+                </div>
             </div>
             <div
+                v-if="currentElement !== images.length"
                 class="
                     inline
                     swipe-right
@@ -86,8 +120,15 @@
                     items-center
                 "
             >
-                <img src="../../assets/swipe-right.svg" />
-                <span class="text-center">
+                <img
+                    class="hidden xl:visible"
+                    src="../../assets/swipe-right.svg"
+                />
+                <img
+                    class="visible xl:hidden"
+                    src="../../assets/swipe-right-white.svg"
+                />
+                <span class="text-center hidden xl:visible">
                     {{ surveyResults.params.trueLabel[lang] }}
                 </span>
             </div>
@@ -130,7 +171,7 @@ export default {
         const positions = ref({})
         const dragging = ref(true)
         const hideElement = ref(false)
-        const threshold = ref(window.innerWidth / 4)
+        const threshold = ref(window.innerWidth / 8)
         const thresholdWidth = ref(window.innerWidth / 2)
         const thresholdHeight = ref(window.innerHeight / 2)
         const maxRotation = ref(20)
@@ -299,7 +340,7 @@ export default {
             return (
                 'background:url(' +
                 image +
-                ')no-repeat; background-size:contain; background-position:center;'
+                ')no-repeat; background-size:cover; background-position:center;'
             )
         }
 
@@ -359,12 +400,14 @@ export default {
 .card-container {
     position: relative;
     //width: 40vw;
-    width: 32rem;
-    left: 50%;
-    padding: 20px 20px 60% 20px;
-    display: inline-block;
-    transform: translateX(-50%);
+    //width: 32rem;
+    //left: 50%;
+    //padding: 20px 20px 60% 20px;
+    display: flex;
+    //transform: translateX(-50%);
     justify-content: center;
+    width: 100%;
+    height: 60vh;
 }
 
 .card {
@@ -393,6 +436,10 @@ export default {
 
 .card {
     opacity: 0;
+
+    &.last-card {
+        opacity: 1;
+    }
 }
 
 .card.card-active {

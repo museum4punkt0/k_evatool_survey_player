@@ -8,9 +8,12 @@
                 items-center
                 w-full
                 h-full
-                overflow-hidden
+                overflow-x-hidden overflow-y-scroll
             "
         >
+            <button class="close-btn" @click="closeModal">
+                <img src="../../assets/close.svg" />
+            </button>
             <SurveyElementSubBuilder
                 v-if="stepQuestion"
                 :content="stepQuestion.step"
@@ -40,7 +43,7 @@ export default {
             default: null,
         },
     },
-    emits: ['confirmed-answer'],
+    emits: ['confirmed-answer', 'close-modal'],
     setup(props, { emit }) {
         const store = useStore()
 
@@ -48,14 +51,25 @@ export default {
             emit('confirmed-answer', id)
         }
 
+        const closeModal = () => {
+            emit('close-modal')
+        }
+
         onMounted(() => {})
 
         return {
             store,
             confirmedAnswer,
+            closeModal,
         }
     },
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.close-btn {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+}
+</style>

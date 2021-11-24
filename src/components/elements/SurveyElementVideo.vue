@@ -36,7 +36,14 @@
                     @click="start"
                 >
                     <play-icon
-                        class="h-32 w-32 z-100 inline text-white"
+                        class="
+                            w-16
+                            h-16
+                            xl:h-32 xl:w-32
+                            z-100
+                            inline
+                            text-white
+                        "
                     ></play-icon>
                 </div>
                 <!--                src="https://ak.picdn.net/shutterstock/videos/1060516912/preview/stock-footage-beautiful-sunlight-in-the-forest.webm"-->
@@ -47,7 +54,7 @@
                 <div class="relative">
                     <video
                         ref="videoPlayer"
-                        :src="content.params.videoAsset.urls.original"
+                        src="https://evatool-backend.twoavy.com/evaluation-tool/lichtspiel_digitale_werkstatt.mp4"
                         preload
                         class="mx-auto p-0 m-0 z-10"
                         @timeupdate="videoTimeUpdate"
@@ -61,8 +68,8 @@
                     class="
                         md:absolute
                         bg-white
-                        w-4/5
-                        h-4/5
+                        w-11/12
+                        h-5/6
                         md:w-2/3 md:h-2/3
                         top-1/2
                         left-1/2
@@ -88,6 +95,7 @@
                             content.timeBasedSteps[answeredSteps - 1]
                         "
                         @confirmed-answer="confirmedAnswer"
+                        @close-modal="closeModal"
                     ></ModalContent>
                     <formular v-if="showFormular" class="z-20"></formular>
                     <div v-if="showFeedback" class="thanks-feedback">
@@ -157,7 +165,6 @@
             <div
                 class="
                     left-1/2
-                    my-3
                     -translate-x-1/2
                     inline-block
                     text-center
@@ -169,7 +176,10 @@
                     z-10
                     relative
                 "
-                :class="{ slideDown: commentBox }"
+                :class="[
+                    { 'slideDown my-3': commentBox },
+                    { 'h-0': !commentBox },
+                ]"
             >
                 <!--        <p>SurveyElementVideo</p>-->
                 <!--        <button @click="pauseVideo">pauseVideo</button>-->
@@ -225,7 +235,17 @@
                 </div>
             </div>
         </div>
-        <div class="sidebar sidebar-right w-full md:w-1/3 md:mx-4">
+        <div
+            class="
+                sidebar sidebar-right
+                w-full
+                md:w-1/3 md:mx-4
+                pb-36
+                h-full
+                overflow-y-scroll
+                relative
+            "
+        >
             <TimeLine
                 :interactive-steps="interactiveSteps"
                 :answered-steps="answeredSteps"
@@ -596,6 +616,10 @@ export default {
             })
             audioComment.value = wav
         }
+        const closeModal = () => {
+            showQuestion.value = false
+            playVideo()
+        }
 
         watch(
             () => store.state.currentVideoStep,
@@ -708,6 +732,7 @@ export default {
             toggleComment,
             toggleVolume,
             confirmedAnswer,
+            closeModal,
             nextStep,
         }
     },
@@ -744,11 +769,11 @@ textarea {
 
 .comments {
     opacity: 0;
-    transition: all 0.3s linear;
+    transition: opacity 0.3s linear;
 
     &.slideDown {
         opacity: 1;
-        transition: all 0.3s linear;
+        transition: opacity 0.3s linear;
     }
 }
 

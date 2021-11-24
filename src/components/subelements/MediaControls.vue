@@ -8,8 +8,17 @@
             p-2
         "
     >
-        <div class="media-player-controls flex flex-wrap items-center">
-            <div class="group-left inline flex items-center float-left w-6/12">
+        <div
+            class="
+                media-player-controls
+                flex flex-wrap
+                items-start
+                xl:items-center
+            "
+        >
+            <div
+                class="group-left inline xl:flex items-center float-left w-6/12"
+            >
                 <div class="play-pause inline float-left" @click="togglePlay()">
                     <span v-if="videoIsPlaying">
                         <pause-icon class="h-6 w-6 text-gray-800" />
@@ -39,6 +48,7 @@
                             px-3
                             py-1
                             bg-gray-100
+                            whitespace-nowrap
                         "
                         @click="writeComment()"
                     >
@@ -48,7 +58,7 @@
                 </div>
                 <!--                <div class="text-blue-800"></div>-->
             </div>
-            <div class="group-right inline-block text-left w-6/12">
+            <div class="group-right inline-block text-right w-6/12">
                 <div class="timer">
                     {{ convertTime(parseInt(currentTime)) }}/{{
                         convertTime(duration)

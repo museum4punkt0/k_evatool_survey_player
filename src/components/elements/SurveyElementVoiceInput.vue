@@ -3,7 +3,12 @@
         <h2 class="pb-5" v-html="content.params.question[lang]"></h2>
         <textarea
             v-if="recordedTime < 0"
-            class="bg-transparent text-red-700 text-3xl focus:outline-none"
+            class="
+                bg-transparent
+                w-full
+                text-red-700 text-2xl
+                focus:outline-none
+            "
             cols="30"
             disabled
             :placeholder="t('voice_recorder_placeholder')"
@@ -14,6 +19,7 @@
             class="bg-transparent text-red-700 text-3xl focus:outline-none"
         >
             {{ convertTime(recordedTime) }}
+            <p class="text-xs">(max {{ maxRecordingTime }}s)</p>
         </div>
         <audio
             v-if="audioData"
@@ -124,8 +130,10 @@ export default {
         const route = useRoute()
         const audioData = ref()
         const recording = ref()
+        const maxRecordingTime = ref(59)
         const recordedTime = ref(-1)
         const timer = ref()
+        const micPermision = ref(false)
 
         const lang = computed({
             get: () => store.state.lang,
@@ -178,18 +186,42 @@ export default {
         }
 
         const toggleRecording = () => {
-            recording.value = !recording.value
-
-            if (recording.value) {
-                recordedTime.value = 0
-                timer.value = setInterval(() => {
-                    recordedTime.value++
-                }, 1000)
-            } else {
-                clearInterval(timer.value)
-                // store.dispatch('setCurrentStep')
-                store.dispatch('setStepAnswering', true)
+            if (micPermision.value) {
+                recording.value = !recording.value
+                if (recording.value) {
+                    recordedTime.value = 0
+                    timer.value = setInterval(() => {
+                        if (recordedTime.value < maxRecordingTime.value) {
+                            recordedTime.value++
+                        } else {
+                            stopRecording()
+                        }
+                    }, 1000)
+                } else {
+                    clearInterval(timer.value)
+                    // store.dispatch('setCurrentStep')
+                    store.dispatch('setStepAnswering', true)
+                }
             }
+        }
+        const stopRecording = () => {
+            clearInterval(timer.value)
+            // store.dispatch('setCurrentStep')
+            store.dispatch('setStepAnswering', true)
+            recording.value = !recording.value
+        }
+
+        const askForMicrophonePermission = () => {
+            navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+            console.log(navigator.mediaDevices.getUserMedia({ audio: true }))
+            navigator.mediaDevices
+                .getUserMedia({ audio: true })
+                .then(function () {
+                    micPermision.value = true
+                })
+                .catch(function () {
+                    micPermision.value = false
+                })
         }
 
         onMounted(() => {
@@ -200,6 +232,7 @@ export default {
             // } else {
             //     //  text.value = questionResults.resultByUuid.text
             // }
+            askForMicrophonePermission()
         })
 
         return {
@@ -210,11 +243,14 @@ export default {
             recording,
             audioData,
             recordedTime,
+            maxRecordingTime,
             sendAudioAsset,
             nextStep,
             toggleRecording,
             convertTime,
             deleteAudio,
+            askForMicrophonePermission,
+            micPermision,
         }
     },
 }

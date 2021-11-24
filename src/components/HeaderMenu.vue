@@ -1,5 +1,19 @@
 <template>
-    <div class="flex justify-between items-center px-5 py-2 mx-5 z-50">
+    <div
+        class="
+            survey-header-menu
+            fixed
+            w-full
+            bg-white
+            flex
+            justify-between
+            items-center
+            px-5
+            py-2
+            xl:mx-5
+            z-50
+        "
+    >
         <div class="left-menu">
             <img src="../assets/logo.svg" class="inline" />
         </div>

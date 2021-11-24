@@ -56,12 +56,13 @@
                 {{ t('action_yes') }}
             </button>
         </div>
+
+        <confirm-button
+            class="mx-auto mt-3"
+            :sub-element="subElement"
+            @confirm="confirm"
+        ></confirm-button>
     </div>
-    <confirm-button
-        class="mx-auto mt-3"
-        :sub-element="subElement"
-        @confirm="confirm"
-    ></confirm-button>
 </template>
 
 <script>

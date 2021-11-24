@@ -1,9 +1,6 @@
 <template>
     <div class="block">
-        <div
-            v-if="hasPermission === 'denied'"
-            @click="askForMicrophonePermission"
-        >
+        <div v-if="hasPermission === 'ask'" @click="askForMicrophonePermission">
             {{ t('permissionMicrophoneDenied') }}
         </div>
         <div v-else class="flex justify-center items-center">

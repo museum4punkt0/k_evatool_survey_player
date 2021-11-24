@@ -1,7 +1,7 @@
 <template>
     <div
         class="
-            timelione-container
+            timeline-container
             bg-gray-200
             md:mx-auto
             mx-0
@@ -9,6 +9,7 @@
             w-full
             h-full
             overflow-scroll
+            xl:absolute
         "
     >
         <div
@@ -32,7 +33,7 @@
                 relative
                 wrap
                 overflow-scroll
-                h-1/2
+                h-auto
                 p-5
                 md:mx-2
                 h-full

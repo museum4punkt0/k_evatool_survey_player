@@ -4,10 +4,11 @@
             survey-content
             flex flex-wrap flex-col
             h-auto
-            mt-16
+            my-8
             justify-center
             items-center
             overflow-scroll
+            px-8
         "
     >
         <SurveyElementBinaryQuestion
@@ -92,6 +93,7 @@ import SurveyElementTextInput from './elements/SurveyElementTextInput.vue'
 import SurveyElementSimpleText from './elements/SurveyElementSimpleText.vue'
 import SurveyElementVoiceInput from './elements/SurveyElementVoiceInput.vue'
 import SurveyElementYayNay from './elements/SurveyElementYayNay.vue'
+import { useStore } from 'vuex'
 
 export default {
     name: 'SurveyElementSubBuilder',
@@ -119,6 +121,14 @@ export default {
             default: null,
         },
     },
+    // emits: ['close'],
+    // setup(props, { emit }) {
+    //     const close = (event) => {
+    //         event.preventDefault()
+    //         emit('close')
+    //     }
+    //     return { close }
+    // },
 }
 </script>
 
