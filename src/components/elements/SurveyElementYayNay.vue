@@ -1,5 +1,16 @@
 <template>
-    <div class="flex flex-wrap justify-center items-center w-full h-6/12">
+    <div
+        class="
+            flex
+            pt-24
+            my-5
+            flex-wrap
+            justify-center
+            items-center
+            w-full
+            h-6/12
+        "
+    >
         <h2 class="pb-5" v-html="content.params.question[lang]"></h2>
         <SwipeAnswer
             :answer="answer"

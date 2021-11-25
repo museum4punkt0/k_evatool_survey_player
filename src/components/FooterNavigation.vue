@@ -1,5 +1,15 @@
 <template>
-    <div class="survey-footer-menu bottom-0 fixed w-full md:w-screen z-100">
+    <div
+        class="
+            survey-footer-menu
+            bg-white
+            bottom-0
+            fixed
+            w-full
+            md:w-screen
+            z-100
+        "
+    >
         <div class="survey-navigation-inner flex items-center h-8 xl:h-16">
             <div class="ml-3 text-xs text-gray-500 absolute">
                 Version

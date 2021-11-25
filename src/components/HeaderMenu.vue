@@ -10,7 +10,6 @@
             items-center
             px-5
             py-2
-            xl:mx-5
             z-50
         "
     >

@@ -68,7 +68,7 @@ export default {
 
 <style scoped>
 .close-btn {
-    position: absolute;
+    position: fixed;
     right: 15px;
     top: 15px;
 }
