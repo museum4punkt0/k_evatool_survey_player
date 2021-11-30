@@ -8,7 +8,7 @@
             justify-center
             items-center
             w-full
-            h-6/12
+            h-10/12
         "
     >
         <h2 class="pb-5" v-html="content.params.question[lang]"></h2>
@@ -20,59 +20,61 @@
             @draggedThreshold="setResult"
         ></SwipeAnswer>
         <!--        <div>1/{{ content.params.assets.length }} Karten eingestuft</div>-->
-        <div class="inline flex mt-5">
-            <button
-                type="button"
-                class="
-                    confirm
-                    flex
-                    items-center
-                    rounded-md
-                    nav-button
-                    p-2
-                    pr-5
-                    mt-5
-                    mr-3
-                    bg-blue-700
-                    text-white
-                "
-                @click.prevent.stop="setAnswer(0)"
-            >
-                <x-circle-icon
-                    class="h-8 w-8 mr-3 inline text-white"
-                ></x-circle-icon>
+        <div class="flex flex-wrap flex-col">
+            <div class="inline flex mt-5">
+                <button
+                    type="button"
+                    class="
+                        confirm
+                        flex
+                        items-center
+                        rounded-md
+                        nav-button
+                        p-2
+                        pr-5
+                        mt-5
+                        mr-3
+                        bg-blue-700
+                        text-white
+                    "
+                    @click.prevent.stop="setAnswer(0)"
+                >
+                    <x-circle-icon
+                        class="h-8 w-8 mr-3 inline text-white"
+                    ></x-circle-icon>
 
-                {{ t('action_no') }}
-            </button>
-            <button
-                type="button"
-                class="
-                    confirm
-                    flex
-                    items-center
-                    rounded-md
-                    nav-button
-                    p-2
-                    pr-5
-                    mt-5
-                    ml-3
-                    bg-blue-700
-                    text-white
-                "
-                @click.prevent.stop="setAnswer(1)"
-            >
-                <check-circle-icon
-                    class="h-8 w-8 mr-3 inline text-white"
-                ></check-circle-icon>
-                {{ t('action_yes') }}
-            </button>
+                    {{ t('action_no') }}
+                </button>
+                <button
+                    type="button"
+                    class="
+                        confirm
+                        flex
+                        items-center
+                        rounded-md
+                        nav-button
+                        p-2
+                        pr-5
+                        mt-5
+                        ml-3
+                        bg-blue-700
+                        text-white
+                    "
+                    @click.prevent.stop="setAnswer(1)"
+                >
+                    <check-circle-icon
+                        class="h-8 w-8 mr-3 inline text-white"
+                    ></check-circle-icon>
+                    {{ t('action_yes') }}
+                </button>
+            </div>
+
+            <confirm-button
+                class="mx-auto mt-3"
+                :sub-element="subElement"
+                @confirm="confirm"
+            ></confirm-button>
         </div>
-
-        <confirm-button
-            class="mx-auto mt-3"
-            :sub-element="subElement"
-            @confirm="confirm"
-        ></confirm-button>
     </div>
 </template>
 
@@ -80,7 +82,7 @@
 import SwipeAnswer from '../subelements/SwipeAnswer.vue'
 import { computed, ref, watch } from 'vue'
 import { useStore } from 'vuex'
-import { onMounted } from 'vue'
+// import { onMounted } from 'vue'
 
 import { XCircleIcon, CheckCircleIcon } from '@heroicons/vue/outline'
 import { useRoute } from 'vue-router'

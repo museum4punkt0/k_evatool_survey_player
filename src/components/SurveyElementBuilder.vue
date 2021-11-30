@@ -16,13 +16,10 @@
         "
     >
         <div
-            class="
-                flex flex-wrap flex-col
-                items-start
-                w-full
-                mt-2
-                xl:mt-36 xl:w-1/3
-            "
+            class="flex flex-wrap items-start w-full mt-2 xl:mt-36 xl:w-1/3"
+            :class="{
+                ' flex-col': content && content.surveyElementType !== 'yayNay',
+            }"
         >
             <survey-done
                 v-if="
