@@ -10,6 +10,7 @@
 
     <confirm-button
         :sub-element="subElement"
+        :disabled="!text"
         @confirm="nextStep"
     ></confirm-button>
 </template>
@@ -45,7 +46,7 @@ export default {
         },
     },
     setup(props) {
-        const text = ref([])
+        const text = ref()
         const store = useStore()
         const route = useRoute()
         const { t } = useI18n()
