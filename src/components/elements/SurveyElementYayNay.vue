@@ -80,7 +80,7 @@
 
 <script>
 import SwipeAnswer from '../subelements/SwipeAnswer.vue'
-import { computed, ref, watch } from 'vue'
+import { computed, ref } from 'vue'
 import { useStore } from 'vuex'
 // import { onMounted } from 'vue'
 

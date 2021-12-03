@@ -17,11 +17,11 @@
                 "
             >
                 <img
-                    class="xs:hidden md:visible"
+                    class="hidden md:block"
                     src="../../assets/swipe-left.svg"
                 />
                 <img
-                    class="s:visible md:hidden"
+                    class="sm:block md:hidden"
                     src="../../assets/swipe-left-white.svg"
                 />
                 <span class="text-center hidden xl:visible">
@@ -121,11 +121,11 @@
                 "
             >
                 <img
-                    class="xs:hidden md:visible"
+                    class="hidden md:block"
                     src="../../assets/swipe-right.svg"
                 />
                 <img
-                    class="xs:visible md:hidden"
+                    class="sm:block md:hidden"
                     src="../../assets/swipe-right-white.svg"
                 />
                 <span class="text-center hidden xl:visible">
