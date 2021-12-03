@@ -18,6 +18,7 @@
             :content="content"
             :survey-results="surveyResults"
             @draggedThreshold="setResult"
+            @currentElement="checkForLastElement"
         ></SwipeAnswer>
         <!--        <div>1/{{ content.params.assets.length }} Karten eingestuft</div>-->
         <div class="flex flex-wrap flex-col">
@@ -34,9 +35,10 @@
                         pr-5
                         mt-5
                         mr-3
-                        bg-blue-700
                         text-white
                     "
+                    :class="!isLastCard ? 'bg-blue-700' : 'bg-gray-400'"
+                    :disabled="isLastCard"
                     @click.prevent.stop="setAnswer(0)"
                 >
                     <x-circle-icon
@@ -57,9 +59,10 @@
                         pr-5
                         mt-5
                         ml-3
-                        bg-blue-700
                         text-white
                     "
+                    :class="!isLastCard ? 'bg-blue-700' : 'bg-gray-400'"
+                    :disabled="isLastCard"
                     @click.prevent.stop="setAnswer(1)"
                 >
                     <check-circle-icon
@@ -88,6 +91,7 @@ import { XCircleIcon, CheckCircleIcon } from '@heroicons/vue/outline'
 import { useRoute } from 'vue-router'
 import ConfirmButton from '../subelements/ConfirmButton.vue'
 import { useI18n } from 'vue-i18n'
+
 export default {
     name: 'SurveyElementYayNay',
     components: { SwipeAnswer, XCircleIcon, CheckCircleIcon, ConfirmButton },
@@ -113,6 +117,8 @@ export default {
         const store = useStore()
         const route = useRoute()
         const { t } = useI18n()
+
+        const isLastCard = ref()
         // console.log(props.surveyResults)
         const lang = computed({
             get: () => store.state.lang,
@@ -152,6 +158,10 @@ export default {
             // }
         }
 
+        const checkForLastElement = (current) => {
+            isLastCard.value = current === props.content.params.assets.length
+        }
+
         const confirm = () => {
             store.dispatch('setCurrentStep')
         }
@@ -162,9 +172,11 @@ export default {
             store,
             results,
             answer,
+            isLastCard,
             setAnswer,
             setResult,
             confirm,
+            checkForLastElement,
         }
     },
     // setup() {

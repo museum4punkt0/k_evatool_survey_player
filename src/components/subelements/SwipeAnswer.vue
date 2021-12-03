@@ -165,7 +165,7 @@ export default {
             default: () => {},
         },
     },
-    emits: ['draggedThreshold'],
+    emits: ['draggedThreshold', 'currentElement'],
     setup(props, { emit }) {
         const store = useStore()
         const positions = ref({})
@@ -258,7 +258,7 @@ export default {
             if (clientX > threshold.value) {
                 emit('draggedThreshold', {
                     asset: props.images[currentElement.value].id,
-                    value: props.surveyResults.params.falseValue,
+                    value: props.surveyResults.params.trueValue,
                 })
 
                 dragging.value = true
@@ -283,6 +283,7 @@ export default {
                 }
                 transformString.value = `transform: translate3D(${positions.value.clientX}px, ${positions.value.clientY}px, 0) rotate(${positions.value.rotation}deg)`
             }
+            emit('currentElement', currentElement.value)
         }
 
         const onTouchEnd = () => {
@@ -314,6 +315,7 @@ export default {
                 }
                 transformString.value = `transform: translate3D(${positions.value.clientX}px, ${positions.value.clientY}px, 0) rotate(${positions.value.rotation}deg)`
             }
+            emit('currentElement', currentElement.value)
         }
         const imageLoaded = () => {
             loaded.value = true
