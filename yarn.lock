@@ -2402,6 +2402,11 @@ fragment-cache@^0.2.1:
   dependencies:
     map-cache "^0.2.2"
 
+framerate-utils@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/framerate-utils/-/framerate-utils-4.0.0.tgz#6625762dbbb8ac5f985d1d7fd6cbf93a4ff89e5c"
+  integrity sha512-sx/eWUwXIvm93kf196iSAUX7HSVuPo7Mgdk4iZgfmrXUwOkl4jBI2bz6uqVoVd1JaEFUTvrMFEJxmty85ffFtA==
+
 from2@^2.1.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/from2/-/from2-2.3.0.tgz#8bfb5502bde4a4d36cfdeea007fcca21d7e382af"

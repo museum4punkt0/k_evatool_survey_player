@@ -46,6 +46,8 @@
                         "
                     ></play-icon>
                 </div>
+                <!--                <pre>{{ content.stepParams.startTimecode }}</pre>-->
+                <!--                <pre>{{ content.stepParams.stopTimecode }}</pre>-->
                 <!--                src="https://ak.picdn.net/shutterstock/videos/1060516912/preview/stock-footage-beautiful-sunlight-in-the-forest.webm"-->
                 <!--                {{ content.timeBasedSteps }}-->
                 <!--                :src="content.params.videoAsset.urls.original"-->
@@ -54,7 +56,9 @@
                 <div class="video-container bg-gray-200">
                     <video
                         ref="videoPlayer"
-                        :src="content.params.videoAsset.urls.original"
+                        :src="
+                            content.params.videoAsset.urls.original + timeParams
+                        "
                         preload
                         class="mx-auto p-0 m-0 z-10 border-none"
                         @timeupdate="videoTimeUpdate"
@@ -262,7 +266,7 @@
 </template>
 
 <script>
-import { onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { useStore } from 'vuex'
 
 import AudioRecorder from '../subelements/AudioRecorder.vue'
@@ -285,6 +289,7 @@ import {
 
 import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
+// import { smpteToSeconds } from 'framerate-utils'
 
 // import SurveyElementBuilder from '../SurveyElementBuilder.vue'
 
@@ -302,7 +307,6 @@ export default {
         MicrophoneIcon,
         Formular,
         ContentSlider,
-
         ModalContent,
     },
     props: {
@@ -657,9 +661,28 @@ export default {
             },
         )
 
-        onMounted(() => {
-            console.log('mounted!')
+        const timeParams = computed(() => {
+            if (
+                props.content?.stepParams?.startTimecode &&
+                props.content?.stepParams?.stopTimecode
+            ) {
+                return (
+                    '#t=' +
+                    convertTimeCode(props.content.stepParams.startTimecode) +
+                    ',' +
+                    convertTimeCode(props.content.stepParams.stopTimecode)
+                )
+            } else if (props.content?.stepParams?.startTimecode) {
+                return (
+                    '#t=' +
+                    convertTimeCode(props.content.stepParams.startTimecode)
+                )
+            } else {
+                return ''
+            }
+        })
 
+        onMounted(() => {
             if (timeBasedSteps.value) {
                 timeBasedSteps.value.forEach((timestep) => {
                     let stopAtSecond = convertTimeCode(timestep.timecode)
@@ -734,6 +757,7 @@ export default {
             confirmedAnswer,
             closeModal,
             nextStep,
+            timeParams,
         }
     },
 }
