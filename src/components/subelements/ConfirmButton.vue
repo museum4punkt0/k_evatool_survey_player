@@ -16,7 +16,8 @@
             "
             :disabled="disabled || !store.state.stepAnswering"
             :class="{
-                'bg-gray-400': disabled || !store.state.stepAnswering,
+                'bg-gray-400 cursor-not-allowed':
+                    disabled || !store.state.stepAnswering,
             }"
             @click.prevent="confirm"
         >

@@ -4,6 +4,7 @@
         <div
             v-for="(emoji, index) in surveyResults.params.emojis"
             :key="'emoji-' + index"
+            class="cursor-pointer"
             @click="setResult(emoji.meaning)"
         >
             <span

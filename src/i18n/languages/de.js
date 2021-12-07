@@ -11,11 +11,10 @@ export default {
     action_audio_stop_recording: 'Aufnahme beenden',
     at: 'bei',
     close_survey: 'Umfrage schließen',
+    comments: 'Kommentare | Kommentar | Kommentar',
+    error: 'Problem entdeckt!',
     idle_text:
         'Vielen Dank für’s Vorbeischauen. Hier kannst du unsere Inhalte direkt bewerten und somit für ein besseres Angebot sorgen.',
-    question_at: 'Frage bei',
-    questions_answered: 'Fragen beantwortet',
-    comments: 'Kommentare | Kommentar | Kommentar',
     languages: 'Sprachen | Sprache | Sprachen',
     min_selectable: 'mind. { selectable } auswählen',
     max_selectable: 'max. { selectable } auswählen',
@@ -26,12 +25,20 @@ export default {
     survey_complete: 'Umfrage erfolgreich abgeschlossen!',
     survey_complete_thank_you: 'Vielen Dank für Ihre Teilnahme.',
     jump_to_question: 'Springe zur Frage',
+    permission_microphone_denied: 'Bitte lassen Sie die Mikrofonbenutzung zu',
     overview: 'Übersicht',
     overview_description:
         'Hier siehst du die Übersicht aller erstellten Kommentare und beantworteten Fragen.',
+    prompt: 'Meldung: ',
+    question_at: 'Frage bei',
+    questions_answered: 'Fragen beantwortet',
     view_edit: 'Ansehen & Bearbeiten',
     voice_recorder_placeholder:
         'Klicke auf das Mikrofon, um eine Audioaufnahme zu starten.',
+    voice_recorder_not_allowed: 'Audioaufnahme nicht erlaubt, bitte erlauben.',
+    voice_recorder_not_supported:
+        'Audioaufnahme nicht möglich, ihr Gerät scheint kein Mikrofon zu haben.',
+    voice_recorder_prompt: 'Bitte lassen Sie die Mikrofonverwedung zu.',
     voice_to_text_recorder_placeholder:
         'Klicke auf das Mikrofon zur Spracheingabe.',
     write_comment: 'Kommentar in Timeline hinterlasse',
