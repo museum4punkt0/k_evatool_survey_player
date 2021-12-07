@@ -99,12 +99,9 @@
     <div
         v-if="content && content.surveyElementType === 'video'"
         class="
-            survey-content
-            video-element
-            md:mx-auto
             bg-gray-200
             font-sans
-            h-screen
+            h-full
             w-full
             md:flex
             flex-col

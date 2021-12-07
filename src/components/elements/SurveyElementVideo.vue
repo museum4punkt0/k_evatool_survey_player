@@ -1,11 +1,12 @@
 <template>
-    <div class="relative md:mx-auto md:w-full pb-fluid-video md:flex">
-        <div class="sidebar sidebar-left w-full md:w-2/3 relative p-0 m-0">
-            <div class="video-wrap bg-white overflow-hidden relative z-20">
+    <div class="relative md:mx-auto md:w-full md:flex">
+        <div class="sidebar sidebar-left w-full md:w-2/3 p-0 m-0">
+            <div
+                class="video-wrap h-full bg-white overflow-hidden relative z-20"
+            >
                 <div
                     v-if="showQuestion"
                     class="
-                        overlay
                         fixed
                         w-screen
                         h-screen
@@ -20,7 +21,6 @@
                 <div
                     v-if="!started"
                     class="
-                        overlay
                         absolute
                         w-full
                         h-full
@@ -51,12 +51,12 @@
                 <!--                :src="content.params.videoAsset.urls.original"-->
                 <!--                src="https://evatool-backend.twoavy.com/evaluation-tool/lichtspiel_digitale_werkstatt.mp4"-->
                 <!--                :src="content.params.videoAsset.urls.original"-->
-                <div class="relative">
+                <div class="video-container bg-gray-200">
                     <video
                         ref="videoPlayer"
                         :src="content.params.videoAsset.urls.original"
                         preload
-                        class="mx-auto p-0 m-0 z-10"
+                        class="mx-auto p-0 m-0 z-10 border-none"
                         @timeupdate="videoTimeUpdate"
                         @play="playVideo"
                         @ended="videoEnded"
@@ -740,19 +740,28 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-video {
-    /* override other styles to make responsive */
-    width: 100% !important;
-    height: auto !important;
+.video-wrap {
+    z-index: 100;
+    .video-container {
+        height: calc(100% - 20px - 3rem);
+        video {
+            /* override other styles to make responsive */
+            //width: 100% !important;
+            //height: auto !important;
+            position: relative;
+            height: 100%;
+        }
+    }
 }
 
-//.sidebar {
-//    position: relative;
-//    right: 0px;
-//    /*width: 30vw;*/
-//    height: 100vh;
-//    overflow-y: scroll;
-//}
+.sidebar {
+    max-height: 80vh;
+    //    position: relative;
+    //    right: 0px;
+    //    /*width: 30vw;*/
+    //    height: 100vh;
+    //    overflow-y: scroll;
+}
 
 .text-field {
     float: left;
@@ -775,9 +784,5 @@ textarea {
         opacity: 1;
         transition: opacity 0.3s linear;
     }
-}
-
-.video-wrap {
-    z-index: 100;
 }
 </style>
