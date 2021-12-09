@@ -1,6 +1,10 @@
 <template>
-    <h2 class="pb-5" v-html="content.params.question[lang]"></h2>
+    <h2
+        class="pb-5 animate__animated animate__fadeInDown"
+        v-html="content.params.question[lang]"
+    ></h2>
     <StarRating
+        class="animate__animated animate__fadeInUp"
         :value="rating"
         :stars="content.params.numberOfStars"
         :params="content.params"
@@ -9,6 +13,7 @@
     />
 
     <confirm-button
+        class="animate__animated animate__fadeIn animate__delay-1s"
         :sub-element="subElement"
         @confirm="nextStep"
     ></confirm-button>

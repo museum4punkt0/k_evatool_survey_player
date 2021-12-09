@@ -1,6 +1,17 @@
 <template>
-    <h2 class="pb-5" v-html="content.params.question[lang]"></h2>
-    <div class="flex mb-2 justify-center items-center">
+    <h2
+        class="pb-5 animate__animated animate__fadeInDown"
+        v-html="content.params.question[lang]"
+    ></h2>
+    <div
+        class="
+            flex
+            mb-2
+            justify-center
+            items-center
+            animate__animated animate__fadeInUp
+        "
+    >
         <div
             v-for="(emoji, index) in surveyResults.params.emojis"
             :key="'emoji-' + index"
@@ -17,6 +28,7 @@
     </div>
 
     <confirm-button
+        class="animate__animated animate__fadeIn animate__delay-1s"
         :sub-element="subElement"
         @confirm="confirm"
     ></confirm-button>

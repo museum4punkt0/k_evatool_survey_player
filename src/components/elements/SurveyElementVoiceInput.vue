@@ -1,6 +1,9 @@
 <template>
     <div class="flex flex-wrap flex-col">
-        <h2 class="pb-5" v-html="content.params.question[lang]"></h2>
+        <h2
+            class="pb-5 animate__animated animate__fadeInDown"
+            v-html="content.params.question[lang]"
+        ></h2>
         <custom-alert
             v-if="!isSupported"
             :title="t('error')"
@@ -26,90 +29,102 @@
             color="yellow"
         />
         <template v-else>
-            <textarea
-                v-if="recordedTime < 0"
-                class="
-                    bg-transparent
-                    w-full
-                    text-red-700 text-2xl
-                    focus:outline-none
-                "
-                cols="30"
-                disabled
-                :placeholder="t('voice_recorder_placeholder')"
-            ></textarea>
+            <div class="animate__animated animate__fadeInUp">
+                <textarea
+                    v-if="recordedTime < 0"
+                    class="
+                        bg-transparent
+                        w-full
+                        text-red-700 text-2xl
+                        focus:outline-none
+                    "
+                    cols="30"
+                    disabled
+                    :placeholder="t('voice_recorder_placeholder')"
+                ></textarea>
 
-            <div
-                v-else
-                class="bg-transparent text-red-700 text-3xl focus:outline-none"
-            >
-                {{ convertTime(recordedTime) }}
-                <p class="text-xs">(max {{ maxRecordingTime }}s)</p>
-            </div>
-            <audio
-                v-if="audioData"
-                id="player"
-                preload="auto"
-                :src="audioData"
-                type="audio/wav"
-                controls
-            ></audio>
-            <div class="flex">
-                <button
-                    type="button"
+                <div
+                    v-else
                     class="
-                        confirm
-                        flex
-                        items-center
-                        rounded-xl
-                        nav-button
-                        p-2
-                        mt-5
-                        bg-gray-200
+                        bg-transparent
+                        text-red-700 text-3xl
+                        focus:outline-none
                     "
-                    :class="[
-                        { 'bg-red-600 text-white-900': recording },
-                        { 'text-gray-900': !recording },
-                    ]"
-                    @click="toggleRecording"
                 >
-                    <div class="p-2">
-                        <microphone-icon
-                            v-if="!recording"
-                            class="h-6 w-6 inline text-blue-800"
-                        />
-                        <stop-icon v-else class="h-6 w-6 inline text-white" />
-                    </div>
-                    <p class="px-2" :class="{ 'text-white': recording }">
-                        <template v-if="recording">
-                            {{ t('action_audio_stop_recording') }}
-                        </template>
-                        <template v-else>
-                            {{ t('action_audio_start_recording') }}
-                        </template>
-                    </p>
-                </button>
-                <button
-                    v-if="!recording && recordedTime > -1"
-                    class="
-                        confirm
-                        flex
-                        items-center
-                        rounded-xl
-                        nav-button
-                        p-2
-                        mt-5
-                        ml-4
-                        bg-gray-200
-                    "
-                    @click="deleteAudio"
-                >
-                    <trash-icon class="h-6 w-6 mr-2 inline text-grey-600" />
-                    {{ t('action_delete') }}
-                </button>
+                    {{ convertTime(recordedTime) }}
+                    <p class="text-xs">(max {{ maxRecordingTime }}s)</p>
+                </div>
+                <audio
+                    v-if="audioData"
+                    id="player"
+                    preload="auto"
+                    :src="audioData"
+                    type="audio/wav"
+                    controls
+                ></audio>
+                <div class="flex">
+                    <button
+                        type="button"
+                        class="
+                            confirm
+                            flex
+                            items-center
+                            rounded-xl
+                            nav-button
+                            p-2
+                            mt-5
+                            bg-gray-200
+                        "
+                        :class="[
+                            { 'bg-red-600 text-white-900': recording },
+                            { 'text-gray-900': !recording },
+                        ]"
+                        @click="toggleRecording"
+                    >
+                        <div class="p-2">
+                            <microphone-icon
+                                v-if="!recording"
+                                class="h-6 w-6 inline text-blue-800"
+                            />
+                            <stop-icon
+                                v-else
+                                class="h-6 w-6 inline text-white"
+                            />
+                        </div>
+                        <p class="px-2" :class="{ 'text-white': recording }">
+                            <template v-if="recording">
+                                {{ t('action_audio_stop_recording') }}
+                            </template>
+                            <template v-else>
+                                {{ t('action_audio_start_recording') }}
+                            </template>
+                        </p>
+                    </button>
+                    <button
+                        v-if="!recording && recordedTime > -1"
+                        class="
+                            confirm
+                            flex
+                            items-center
+                            rounded-xl
+                            nav-button
+                            p-2
+                            mt-5
+                            ml-4
+                            bg-gray-200
+                        "
+                        @click="deleteAudio"
+                    >
+                        <trash-icon class="h-6 w-6 mr-2 inline text-grey-600" />
+                        {{ t('action_delete') }}
+                    </button>
+                </div>
             </div>
         </template>
-        <confirm-button @confirm="nextStep" />
+        <confirm-button
+            class="animate__animated animate__fadeIn animate__delay-1s"
+            @confirm="nextStep"
+        />
     </div>
 </template>
 

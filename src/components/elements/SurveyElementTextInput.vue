@@ -1,14 +1,24 @@
 <template>
-    <h2 class="pb-5" v-html="content.params.question[lang]"></h2>
+    <h2
+        class="pb-5 animate__animated animate__fadeInDown"
+        v-html="content.params.question[lang]"
+    ></h2>
     <!--    {{ content.params }}-->
     <textarea
         v-model="text"
-        class="bg-gray-50 w-full text-gray-800 text-2xl p-2"
+        class="
+            bg-gray-50
+            w-full
+            text-gray-800 text-2xl
+            p-2
+            animate__animated animate__fadeInUp
+        "
         :placeholder="t('write_comment_placeholder')"
         @change="inputText"
     />
 
     <confirm-button
+        class="animate__animated animate__fadeIn animate__delay-1s"
         :sub-element="subElement"
         :disabled="!text"
         @confirm="nextStep"

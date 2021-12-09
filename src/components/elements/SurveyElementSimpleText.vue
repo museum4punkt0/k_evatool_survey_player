@@ -1,7 +1,13 @@
 <template>
     <div class="px-5">
-        <h2 class="pb-5" v-html="content.params.text[lang]"></h2>
-        <NextButton @confirm="nextStep"></NextButton>
+        <h2
+            class="pb-5 animate__animated animate__fadeInDown"
+            v-html="content.params.text[lang]"
+        ></h2>
+        <NextButton
+            class="animate__animated animate__fadeIn animate__delay-1s"
+            @confirm="nextStep"
+        ></NextButton>
     </div>
 </template>
 

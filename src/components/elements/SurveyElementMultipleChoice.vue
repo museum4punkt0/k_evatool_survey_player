@@ -1,7 +1,7 @@
 <template>
     <div>
         <h2
-            class="my-5 text-gray-900"
+            class="my-5 text-gray-900 animate__animated animate__fadeInDown"
             v-html="surveyResults.params.question[store.state.lang]"
         ></h2>
         <div class="mt-2">
@@ -12,17 +12,28 @@
                 :disabled="disabled(option.value)"
                 :value="option.value"
                 :label="option.labels[store.state.lang]"
+                class="animate__animated animate__fadeInUp"
                 @selected="changeValue"
             />
         </div>
-        <p class="text-gray-700">
+        <p
+            class="
+                text-gray-700
+                animate__animated animate__fadeIn animate__delay-1s
+            "
+        >
             {{
                 t('min_selectable', {
                     selectable: surveyResults.params.minSelectable,
                 })
             }}
         </p>
-        <p class="text-gray-700">
+        <p
+            class="
+                text-gray-700
+                animate__animated animate__fadeIn animate__delay-1s
+            "
+        >
             {{
                 t('max_selectable', {
                     selectable: surveyResults.params.maxSelectable,
@@ -30,6 +41,7 @@
             }}
         </p>
         <confirm-button
+            class="animate__animated animate__fadeIn animate__delay-1s"
             :sub-element="subElement"
             @confirm="confirm"
         ></confirm-button>

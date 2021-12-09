@@ -14,6 +14,7 @@
                     flex flex-col
                     justify-center
                     items-center
+                    animate__animated animate__fadeInLeft
                 "
             >
                 <img
@@ -28,7 +29,18 @@
                     {{ surveyResults.params.falseLabel[lang] }}
                 </span>
             </div>
-            <div class="relative card-container z-10 w-1/2 md:w-96 h-1/2 pb-4">
+            <div
+                class="
+                    relative
+                    card-container
+                    z-10
+                    w-1/2
+                    md:w-96
+                    h-1/2
+                    pb-4
+                    animate__animated animate__fadeIn animate__delay-1s
+                "
+            >
                 <div
                     v-for="(image, index) in images"
                     :key="'card-' + index"
@@ -118,6 +130,7 @@
                     flex flex-col
                     justify-center
                     items-center
+                    animate__animated animate__fadeInRight
                 "
             >
                 <img

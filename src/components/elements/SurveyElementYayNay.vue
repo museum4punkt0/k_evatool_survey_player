@@ -11,7 +11,10 @@
             h-10/12
         "
     >
-        <h2 class="pb-5" v-html="content.params.question[lang]"></h2>
+        <h2
+            class="pb-5 animate__animated animate__fadeInDown"
+            v-html="content.params.question[lang]"
+        ></h2>
         <SwipeAnswer
             :answer="answer"
             :images="content.params.assets"
@@ -73,7 +76,11 @@
             </div>
 
             <confirm-button
-                class="mx-auto mt-3"
+                class="
+                    mx-auto
+                    mt-3
+                    animate__animated animate__fadeIn animate__delay-1s
+                "
                 :sub-element="subElement"
                 @confirm="confirm"
             ></confirm-button>

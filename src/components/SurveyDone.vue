@@ -1,6 +1,10 @@
 <template>
-    <h1>{{ t('survey_complete') }}</h1>
-    <h4 class="mt-2">{{ t('survey_complete_thank_you') }}</h4>
+    <h1 class="animate__animated animate__fadeInDown">
+        {{ t('survey_complete') }}
+    </h1>
+    <h4 class="mt-2 animate__animated animate__fadeInUp">
+        {{ t('survey_complete_thank_you') }}
+    </h4>
 </template>
 
 <script>

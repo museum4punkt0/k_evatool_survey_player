@@ -1,5 +1,8 @@
 <template>
-    <h2 class="pb-5" v-html="content.params.question[lang]"></h2>
+    <h2
+        class="pb-5 animate__animated animate__fadeInDown"
+        v-html="content.params.question[lang]"
+    ></h2>
     <div>
         <label
             class="
@@ -13,6 +16,7 @@
                 mt-5
                 text-white
                 focus:outline-none
+                animate__animated animate__fadeInUp
             "
             :class="
                 selectedAnswer === content.params.trueValue
@@ -45,6 +49,7 @@
                 bg-blue-700
                 text-white
                 focus:outline-none
+                animate__animated animate__fadeInUp
             "
             :class="
                 selectedAnswer === content.params.falseValue
@@ -66,6 +71,7 @@
         </label>
     </div>
     <confirm-button
+        class="animate__animated animate__fadeIn animate__delay-1s"
         :sub-element="subElement"
         @confirm="confirm"
     ></confirm-button>
