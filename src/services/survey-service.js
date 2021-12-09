@@ -1,8 +1,10 @@
-import axios from 'axios'
+// import axios from 'axios'
 
-axios.defaults.headers['X-DEMO'] = true
-export default {
-    /*async SURVEYS_getSurvey(surveySlug) {
+// if (window.localStorage.getItem('ev-tool-demo') === 'true') {
+//     axios.defaults.headers['X-Demo'] = true
+// }
+// export default {
+/*async SURVEYS_getSurvey(surveySlug) {
         const url = 'evaluation-tool/surveys/' + surveySlug + '/run'
         return axios
             .get(url)
@@ -14,4 +16,4 @@ export default {
                 return error
             })
     },*/
-}
+// }

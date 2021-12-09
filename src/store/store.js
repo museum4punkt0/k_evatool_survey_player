@@ -16,6 +16,7 @@ export default createStore({
         currentVideoStep: 0,
         stepAnswering: false,
         editVideoQuestionId: -1,
+        isDemo: false,
     },
     mutations: {
         setSurveyId(state, surveyId) {
@@ -32,6 +33,9 @@ export default createStore({
         },
         setCurrentVideoStep(state) {
             state.currentVideoStep++
+        },
+        setIsDemo(state, value) {
+            state.isDemo = value
         },
         decCurrentStep(state) {
             if (state.currentStep > 0) {
@@ -68,6 +72,9 @@ export default createStore({
         },
         setCurrentVideoStep({ commit }) {
             commit('setCurrentVideoStep')
+        },
+        setIsDemo({ commit }, value) {
+            commit('setIsDemo', value)
         },
         decCurrentStep({ commit }) {
             commit('decCurrentStep')
