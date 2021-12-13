@@ -46,22 +46,25 @@
                 <div
                     v-else
                     class="
+                        flex
                         bg-transparent
                         text-red-700 text-3xl
                         focus:outline-none
                     "
                 >
-                    {{ convertTime(recordedTime) }}
-                    <p class="text-xs">(max {{ maxRecordingTime }}s)</p>
+                    <div>
+                        {{ convertTime(recordedTime) }}
+                        <p class="text-xs">(max {{ maxRecordingTime }}s)</p>
+                    </div>
+                    <audio
+                        v-if="audioData"
+                        id="player"
+                        preload="auto"
+                        :src="audioData"
+                        type="audio/wav"
+                        controls
+                    ></audio>
                 </div>
-                <audio
-                    v-if="audioData"
-                    id="player"
-                    preload="auto"
-                    :src="audioData"
-                    type="audio/wav"
-                    controls
-                ></audio>
                 <div class="flex">
                     <button
                         type="button"
@@ -125,6 +128,11 @@
             class="animate__animated animate__fadeIn animate__delay-1s"
             @confirm="nextStep"
         />
+
+        <AudioRecorder
+            :recording="recording"
+            @send-audio-asset="sendAudioAsset"
+        ></AudioRecorder>
     </div>
 </template>
 
@@ -223,6 +231,7 @@ export default {
                 recording.value = !recording.value
                 if (recording.value) {
                     recordedTime.value = 0
+                    audioData.value = ''
                     timer.value = setInterval(() => {
                         if (recordedTime.value < maxRecordingTime.value) {
                             recordedTime.value++
@@ -238,6 +247,10 @@ export default {
         const stopRecording = () => {
             clearInterval(timer.value)
             recording.value = !recording.value
+        }
+        const sendAudioAsset = (data) => {
+            // console.log(data)
+            audioData.value = data
         }
 
         const askForMicrophonePermission = () => {
@@ -296,6 +309,7 @@ export default {
             micPermission,
             isSupported,
             hasPermission,
+            sendAudioAsset,
         }
     },
 }
