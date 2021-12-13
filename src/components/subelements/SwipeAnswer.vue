@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-wrap justify-center items-center w-full h-full">
-        <div class="flex m-0 p-0 w-full">
+        <div class="flex m-0 p-0 w-full relative">
             <div
                 v-if="currentElement !== images.length"
                 class="
@@ -10,7 +10,9 @@
                     md:relative
                     z-20
                     top-1/2
-                    left-10
+                    left-24
+                    md:left-24
+                    xl:-left-10
                     flex flex-col
                     justify-center
                     items-center
@@ -54,7 +56,7 @@
                         hover:shadow
                         rounded-t-xl
                         bg-white
-                        w-full
+                        w-3/4
                         p-2
                     "
                     :class="[
@@ -126,7 +128,9 @@
                     md:relative
                     z-20
                     top-1/2
-                    right-10
+                    right-24
+                    md:right-24
+                    xl:-right-10
                     flex flex-col
                     justify-center
                     items-center

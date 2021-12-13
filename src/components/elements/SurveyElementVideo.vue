@@ -1,6 +1,15 @@
 <template>
     <div class="relative md:mx-auto md:w-full md:flex">
-        <div class="sidebar sidebar-left w-full md:w-2/3 p-0 m-0">
+        <div
+            class="
+                sidebar sidebar-left
+                w-full
+                md:w-2/3
+                p-0
+                m-0
+                overflow-y-scroll
+            "
+        >
             <div
                 class="
                     video-wrap
