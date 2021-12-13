@@ -15,6 +15,7 @@ export default {
     error: 'Problem entdeckt!',
     idle_text:
         'Vielen Dank für’s Vorbeischauen. Hier kannst du unsere Inhalte direkt bewerten und somit für ein besseres Angebot sorgen.',
+    imprint: 'Impressum',
     languages: 'Sprachen | Sprache | Sprachen',
     min_selectable: 'mind. { selectable } auswählen',
     max_selectable: 'max. { selectable } auswählen',
@@ -25,11 +26,12 @@ export default {
     survey_complete: 'Umfrage erfolgreich abgeschlossen!',
     survey_complete_thank_you: 'Vielen Dank für Ihre Teilnahme.',
     jump_to_question: 'Springe zur Frage',
-    permission_microphone_denied: 'Bitte lassen Sie die Mikrofonbenutzung zu',
     overview: 'Übersicht',
     overview_description:
         'Hier siehst du die Übersicht aller erstellten Kommentare und beantworteten Fragen.',
     prompt: 'Meldung: ',
+    permission_microphone_denied: 'Bitte lassen Sie die Mikrofonbenutzung zu',
+    privacy: 'Datenschutz',
     question_at: 'Frage bei',
     questions_answered: 'Fragen beantwortet',
     view_edit: 'Ansehen & Bearbeiten',

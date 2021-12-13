@@ -11,6 +11,8 @@ export default {
     at: 'at',
     idle_text:
         'Thank you for looking. Here you can rate our content directly and thus ensure a better offer.',
+    imprint: 'Imprint',
+    privacy: 'Privacy',
     question_at: 'Question at',
     questions_answered: 'Questions answered',
     comments: 'Comments | Comment | Comment',

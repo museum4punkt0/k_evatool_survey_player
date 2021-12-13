@@ -77,12 +77,12 @@
                             p-2
                             m-l2
                         "
-                        @click="prevStep()"
+                        @click="openModal('privacy')"
                     >
                         <finger-print-icon
                             class="h-5 w-5 mr-2 invisible md:visible"
                         ></finger-print-icon>
-                        Datenschutz
+                        {{ t('privacy') }}
                     </button>
                     <button
                         class="
@@ -94,22 +94,28 @@
                             p-2
                             ml-6
                         "
-                        @click="prevStep()"
+                        @click="openModal('imprint')"
                     >
                         <book-open-icon
                             class="h-5 w-5 mr-2 invisible md:visible"
                         ></book-open-icon>
-                        Impressum
+                        {{ t('imprint') }}
                     </button>
                 </div>
             </div>
         </div>
+        <ImprintPrivacyModal
+            :open="modalboxOpen"
+            :type="modalboxType"
+            @close-modal="closeModal"
+        ></ImprintPrivacyModal>
     </div>
 </template>
 
 <script>
 import { BookOpenIcon, FingerPrintIcon } from '@heroicons/vue/solid'
 import { useRoute } from 'vue-router'
+
 import {
     ChevronDoubleLeftIcon,
     ChevronDoubleRightIcon,
@@ -119,6 +125,7 @@ import { ref } from 'vue'
 import { version } from '../../package.json'
 import { useI18n } from 'vue-i18n'
 import { onMounted } from 'vue'
+import ImprintPrivacyModal from './ImprintPrivacyModal.vue'
 
 export default {
     name: 'Navigation',
@@ -127,6 +134,7 @@ export default {
         FingerPrintIcon,
         ChevronDoubleLeftIcon,
         ChevronDoubleRightIcon,
+        ImprintPrivacyModal,
     },
     props: {
         currentStep: {
@@ -142,7 +150,8 @@ export default {
     setup(props, { emit }) {
         const store = useStore()
         const route = useRoute()
-
+        const modalboxOpen = ref()
+        const modalboxType = ref()
         const demoMode = ref(false)
         const { t } = useI18n()
         const nextStep = () => {
@@ -163,6 +172,16 @@ export default {
             window.localStorage.setItem('surveyUuid', '')
             window.location.reload()
         }
+
+        const openModal = (type) => {
+            console.log(type)
+            modalboxOpen.value = true
+            modalboxType.value = type
+        }
+        const closeModal = () => {
+            modalboxOpen.value = false
+        }
+
         onMounted(() => {
             if (route.query.demo && route.query.demo === 'true') {
                 demoMode.value = true
@@ -178,6 +197,10 @@ export default {
             nextStep,
             prevStep,
             resetUuid,
+            openModal,
+            closeModal,
+            modalboxOpen,
+            modalboxType,
         }
     },
 }

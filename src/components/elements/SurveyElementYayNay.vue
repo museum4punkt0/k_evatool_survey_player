@@ -75,15 +75,15 @@
                 </button>
             </div>
 
-            <confirm-button
-                class="
-                    mx-auto
-                    mt-3
-                    animate__animated animate__fadeIn animate__delay-1s
-                "
-                :sub-element="subElement"
-                @confirm="confirm"
-            ></confirm-button>
+            <!--            <confirm-button-->
+            <!--                class="-->
+            <!--                    mx-auto-->
+            <!--                    mt-3-->
+            <!--                    animate__animated animate__fadeIn animate__delay-1s-->
+            <!--                "-->
+            <!--                :sub-element="subElement"-->
+            <!--                @confirm="confirm"-->
+            <!--            ></confirm-button>-->
         </div>
     </div>
 </template>
@@ -167,6 +167,11 @@ export default {
 
         const checkForLastElement = (current) => {
             isLastCard.value = current === props.content.params.assets.length
+            if (isLastCard.value) {
+                setTimeout(() => {
+                    confirm()
+                }, 1000)
+            }
         }
 
         const confirm = () => {
