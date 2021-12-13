@@ -16,6 +16,7 @@
             md:items-center
             pt-10
             md:pt-0
+            pb-10
         "
     >
         <!-- modal -->
@@ -25,8 +26,8 @@
             class="
                 opacity-0
                 transform
-                top-1/2
-                -translate-y-1/2
+                top-1/4
+                -translate-y-1/4
                 scale-150
                 relative
                 w-10/12
@@ -68,11 +69,50 @@
             </div>
 
             <!-- body -->
-            <div class="w-full p-3">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Asperiores, quis tempora! Similique, explicabo quaerat maxime
-                corrupti tenetur blanditiis voluptas molestias totam? Quaerat
-                laboriosam suscipit repellat aliquam blanditiis eum quos nihil.
+            <div class="w-full h-5/6 p-3 overflow-y-scroll">
+                <div class="w-full p-3 overflow-y-scroll">
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                    Asperiores, quis tempora! Similique, explicabo quaerat
+                    maxime corrupti tenetur blanditiis voluptas molestias totam?
+                    Quaerat laboriosam suscipit repellat aliquam blanditiis eum
+                    quos nihil. Lorem ipsum, dolor sit amet consectetur
+                    adipisicing elit. Asperiores, quis tempora! Similique,
+                    explicabo quaerat maxime corrupti tenetur blanditiis
+                    voluptas molestias totam? Quaerat laboriosam suscipit
+                    repellat aliquam blanditiis eum quos nihil. Lorem ipsum,
+                    dolor sit amet consectetur adipisicing elit.
+                    <br />
+                    <br />
+                    Asperiores, quis tempora! Similique, explicabo quaerat
+                    maxime corrupti tenetur blanditiis voluptas molestias totam?
+                    Quaerat laboriosam suscipit repellat aliquam blanditiis eum
+                    quos nihil. Lorem ipsum, dolor sit amet consectetur
+                    adipisicing elit. Asperiores, quis tempora! Similique,
+                    explicabo quaerat maxime corrupti tenetur blanditiis
+                    voluptas molestias totam? Quaerat laboriosam suscipit
+                    repellat aliquam blanditiis eum quos nihil. Lorem ipsum,
+                    dolor sit amet consectetur adipisicing elit.
+                    <br />
+                    <br />
+                    Asperiores, quis tempora! Similique, explicabo quaerat
+                    maxime corrupti tenetur blanditiis voluptas molestias totam?
+                    Quaerat laboriosam suscipit repellat aliquam blanditiis eum
+                    quos nihil. Lorem ipsum, dolor sit amet consectetur
+                    adipisicing elit. Asperiores, quis tempora! Similique,
+                    explicabo quaerat maxime corrupti tenetur blanditiis
+                    voluptas molestias totam? Quaerat laboriosam suscipit
+                    repellat aliquam blanditiis eum quos nihil.
+                    <br />
+                    <br />
+                    Asperiores, quis tempora! Similique, explicabo quaerat
+                    maxime corrupti tenetur blanditiis voluptas molestias totam?
+                    Quaerat laboriosam suscipit repellat aliquam blanditiis eum
+                    quos nihil. Lorem ipsum, dolor sit amet consectetur
+                    adipisicing elit. Asperiores, quis tempora! Similique,
+                    explicabo quaerat maxime corrupti tenetur blanditiis
+                    voluptas molestias totam? Quaerat laboriosam suscipit
+                    repellat aliquam blanditiis eum quos nihil.
+                </div>
             </div>
         </div>
     </div>
