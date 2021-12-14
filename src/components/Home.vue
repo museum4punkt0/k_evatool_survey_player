@@ -1,7 +1,7 @@
 <template>
     <div class="main-page h-screen overflow-y-scroll bg-gray-100">
         <div class="survey-header-menu top-0 fixed w-screen z-50 bg-white">
-            <header-menu></header-menu>
+            <header-menu :languages="languages"></header-menu>
 
             <!--            {{ store.state.currentStep }}-->
         </div>
@@ -70,6 +70,7 @@ export default {
         const currentStep = ref()
         const idle = ref(false)
         const surveyStep = ref()
+        const languages = ref()
 
         backlink.value = document.referer ? document.referer : '/'
 
@@ -163,6 +164,10 @@ export default {
             if (surveyStep.value > 0) {
                 idle.value = false
             }
+
+            languages.value =
+                store.state.surveyResults.surveyUuidResults.survey.languages
+            console.log(languages.value)
         })
 
         watch(
@@ -194,6 +199,7 @@ export default {
             backlink,
             nextSurvey,
             currentStep,
+            languages,
             nextStep,
             prevStep,
         }

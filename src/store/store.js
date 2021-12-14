@@ -52,15 +52,16 @@ export default createStore({
             state.editVideoQuestionId = value
         },
         setUserLanguage(state, lang) {
+            state.lang = lang
             // set userLanguage or set defaultLanguage if userLanguage not found
-            if (state.languages.find((x) => x.code === lang)) {
-                state.lang = lang
-            } else {
-                let defaultLangObject = state.languages.find(
-                    (x) => x.default === true,
-                )
-                state.lang = defaultLangObject.code
-            }
+            // if (state.languages.find((x) => x.code === lang)) {
+            //     state.lang = lang
+            // } else {
+            //     let defaultLangObject = state.languages.find(
+            //         (x) => x.default === true,
+            //     )
+            //     state.lang = defaultLangObject.code
+            // }
         },
     },
     actions: {
@@ -86,8 +87,8 @@ export default createStore({
             commit('editVideoQuestionId', value)
         },
         // async setUserLanguage({ commit }, lang) {
-        async setUserLanguage() {
-            // commit('setUserLanguage', lang)
+        async setUserLanguage({ commit }, lang) {
+            commit('setUserLanguage', lang)
         },
         // async getLanguages({ commit }, userLang) {
         async getLanguages() {
