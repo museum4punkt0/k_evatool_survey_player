@@ -73,7 +73,7 @@
     <confirm-button
         class="animate__animated animate__fadeIn animate__delay-1s"
         :sub-element="subElement"
-        @confirm="confirm"
+        @confirm="nextStep"
     ></confirm-button>
 </template>
 
@@ -114,8 +114,8 @@ export default {
         const lang = computed({
             get: () => store.state.lang,
         })
-        const handleAnswer = () => {
-            store.dispatch('surveyResults/sendSurveyResults', {
+        const nextStep = async () => {
+            await store.dispatch('surveyResults/sendSurveyResults', {
                 surveyId: route.query.survey,
                 data: {
                     surveyStepId: props.content.id,
@@ -127,10 +127,8 @@ export default {
                     resultLanguage: store.state.lang,
                 },
             })
-        }
-        const handleResults = () => {
-            // console.log(results)
-            // console.log(resultBasedNextSteps)
+
+            store.dispatch('setCurrentStep')
         }
 
         watch(
@@ -144,20 +142,13 @@ export default {
             // let questionResults = props.surveyResults
         })
 
-        const confirm = () => {
-            handleAnswer()
-            store.dispatch('setCurrentStep')
-        }
-
         return {
             store,
             route,
             lang,
             selectedAnswer,
             resultBasedNextSteps,
-            handleAnswer,
-            handleResults,
-            confirm,
+            nextStep,
         }
     },
 }

@@ -3,13 +3,69 @@
         class="pb-5 animate__animated animate__fadeInDown"
         v-html="content.params.question[lang]"
     ></h2>
+    <!--    {{ content.params }}-->
+    <!--    grades-->
+    <div v-if="content.params.displayType === 'grades'">
+        <div class="mx-2">
+            <label
+                v-for="note in 6"
+                class="inline-flex flex-col flex-wrap w-12 mx-3 items-center"
+            >
+                <input
+                    v-model="selectedNote"
+                    type="radio"
+                    class="form-radio"
+                    name="accountType"
+                    :value="note"
+                    @change="setAnswer(note)"
+                />
+                <span class="mt-2">{{ note }}</span>
+            </label>
+        </div>
+    </div>
+    <!--    neutral-->
+    <div v-else-if="content.params.displayType === 'neutral'">
+        <div class="mx-2">
+            <div class="flex w-full justify-between mb-3">
+                <label
+                    v-for="note in parseInt(content.params.numberOfStars)"
+                    class="
+                        inline-flex
+                        flex-col flex-wrap
+                        w-12
+                        mx-3
+                        items-center
+                    "
+                >
+                    <input
+                        v-model="selectedNote"
+                        type="radio"
+                        class="form-radio"
+                        name="accountType"
+                        :value="note"
+                        @change="setAnswer(note)"
+                    />
+                </label>
+            </div>
+            <div class="labels flex justify-between w-full">
+                <p
+                    v-for="(label, index) in labels"
+                    :key="'emoji-label-' + index"
+                >
+                    {{ label[lang] }}
+                </p>
+            </div>
+        </div>
+    </div>
+    <!--    starts-->
     <StarRating
+        v-else
         class="animate__animated animate__fadeInUp"
         :value="rating"
         :stars="content.params.numberOfStars"
         :params="content.params"
         :labels="labels"
-        @input="setRating"
+        @input="setAnswer"
     />
 
     <confirm-button
@@ -57,6 +113,7 @@ export default {
         const store = useStore()
         const route = useRoute()
         const labels = ref()
+        const selectedNote = ref()
         labels.value = [
             props.content.params.lowestValueLabel,
             props.content.params.middleValueLabel,
@@ -67,12 +124,15 @@ export default {
             get: () => store.state.lang,
         })
 
-        const nextStep = () => {
+        const nextStep = async () => {
+            await setRating()
             store.dispatch('setCurrentStep')
         }
-
-        const setRating = (i) => {
+        const setAnswer = (i) => {
             rating.value = i
+        }
+        const setRating = () => {
+            // rating.value = i
             store.dispatch('surveyResults/sendSurveyResults', {
                 surveyId: route.query.survey,
                 data: {
@@ -108,7 +168,15 @@ export default {
             }
         })
 
-        return { lang, labels, rating, setRating, nextStep }
+        return {
+            lang,
+            labels,
+            rating,
+            selectedNote,
+            setRating,
+            nextStep,
+            setAnswer,
+        }
     },
 }
 </script>
