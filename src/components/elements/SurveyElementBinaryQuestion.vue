@@ -31,8 +31,8 @@
                 type="radio"
                 class="invisible appearance-none"
                 :value="content.params.trueValue"
-                @change="handleAnswer(content.params.trueValue)"
             />
+            <!--            @change="handleAnswer(content.params.trueValue)"-->
             <arrow-circle-right-icon class="h-6 w-6 mr-3 text-white" />
             <span v-html="content.params.trueLabel[lang]"></span>
         </label>
@@ -64,8 +64,8 @@
                 type="radio"
                 class="invisible appearance-none"
                 :value="content.params.falseValue"
-                @change="handleAnswer(content.params.falseValue)"
             />
+            <!--            @change="handleAnswer(content.params.falseValue)"-->
             <arrow-circle-right-icon class="h-6 w-6 mr-3 text-white" />
             <span v-html="content.params.falseLabel[lang]"></span>
         </label>
@@ -145,6 +145,7 @@ export default {
         })
 
         const confirm = () => {
+            handleAnswer()
             store.dispatch('setCurrentStep')
         }
 

@@ -91,8 +91,9 @@ export default {
             i18n.locale.value = lang
             currentLang.value = lang
         }
-        onMounted(() => {
-            currentLang.value = store.state.lang
+        onMounted(async () => {
+            currentLang.value = await store.state.lang
+            i18n.locale.value = currentLang.value
         })
 
         return {

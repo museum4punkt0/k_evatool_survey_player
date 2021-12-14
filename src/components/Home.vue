@@ -153,7 +153,10 @@ export default {
                 surveyId: surveySlug,
                 uuid: localStorage.getItem('surveyUuid'),
             })
-
+            languages.value =
+                store.state.surveyResults.surveyUuidResults.survey.languages
+            console.log(languages.value)
+            await store.dispatch('setUserLanguage', languages.value[0])
             let surveySteps = store.state.surveyResults.surveyUuidResults.steps
 
             let currentStepId =
@@ -164,10 +167,6 @@ export default {
             if (surveyStep.value > 0) {
                 idle.value = false
             }
-
-            languages.value =
-                store.state.surveyResults.surveyUuidResults.survey.languages
-            console.log(languages.value)
         })
 
         watch(
