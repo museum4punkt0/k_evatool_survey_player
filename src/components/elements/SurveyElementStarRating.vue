@@ -6,7 +6,7 @@
     <!--    {{ content.params }}-->
     <!--    grades-->
     <div v-if="content.params.displayType === 'grades'">
-        <div class="mx-2">
+        <div class="flex w-full justify-between mb-3">
             <label
                 v-for="note in 6"
                 class="inline-flex flex-col flex-wrap w-12 mx-3 items-center"
