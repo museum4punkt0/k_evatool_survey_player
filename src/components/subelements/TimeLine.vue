@@ -6,9 +6,10 @@
             md:mx-auto
             mx-0
             px-0
+            pb-24
             w-full
             h-full
-            overflow-scroll
+            md:overflow-scroll
             xl:absolute
         "
     >
@@ -16,8 +17,7 @@
             class="
                 relative
                 wrap
-                overflow-scroll
-                md:p-5 md:mx-2
+                md:overflow-scroll md:p-5 md:mx-2
                 bg-blue-700
                 p-4
                 text-white
@@ -32,7 +32,7 @@
             class="
                 relative
                 wrap
-                overflow-scroll
+                md:overflow-scroll
                 h-auto
                 p-5
                 md:mx-2

@@ -7,7 +7,9 @@
                 md:w-2/3
                 p-0
                 m-0
-                overflow-y-scroll
+                md:overflow-y-scroll
+                bg-white
+                z-10
             "
         >
             <div
@@ -53,14 +55,7 @@
                     @click="start"
                 >
                     <play-icon
-                        class="
-                            w-16
-                            h-16
-                            xl:h-32 xl:w-32
-                            z-100
-                            inline
-                            text-white
-                        "
+                        class="w-16 h-16 xl:h-32 xl:w-32 z-10 inline text-white"
                     ></play-icon>
                 </div>
                 <!--                <pre>{{ content.stepParams.startTimecode }}</pre>-->
@@ -263,7 +258,7 @@
                 md:w-1/3 md:mx-4
                 pb-36
                 h-full
-                overflow-y-scroll
+                md:overflow-y-scroll
                 relative
                 animate__animated animate__fadeInRight
             "
@@ -783,7 +778,9 @@ export default {
 
 <style lang="scss" scoped>
 .video-wrap {
-    z-index: 100;
+    &.z-100 {
+        z-index: 100;
+    }
     .video-container {
         height: calc(100% - 20px - 3rem);
         video {
@@ -826,5 +823,9 @@ textarea {
         opacity: 1;
         transition: opacity 0.3s linear;
     }
+}
+
+.z-100 {
+    z-index: 100;
 }
 </style>
