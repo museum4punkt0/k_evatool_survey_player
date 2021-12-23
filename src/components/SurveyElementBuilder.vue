@@ -11,13 +11,18 @@
             justify-center
             items-center
             h-full
-            md:pb-36
-            xl:pt-36
             overflow-scroll
         "
     >
         <div
-            class="flex flex-wrap items-start w-full xl:pt-36 xl:mt-36 xl:w-1/3"
+            class="
+                flex flex-wrap
+                items-start
+                overflow-y-scroll
+                w-full
+                pb-24
+                xl:mt-0 xl:w-1/3
+            "
             :class="{
                 ' flex-col': content && content.surveyElementType !== 'yayNay',
             }"
