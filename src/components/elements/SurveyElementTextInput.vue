@@ -68,7 +68,7 @@ export default {
         const inputText = () => {}
         const nextStep = async () => {
             console.log(text.value)
-
+            await store.dispatch('setStepAnswering', true)
             await store.dispatch('surveyResults/sendSurveyResults', {
                 surveyId: route.query.survey,
                 data: {

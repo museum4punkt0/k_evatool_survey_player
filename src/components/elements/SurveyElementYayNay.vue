@@ -143,7 +143,7 @@ export default {
         const setResult = async (res) => {
             console.log(res)
             results.value.push(res)
-            store.dispatch('setStepAnswering', true)
+            await store.dispatch('setStepAnswering', true)
             console.log(results.value)
 
             await store.dispatch('surveyResults/sendSurveyResults', {

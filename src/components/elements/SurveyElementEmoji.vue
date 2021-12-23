@@ -74,7 +74,7 @@ export default {
         const setResult = async (i) => {
             console.log(i)
             result.value = i
-
+            await store.dispatch('setStepAnswering', true)
             await store.dispatch('surveyResults/sendSurveyResults', {
                 surveyId: route.query.survey,
                 data: {

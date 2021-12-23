@@ -115,6 +115,7 @@ export default {
             get: () => store.state.lang,
         })
         const nextStep = async () => {
+            await store.dispatch('setStepAnswering', true)
             await store.dispatch('surveyResults/sendSurveyResults', {
                 surveyId: route.query.survey,
                 data: {

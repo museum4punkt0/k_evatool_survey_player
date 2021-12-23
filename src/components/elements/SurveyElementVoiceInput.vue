@@ -206,7 +206,7 @@ export default {
         }
         const nextStep = async () => {
             const surveySlug = route.query.survey || ''
-
+            await store.dispatch('setStepAnswering', true)
             await store.dispatch('surveyResults/sendSurveyResults', {
                 surveyId: surveySlug,
                 data: {

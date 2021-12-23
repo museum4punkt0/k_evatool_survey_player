@@ -132,6 +132,7 @@ export default {
         }
         const setRating = async () => {
             // rating.value = i
+            await store.dispatch('setStepAnswering', true)
             await store.dispatch('surveyResults/sendSurveyResults', {
                 surveyId: route.query.survey,
                 data: {

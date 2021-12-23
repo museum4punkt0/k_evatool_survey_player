@@ -95,6 +95,7 @@ export default {
                 props.surveyResults.params.maxSelectable >=
                     selectedOptions.value.length
             ) {
+                await store.dispatch('setStepAnswering', true)
                 await store.dispatch('surveyResults/sendSurveyResults', {
                     surveyId: route.query.survey,
                     data: {
@@ -106,7 +107,6 @@ export default {
                         resultLanguage: store.state.lang,
                     },
                 })
-                await store.dispatch('setStepAnswering', true)
             } else {
                 await store.dispatch('setStepAnswering', false)
             }
