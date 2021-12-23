@@ -140,13 +140,13 @@ export default {
             }, 500)
         }
         const results = ref([])
-        const setResult = (res) => {
+        const setResult = async (res) => {
             console.log(res)
             results.value.push(res)
             store.dispatch('setStepAnswering', true)
             console.log(results.value)
 
-            store.dispatch('surveyResults/sendSurveyResults', {
+            await store.dispatch('surveyResults/sendSurveyResults', {
                 surveyId: route.query.survey,
                 data: {
                     surveyStepId: props.content.id,

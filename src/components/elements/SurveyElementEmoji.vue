@@ -71,11 +71,11 @@ export default {
         const result = ref()
         const route = useRoute()
         const store = useStore()
-        const setResult = (i) => {
+        const setResult = async (i) => {
             console.log(i)
             result.value = i
 
-            store.dispatch('surveyResults/sendSurveyResults', {
+            await store.dispatch('surveyResults/sendSurveyResults', {
                 surveyId: route.query.survey,
                 data: {
                     surveyStepId: props.content.id,
@@ -91,8 +91,8 @@ export default {
             get: () => store.state.lang,
         })
 
-        const confirm = () => {
-            store.dispatch('setCurrentStep')
+        const confirm = async () => {
+            await store.dispatch('setCurrentStep')
         }
         watch(
             () => result.value,

@@ -7,16 +7,17 @@
             survey-content
             flex flex-wrap
             xl:flex-col
-            md:h-full md:mt-16
+            md:h-full md:mt-0
             justify-center
             items-center
             h-full
-            pb-36
+            md:pb-36
+            xl:pt-36
             overflow-scroll
         "
     >
         <div
-            class="flex flex-wrap items-start w-full mt-2 xl:mt-36 xl:w-1/3"
+            class="flex flex-wrap items-start w-full xl:pt-36 xl:mt-36 xl:w-1/3"
             :class="{
                 ' flex-col': content && content.surveyElementType !== 'yayNay',
             }"

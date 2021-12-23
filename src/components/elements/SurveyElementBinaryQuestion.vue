@@ -128,7 +128,7 @@ export default {
                 },
             })
 
-            store.dispatch('setCurrentStep')
+            await store.dispatch('setCurrentStep')
         }
 
         watch(

@@ -9,6 +9,7 @@
                 m-0
                 md:overflow-y-scroll
                 bg-white
+                md:bg-transparent
                 z-10
             "
         >

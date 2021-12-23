@@ -71,7 +71,7 @@
     <confirm-button
         class="animate__animated animate__fadeIn animate__delay-1s"
         :sub-element="subElement"
-        @confirm="nextStep"
+        @confirm="setRating"
     ></confirm-button>
 </template>
 
@@ -124,16 +124,15 @@ export default {
             get: () => store.state.lang,
         })
 
-        const nextStep = async () => {
-            await setRating()
-            store.dispatch('setCurrentStep')
-        }
+        // const nextStep = () => {
+        //     setRating()
+        // }
         const setAnswer = (i) => {
             rating.value = i
         }
-        const setRating = () => {
+        const setRating = async () => {
             // rating.value = i
-            store.dispatch('surveyResults/sendSurveyResults', {
+            await store.dispatch('surveyResults/sendSurveyResults', {
                 surveyId: route.query.survey,
                 data: {
                     surveyStepId: props.content.id,
@@ -144,6 +143,7 @@ export default {
                     resultLanguage: store.state.lang,
                 },
             })
+            await store.dispatch('setCurrentStep')
         }
 
         watch(
@@ -174,7 +174,7 @@ export default {
             rating,
             selectedNote,
             setRating,
-            nextStep,
+            // nextStep,
             setAnswer,
         }
     },

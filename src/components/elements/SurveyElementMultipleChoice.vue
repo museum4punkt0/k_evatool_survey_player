@@ -88,14 +88,14 @@ export default {
         const handleAnswer = () => {
             // console.log(answer)
         }
-        const handleResults = () => {
+        const handleResults = async () => {
             if (
                 props.surveyResults.params.minSelectable <=
                     selectedOptions.value.length &&
                 props.surveyResults.params.maxSelectable >=
                     selectedOptions.value.length
             ) {
-                store.dispatch('surveyResults/sendSurveyResults', {
+                await store.dispatch('surveyResults/sendSurveyResults', {
                     surveyId: route.query.survey,
                     data: {
                         surveyStepId: props.content.id,
@@ -106,9 +106,9 @@ export default {
                         resultLanguage: store.state.lang,
                     },
                 })
-                store.dispatch('setStepAnswering', true)
+                await store.dispatch('setStepAnswering', true)
             } else {
-                store.dispatch('setStepAnswering', false)
+                await store.dispatch('setStepAnswering', false)
             }
         }
 
