@@ -123,7 +123,7 @@ export default {
             // console.log(answer)
         }
 
-        const handleResults = async () => {
+        const handleResults = async (sendToApi = false) => {
             if (
                 props.surveyResults.params.minSelectable <=
                     selectedOptions.value.length &&
@@ -131,17 +131,19 @@ export default {
                     selectedOptions.value.length
             ) {
                 await store.dispatch('setStepAnswering', true)
-                await store.dispatch('surveyResults/sendSurveyResults', {
-                    surveyId: route.query.survey,
-                    data: {
-                        surveyStepId: props.content.id,
-                        resultValue: {
-                            selected: selectedOptions.value,
+                if (sendToApi) {
+                    await store.dispatch('surveyResults/sendSurveyResults', {
+                        surveyId: route.query.survey,
+                        data: {
+                            surveyStepId: props.content.id,
+                            resultValue: {
+                                selected: selectedOptions.value,
+                            },
+                            uuid: props.surveyResults.uuid,
+                            resultLanguage: store.state.lang,
                         },
-                        uuid: props.surveyResults.uuid,
-                        resultLanguage: store.state.lang,
-                    },
-                })
+                    })
+                }
             } else {
                 await store.dispatch('setStepAnswering', false)
             }
@@ -161,8 +163,9 @@ export default {
             getResults()
         })
 
-        const confirm = () => {
-            store.dispatch('setCurrentStep')
+        const confirm = async () => {
+            await handleResults(true)
+            await store.dispatch('setCurrentStep')
         }
 
         const changeValue = (value) => {
