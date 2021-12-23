@@ -194,7 +194,6 @@ export default {
         }
 
         const changeComment = debounce(async (value) => {
-            console.log(value)
             const index = selectedOptions.value.findIndex(
                 (x) => x.value === value.value,
             )
@@ -202,9 +201,7 @@ export default {
                 selectedOptions.value[index].comment = value.comment
             }
 
-            console.log(selectedOptions.value)
-
-            handleResults()
+            await handleResults()
         }, 1000)
 
         return {
