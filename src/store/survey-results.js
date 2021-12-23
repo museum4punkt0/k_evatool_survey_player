@@ -28,11 +28,11 @@ export default {
                 resultData.data,
             )
 
-            const surveyResults = await SURVEY_RESULTS.getUuidResults(
+            await SURVEY_RESULTS.getUuidResults(
                 resultData.surveyId,
                 localStorage.getItem('surveyUuid'),
             )
-            commit('setSurveyUuidResults', surveyResults)
+            // commit('setSurveyUuidResults', surveyResults)
         },
         async sendSurveyAudioAsset({ commit }, resultData) {
             await SURVEY_RESULTS.sendAudioResults(resultData)
