@@ -5,16 +5,49 @@
             v-html="surveyResults.params.question[store.state.lang]"
         ></h2>
         <div class="mt-2">
-            <select-button
+            <template
                 v-for="(option, index) in surveyResults.params.options"
                 :key="'selection-button-' + index"
-                :selected="selectedOptions.includes(option.value)"
-                :disabled="disabled(option.value)"
-                :value="option.value"
-                :label="option.labels[store.state.lang]"
-                class="animate__animated animate__fadeInUp"
-                @selected="changeValue"
-            />
+            >
+                <select-button
+                    :selected="
+                        selectedOptions.findIndex(
+                            (x) => x.value === option.value,
+                        ) >= 0
+                    "
+                    :disabled="disabled(option.value)"
+                    :value="option.value"
+                    :label="option.labels[store.state.lang]"
+                    class="animate__animated animate__fadeInUp"
+                    @selected="changeValue(option)"
+                />
+
+                <div
+                    v-if="
+                        selectedOptions.findIndex(
+                            (x) => x.value === option.value,
+                        ) >= 0 && option.commentable
+                    "
+                >
+                    <input
+                        v-model="option.comment"
+                        type="text"
+                        class="
+                            w-full
+                            border-2 border-blue-600 border-black
+                            rounded-lg
+                            text-gray-900
+                            py-2
+                            px-7
+                            bg-white
+                            rounded-xl
+                            mb-3
+                        "
+                        :placeholder="t('write_comment_placeholder')"
+                        @input="changeComment(option)"
+                    />
+                </div>
+            </template>
         </div>
         <p
             class="
@@ -49,12 +82,13 @@
 </template>
 
 <script>
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useStore } from 'vuex'
 import SelectButton from '../subelements/SelectButton.vue'
 import ConfirmButton from '../subelements/ConfirmButton.vue'
 import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
+import { debounce } from 'lodash'
 
 export default {
     name: 'SurveyElementMultipleChoice',
@@ -88,6 +122,7 @@ export default {
         const handleAnswer = () => {
             // console.log(answer)
         }
+
         const handleResults = async () => {
             if (
                 props.surveyResults.params.minSelectable <=
@@ -131,6 +166,45 @@ export default {
             store.dispatch('setCurrentStep')
         }
 
+        const changeValue = (value) => {
+            if (
+                1 === parseInt(props.surveyResults.params.minSelectable) &&
+                1 === parseInt(props.surveyResults.params.maxSelectable)
+            ) {
+                if (
+                    selectedOptions.value.findIndex(
+                        (x) => x.value === value.value,
+                    ) >= 0
+                ) {
+                    selectedOptions.value = []
+                    delete value.comment
+                } else {
+                    selectedOptions.value = [{ value: value.value }]
+                }
+            } else {
+                const index = selectedOptions.value.findIndex(
+                    (x) => x.value === value.value,
+                )
+                if (index < 0) {
+                    selectedOptions.value.push({ value: value.value })
+                } else {
+                    selectedOptions.value.splice(index, 1)
+                }
+            }
+            handleResults()
+        }
+
+        const changeComment = debounce(async (value) => {
+            const index = selectedOptions.value.findIndex(
+                (x) => x.value === value.value,
+            )
+            if (index >= 0) {
+                selectedOptions.value[index].comment = value.comment
+            }
+
+            await handleResults()
+        }, 1000)
+
         return {
             t,
             store,
@@ -141,29 +215,11 @@ export default {
             handleResults,
             getResults,
             confirm,
+            changeComment,
+            changeValue,
         }
     },
     methods: {
-        changeValue(value) {
-            if (
-                1 === parseInt(this.surveyResults.params.minSelectable) &&
-                1 === parseInt(this.surveyResults.params.maxSelectable)
-            ) {
-                if (this.selectedOptions.includes(value)) {
-                    this.selectedOptions = []
-                } else {
-                    this.selectedOptions = [value]
-                }
-            } else {
-                const index = this.selectedOptions.indexOf(value)
-                if (index < 0) {
-                    this.selectedOptions.push(value)
-                } else {
-                    this.selectedOptions.splice(index, 1)
-                }
-            }
-            this.handleResults()
-        },
         disabled(value) {
             return (
                 parseInt(this.surveyResults.params.maxSelectable) > 1 &&
