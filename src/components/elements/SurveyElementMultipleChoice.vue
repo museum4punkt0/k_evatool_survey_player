@@ -5,7 +5,6 @@
             v-html="surveyResults.params.question[store.state.lang]"
         ></h2>
         <div class="mt-2">
-            {{ selectedOptions }}
             <template
                 v-for="(option, index) in surveyResults.params.options"
                 :key="'selection-button-' + index"
@@ -200,11 +199,13 @@ export default {
                 (x) => x.value === value.value,
             )
             if (index >= 0) {
-                selectedOptions.value.[index].comment = value.comment
+                selectedOptions.value[index].comment = value.comment
             }
 
+            console.log(selectedOptions.value)
+
             handleResults()
-        }, 500)
+        }, 1000)
 
         return {
             t,
