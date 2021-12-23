@@ -114,8 +114,7 @@ export default {
         const lang = computed({
             get: () => store.state.lang,
         })
-        const nextStep = async () => {
-            await store.dispatch('setStepAnswering', true)
+        const setResult = async () => {
             await store.dispatch('surveyResults/sendSurveyResults', {
                 surveyId: route.query.survey,
                 data: {
@@ -129,13 +128,19 @@ export default {
                 },
             })
 
-            await store.dispatch('setCurrentStep')
+            // await store.dispatch('setCurrentStep')
+        }
+
+        const nextStep = () => {
+            store.dispatch('setStepAnswering', true)
+            store.dispatch('setCurrentStep')
         }
 
         watch(
             () => selectedAnswer.value,
             () => {
                 store.dispatch('setStepAnswering', true)
+                setResult()
             },
         )
 
@@ -150,6 +155,7 @@ export default {
             selectedAnswer,
             resultBasedNextSteps,
             nextStep,
+            setResult,
         }
     },
 }

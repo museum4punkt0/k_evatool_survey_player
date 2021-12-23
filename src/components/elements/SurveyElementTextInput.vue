@@ -65,7 +65,9 @@ export default {
             get: () => store.state.lang,
         })
 
-        const inputText = () => {}
+        const inputText = () => {
+            console.log(text.value)
+        }
         const nextStep = async () => {
             console.log(text.value)
             await store.dispatch('setStepAnswering', true)
