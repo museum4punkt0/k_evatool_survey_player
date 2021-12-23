@@ -145,12 +145,12 @@ import { useI18n } from 'vue-i18n'
 import AudioRecorder from '../subelements/AudioRecorder.vue'
 import { computed, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
-import CustomAlert from '../subelements/CustomAlert.vue'
+// import CustomAlert from '../subelements/CustomAlert.vue'
 
 export default {
     name: 'SurveyElementVoiceInput',
     components: {
-        CustomAlert,
+        // CustomAlert,
         MicrophoneIcon,
         ConfirmButton,
         AudioRecorder,
@@ -204,9 +204,20 @@ export default {
             audioData.value = null
             recordedTime.value = -1
         }
-        const nextStep = async () => {
+
+        const nextStep = () => {
+            store.dispatch('setStepAnswering', true)
+            setResult()
+            if (props.subElement) {
+                store.dispatch('setCurrentVideoStep')
+            } else {
+                store.dispatch('setCurrentStep')
+            }
+        }
+
+        const setResult = async () => {
             const surveySlug = route.query.survey || ''
-            await store.dispatch('setStepAnswering', true)
+
             await store.dispatch('surveyResults/sendSurveyResults', {
                 surveyId: surveySlug,
                 data: {
@@ -218,12 +229,6 @@ export default {
                     resultLanguage: store.state.lang,
                 },
             })
-
-            if (props.subElement) {
-                await store.dispatch('setCurrentVideoStep')
-            } else {
-                await store.dispatch('setCurrentStep')
-            }
         }
 
         const toggleRecording = () => {
@@ -249,7 +254,7 @@ export default {
             recording.value = !recording.value
         }
         const sendAudioAsset = (data) => {
-            // console.log(data)
+            console.log(data)
             audioData.value = data
         }
 
@@ -310,6 +315,7 @@ export default {
             isSupported,
             hasPermission,
             sendAudioAsset,
+            setResult,
         }
     },
 }

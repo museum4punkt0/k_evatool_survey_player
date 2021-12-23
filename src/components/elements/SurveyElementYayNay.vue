@@ -169,12 +169,12 @@ export default {
             isLastCard.value = current === props.content.params.assets.length
             if (isLastCard.value) {
                 setTimeout(() => {
-                    confirm()
+                    nextStep()
                 }, 1000)
             }
         }
 
-        const confirm = () => {
+        const nextStep = () => {
             store.dispatch('setCurrentStep')
         }
 
@@ -187,7 +187,7 @@ export default {
             isLastCard,
             setAnswer,
             setResult,
-            confirm,
+            nextStep,
             checkForLastElement,
         }
     },

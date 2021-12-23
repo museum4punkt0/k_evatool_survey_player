@@ -161,6 +161,7 @@ export default {
 
         onMounted(() => {
             getResults()
+            store.dispatch('setStepAnswering', false)
         })
 
         const confirm = async () => {
