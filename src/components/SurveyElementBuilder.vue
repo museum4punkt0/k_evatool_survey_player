@@ -15,16 +15,10 @@
         "
     >
         <div
-            class="
-                flex flex-wrap
-                items-start
-                overflow-y-scroll
-                w-full
-                pb-24
-                xl:mt-0 xl:w-1/3
-            "
+            class="flex flex-wrap items-start w-full pb-24 xl:mt-0 xl:w-1/3"
             :class="{
-                ' flex-col': content && content.surveyElementType !== 'yayNay',
+                ' overflow-y-scroll flex-col':
+                    content && content.surveyElementType !== 'yayNay',
             }"
         >
             <survey-done

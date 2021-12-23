@@ -4,22 +4,27 @@
             class="pb-5 animate__animated animate__fadeInDown"
             v-html="content.params.text[lang]"
         ></h2>
-        <NextButton
+        <!--        <NextButton-->
+        <!--            class="animate__animated animate__fadeIn animate__delay-1s"-->
+        <!--            @confirm="nextStep"-->
+        <!--        ></NextButton>-->
+        <confirm-button
             class="animate__animated animate__fadeIn animate__delay-1s"
             @confirm="nextStep"
-        ></NextButton>
+        ></confirm-button>
     </div>
 </template>
 
 <script>
 import { computed, onMounted, ref } from 'vue'
 import { useStore } from 'vuex'
-import NextButton from '../subelements/NextButton.vue'
+// import NextButton from '../subelements/NextButton.vue'
+import ConfirmButton from '../subelements/ConfirmButton.vue'
 import { useRoute } from 'vue-router'
 
 export default {
     name: 'SurveyElementSimpleText',
-    components: { NextButton },
+    components: { ConfirmButton },
     props: {
         content: {
             type: Object,
@@ -49,6 +54,7 @@ export default {
         })
 
         const nextStep = async () => {
+            await store.dispatch('setStepAnswering', true)
             await store.dispatch('surveyResults/sendSurveyResults', {
                 surveyId: route.query.survey,
                 data: {
@@ -60,6 +66,7 @@ export default {
                     resultLanguage: store.state.lang,
                 },
             })
+
             if (props.subElement) {
                 await store.dispatch('setCurrentVideoStep')
             } else {
