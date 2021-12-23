@@ -119,9 +119,7 @@ export default {
 
         const resultBasedNextSteps = ref(props.content.resultBasedNextSteps)
 
-        const handleAnswer = () => {
-            // console.log(answer)
-        }
+        const handleAnswer = () => {}
 
         const handleResults = async () => {
             if (
@@ -225,7 +223,7 @@ export default {
                 parseInt(this.surveyResults.params.maxSelectable) > 1 &&
                 this.selectedOptions.length >=
                     parseInt(this.surveyResults.params.maxSelectable) &&
-                !this.selectedOptions.includes(value)
+                this.selectedOptions.findIndex((x) => x.value === value) < 0
             )
         },
     },
