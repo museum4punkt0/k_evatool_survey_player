@@ -359,7 +359,7 @@ export default {
             return (
                 'background:url(' +
                 image +
-                ')no-repeat; background-size:cover; background-position:center;'
+                ')no-repeat; background-size:contain; background-position:center;'
             )
         }
 

@@ -119,10 +119,6 @@ export default {
 
         const resultBasedNextSteps = ref(props.content.resultBasedNextSteps)
 
-        const handleAnswer = () => {
-            // console.log(answer)
-        }
-
         const handleResults = async () => {
             if (
                 props.surveyResults.params.minSelectable <=
@@ -162,8 +158,8 @@ export default {
             store.dispatch('setStepAnswering', false)
         })
 
-        const confirm = () => {
-            store.dispatch('setCurrentStep')
+        const confirm = async () => {
+            await store.dispatch('setCurrentStep')
         }
 
         const changeValue = (value) => {
@@ -211,7 +207,6 @@ export default {
             route,
             selectedOptions,
             resultBasedNextSteps,
-            handleAnswer,
             handleResults,
             getResults,
             confirm,
@@ -221,11 +216,14 @@ export default {
     },
     methods: {
         disabled(value) {
+            console.log(this.selectedOptions)
+            console.log(value)
+            console.log(this.selectedOptions.find((x) => x.value === value))
             return (
                 parseInt(this.surveyResults.params.maxSelectable) > 1 &&
                 this.selectedOptions.length >=
                     parseInt(this.surveyResults.params.maxSelectable) &&
-                !this.selectedOptions.includes(value)
+                !this.selectedOptions.find((x) => x.value === value)
             )
         },
     },
