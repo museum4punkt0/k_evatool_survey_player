@@ -124,9 +124,9 @@ export default {
             get: () => store.state.lang,
         })
 
-        const nextStep = () => {
-            store.dispatch('setStepAnswering', true)
-            store.dispatch('setCurrentStep')
+        const nextStep = async () => {
+            await store.dispatch('setCurrentStep')
+            console.log('setCurrentStep')
         }
         const setAnswer = (i) => {
             rating.value = i
@@ -145,6 +145,8 @@ export default {
                     resultLanguage: store.state.lang,
                 },
             })
+            await store.dispatch('setStepAnswering', true)
+            console.log('setRating')
         }
 
         watch(

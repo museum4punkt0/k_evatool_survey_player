@@ -86,13 +86,13 @@ export default {
                     resultLanguage: store.state.lang,
                 },
             })
+            await store.dispatch('setStepAnswering', true)
         }
         const lang = computed({
             get: () => store.state.lang,
         })
 
         const confirm = async () => {
-            await store.dispatch('setStepAnswering', true)
             await store.dispatch('setCurrentStep')
         }
         watch(

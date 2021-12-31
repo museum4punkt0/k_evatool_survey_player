@@ -1,47 +1,53 @@
 <template>
-    <div
-        class="
-            w-min
-            focus:ring-indigo-500
-            relative
-            flex
-            items-start
-            py-4
-            px-7
-            mb-3
-            bg-white
-            rounded-xl
-        "
-        :class="[
-            selected ? 'border-blue-700 border-2' : 'border-gray-900 border-2',
-            disabled ? 'cursor-not-allowed select-none' : 'cursor-pointer',
-        ]"
-        @click="toggleSelection"
-    >
-        <div class="flex items-center">
-            <span
-                class="h-6 w-6 rounded"
-                :class="
-                    selected
-                        ? 'border-blue-700 border-2 bg-blue-700'
-                        : 'border-gray-900 border-2'
-                "
-            >
-                <check-icon v-if="selected" class="text-white" />
-            </span>
-        </div>
-        <div class="ml-3 text-sm">
-            <label
-                class="font-medium whitespace-nowrap"
-                :class="[
-                    selected ? 'text-blue-700' : 'text-gray-700',
-                    disabled
-                        ? 'cursor-not-allowed select-none'
-                        : 'cursor-pointer',
-                ]"
-            >
-                {{ label }}
-            </label>
+    <div class="flex">
+        <div
+            class="
+                w-min
+                focus:ring-indigo-500
+                relative
+                flex
+                items-center
+                py-4
+                px-7
+                mb-3
+                bg-white
+                rounded-xl
+                w-auto
+            "
+            :class="[
+                selected
+                    ? 'border-blue-700 border-2'
+                    : 'border-gray-900 border-2',
+                disabled ? 'cursor-not-allowed select-none' : 'cursor-pointer',
+            ]"
+            @click="toggleSelection"
+        >
+            <div class="flex items-center">
+                <span
+                    class="h-6 w-6 rounded"
+                    :class="
+                        selected
+                            ? 'border-blue-700 border-2 bg-blue-700'
+                            : 'border-gray-900 border-2'
+                    "
+                >
+                    <check-icon v-if="selected" class="text-white" />
+                </span>
+            </div>
+            <div class="ml-3 text-sm">
+                <!--            whitespace-nowrap-->
+                <label
+                    class="font-medium"
+                    :class="[
+                        selected ? 'text-blue-700' : 'text-gray-700',
+                        disabled
+                            ? 'cursor-not-allowed select-none'
+                            : 'cursor-pointer',
+                    ]"
+                >
+                    {{ label }}
+                </label>
+            </div>
         </div>
     </div>
 </template>

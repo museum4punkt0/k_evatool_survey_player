@@ -119,8 +119,6 @@ export default {
 
         const resultBasedNextSteps = ref(props.content.resultBasedNextSteps)
 
-        const handleAnswer = () => {}
-
         const handleResults = async () => {
             if (
                 props.surveyResults.params.minSelectable <=
@@ -209,7 +207,6 @@ export default {
             route,
             selectedOptions,
             resultBasedNextSteps,
-            handleAnswer,
             handleResults,
             getResults,
             confirm,
@@ -219,6 +216,9 @@ export default {
     },
     methods: {
         disabled(value) {
+            console.log(this.selectedOptions)
+            console.log(value)
+            console.log(this.selectedOptions.find((x) => x.value === value))
             return (
                 parseInt(this.surveyResults.params.maxSelectable) > 1 &&
                 this.selectedOptions.length >=

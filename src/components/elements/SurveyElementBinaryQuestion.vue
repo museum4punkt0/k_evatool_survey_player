@@ -131,9 +131,9 @@ export default {
             // await store.dispatch('setCurrentStep')
         }
 
-        const nextStep = () => {
-            store.dispatch('setStepAnswering', true)
-            store.dispatch('setCurrentStep')
+        const nextStep = async () => {
+            await store.dispatch('setStepAnswering', true)
+            await store.dispatch('setCurrentStep')
         }
 
         watch(

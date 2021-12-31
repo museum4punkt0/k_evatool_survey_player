@@ -3,6 +3,7 @@
         class="
             flex
             pt-24
+            pb-16
             my-5
             flex-wrap
             justify-center
