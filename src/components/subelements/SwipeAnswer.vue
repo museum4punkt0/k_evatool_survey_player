@@ -223,7 +223,8 @@ export default {
                         touchElement.value.left -
                         touchElement.value.width / 2,
                     clientY:
-                        event.clientY -
+                        event.clientY +
+                        event.offsetY / 2 -
                         touchElement.value.top -
                         touchElement.value.height / 2,
                     rotation:
@@ -250,7 +251,8 @@ export default {
             let touch = event.targetTouches[0]
 
             dragging.value = true
-            console.log(touch.clientX)
+            // console.log(touch.clientX)
+            // console.log(touch)
             positions.value = {
                 clientX:
                     touch.clientX -
