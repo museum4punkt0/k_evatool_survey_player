@@ -145,12 +145,12 @@ import { useI18n } from 'vue-i18n'
 import AudioRecorder from '../subelements/AudioRecorder.vue'
 import { computed, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
-// import CustomAlert from '../subelements/CustomAlert.vue'
+import CustomAlert from '../subelements/CustomAlert.vue'
 
 export default {
     name: 'SurveyElementVoiceInput',
     components: {
-        // CustomAlert,
+        CustomAlert,
         MicrophoneIcon,
         ConfirmButton,
         AudioRecorder,
