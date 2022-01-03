@@ -76,7 +76,7 @@
         <confirm-button
             class="animate__animated animate__fadeIn animate__delay-1s"
             :sub-element="subElement"
-            @confirm="confirm"
+            @confirm="nextStep"
         ></confirm-button>
     </div>
 </template>
@@ -119,7 +119,7 @@ export default {
 
         const resultBasedNextSteps = ref(props.content.resultBasedNextSteps)
 
-        const handleResults = async () => {
+        const setResults = async () => {
             if (
                 props.surveyResults.params.minSelectable <=
                     selectedOptions.value.length &&
@@ -153,12 +153,7 @@ export default {
             }
         }
 
-        onMounted(() => {
-            getResults()
-            store.dispatch('setStepAnswering', false)
-        })
-
-        const confirm = async () => {
+        const nextStep = async () => {
             await store.dispatch('setCurrentStep')
         }
 
@@ -187,7 +182,7 @@ export default {
                     selectedOptions.value.splice(index, 1)
                 }
             }
-            handleResults()
+            setResults()
         }
 
         const changeComment = debounce(async (value) => {
@@ -198,8 +193,13 @@ export default {
                 selectedOptions.value[index].comment = value.comment
             }
 
-            await handleResults()
+            await setResults()
         }, 1000)
+
+        onMounted(() => {
+            // getResults()
+            store.dispatch('setStepAnswering', false)
+        })
 
         return {
             t,
@@ -207,18 +207,18 @@ export default {
             route,
             selectedOptions,
             resultBasedNextSteps,
-            handleResults,
+            setResults,
             getResults,
-            confirm,
+            nextStep,
             changeComment,
             changeValue,
         }
     },
     methods: {
         disabled(value) {
-            console.log(this.selectedOptions)
-            console.log(value)
-            console.log(this.selectedOptions.find((x) => x.value === value))
+            // console.log(this.selectedOptions)
+            // console.log(value)
+            // console.log(this.selectedOptions.find((x) => x.value === value))
             return (
                 parseInt(this.surveyResults.params.maxSelectable) > 1 &&
                 this.selectedOptions.length >=

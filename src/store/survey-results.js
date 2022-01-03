@@ -21,18 +21,18 @@ export default {
 
             return surveyResults
         },
-        async sendSurveyResults({ commit }, resultData) {
+        async sendSurveyResults(_, resultData) {
             console.log(resultData)
             await SURVEY_RESULTS.sendResults(
                 resultData.surveyId,
                 resultData.data,
             )
 
-            const surveyResults = await SURVEY_RESULTS.getUuidResults(
-                resultData.surveyId,
-                localStorage.getItem('surveyUuid'),
-            )
-            commit('setSurveyUuidResults', surveyResults)
+            // const surveyResults = await SURVEY_RESULTS.getUuidResults(
+            //     resultData.surveyId,
+            //     localStorage.getItem('surveyUuid'),
+            // )
+            // commit('setSurveyUuidResults', surveyResults)
         },
         async sendSurveyAudioAsset({ commit }, resultData) {
             await SURVEY_RESULTS.sendAudioResults(resultData)

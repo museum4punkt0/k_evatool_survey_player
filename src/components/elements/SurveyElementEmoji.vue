@@ -30,7 +30,7 @@
     <confirm-button
         class="animate__animated animate__fadeIn animate__delay-1s"
         :sub-element="subElement"
-        @confirm="confirm"
+        @confirm="nextStep"
     ></confirm-button>
 </template>
 
@@ -71,10 +71,13 @@ export default {
         const result = ref()
         const route = useRoute()
         const store = useStore()
-        const setResult = async (i) => {
-            console.log(i)
-            result.value = i
 
+        const lang = computed({
+            get: () => store.state.lang,
+        })
+
+        const setResult = async (i) => {
+            result.value = i
             await store.dispatch('surveyResults/sendSurveyResults', {
                 surveyId: route.query.survey,
                 data: {
@@ -88,11 +91,8 @@ export default {
             })
             await store.dispatch('setStepAnswering', true)
         }
-        const lang = computed({
-            get: () => store.state.lang,
-        })
 
-        const confirm = async () => {
+        const nextStep = async () => {
             await store.dispatch('setCurrentStep')
         }
         watch(
@@ -120,7 +120,7 @@ export default {
             store,
             lang,
             setResult,
-            confirm,
+            nextStep,
         }
     },
 }
