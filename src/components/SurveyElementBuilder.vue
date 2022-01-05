@@ -176,4 +176,9 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.survey-content,
+.items-start {
+    scrollbar-width: none;
+}
+</style>

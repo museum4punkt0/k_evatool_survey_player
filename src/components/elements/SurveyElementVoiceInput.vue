@@ -11,19 +11,19 @@
             color="red"
         />
         <custom-alert
-            v-else-if="hasPermission === 'denied'"
+            v-else-if="!micPermission && hasPermission === 'denied'"
             :title="t('error')"
             :description="t('voice_recorder_not_allowed')"
             color="red"
         />
         <custom-alert
-            v-else-if="hasPermission === 'ask'"
+            v-else-if="!micPermission && hasPermission === 'ask'"
             :title="t('error')"
             :description="t('voice_recorder_not_allowed')"
             color="yellow"
         />
         <custom-alert
-            v-else-if="hasPermission === 'prompt'"
+            v-else-if="!micPermission && hasPermission === 'prompt'"
             :title="t('prompt')"
             :description="t('voice_recorder_prompt')"
             color="yellow"

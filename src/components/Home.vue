@@ -210,4 +210,8 @@ export default {
 .survey-header-menu {
     z-index: 50;
 }
+
+.survey-steps {
+    scrollbar-width: none;
+}
 </style>
