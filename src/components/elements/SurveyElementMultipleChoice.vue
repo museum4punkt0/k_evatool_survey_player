@@ -223,7 +223,7 @@ export default {
                 parseInt(this.surveyResults.params.maxSelectable) > 1 &&
                 this.selectedOptions.length >=
                     parseInt(this.surveyResults.params.maxSelectable) &&
-                !this.selectedOptions.find((x) => x.value === value)
+                this.selectedOptions.findIndex((x) => x.value === value) < 0
             )
         },
     },
