@@ -17,9 +17,23 @@ export default {
             })
     },
     async sendResults(surveySlug, data) {
-        let header = {}
+        // let header = {}
+
+        let axiosConfig = {
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8',
+                'Access-Control-Allow-Origin': '*',
+            },
+        }
         if (store.state.isDemo === true) {
-            header = { 'X-Demo': true }
+            // header = { 'X-Demo': true }
+            axiosConfig = {
+                headers: {
+                    'Content-Type': 'application/json;charset=UTF-8',
+                    'Access-Control-Allow-Origin': '*',
+                    'X-Demo': true,
+                },
+            }
         }
 
         const url =
@@ -30,7 +44,7 @@ export default {
 
         return axios
             .post(url, data, {
-                headers: header,
+                axiosConfig,
             })
             .then((res) => {
                 return { code: res.status, data: res }
