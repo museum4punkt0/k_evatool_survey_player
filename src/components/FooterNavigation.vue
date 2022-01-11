@@ -10,30 +10,38 @@
             z-100
         "
     >
-        <div class="survey-navigation-inner flex items-center h-8 xl:h-16">
-            <div class="ml-3 text-xs text-gray-500 absolute">
+        <div
+            class="
+                survey-navigation-inner
+                flex
+                items-center
+                h-auto
+                min-h-10
+                py-2
+            "
+        >
+            <div class="ml-3 text-xs text-gray-500 flex items-center relative">
                 Version
                 <strong>{{ version }}</strong>
 
                 <button
                     v-if="demoMode"
-                    class="rounded bg-green-400 text-white px-3 py-2 ml-3"
+                    class="
+                        rounded
+                        bg-green-400
+                        text-white
+                        px-3
+                        md:whitespace-nowrap
+                        py-2
+                        ml-3
+                    "
                     @click="resetUuid"
                 >
                     {{ t('new_uuid') }}
                 </button>
             </div>
-            <div
-                class="
-                    md:flex
-                    bg-white
-                    items-center
-                    justify-center
-                    md:w-screen
-                    sm:w-100
-                "
-            >
-                <div class="flex justify-center items-center w-screen">
+            <div class="flex bg-white items-center justify-center w-full">
+                <div class="flex justify-center items-center w-full">
                     <!--                    <button-->
                     <!--                        class="prev flex items-center rounded-md nav-button p-2"-->
                     <!--                        @click="prevStep()"-->
@@ -75,7 +83,7 @@
                             rounded-md
                             nav-button
                             p-2
-                            m-l2
+                            ml-2
                         "
                         @click="openModal('privacy')"
                     >

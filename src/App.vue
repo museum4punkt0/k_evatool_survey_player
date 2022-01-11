@@ -12,4 +12,8 @@ console.log(version)
 ::-webkit-scrollbar {
     display: none;
 }
+
+* {
+    touch-action: manipulation;
+}
 </style>
