@@ -181,10 +181,10 @@ export default {
                         store.state.surveyResults.surveyUuidResults.steps
                     let currentStepId = await store.state.surveyResults
                         .surveyUuidResults.survey.statusByUuid.currentStep
-                    currentStep.value = surveySteps.find(
+                    currentStep.value = await surveySteps.find(
                         (x) => x.id === currentStepId,
                     )
-                }, 500)
+                }, 300)
             },
         )
 
@@ -209,5 +209,9 @@ export default {
 <style scoped>
 .survey-header-menu {
     z-index: 50;
+}
+
+.survey-steps {
+    scrollbar-width: none;
 }
 </style>

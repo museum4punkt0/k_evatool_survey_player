@@ -11,19 +11,19 @@
             color="red"
         />
         <custom-alert
-            v-else-if="hasPermission === 'denied'"
+            v-else-if="!micPermission && hasPermission === 'denied'"
             :title="t('error')"
             :description="t('voice_recorder_not_allowed')"
             color="red"
         />
         <custom-alert
-            v-else-if="hasPermission === 'ask'"
+            v-else-if="!micPermission && hasPermission === 'ask'"
             :title="t('error')"
             :description="t('voice_recorder_not_allowed')"
             color="yellow"
         />
         <custom-alert
-            v-else-if="hasPermission === 'prompt'"
+            v-else-if="!micPermission && hasPermission === 'prompt'"
             :title="t('prompt')"
             :description="t('voice_recorder_prompt')"
             color="yellow"
@@ -145,12 +145,12 @@ import { useI18n } from 'vue-i18n'
 import AudioRecorder from '../subelements/AudioRecorder.vue'
 import { computed, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
-// import CustomAlert from '../subelements/CustomAlert.vue'
+import CustomAlert from '../subelements/CustomAlert.vue'
 
 export default {
     name: 'SurveyElementVoiceInput',
     components: {
-        // CustomAlert,
+        CustomAlert,
         MicrophoneIcon,
         ConfirmButton,
         AudioRecorder,

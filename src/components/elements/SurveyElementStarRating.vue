@@ -17,7 +17,7 @@
                     class="form-radio"
                     name="accountType"
                     :value="note"
-                    @change="setAnswer(note)"
+                    @change="setRating(note)"
                 />
                 <span class="mt-2">{{ note }}</span>
             </label>
@@ -43,7 +43,7 @@
                         class="form-radio"
                         name="accountType"
                         :value="note"
-                        @change="setAnswer(note)"
+                        @change="setRating(note)"
                     />
                 </label>
             </div>
@@ -65,7 +65,7 @@
         :stars="content.params.numberOfStars"
         :params="content.params"
         :labels="labels"
-        @input="setAnswer"
+        @input="setRating"
     />
 
     <confirm-button
@@ -126,14 +126,10 @@ export default {
 
         const nextStep = async () => {
             await store.dispatch('setCurrentStep')
-            console.log('setCurrentStep')
         }
-        const setAnswer = (i) => {
+
+        const setRating = async (i) => {
             rating.value = i
-            setRating()
-        }
-        const setRating = async () => {
-            // rating.value = i
             await store.dispatch('surveyResults/sendSurveyResults', {
                 surveyId: route.query.survey,
                 data: {
@@ -165,7 +161,7 @@ export default {
             // rating.value = questionResults.results.pop().result_value.rating
 
             if (questionResults.resultByUuid) {
-                rating.value = questionResults.resultByUuid.rating
+                // rating.value = questionResults.resultByUuid.rating
             } else {
                 //rating.value = questionResults.resultByUuid.rating
             }
@@ -178,7 +174,7 @@ export default {
             selectedNote,
             setRating,
             nextStep,
-            setAnswer,
+            // setAnswer,
         }
     },
 }

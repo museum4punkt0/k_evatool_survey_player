@@ -114,6 +114,7 @@ export default {
         const lang = computed({
             get: () => store.state.lang,
         })
+
         const setResult = async () => {
             await store.dispatch('surveyResults/sendSurveyResults', {
                 surveyId: route.query.survey,
@@ -127,12 +128,9 @@ export default {
                     resultLanguage: store.state.lang,
                 },
             })
-
-            // await store.dispatch('setCurrentStep')
         }
 
         const nextStep = async () => {
-            await store.dispatch('setStepAnswering', true)
             await store.dispatch('setCurrentStep')
         }
 
