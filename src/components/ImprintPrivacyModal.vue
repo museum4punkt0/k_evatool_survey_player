@@ -71,47 +71,55 @@
             <!-- body -->
             <div class="w-full h-5/6 p-3 overflow-y-scroll">
                 <div class="w-full p-3 overflow-y-scroll">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Asperiores, quis tempora! Similique, explicabo quaerat
-                    maxime corrupti tenetur blanditiis voluptas molestias totam?
-                    Quaerat laboriosam suscipit repellat aliquam blanditiis eum
-                    quos nihil. Lorem ipsum, dolor sit amet consectetur
-                    adipisicing elit. Asperiores, quis tempora! Similique,
-                    explicabo quaerat maxime corrupti tenetur blanditiis
-                    voluptas molestias totam? Quaerat laboriosam suscipit
-                    repellat aliquam blanditiis eum quos nihil. Lorem ipsum,
-                    dolor sit amet consectetur adipisicing elit.
-                    <br />
-                    <br />
-                    Asperiores, quis tempora! Similique, explicabo quaerat
-                    maxime corrupti tenetur blanditiis voluptas molestias totam?
-                    Quaerat laboriosam suscipit repellat aliquam blanditiis eum
-                    quos nihil. Lorem ipsum, dolor sit amet consectetur
-                    adipisicing elit. Asperiores, quis tempora! Similique,
-                    explicabo quaerat maxime corrupti tenetur blanditiis
-                    voluptas molestias totam? Quaerat laboriosam suscipit
-                    repellat aliquam blanditiis eum quos nihil. Lorem ipsum,
-                    dolor sit amet consectetur adipisicing elit.
-                    <br />
-                    <br />
-                    Asperiores, quis tempora! Similique, explicabo quaerat
-                    maxime corrupti tenetur blanditiis voluptas molestias totam?
-                    Quaerat laboriosam suscipit repellat aliquam blanditiis eum
-                    quos nihil. Lorem ipsum, dolor sit amet consectetur
-                    adipisicing elit. Asperiores, quis tempora! Similique,
-                    explicabo quaerat maxime corrupti tenetur blanditiis
-                    voluptas molestias totam? Quaerat laboriosam suscipit
-                    repellat aliquam blanditiis eum quos nihil.
-                    <br />
-                    <br />
-                    Asperiores, quis tempora! Similique, explicabo quaerat
-                    maxime corrupti tenetur blanditiis voluptas molestias totam?
-                    Quaerat laboriosam suscipit repellat aliquam blanditiis eum
-                    quos nihil. Lorem ipsum, dolor sit amet consectetur
-                    adipisicing elit. Asperiores, quis tempora! Similique,
-                    explicabo quaerat maxime corrupti tenetur blanditiis
-                    voluptas molestias totam? Quaerat laboriosam suscipit
-                    repellat aliquam blanditiis eum quos nihil.
+                    <template v-if="type === 'imprint'">
+                        Klassik Stiftung Weimar
+                        <br />
+                        Stiftung des öffentlichen Rechts
+                        <br />
+                        Burgplatz 4
+                        <br />
+                        99423 Weimar
+                        <br />
+                        <br />
+                        Tel.: +49 (0) 3643-545-0
+                        <br />
+                        E-Mail: poststelle@klassik-stiftung.de
+                        <br />
+                        <br />
+                        <strong>Vertretungsberechtigte</strong>
+                        <br />
+                        <br />
+                        Die Klassik Stiftung Weimar wird gesetzlich vertreten
+                        durch ihre Präsidentin, Frau Dr. Ulrike Lorenz.
+                        <br />
+                        <br />
+                        Umsatzsteuer-Identifikationsnummer gemäß § 27 a
+                        Umsatzsteuergesetz (VAT) DE 150125730
+                        <br />
+                        <br />
+                        <strong>Entwicklung und Gestaltung</strong>
+                        <br />
+                        2av
+                        <br />
+                        <a
+                            class="text-red-500"
+                            target="_blank"
+                            href="https://www.2av.de"
+                        >
+                            <external-link-icon class="h-5 w-5 mb-1 inline" />
+                            www.2av.de
+                        </a>
+                    </template>
+                    <template v-if="type === 'privacy'">
+                        <a
+                            class="text-red-600"
+                            target="_blank"
+                            href="https://www.klassik-stiftung.de/datenschutz"
+                        >
+                            <external-link-icon class="h-5 w-5 mb-1 inline" />
+                            Link zur Datenschutzerklärung
+                        </a>
+                    </template>
                 </div>
             </div>
         </div>
@@ -121,9 +129,11 @@
 <script>
 import { ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { ExternalLinkIcon } from '@heroicons/vue/solid'
 // https://tailwindcomponents.com/component/animation-modal
 export default {
     name: 'ImprintPrivacyModal',
+    components: { ExternalLinkIcon },
     props: {
         open: {
             type: Boolean,
@@ -131,7 +141,7 @@ export default {
         },
         type: {
             type: String,
-            default: false,
+            default: '',
         },
     },
     emits: ['close-modal'],
