@@ -18,6 +18,7 @@ export default {
     },
     async sendResults(surveySlug, data) {
         let header = {}
+
         if (store.state.isDemo === true) {
             header = { 'X-Demo': true }
         }
