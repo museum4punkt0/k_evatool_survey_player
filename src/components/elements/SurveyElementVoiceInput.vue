@@ -59,6 +59,7 @@
                     <audio
                         v-if="audioData"
                         id="player"
+                        class="ml-5"
                         preload="auto"
                         :src="audioData"
                         type="audio/wav"
@@ -126,6 +127,7 @@
         </template>
         <confirm-button
             class="animate__animated animate__fadeIn animate__delay-1s"
+            :disabled="recording"
             @confirm="nextStep"
         />
 
@@ -205,13 +207,13 @@ export default {
             recordedTime.value = -1
         }
 
-        const nextStep = () => {
-            store.dispatch('setStepAnswering', true)
+        const nextStep = async () => {
+            await store.dispatch('setStepAnswering', true)
             setResult()
             if (props.subElement) {
-                store.dispatch('setCurrentVideoStep')
+                await store.dispatch('setCurrentVideoStep')
             } else {
-                store.dispatch('setCurrentStep')
+                await store.dispatch('setCurrentStep')
             }
         }
 

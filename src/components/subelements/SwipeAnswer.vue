@@ -1,5 +1,15 @@
 <template>
-    <div class="flex flex-wrap justify-center items-center w-full h-full">
+    <div
+        class="
+            flex
+            swiper-wrap
+            flex-wrap
+            justify-center
+            items-center
+            w-full
+            h-full
+        "
+    >
         <div class="flex m-0 p-0 w-full relative">
             <div
                 v-if="currentElement !== images.length"
@@ -154,7 +164,7 @@
 </template>
 
 <script>
-import { computed, ref } from 'vue'
+import { computed, onUnmounted, ref } from 'vue'
 import { onMounted, watch } from 'vue'
 import { useStore } from 'vuex'
 
@@ -215,7 +225,10 @@ export default {
         // const dragMouseUp = (event) => {}
         const onMouseMove = (event) => {
             event.preventDefault()
-            // console.log(event)
+            let swiperOffset = document
+                .getElementsByClassName('swiper-wrap')[0]
+                .getBoundingClientRect()
+
             if (mouseDown.value) {
                 positions.value = {
                     clientX:
@@ -223,10 +236,10 @@ export default {
                         touchElement.value.left -
                         touchElement.value.width / 2,
                     clientY:
-                        event.clientY +
-                        event.offsetY / 2 -
-                        touchElement.value.top -
+                        event.clientY -
+                        swiperOffset.top -
                         touchElement.value.height / 2,
+
                     rotation:
                         maxRotation.value *
                         ((event.clientX -
@@ -249,10 +262,13 @@ export default {
         const onTouchMove = (event) => {
             event.preventDefault()
             let touch = event.targetTouches[0]
-
+            let swiperOffset = document
+                .getElementsByClassName('swiper-wrap')[0]
+                .getBoundingClientRect()
             dragging.value = true
             // console.log(touch.clientX)
             // console.log(touch)
+            // touchElement.value.top -
             positions.value = {
                 clientX:
                     touch.clientX -
@@ -260,7 +276,7 @@ export default {
                     touchElement.value.width / 2,
                 clientY:
                     touch.clientY -
-                    touchElement.value.top -
+                    swiperOffset.top -
                     touchElement.value.height / 2,
                 rotation:
                     maxRotation.value *
@@ -365,6 +381,12 @@ export default {
             )
         }
 
+        const resizeSwiper = () => {
+            touchElement.value = document
+                .getElementsByClassName('card-active')[0]
+                .getBoundingClientRect()
+        }
+
         watch(
             () => props.answer,
             (val) => {
@@ -379,6 +401,7 @@ export default {
                 }
             },
         )
+
         onMounted(() => {
             // touchElement.value = document
             //     .getElementsByClassName('touch-element')[0]
@@ -386,6 +409,12 @@ export default {
             touchElement.value = document
                 .getElementsByClassName('card-active')[0]
                 .getBoundingClientRect()
+
+            window.addEventListener('resize', resizeSwiper)
+        })
+
+        onUnmounted(() => {
+            window.removeEventListener('resize', resizeSwiper)
         })
 
         return {
@@ -412,6 +441,7 @@ export default {
             setAnswer,
             getBGImage,
             getAnswerPosition,
+            resizeSwiper,
         }
     },
 }
