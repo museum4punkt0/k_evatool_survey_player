@@ -53,8 +53,8 @@
             :survey="survey"
             :survey-results="surveyResults"
             :sub-element="true"
-            @confirm="confirmed"
         ></SurveyElementStarRating>
+        <!--        @confirm="confirmed"-->
         <SurveyElementTextInput
             v-if="content && content.surveyElementType === 'textInput'"
             :key="'textinput-' + content.id"
@@ -93,7 +93,7 @@ import SurveyElementTextInput from './elements/SurveyElementTextInput.vue'
 import SurveyElementSimpleText from './elements/SurveyElementSimpleText.vue'
 import SurveyElementVoiceInput from './elements/SurveyElementVoiceInput.vue'
 import SurveyElementYayNay from './elements/SurveyElementYayNay.vue'
-import { useStore } from 'vuex'
+// import { useStore } from 'vuex'
 
 export default {
     name: 'SurveyElementSubBuilder',

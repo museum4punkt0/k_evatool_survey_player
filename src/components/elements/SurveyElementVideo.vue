@@ -16,7 +16,6 @@
             <div
                 class="
                     video-wrap
-                    h-full
                     bg-white
                     overflow-hidden
                     relative
@@ -24,6 +23,7 @@
                     animate__animated animate__fadeInLeft
                 "
             >
+                <!--              h-full-->
                 <div
                     v-if="showQuestion"
                     class="
@@ -34,10 +34,10 @@
                         opacity-50
                         left-0
                         top-0
-                        z-40
-                        md:hidden
+                        z-20
                     "
                 ></div>
+                <!--              md:hidden-->
                 <div
                     v-if="!started"
                     class="
@@ -66,12 +66,11 @@
                 <!--                :src="content.params.videoAsset.urls.original"-->
                 <!--                src="https://evatool-backend.twoavy.com/evaluation-tool/lichtspiel_digitale_werkstatt.mp4"-->
                 <!--                :src="content.params.videoAsset.urls.original"-->
+                <!--                :src=" content.params.videoAsset.urls.original + timeParams "-->
                 <div class="video-container bg-gray-200">
                     <video
                         ref="videoPlayer"
-                        :src="
-                            content.params.videoAsset.urls.original + timeParams
-                        "
+                        :src="content.params.videoAsset.urls.original"
                         preload
                         class="mx-auto p-0 m-0 z-10 border-none"
                         @timeupdate="videoTimeUpdate"
@@ -195,7 +194,7 @@
                 "
                 :class="[
                     { 'slideDown my-3': commentBox },
-                    { 'h-0': !commentBox },
+                    { 'h-0 hidden': !commentBox },
                 ]"
             >
                 <!--        <p>SurveyElementVideo</p>-->
@@ -211,6 +210,7 @@
                         class="
                             textarea
                             px-5
+                            pt-2
                             text-left text-xs
                             w-full
                             focus:outline-none
@@ -257,13 +257,13 @@
                 sidebar sidebar-right
                 w-full
                 md:w-1/3 md:mx-4
-                pb-36
                 h-full
                 md:overflow-y-scroll
                 relative
                 animate__animated animate__fadeInRight
             "
         >
+            <!--          pb-36-->
             <TimeLine
                 :interactive-steps="interactiveSteps"
                 :answered-steps="answeredSteps"
@@ -399,6 +399,7 @@ export default {
         }
         const editComment = (commentObj) => {
             console.log(comment)
+            pauseVideo()
             videoPlayer.value.currentTime = commentObj.time
 
             if (commentObj.type === 'question') {

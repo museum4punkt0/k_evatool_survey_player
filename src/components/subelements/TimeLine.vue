@@ -6,23 +6,25 @@
             md:mx-auto
             mx-0
             px-0
-            pb-24
             w-full
             h-full
             md:overflow-scroll
             xl:absolute
         "
     >
+        <!--      pb-24-->
         <div
             class="
                 relative
                 wrap
-                md:overflow-scroll md:p-5 md:mx-2
+                md:p-5 md:mx-2
                 bg-blue-700
                 p-4
                 text-white
+                tl-header
             "
         >
+            <!--          md:overflow-scroll-->
             <h3>{{ t('overview') }}</h3>
             <p>
                 {{ t('overview_description') }}
@@ -34,10 +36,10 @@
                 wrap
                 md:overflow-scroll
                 h-auto
-                p-5
+                px-5
                 md:mx-2
-                h-full
                 bg-white
+                tl-body
             "
         >
             <!--            {{ timeBasedSteps[answeredSteps - 1] }}-->
@@ -64,6 +66,7 @@
                         items-start
                         w-full
                         right-timeline
+                        pt-5
                     "
                 >
                     <!--                <div class="order-1 w-5/12"></div>-->
@@ -118,16 +121,16 @@
                         </p>
                         <div class="mt-5 text-sm">
                             <!--                            <button
-                  class="rounded-3xl border-2 px-4 px-2 py-1"
-                  @click="removeComment(comment)"
-              >
-                  <trash-icon
-                      class="h-6 w-6 mr-2 inline text-red-600"
-                  />
-                  {{ t('action_delete') }}
-              </button>-->
+    class="rounded-3xl border-2 px-4 px-2 py-1"
+    @click="removeComment(comment)"
+>
+    <trash-icon
+        class="h-6 w-6 mr-2 inline text-red-600"
+    />
+    {{ t('action_delete') }}
+</button>-->
                             <button
-                                class="rounded-3xl border-2 px-4 ml-5 py-1"
+                                class="rounded-3xl border-2 px-4 py-1"
                                 @click="editComment(comment)"
                             >
                                 <pencil-alt-icon
@@ -149,6 +152,7 @@
                         items-start
                         w-full
                         left-timeline
+                        pt-5
                     "
                 >
                     <!--                <div class="order-1 w-5/12"></div>-->
@@ -252,7 +256,6 @@
         <!--        {{ content }}-->
         <div
             class="
-                mb-8
                 flex
                 justify-between
                 flex-row
@@ -262,6 +265,9 @@
                 md:mx-2
                 border-t-2
                 p-2
+                tl-footer
+                mb-24
+                md:mb-0
             "
         >
             <!--                <div class="order-1 w-5/12"></div>-->
@@ -420,4 +426,23 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+.timeline-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.tl-header {
+    flex: 1;
+}
+
+.tl-body {
+    flex: 8;
+    overflow-y: scroll;
+}
+
+.tl-footer {
+    flex: 1;
+}
+</style>

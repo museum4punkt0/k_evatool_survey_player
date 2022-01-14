@@ -134,6 +134,19 @@ export default {
             await store.dispatch('setCurrentStep')
         }
 
+        const getResults = () => {
+            let questionResults = props.surveyResults
+
+            if (questionResults.resultByUuid) {
+                console.log(questionResults.resultByUuid)
+                selectedAnswer.value = questionResults.resultByUuid.value
+                store.dispatch('setStepAnswering', true)
+            } else {
+                store.dispatch('setStepAnswering', false)
+                //selectedOptions.value = questionResults.resultByUuid.selected
+            }
+        }
+
         watch(
             () => selectedAnswer.value,
             () => {
@@ -143,6 +156,7 @@ export default {
         )
 
         onMounted(() => {
+            getResults()
             // let questionResults = props.surveyResults
         })
 
@@ -154,6 +168,7 @@ export default {
             resultBasedNextSteps,
             nextStep,
             setResult,
+            getResults,
         }
     },
 }

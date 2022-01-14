@@ -148,7 +148,9 @@ export default {
 
             if (questionResults.resultByUuid) {
                 selectedOptions.value = questionResults.resultByUuid.selected
+                store.dispatch('setStepAnswering', true)
             } else {
+                store.dispatch('setStepAnswering', false)
                 //selectedOptions.value = questionResults.resultByUuid.selected
             }
         }
@@ -197,8 +199,7 @@ export default {
         }, 1000)
 
         onMounted(() => {
-            // getResults()
-            store.dispatch('setStepAnswering', false)
+            getResults()
         })
 
         return {

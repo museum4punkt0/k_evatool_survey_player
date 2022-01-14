@@ -52,6 +52,7 @@ export default {
         const confirm = () => {
             if (props.subElement) {
                 store.dispatch('setCurrentVideoStep')
+                emit('confirm')
             } else {
                 emit('confirm')
             }

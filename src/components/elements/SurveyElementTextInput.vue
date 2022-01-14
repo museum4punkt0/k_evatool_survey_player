@@ -67,6 +67,7 @@ export default {
 
         const inputText = () => {
             console.log(text.value)
+            store.dispatch('setStepAnswering', true)
         }
         const nextStep = async () => {
             console.log(text.value)
@@ -86,16 +87,19 @@ export default {
         }
         console.log(props)
 
-        onMounted(() => {
+        const getResults = () => {
             let questionResults = props.surveyResults
 
             if (questionResults.resultByUuid) {
                 text.value = questionResults.resultByUuid.text
+                store.dispatch('setStepAnswering', true)
             } else {
-                //  text.value = questionResults.resultByUuid.text
+                store.dispatch('setStepAnswering', false)
+                //selectedOptions.value = questionResults.resultByUuid.selected
             }
-
-            store.dispatch('setStepAnswering', true)
+        }
+        onMounted(() => {
+            getResults()
         })
 
         return {
@@ -106,6 +110,7 @@ export default {
             route,
             inputText,
             nextStep,
+            getResults,
         }
     },
 }

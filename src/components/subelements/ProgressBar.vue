@@ -314,4 +314,16 @@ export default {
     bottom: 0px;
     height: 20px;
 }
+
+input[type='range']::-moz-range-thumb {
+    background-color: transparent !important;
+    border: none;
+    display: none !important;
+}
+
+input[type='range']::-webkit-progress-bar,
+input[type='range']::-moz-range-progress {
+    height: 100%;
+    background: var(--sliderThumbColor);
+}
 </style>

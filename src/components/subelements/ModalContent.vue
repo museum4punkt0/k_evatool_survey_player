@@ -14,6 +14,7 @@
             <button class="close-btn" @click="closeModal">
                 <img src="../../assets/close.svg" />
             </button>
+
             <SurveyElementSubBuilder
                 v-if="stepQuestion"
                 :content="stepQuestion.step"
@@ -27,8 +28,9 @@
 
 <script>
 import SurveyElementSubBuilder from '../SurveyElementSubBuilder.vue'
-import { onMounted } from 'vue'
+import { onMounted, watch } from 'vue'
 import { useStore } from 'vuex'
+import { ref } from 'vue'
 
 export default {
     name: 'ModalContent',
@@ -42,11 +44,15 @@ export default {
             type: Object,
             default: null,
         },
+        editMode: {
+            type: Boolean,
+            default: false,
+        },
     },
     emits: ['confirmed-answer', 'close-modal'],
     setup(props, { emit }) {
         const store = useStore()
-
+        const displayTime = ref()
         const confirmedAnswer = (id) => {
             emit('confirmed-answer', id)
         }
@@ -55,12 +61,29 @@ export default {
             emit('close-modal')
         }
 
+        const setDelay = () => {
+            if (props.stepQuestion.displayTime) {
+                displayTime.value = setTimeout(() => {
+                    closeModal()
+                }, props.stepQuestion.displayTime * 1000)
+            }
+        }
         onMounted(() => {})
+
+        watch(
+            () => props.stepQuestion,
+            () => {
+                clearTimeout(displayTime.value)
+                setDelay()
+            },
+        )
 
         return {
             store,
             confirmedAnswer,
             closeModal,
+            displayTime,
+            setDelay,
         }
     },
 }
@@ -71,5 +94,11 @@ export default {
     position: fixed;
     right: 15px;
     top: 15px;
+    z-index: 99999;
+}
+
+.slider {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 </style>

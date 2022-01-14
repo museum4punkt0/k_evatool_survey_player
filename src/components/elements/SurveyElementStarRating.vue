@@ -71,6 +71,7 @@
     <confirm-button
         class="animate__animated animate__fadeIn animate__delay-1s"
         :sub-element="subElement"
+        :disabled="!rating"
         @confirm="nextStep"
     ></confirm-button>
 </template>
@@ -161,7 +162,7 @@ export default {
             // rating.value = questionResults.results.pop().result_value.rating
 
             if (questionResults.resultByUuid) {
-                // rating.value = questionResults.resultByUuid.rating
+                rating.value = questionResults.resultByUuid.rating
             } else {
                 //rating.value = questionResults.resultByUuid.rating
             }
