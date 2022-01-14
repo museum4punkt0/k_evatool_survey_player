@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
@@ -101,6 +101,16 @@ export default {
         onMounted(() => {
             getResults()
         })
+        watch(
+            () => text.value,
+            () => {
+                if (text.value) {
+                    store.dispatch('setStepAnswering', true)
+                } else {
+                    store.dispatch('setStepAnswering', false)
+                }
+            },
+        )
 
         return {
             t,
@@ -119,5 +129,8 @@ export default {
 <style scoped>
 textarea {
     resize: none;
+    border: none;
+    overflow: auto;
+    outline: none;
 }
 </style>

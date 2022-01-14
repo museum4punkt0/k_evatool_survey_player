@@ -70,7 +70,9 @@
                 <div class="video-container bg-gray-200">
                     <video
                         ref="videoPlayer"
-                        :src="content.params.videoAsset.urls.original"
+                        :src="
+                            content.params.videoAsset.urls.original + timeParams
+                        "
                         preload
                         class="mx-auto p-0 m-0 z-10 border-none"
                         @timeupdate="videoTimeUpdate"
