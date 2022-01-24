@@ -28,16 +28,17 @@
                     items-center
                     animate__animated animate__fadeInLeft
                 "
+                @click="triggerAnswer(0)"
             >
                 <img
                     class="hidden md:block"
                     src="../../assets/swipe-left.svg"
                 />
                 <img
-                    class="sm:block md:hidden"
+                    class="sm:block md:hidden drop-shadow"
                     src="../../assets/swipe-left-white.svg"
                 />
-                <span class="text-center hidden xl:visible">
+                <span class="text-center text-white md:text-black drop-shadow">
                     {{ surveyResults.params.falseLabel[lang] }}
                 </span>
             </div>
@@ -53,79 +54,100 @@
                     animate__animated animate__fadeIn animate__delay-1s
                 "
             >
-                <div
-                    v-for="(image, index) in images"
-                    :key="'card-' + index"
-                    class="
-                        card
-                        absolute
-                        touch-element
-                        md:w-96
-                        h-full
-                        md:h-50
-                        hover:shadow
-                        rounded-t-xl
-                        bg-white
-                        w-3/4
-                        p-2
-                    "
-                    :class="[
-                        { 'transition-all linear duration-300': !dragging },
-                        { ' duration-0': index < currentElement },
-                        {
-                            'card-active opacity-1 shadow-xl':
-                                index === currentElement,
-                        },
-                    ]"
-                    :style="index === currentElement ? transformString : ''"
-                    @mousedown="onMouseDown"
-                    @mouseup="onMouseUp"
-                    @mousemove="onMouseMove"
-                    @touchmove="onTouchMove"
-                    @touchend="onTouchEnd"
-                >
+                <div class="card-ghost relative w-full md:w-96">
+                    <!--                  -->
                     <div
-                        class="text-left w-full h-full"
-                        :style="getBGImage(image.urls.original)"
+                        v-for="(image, index) in images"
+                        :key="'card-' + index"
+                        class="
+                            card
+                            absolute
+                            touch-element
+                            h-full
+                            md:h-50
+                            hover:shadow
+                            rounded-t-xl
+                            bg-white
+                            p-3
+                            w-full
+                            md:w-96
+                        "
+                        :class="[
+                            { 'transition-all linear duration-300': !dragging },
+                            { ' duration-0': index < currentElement },
+                            {
+                                'card-active opacity-1 shadow-xl':
+                                    index === currentElement,
+                            },
+                        ]"
+                        :style="index === currentElement ? transformString : ''"
+                        @mousedown="onMouseDown"
+                        @mouseup="onMouseUp"
+                        @mouseleave="onMouseLeave"
+                        @mousemove="onMouseMove"
+                        @touchstart="onTouchStart"
+                        @touchmove="onTouchMove"
+                        @touchend="onTouchEnd"
                     >
-                        <!--                        <h5 class="p-4">Erläuterung</h5>-->
-                        <!--                        <img-->
-                        <!--                            :src="image.urls.original"-->
-                        <!--                            alt=""-->
-                        <!--                            @load="imageLoaded"-->
-                        <!--                        />-->
+                        <div
+                            class="text-left w-full h-full card-content"
+                            :style="getBGImage(image.urls.original)"
+                        >
+                            <img
+                                class="yes-icon"
+                                :style="opacityTrue"
+                                src="../../assets/yes.svg"
+                            />
+                            <!--                            <span-->
+                            <!--                                class="yes-icon bg-blue-700"-->
+                            <!--                                :style="opacityTrue"-->
+                            <!--                            >-->
+                            <!--                                {{ surveyResults.params.trueLabel[lang] }}-->
+                            <!--                            </span>-->
+                            <img
+                                class="no-icon"
+                                :style="opacityFalse"
+                                src="../../assets/no.svg"
+                            />
+                            <!--                            <span-->
+                            <!--                                class="no-icon bg-blue-700"-->
+                            <!--                                :style="opacityFalse"-->
+                            <!--                            >-->
+                            <!--                                {{ surveyResults.params.falseLabel[lang] }}-->
+                            <!--                            </span>-->
+                        </div>
                     </div>
-                </div>
-                <!--        <div class="touch-element">-->
-                <!--            <div class="px-6 text-center font-light text-sm">-->
-                <!--                <img src="https://picsum.photos/400" alt="" />-->
-                <!--                <p>-->
-                <!--                    Front end Developer, avid reader. Love to take a long walk,-->
-                <!--                    swim-->
-                <!--                </p>-->
-                <!--            </div>-->
-                <!--        </div>-->
-                <div
-                    class="
-                        card
-                        absolute
-                        touch-element
-                        h-full
-                        md:h-50
-                        hover:shadow
-                        rounded-t-xl
-                        bg-white
-                        w-full
-                        flex
-                        justify-center
-                        items-center
-                    "
-                    :class="{
-                        'last-card': currentElement === images.length,
-                    }"
-                >
-                    <div class="endcard w-auto h-auto">
-                        <img src="../../assets/endcard.svg" />
+                    <!--        <div class="touch-element">-->
+                    <!--            <div class="px-6 text-center font-light text-sm">-->
+                    <!--                <img src="https://picsum.photos/400" alt="" />-->
+                    <!--                <p>-->
+                    <!--                    Front end Developer, avid reader. Love to take a long walk,-->
+                    <!--                    swim-->
+                    <!--                </p>-->
+                    <!--            </div>-->
+                    <!--        </div>-->
+                    <div
+                        class="
+                            card
+                            absolute
+                            touch-element
+                            h-full
+                            md:h-50
+                            hover:shadow
+                            rounded-t-xl
+                            bg-white
+                            w-full
+                            flex
+                            justify-center
+                            items-center
+                        "
+                        :class="{
+                            'last-card': currentElement === images.length,
+                        }"
+                    >
+                        <div class="endcard w-auto h-auto">
+                            <img src="../../assets/endcard.svg" />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -146,16 +168,17 @@
                     items-center
                     animate__animated animate__fadeInRight
                 "
+                @click="triggerAnswer(1)"
             >
                 <img
                     class="hidden md:block"
                     src="../../assets/swipe-right.svg"
                 />
                 <img
-                    class="sm:block md:hidden"
+                    class="sm:block md:hidden drop-shadow"
                     src="../../assets/swipe-right-white.svg"
                 />
-                <span class="text-center hidden xl:visible">
+                <span class="text-center text-white md:text-black drop-shadow">
                     {{ surveyResults.params.trueLabel[lang] }}
                 </span>
             </div>
@@ -208,14 +231,38 @@ export default {
         const loaded = ref(false)
         const mouseDown = ref()
         const currentElement = ref(0)
+        const touchPosition = ref({})
+        const opacityTrue = ref()
+        const opacityFalse = ref()
+        const cursorTarget = ref()
 
         const lang = computed({
             get: () => store.state.lang,
         })
 
+        const getTouchPosition = (event) => {
+            // Get the target
+            const target = event.target
+            // Get the bounding rectangle of target
+            const rect = target.getBoundingClientRect()
+            // Mouse position
+            const x = event.clientX - rect.left
+            const y = event.clientY - rect.top
+            console.log(x + ' - ' + y)
+
+            touchPosition.value.x = x - rect.width / 2
+            touchPosition.value.y = y - rect.height / 2
+            console.log(touchPosition)
+        }
+
         const onMouseDown = (event) => {
             event.preventDefault()
             mouseDown.value = true
+            getTouchPosition(event)
+        }
+        const onMouseLeave = (event) => {
+            event.preventDefault()
+            resetCursorPosition()
         }
         const onMouseUp = (event) => {
             event.preventDefault()
@@ -225,6 +272,7 @@ export default {
         // const dragMouseUp = (event) => {}
         const onMouseMove = (event) => {
             event.preventDefault()
+
             let swiperOffset = document
                 .getElementsByClassName('swiper-wrap')[0]
                 .getBoundingClientRect()
@@ -234,19 +282,34 @@ export default {
                     clientX:
                         event.clientX -
                         touchElement.value.left -
-                        touchElement.value.width / 2,
+                        touchElement.value.width / 2 -
+                        touchPosition.value.x,
                     clientY:
                         event.clientY -
                         swiperOffset.top -
-                        touchElement.value.height / 2,
+                        touchElement.value.height / 2 -
+                        touchPosition.value.y,
 
                     rotation:
                         maxRotation.value *
                         ((event.clientX -
                             touchElement.value.left -
-                            touchElement.value.width / 2) /
+                            touchElement.value.width / 2 -
+                            touchPosition.value.x) /
                             thresholdWidth.value),
                 }
+
+                if (positions.value.clientX > threshold.value) {
+                    opacityTrue.value = 'opacity:1'
+                    opacityFalse.value = 'opacity:0'
+                } else if (positions.value.clientX < -threshold.value) {
+                    opacityFalse.value = 'opacity:1'
+                    opacityTrue.value = 'opacity:0'
+                } else {
+                    opacityFalse.value = 'opacity: 0'
+                    opacityTrue.value = 'opacity: 0'
+                }
+
                 transformString.value = `transform: translate3D(${positions.value.clientX}px, ${positions.value.clientY}px, 0) rotate(${positions.value.rotation}deg`
             } else {
                 positions.value = {
@@ -254,13 +317,20 @@ export default {
                     clientY: 0, //positions.value.clientY,
                     rotation: 0,
                 }
-                transformString.value = `transform: translate3D(${positions.value.clientX}px, ${positions.value.clientY}px, 0) rotate(${positions.value.rotation}deg`
+                opacityFalse.value = 'opacity: 0'
+                opacityTrue.value = 'opacity: 0'
+                transformString.value = `transition: all 0.2s linear; transform: translate3D(${positions.value.clientX}px, ${positions.value.clientY}px, 0) rotate(${positions.value.rotation}deg`
             }
 
             // console.log(positions.value)
         }
+        const onTouchStart = (event) => {
+            let touch = event.targetTouches[0]
+            getTouchPosition(touch)
+        }
         const onTouchMove = (event) => {
             event.preventDefault()
+
             let touch = event.targetTouches[0]
             let swiperOffset = document
                 .getElementsByClassName('swiper-wrap')[0]
@@ -273,17 +343,31 @@ export default {
                 clientX:
                     touch.clientX -
                     touchElement.value.left -
-                    touchElement.value.width / 2,
+                    touchElement.value.width / 2 -
+                    touchPosition.value.x,
                 clientY:
                     touch.clientY -
                     swiperOffset.top -
-                    touchElement.value.height / 2,
+                    touchElement.value.height / 2 -
+                    touchPosition.value.y,
                 rotation:
                     maxRotation.value *
                     ((touch.clientX -
                         touchElement.value.left -
-                        touchElement.value.width / 2) /
+                        touchElement.value.width / 2 -
+                        touchPosition.value.x) /
                         thresholdWidth.value),
+            }
+
+            if (positions.value.clientX > threshold.value) {
+                opacityTrue.value = 'opacity:1'
+                opacityFalse.value = 'opacity:0'
+            } else if (positions.value.clientX < -threshold.value) {
+                opacityFalse.value = 'opacity:1'
+                opacityTrue.value = 'opacity:0'
+            } else {
+                opacityFalse.value = 'opacity: 0'
+                opacityTrue.value = 'opacity: 0'
             }
 
             transformString.value = `transform: translate3D(${positions.value.clientX}px, ${positions.value.clientY}px, 0) rotate(${positions.value.rotation}deg`
@@ -300,6 +384,8 @@ export default {
                 hideElement.value = true
                 currentElement.value++
                 transformString.value = `transform: translate3D(0px, 0px, 0) rotate(0deg)`
+                opacityFalse.value = 'opacity: 0'
+                opacityTrue.value = 'opacity: 0'
             } else if (clientX < -threshold.value) {
                 emit('draggedThreshold', {
                     asset: props.images[currentElement.value].id,
@@ -309,6 +395,8 @@ export default {
                 hideElement.value = true
                 currentElement.value++
                 transformString.value = `transform: translate3D(0px, 0px, 0) rotate(0deg)`
+                opacityFalse.value = 'opacity: 0'
+                opacityTrue.value = 'opacity: 0'
             } else {
                 dragging.value = false
                 positions.value = {
@@ -316,7 +404,9 @@ export default {
                     clientY: 0, //positions.value.clientY,
                     rotation: 0,
                 }
-                transformString.value = `transform: translate3D(${positions.value.clientX}px, ${positions.value.clientY}px, 0) rotate(${positions.value.rotation}deg)`
+                opacityFalse.value = 'opacity: 0'
+                opacityTrue.value = 'opacity: 0'
+                transformString.value = `transition:all 0.2s linear;transform: translate3D(${positions.value.clientX}px, ${positions.value.clientY}px, 0) rotate(${positions.value.rotation}deg)`
             }
             emit('currentElement', currentElement.value)
         }
@@ -348,7 +438,9 @@ export default {
                     clientY: 0, //positions.value.clientY,
                     rotation: 0,
                 }
-                transformString.value = `transform: translate3D(${positions.value.clientX}px, ${positions.value.clientY}px, 0) rotate(${positions.value.rotation}deg)`
+                opacityFalse.value = 'opacity: 0'
+                opacityTrue.value = 'opacity: 0'
+                transformString.value = `transition: all 0.2s linear; transform: translate3D(${positions.value.clientX}px, ${positions.value.clientY}px, 0) rotate(${positions.value.rotation}deg)`
             }
             emit('currentElement', currentElement.value)
         }
@@ -359,10 +451,33 @@ export default {
                 .getBoundingClientRect()
         }
 
+        const triggerAnswer = (value) => {
+            // if (value) {
+            //     emit('draggedThreshold', {
+            //         asset: props.images[currentElement.value].id,
+            //         value: props.surveyResults.params.trueValue,
+            //     })
+            // } else {
+            //     emit('draggedThreshold', {
+            //         asset: props.images[currentElement.value].id,
+            //         value: props.surveyResults.params.falseValue,
+            //     })
+            // }
+            if (value === 1) {
+                positions.value.clientX = window.innerWidth / 3
+                positions.value.rotation = 20
+                setAnswer()
+            } else if (value === 0) {
+                positions.value.clientX = -window.innerWidth / 3
+                positions.value.rotation = -20
+                setAnswer()
+            }
+        }
         const setAnswer = () => {
             positions.value.clientY = 50
             transformString.value = `transition:all 0.3s linear; transform: translate3D(${positions.value.clientX}px, ${positions.value.clientY}px, 0) rotate(${positions.value.rotation}deg`
-
+            opacityTrue.value = 'opacity:0'
+            opacityFalse.value = 'opacity:0'
             setTimeout(() => {
                 onTouchEnd()
 
@@ -377,7 +492,7 @@ export default {
             return (
                 'background:url(' +
                 image +
-                ')no-repeat; background-size:contain; background-position:center;'
+                ')no-repeat; background-color: #fff;background-size:contain; background-position:center;'
             )
         }
 
@@ -387,6 +502,25 @@ export default {
                 .getBoundingClientRect()
         }
 
+        const resetCursorPosition = () => {
+            // console.log(e)
+            // console.log(document.elementFromPoint(e.pageX, e.pageY))
+            // console.log(e.target.classList.contains('card-content'))
+            // cursorTarget.value = e.target.classList.contains('card-content')
+            //
+            // if (!cursorTarget.value) {
+            dragging.value = false
+            mouseDown.value = false
+            positions.value = {
+                clientX: 0, // positions.value.clientX,
+                clientY: 0, //positions.value.clientY,
+                rotation: 0,
+            }
+            opacityFalse.value = 'opacity: 0'
+            opacityTrue.value = 'opacity: 0'
+            transformString.value = `transition: all 0.2s linear; transform: translate3D(${positions.value.clientX}px, ${positions.value.clientY}px, 0) rotate(${positions.value.rotation}deg`
+            // }
+        }
         watch(
             () => props.answer,
             (val) => {
@@ -432,16 +566,25 @@ export default {
             positions,
             touchElement,
             transformString,
+            touchPosition,
             imageLoaded,
             onMouseDown,
             onMouseUp,
             onMouseMove,
+            onMouseLeave,
+            onTouchStart,
             onTouchMove,
             onTouchEnd,
             setAnswer,
             getBGImage,
             getAnswerPosition,
             resizeSwiper,
+            getTouchPosition,
+            triggerAnswer,
+            resetCursorPosition,
+            opacityTrue,
+            opacityFalse,
+            cursorTarget,
         }
     },
 }
@@ -487,9 +630,42 @@ export default {
 
 .card {
     opacity: 0;
+    z-index: 1;
 
     &.last-card {
         opacity: 1;
+    }
+}
+
+.card-ghost {
+    &:before,
+    &:after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+        transform: rotate(5deg);
+        background-size: cover;
+        //box-shadow: 5px 8px 44px rgb(0 0 0 / 10%);
+        border-radius: 8px;
+        z-index: -1;
+        top: 0px;
+        left: 0px;
+    }
+
+    &:before {
+        content: '';
+        position: absolute;
+        transform: rotate(5deg);
+        display: none;
+    }
+
+    &:after {
+        content: '';
+        position: absolute;
+        transform: rotate(-5deg);
+        display: none;
     }
 }
 
@@ -504,5 +680,26 @@ export default {
 //}
 .opacity-1 div {
     opacity: 1;
+}
+
+.yes-icon,
+.no-icon {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    opacity: 0;
+    transform: translateX(-50%) translateY(-50%);
+    font-size: 30px;
+    color: white;
+    //background-color: rgba(255, 255, 255, 0.8);
+    width: 100px;
+    text-align: center;
+
+    transition: opacity 0.1s linear;
+}
+
+.swipe-left,
+.swipe-right {
+    pointer-events: none;
 }
 </style>

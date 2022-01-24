@@ -20,6 +20,7 @@
                     overflow-hidden
                     relative
                     z-20
+                    h-full
                     animate__animated animate__fadeInLeft
                 "
             >
@@ -67,6 +68,7 @@
                 <!--                src="https://evatool-backend.twoavy.com/evaluation-tool/lichtspiel_digitale_werkstatt.mp4"-->
                 <!--                :src="content.params.videoAsset.urls.original"-->
                 <!--                :src=" content.params.videoAsset.urls.original + timeParams "-->
+                <!--              src="https://evatool-backend.twoavy.com/evaluation-tool/kultueroeffner_buchbindewerkstatt_gekuerzt.mp4#t=0,67"-->
                 <div class="video-container bg-gray-200">
                     <video
                         ref="videoPlayer"
@@ -238,14 +240,14 @@
                     </div>
                     <div>
                         <!--                        <button
-                            class="rounded px-2 py-1"
-                            @click="deleteComment"
-                        >
-                            <trash-icon
-                                class="h-6 w-6 mr-2 inline text-red-600"
-                            />
-                            {{ t('action_delete') }}
-                        </button>-->
+                class="rounded px-2 py-1"
+                @click="deleteComment"
+            >
+                <trash-icon
+                    class="h-6 w-6 mr-2 inline text-red-600"
+                />
+                {{ t('action_delete') }}
+            </button>-->
                         <button class="rounded px-2 py-1" @click="saveComment">
                             <check-circle-icon class="h-6 w-6 mr-2 inline" />
                             {{ t('action_save') }}
@@ -623,11 +625,11 @@ export default {
             return msToTimeCode(duration * 1000, 25)
 
             /*let hours = "00:00";
-            let minutes = Math.floor(duration / 60);
-            minutes = minutes < 10 ? "0" + minutes : minutes;
-            let seconds = Math.round(duration - minutes * 60);
-            seconds = seconds < 10 ? "0" + seconds : seconds;
-            return hours + ":" + minutes + ":" + seconds;*/
+      let minutes = Math.floor(duration / 60);
+      minutes = minutes < 10 ? "0" + minutes : minutes;
+      let seconds = Math.round(duration - minutes * 60);
+      seconds = seconds < 10 ? "0" + seconds : seconds;
+      return hours + ":" + minutes + ":" + seconds;*/
         }
 
         const sendAudioAsset = (wav) => {
@@ -785,8 +787,10 @@ export default {
     &.z-100 {
         z-index: 100;
     }
+
     .video-container {
         height: calc(100% - 20px - 3rem);
+
         video {
             /* override other styles to make responsive */
             //width: 100% !important;
@@ -804,6 +808,12 @@ export default {
     //    /*width: 30vw;*/
     //    height: 100vh;
     //    overflow-y: scroll;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        max-height: unset;
+    }
 }
 
 .text-field {
