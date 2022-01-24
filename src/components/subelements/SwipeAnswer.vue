@@ -20,8 +20,8 @@
                     md:relative
                     z-20
                     top-1/2
-                    left-24
-                    md:left-24
+                    left-12
+                    md:left-12
                     xl:-left-10
                     flex flex-col
                     justify-center
@@ -160,8 +160,8 @@
                     md:relative
                     z-20
                     top-1/2
-                    right-24
-                    md:right-24
+                    right-12
+                    md:right-12
                     xl:-right-10
                     flex flex-col
                     justify-center
@@ -422,6 +422,8 @@ export default {
                 hideElement.value = true
                 currentElement.value++
                 transformString.value = `transform: translate3D(0px, 0px, 0) rotate(0deg)`
+                opacityFalse.value = 'opacity: 0'
+                opacityTrue.value = 'opacity: 0'
             } else if (positions.value.clientX < -threshold.value) {
                 emit('draggedThreshold', {
                     asset: props.images[currentElement.value].id,
@@ -431,6 +433,8 @@ export default {
                 hideElement.value = true
                 currentElement.value++
                 transformString.value = `transform: translate3D(0px, 0px, 0) rotate(0deg)`
+                opacityFalse.value = 'opacity: 0'
+                opacityTrue.value = 'opacity: 0'
             } else {
                 dragging.value = false
                 positions.value = {
