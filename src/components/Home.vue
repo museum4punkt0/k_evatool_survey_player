@@ -1,7 +1,10 @@
 <template>
     <div class="main-page h-screen overflow-y-scroll bg-gray-100">
         <div class="survey-header-menu top-0 fixed w-screen z-50 bg-white">
-            <header-menu :languages="languages"></header-menu>
+            <header-menu
+                :languages="languages"
+                :user-lang="userLang"
+            ></header-menu>
 
             <!--            {{ store.state.currentStep }}-->
         </div>
@@ -77,16 +80,16 @@ export default {
         let queries = JSON.parse(JSON.stringify(route.query))
 
         if (queries && queries.demo === 'true') {
-            window.localStorage.setItem('ev-tool-demo', true)
+            window.localStorage.setItem('surveyDemo', true)
             store.dispatch('setIsDemo', true)
         } else {
-            window.localStorage.setItem('ev-tool-demo', false)
+            window.localStorage.setItem('surveyDemo', false)
             store.dispatch('setIsDemo', false)
         }
 
         if (queries.backlink) {
             window.localStorage.setItem('backlink', queries.backlink)
-            window.localStorage.setItem('ev-tool-backlink', queries.backlink)
+            window.localStorage.setItem('surveyBacklink', queries.backlink)
 
             delete queries.backlink
             console.log(queries)
@@ -108,7 +111,7 @@ export default {
         const surveySlug = route.query.survey || ''
         queries.survey = route.query.survey || ''
         router.replace({ query: queries })
-        const userLang = route.query.lang || ''
+        const userLang = ref() //route.query.lang || ''
 
         // const surveyContent = store.state.surveys.surveySteps
         const nextSurvey = ref()
@@ -156,7 +159,25 @@ export default {
             languages.value =
                 store.state.surveyResults.surveyUuidResults.survey.languages
             console.log(languages.value)
-            await store.dispatch('setUserLanguage', languages.value[0])
+
+            // set User Language
+            userLang.value = localStorage.getItem('surveyUserLanguage')
+            // console.log(userLang.value)
+            // console.log(languages.value)
+            // console.log(languages.value.indexOf(userLang.value))
+            if (languages.value.indexOf(userLang.value) > -1) {
+                await store.dispatch('setUserLanguage', userLang.value)
+                document.documentElement.setAttribute('lang', userLang.value)
+            } else {
+                await store.dispatch('setUserLanguage', languages.value[0])
+                document.documentElement.setAttribute(
+                    'lang',
+                    languages.value[0],
+                )
+                localStorage.setItem('surveyUserLanguage', languages.value[0])
+                userLang.value = languages.value[0]
+            }
+
             let surveySteps = store.state.surveyResults.surveyUuidResults.steps
 
             let currentStepId =
@@ -185,6 +206,14 @@ export default {
                         (x) => x.id === currentStepId,
                     )
                 }, 300)
+            },
+        )
+
+        watch(
+            () => store.state.lang,
+            (val) => {
+                document.documentElement.setAttribute('lang', val)
+                localStorage.setItem('surveyUserLanguage', val)
             },
         )
 

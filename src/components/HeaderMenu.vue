@@ -57,7 +57,7 @@ import {
     MenuIcon,
 } from '@heroicons/vue/outline'
 import { HomeIcon } from '@heroicons/vue/solid'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useStore } from 'vuex'
 
@@ -75,14 +75,18 @@ export default {
             type: Array,
             default: null,
         },
+        userLang: {
+            type: Array,
+            default: null,
+        },
     },
-    setup() {
+    setup(props) {
         const backlink = ref()
         const currentLang = ref()
         const store = useStore()
         const { t } = useI18n()
         const i18n = useI18n()
-        backlink.value = localStorage.getItem('ev-tool-backlink')
+        backlink.value = localStorage.getItem('surveyBacklink')
         const openPage = () => {
             window.location.href = backlink.value
         }
@@ -95,6 +99,14 @@ export default {
             currentLang.value = await store.state.lang
             i18n.locale.value = currentLang.value
         })
+
+        watch(
+            () => props.userLang,
+            (val) => {
+                currentLang.value = val
+                i18n.locale.value = currentLang.value
+            },
+        )
 
         return {
             i18n,
