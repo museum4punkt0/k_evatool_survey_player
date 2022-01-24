@@ -176,9 +176,14 @@ export default {
 }
 </script>
 
-<style scoped>
-.survey-content,
+<style lang="scss" scoped>
 .items-start {
     scrollbar-width: none;
+}
+.survey-content {
+    scrollbar-width: thin;
+}
+.survey-content::-webkit-scrollbar {
+    display: block;
 }
 </style>
