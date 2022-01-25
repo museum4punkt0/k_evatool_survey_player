@@ -10,6 +10,25 @@
             h-full
         "
     >
+        <!--        <div-->
+        <!--            class="swipe-overlay"-->
+        <!--            :class="{ visible: swipeInstructionsVisible }"-->
+        <!--            @click="swipeInstructionsVisible = false"-->
+        <!--        >-->
+        <!--            <div-->
+        <!--                class="-->
+        <!--                    swipe-instructions-->
+        <!--                    bg-white-->
+        <!--                    left-1/2-->
+        <!--                    top-1/2-->
+        <!--                    -translate-x-1/2 -translate-y-1/2-->
+        <!--                    h-1/3-->
+        <!--                    w-1/3-->
+        <!--                "-->
+        <!--            >-->
+        <!--                <p>test</p>-->
+        <!--            </div>-->
+        <!--        </div>-->
         <div class="flex m-0 p-0 w-full relative">
             <div
                 v-if="currentElement !== images.length"
@@ -183,6 +202,13 @@
                 </span>
             </div>
         </div>
+
+        <InfoModal
+            :open-modal="modalboxOpen"
+            type="swipe"
+            :params="surveyResults.params"
+            @close-swipe-modal="closeModal"
+        ></InfoModal>
     </div>
 </template>
 
@@ -190,9 +216,12 @@
 import { computed, onUnmounted, ref } from 'vue'
 import { onMounted, watch } from 'vue'
 import { useStore } from 'vuex'
+// import SwipeInstructionModal from '../subelements/SwipeInstructionModal.vue'
+import InfoModal from '../subelements/InfoModal.vue'
 
 export default {
     name: 'SwipeAnswer',
+    components: { InfoModal },
     props: {
         images: {
             type: Object,
@@ -235,6 +264,19 @@ export default {
         const opacityTrue = ref()
         const opacityFalse = ref()
         const cursorTarget = ref()
+        const swipeInstructions = ref()
+        const modalboxOpen = ref(false)
+        const infoTimeout = ref()
+        infoTimeout.value = 8000
+
+        const openModal = () => {
+            modalboxOpen.value = true
+            clearTimeout(swipeInstructions.value)
+        }
+        const closeModal = () => {
+            modalboxOpen.value = false
+            setInstructionTimeout()
+        }
 
         const lang = computed({
             get: () => store.state.lang,
@@ -259,20 +301,23 @@ export default {
             event.preventDefault()
             mouseDown.value = true
             getTouchPosition(event)
+            clearTimeout(swipeInstructions.value)
         }
         const onMouseLeave = (event) => {
             event.preventDefault()
             resetCursorPosition()
+            setInstructionTimeout()
         }
         const onMouseUp = (event) => {
             event.preventDefault()
             mouseDown.value = false
             getAnswerPosition(positions.value.clientX)
+            setInstructionTimeout()
         }
         // const dragMouseUp = (event) => {}
         const onMouseMove = (event) => {
             event.preventDefault()
-
+            clearTimeout(swipeInstructions.value)
             let swiperOffset = document
                 .getElementsByClassName('swiper-wrap')[0]
                 .getBoundingClientRect()
@@ -327,10 +372,11 @@ export default {
         const onTouchStart = (event) => {
             let touch = event.targetTouches[0]
             getTouchPosition(touch)
+            clearTimeout(swipeInstructions.value)
         }
         const onTouchMove = (event) => {
             event.preventDefault()
-
+            clearTimeout(swipeInstructions.value)
             let touch = event.targetTouches[0]
             let swiperOffset = document
                 .getElementsByClassName('swiper-wrap')[0]
@@ -447,6 +493,7 @@ export default {
                 transformString.value = `transition: all 0.2s linear; transform: translate3D(${positions.value.clientX}px, ${positions.value.clientY}px, 0) rotate(${positions.value.rotation}deg)`
             }
             emit('currentElement', currentElement.value)
+            setInstructionTimeout()
         }
         const imageLoaded = () => {
             loaded.value = true
@@ -506,6 +553,17 @@ export default {
                 .getBoundingClientRect()
         }
 
+        const setInstructionTimeout = (delay) => {
+            clearTimeout(swipeInstructions.value)
+
+            swipeInstructions.value = setTimeout(
+                () => {
+                    modalboxOpen.value = true
+                },
+                delay ? delay : infoTimeout.value,
+            )
+        }
+
         const resetCursorPosition = () => {
             // console.log(e)
             // console.log(document.elementFromPoint(e.pageX, e.pageY))
@@ -549,6 +607,8 @@ export default {
                 .getBoundingClientRect()
 
             window.addEventListener('resize', resizeSwiper)
+
+            setInstructionTimeout(2000)
         })
 
         onUnmounted(() => {
@@ -589,6 +649,12 @@ export default {
             opacityTrue,
             opacityFalse,
             cursorTarget,
+            swipeInstructions,
+            modalboxOpen,
+            openModal,
+            closeModal,
+            infoTimeout,
+            setInstructionTimeout,
         }
     },
 }
@@ -705,5 +771,28 @@ export default {
 .swipe-left,
 .swipe-right {
     pointer-events: none;
+}
+
+.swipe-overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+    opacity: 0;
+    transition: all 0.2s linear;
+
+    &.visible {
+        z-index: 1000;
+        opacity: 1;
+        transition: all 0.2s linear;
+    }
+}
+
+.swipe-instructions {
+    z-index: 1001;
+    position: absolute;
 }
 </style>

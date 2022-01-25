@@ -16,6 +16,7 @@ export default {
     idle_text:
         'Vielen Dank für’s Vorbeischauen. Hier kannst du unsere Inhalte direkt bewerten und somit für ein besseres Angebot sorgen.',
     imprint: 'Impressum',
+    instruction: 'Handlungsanweisung',
     languages: 'Sprachen | Sprache | Sprachen',
     min_selectable: 'mind. { selectable } auswählen',
     max_selectable: 'max. { selectable } auswählen',
@@ -34,6 +35,8 @@ export default {
     privacy: 'Datenschutz',
     question_at: 'Frage bei',
     questions_answered: 'Fragen beantwortet',
+    swipe_instructions:
+        'Ziehen Sie das Bild nach links, um mit "{0}" zu antworten, oder ziehen Sie das Bild nach rechts, um mit "{1}" zu antworten.',
     view_edit: 'Ansehen & Bearbeiten',
     voice_recorder_placeholder:
         'Klicke auf das Mikrofon, um eine Audioaufnahme zu starten.',
