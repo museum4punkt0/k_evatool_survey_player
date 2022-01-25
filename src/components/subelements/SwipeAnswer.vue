@@ -267,7 +267,7 @@ export default {
         const swipeInstructions = ref()
         const modalboxOpen = ref(false)
         const infoTimeout = ref()
-        infoTimeout.value = 8000
+        infoTimeout.value = 10000
 
         const openModal = () => {
             modalboxOpen.value = true
@@ -608,7 +608,7 @@ export default {
 
             window.addEventListener('resize', resizeSwiper)
 
-            setInstructionTimeout(2000)
+            setInstructionTimeout()
         })
 
         onUnmounted(() => {
