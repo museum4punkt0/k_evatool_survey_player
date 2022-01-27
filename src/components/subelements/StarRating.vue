@@ -17,7 +17,11 @@
             </button>
         </div>
         <div class="labels flex justify-between w-full">
-            <p v-for="(label, index) in labels" :key="'emoji-label-' + index">
+            <p
+                v-for="(label, index) in labels"
+                :key="'emoji-label-' + index"
+                class="emoji-label"
+            >
                 {{ label[lang] }}
             </p>
         </div>
@@ -63,8 +67,8 @@ export default {
         })
 
         /*const confirm = (i) => {
-            emit('input', i)
-        }*/
+    emit('input', i)
+}*/
 
         return { rating, lang, store, setRating }
     },
@@ -77,15 +81,19 @@ export default {
     fill: #1a56db;
 }
 
-.labels:nth-child(1) p {
+.emoji-label {
+    flex-basis: 100%;
+}
+
+.emoji-label:nth-child(1) {
     text-align: left;
 }
 
-.labels:nth-child(2) p {
+.emoji-label:nth-child(2) {
     text-align: center;
 }
 
-.labels:nth-child(3) p {
+.emoji-label:nth-child(3) {
     text-align: right;
 }
 </style>
