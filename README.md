@@ -6,3 +6,5 @@ yarn build
 yarn electron:dev
 yarn electron:build
 
+
+Alt+CommandOrControl+O to set the url

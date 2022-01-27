@@ -2,7 +2,7 @@
     "name": "evaluation-tool-survey-player",
     "description": "Evaluation Tool Survey Player",
     "private": true,
-    "version": "1.0.156",
+    "version": "1.0.157",
     "main": "electron/electron.js",
     "author": "2av",
     "scripts": {
