@@ -1,3 +1,4 @@
+require('dotenv').config({path: '.env.local'})
 const path = require('path')
 const { app, BrowserWindow, globalShortcut } = require('electron')
 const storage = require('electron-json-storage')
@@ -8,6 +9,7 @@ const storedUrl = storage.getSync('url')
 console.log(`stored url: ${storedUrl}`)
 
 const isDev = process.env.IS_DEV == 'true' ? true : false
+const isFullscreen = process.env.ELECTRON_FULLSCREEN == 1
 
 let url = isDev
     ? 'http://localhost:3001'
@@ -21,7 +23,7 @@ let mainWindow
 function createWindow() {
     // Create the browser window.
     mainWindow = new BrowserWindow({
-        // fullscreen: true,
+        fullscreen: isFullscreen,
         webPreferences: {
             preload: path.join(__dirname, 'preload.js'),
             nodeIntegration: true,
@@ -37,7 +39,6 @@ function createWindow() {
         mainWindow.webContents.openDevTools()
     }
     if (Object.keys(storedUrl).length == 0) {
-	    console.log('prompting url input')
         prompt({
             title: 'Umfrage URL eintragen',
             label: 'URL:',
