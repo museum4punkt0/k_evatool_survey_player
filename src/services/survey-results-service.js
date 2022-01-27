@@ -13,7 +13,7 @@ export default {
                 return response.data
             })
             .catch((error) => {
-                return error
+                return error.response
             })
     },
     async sendResults(surveySlug, data) {

@@ -26,6 +26,8 @@ export default {
     select: 'auswählen',
     survey_complete: 'Umfrage erfolgreich abgeschlossen!',
     survey_complete_thank_you: 'Vielen Dank für Ihre Teilnahme.',
+    survey_not_available:
+        'Die Umfrage ist nicht verfügbar! \n The survey is not available!',
     jump_to_question: 'Springe zur Frage',
     overview: 'Übersicht',
     overview_description:

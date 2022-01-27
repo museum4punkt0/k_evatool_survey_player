@@ -9,6 +9,24 @@
             <!--            {{ store.state.currentStep }}-->
         </div>
         <IdleScreen v-if="idle" @start="idle = false"></IdleScreen>
+        <div
+            v-else-if="surveyNotAvailable"
+            class="
+                survey-not-available
+                flex
+                items-center
+                justify-center
+                xl:mx-5
+                pt-24
+                pb-16
+                px-4
+                w-full
+                h-full
+                z-40
+            "
+        >
+            <h1 class="text-center">{{ $t('survey_not_available') }}</h1>
+        </div>
         <div v-else class="survey-steps xl:mx-5 pt-24 pb-16 px-4 h-full z-40">
             <!--            <SurveyElementBuilder-->
             <!--                v-if="store.state.surveys.surveySteps"-->
@@ -74,6 +92,7 @@ export default {
         const idle = ref(false)
         const surveyStep = ref()
         const languages = ref()
+        const surveyNotAvailable = ref(false)
 
         backlink.value = document.referer ? document.referer : '/'
 
@@ -147,6 +166,16 @@ export default {
         }
 
         onMounted(async () => {
+            let surveyAvailable = await store.dispatch(
+                'surveyResults/getUuidResults',
+                {
+                    surveyId: surveySlug,
+                    uuid: window.localStorage.getItem('surveyUuid'),
+                },
+            )
+            if (surveyAvailable.status === 410) {
+                surveyNotAvailable.value = true
+            }
             // check for uuid
             if (!localStorage.getItem('surveyUuid')) {
                 await localStorage.setItem('surveyUuid', uuidv4())
@@ -228,6 +257,7 @@ export default {
             nextSurvey,
             currentStep,
             languages,
+            surveyNotAvailable,
             nextStep,
             prevStep,
         }
@@ -242,5 +272,8 @@ export default {
 
 .survey-steps {
     scrollbar-width: none;
+}
+.survey-not-available h1 {
+    white-space: pre-line;
 }
 </style>

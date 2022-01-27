@@ -170,16 +170,29 @@ export default {
                     ) >= 0
                 ) {
                     selectedOptions.value = []
-                    delete value.comment
+                    //delete value.comment
                 } else {
-                    selectedOptions.value = [{ value: value.value }]
+                    if (value.comment) {
+                        selectedOptions.value = [
+                            { value: value.value, comment: value.comment },
+                        ]
+                    } else {
+                        selectedOptions.value = [{ value: value.value }]
+                    }
                 }
             } else {
                 const index = selectedOptions.value.findIndex(
                     (x) => x.value === value.value,
                 )
                 if (index < 0) {
-                    selectedOptions.value.push({ value: value.value })
+                    if (value.comment) {
+                        selectedOptions.value.push({
+                            value: value.value,
+                            comment: value.comment,
+                        })
+                    } else {
+                        selectedOptions.value.push({ value: value.value })
+                    }
                 } else {
                     selectedOptions.value.splice(index, 1)
                 }
