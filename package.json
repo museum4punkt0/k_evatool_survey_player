@@ -2,12 +2,20 @@
     "name": "evaluation-tool-survey-player",
     "description": "Evaluation Tool Survey Player",
     "private": true,
-    "version": "1.0.156",
+    "version": "1.0.159",
+    "main": "electron/electron.js",
+    "author": "2av",
     "scripts": {
         "dev": "vite",
         "build": "vite build",
         "serve": "vite preview",
-        "pre-commit": "sh pre-commit.sh"
+        "pre-commit": "sh pre-commit.sh",
+        "electron": "wait-on tcp:3001 && cross-env IS_DEV=true electron .",
+        "electron:pack": "electron-builder --dir",
+        "electron:builder": "electron-builder",
+        "build:for:electron": "cross-env ELECTRON=true vite build",
+        "electron:dev": "concurrently -k \"cross-env BROWSER=none yarn dev\" \"yarn electron\"",
+        "electron:build": "yarn build:for:electron && yarn electron:builder -mwl"
     },
     "pre-commit": [
         "pre-commit"
@@ -18,6 +26,9 @@
         "@tailwindcss/forms": "^0.3.3",
         "animate.css": "^4.1.1",
         "axios": "^0.21.4",
+        "dotenv": "^14.3.2",
+        "electron-json-storage": "^4.5.0",
+        "electron-prompt": "^1.7.0",
         "framerate-utils": "^4.0.0",
         "lodash": "^4.17.21",
         "ms-to-timecode": "^0.1.2",
@@ -36,6 +47,10 @@
         "@vue/eslint-config-standard": "^6.1.0",
         "autoprefixer": "^10.3.4",
         "babel-eslint": "^10.1.0",
+        "concurrently": "^7.0.0",
+        "cross-env": "^7.0.3",
+        "electron": "^16.0.7",
+        "electron-builder": "^22.14.5",
         "eslint": "^7.32.0",
         "eslint-config-prettier": "^8.3.0",
         "eslint-plugin-import": "^2.24.2",
@@ -48,6 +63,27 @@
         "prettier": "^2.3.2",
         "tailwindcss": "^2.2.15",
         "vite": "^2.4.4",
-        "vite-plugin-vue-env": "^1.0.5"
+        "vite-plugin-vue-env": "^1.0.5",
+        "wait-on": "^6.0.0"
+    },
+    "build": {
+        "appId": "com.my-website.my-app",
+        "productName": "MyApp",
+        "copyright": "Copyright © 2019 ${author}",
+        "mac": {
+            "category": "public.app-category.utilities"
+        },
+        "nsis": {
+            "oneClick": false,
+            "allowToChangeInstallationDirectory": true
+        },
+        "files": [
+            "dist/**/*",
+            "electron/**/*"
+        ],
+        "directories": {
+            "buildResources": "assets",
+            "output": "dist_electron"
+        }
     }
 }
