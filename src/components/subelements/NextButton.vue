@@ -12,6 +12,7 @@
             bg-blue-700
             text-white
         "
+        tabindex="0"
         @click="confirm"
     >
         <check-circle-icon class="h-6 w-6 mr-2 text-white" />

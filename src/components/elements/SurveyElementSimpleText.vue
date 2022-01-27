@@ -1,7 +1,8 @@
 <template>
     <div class="px-5">
         <h2
-            class="pb-5 animate__animated animate__fadeInDown"
+            class="pb-5 m-1 animate__animated animate__fadeInDown"
+            tabindex="0"
             v-html="content.params.text[lang]"
         ></h2>
         <!--        <NextButton-->
@@ -76,6 +77,7 @@ export default {
 
         onMounted(() => {
             store.dispatch('setStepAnswering', true)
+            document.querySelector('h2').focus()
         })
 
         return {

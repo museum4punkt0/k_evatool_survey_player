@@ -1,22 +1,29 @@
 <template>
     <h2
-        class="pb-5 animate__animated animate__fadeInDown"
+        class="pb-5 m-1 animate__animated animate__fadeInDown"
+        tabindex="0"
         v-html="content.params.question[lang]"
     ></h2>
     <div
         class="
             flex
             mb-2
+            ml-1
             justify-center
             items-center
             animate__animated animate__fadeInUp
         "
+        role="radiogroup"
     >
         <div
             v-for="(emoji, index) in surveyResults.params.emojis"
             :key="'emoji-' + index"
-            class="cursor-pointer"
+            class="cursor-pointer emoji"
+            role="radio"
+            :aria-pressed="result === emoji.meaning"
+            tabindex="0"
             @click="setResult(emoji.meaning)"
+            @keydown="setKeyValue(emoji.meaning, $event)"
         >
             <span
                 class="p-5 text-3xl"
@@ -75,6 +82,14 @@ export default {
         const lang = computed({
             get: () => store.state.lang,
         })
+        const setKeyValue = (value, event) => {
+            if (event.type === 'keydown') {
+                if (event.keyCode === 32) {
+                    result.value = value
+                    setResult(value)
+                }
+            }
+        }
 
         const setResult = async (i) => {
             result.value = i
@@ -112,6 +127,7 @@ export default {
             // else {
             //     result.value = questionResults.resultByUuid.meaning
             // }
+            document.querySelector('h2').focus()
         })
 
         return {
@@ -121,6 +137,7 @@ export default {
             lang,
             setResult,
             nextStep,
+            setKeyValue,
         }
     },
 }
@@ -129,5 +146,8 @@ export default {
 <style scoped>
 .selected {
     border-bottom: 2px solid blue;
+}
+.emoji:focus {
+    outline: 3px solid blue;
 }
 </style>

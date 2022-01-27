@@ -25,7 +25,9 @@
                 z-40
             "
         >
-            <h1 class="text-center">{{ $t('survey_not_available') }}</h1>
+            <h2 tabindex="0" class="text-center">
+                {{ $t('survey_not_available') }}
+            </h2>
         </div>
         <div v-else class="survey-steps xl:mx-5 pt-24 pb-16 px-4 h-full z-40">
             <!--            <SurveyElementBuilder-->
@@ -273,6 +275,7 @@ export default {
 .survey-steps {
     scrollbar-width: none;
 }
+
 .survey-not-available h1 {
     white-space: pre-line;
 }

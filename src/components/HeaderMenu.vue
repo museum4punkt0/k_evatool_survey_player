@@ -14,9 +14,9 @@
         "
     >
         <div class="left-menu">
-            <img src="../assets/logo.svg" class="inline" />
+            <img src="../assets/logo.svg" class="inline" tabindex="0" />
         </div>
-        <div class="right-menu">
+        <div class="right-menu flex justify-center items-center">
             <button
                 v-if="backlink"
                 class="ml-5 rounded-md p-2 pr-3 bg-gray-200"
@@ -33,18 +33,26 @@
                 class="inline-block h-6"
             >
                 <div v-for="lang in languages" class="inline">
-                    <p
+                    <button
+                        tabindex="0"
                         class="inline uppercase mx-2"
                         :class="{ active: currentLang === lang }"
                         @click="setLanguage(lang)"
                     >
                         {{ lang }}
-                    </p>
+                    </button>
                 </div>
             </div>
-            <menu-icon class="h-6 w-6 ml-4 md:mr-2 inline"></menu-icon>
-            <share-icon class="h-6 w-6 mx-4 hidden md:inline"></share-icon>
-            <home-icon class="h-6 w-6 mx-2 hidden md:inline"></home-icon>
+
+            <button class="ml-4 md:mr-2 inline">
+                <menu-icon tabindex="0" class="h-6 w-6"></menu-icon>
+            </button>
+            <button class="ml-4 md:mr-2 inline">
+                <share-icon tabindex="0" class="h-6 w-6"></share-icon>
+            </button>
+            <button class="ml-4 md:mr-2 hidden md:inline">
+                <home-icon tabindex="0" class="h-6 w-6 mx-2"></home-icon>
+            </button>
         </div>
     </div>
 </template>
@@ -122,7 +130,7 @@ export default {
 </script>
 
 <style scoped>
-p.active {
+button.active {
     font-weight: bold;
     text-decoration: underline;
 }

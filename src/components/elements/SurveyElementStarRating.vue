@@ -1,6 +1,7 @@
 <template>
     <h2
-        class="pb-5 animate__animated animate__fadeInDown"
+        class="pb-5 m-1 animate__animated animate__fadeInDown"
+        tabindex="0"
         v-html="content.params.question[lang]"
     ></h2>
     <!--    {{ content.params }}-->
@@ -10,6 +11,10 @@
             <label
                 v-for="note in 6"
                 class="inline-flex flex-col flex-wrap w-12 mx-3 items-center"
+                role="radio"
+                :aria-checked="note === rating"
+                tabindex="0"
+                @keydown="setKeyValue(note, $event)"
             >
                 <input
                     v-model="selectedNote"
@@ -17,6 +22,7 @@
                     class="form-radio"
                     name="accountType"
                     :value="note"
+                    tabindex="-1"
                     @change="setRating(note)"
                 />
                 <span class="mt-2">{{ note }}</span>
@@ -36,6 +42,9 @@
                         mx-3
                         items-center
                     "
+                    :aria-checked="note === rating"
+                    tabindex="0"
+                    @keydown="setKeyValue(note, $event)"
                 >
                     <input
                         v-model="selectedNote"
@@ -43,6 +52,7 @@
                         class="form-radio"
                         name="accountType"
                         :value="note"
+                        tabindex="-1"
                         @change="setRating(note)"
                     />
                 </label>
@@ -125,6 +135,15 @@ export default {
             get: () => store.state.lang,
         })
 
+        const setKeyValue = (value, event) => {
+            if (event.type === 'keydown') {
+                if (event.keyCode === 32) {
+                    selectedNote.value = value
+                    setRating(value)
+                }
+            }
+        }
+
         const nextStep = async () => {
             await store.dispatch('setCurrentStep')
         }
@@ -166,6 +185,8 @@ export default {
             } else {
                 //rating.value = questionResults.resultByUuid.rating
             }
+
+            document.querySelector('h2').focus()
         })
 
         return {
@@ -175,9 +196,14 @@ export default {
             selectedNote,
             setRating,
             nextStep,
+            setKeyValue,
             // setAnswer,
         }
     },
 }
 </script>
-<style scoped></style>
+<style scoped>
+label:focus {
+    outline: 3px solid #1a56db;
+}
+</style>

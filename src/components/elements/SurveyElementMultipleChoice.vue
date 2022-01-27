@@ -1,7 +1,8 @@
 <template>
     <div>
         <h2
-            class="my-5 text-gray-900 animate__animated animate__fadeInDown"
+            class="my-5 m-1 text-gray-900 animate__animated animate__fadeInDown"
+            tabindex="0"
             v-html="surveyResults.params.question[store.state.lang]"
         ></h2>
         <div class="mt-2">
@@ -43,6 +44,7 @@
                             rounded-xl
                             mb-3
                         "
+                        tabindex="0"
                         :placeholder="t('write_comment_placeholder')"
                         @input="changeComment(option)"
                     />
@@ -213,6 +215,7 @@ export default {
 
         onMounted(() => {
             getResults()
+            document.querySelector('h2').focus()
         })
 
         return {

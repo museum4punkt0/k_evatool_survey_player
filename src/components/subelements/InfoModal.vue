@@ -41,8 +41,34 @@
                 duration-300
             "
         >
+            <!-- header -->
+            <div class="px-4 py-3 border-b border-gray-200">
+                <h2
+                    id="instruction"
+                    tabindex="0"
+                    class="text-xl font-semibold text-gray-600"
+                >
+                    {{ $t('instruction') }}
+                </h2>
+            </div>
+
+            <!-- body -->
+            <div class="w-full h-5/6 p-3 overflow-y-scroll">
+                <div class="w-full p-3 overflow-y-scroll">
+                    <h2 tabindex="0">
+                        {{
+                            $t('swipe_instructions', [
+                                params.falseLabel[lang],
+                                params.trueLabel[lang],
+                            ])
+                        }}
+                    </h2>
+                </div>
+            </div>
+
             <!-- button close -->
             <button
+                id="modal_close_btn"
                 class="
                     absolute
                     -top-3
@@ -56,35 +82,17 @@
                     focus:outline-none
                     text-white
                 "
+                tabindex="0"
                 @click="openSwipeModal(false)"
             >
                 &cross;
             </button>
-
-            <!-- header -->
-            <div class="px-4 py-3 border-b border-gray-200">
-                <h2 class="text-xl font-semibold text-gray-600">
-                    {{ $t('instruction') }}
-                </h2>
-            </div>
-
-            <!-- body -->
-            <div class="w-full h-5/6 p-3 overflow-y-scroll">
-                <div class="w-full p-3 overflow-y-scroll">
-                    {{
-                        $t('swipe_instructions', [
-                            params.falseLabel[lang],
-                            params.trueLabel[lang],
-                        ])
-                    }}
-                </div>
-            </div>
         </div>
     </div>
 </template>
 
 <script>
-import { computed, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useStore } from 'vuex'
 // https://tailwindcomponents.com/component/animation-modal
@@ -129,6 +137,7 @@ export default {
                     modalCl.remove('-translate-y-full')
                     modalCl.remove('scale-150')
                 }, 100)
+                document.querySelector('#instruction').focus()
             } else {
                 modalCl.add('-translate-y-full')
                 setTimeout(() => {
@@ -137,8 +146,13 @@ export default {
                 }, 100)
                 setTimeout(() => overlayCl.classList.add('hidden'), 300)
                 emit('close-swipe-modal')
+                document.querySelector('h2').focus()
             }
         }
+
+        onMounted(() => {
+            document.querySelector('#instruction').focus()
+        })
 
         watch(
             () => props.openModal,
@@ -163,5 +177,9 @@ export default {
 <style scoped>
 #modal_overlay_swipe {
     z-index: 999;
+}
+
+button:focus {
+    outline: 3px solid blue;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <div class="flex">
+    <div class="flex" role="group">
         <div
             class="
                 w-min
@@ -13,13 +13,18 @@
                 bg-white
                 rounded-xl
                 w-auto
+                ml-1
             "
+            role="checkbox"
+            :aria-checked="selected"
+            tabindex="0"
             :class="[
                 selected
                     ? 'border-blue-700 border-2'
                     : 'border-gray-900 border-2',
                 disabled ? 'cursor-not-allowed select-none' : 'cursor-pointer',
             ]"
+            @keydown="toggleSelection"
             @click="toggleSelection"
         >
             <div class="flex items-center">
@@ -79,16 +84,31 @@ export default {
         },
     },
     methods: {
-        toggleSelection() {
-            if (this.disabled) {
-                return
-            }
-            this.$emit('selected', this.value)
+        toggleSelection(event) {
+            console.log(event)
 
+            if (event.type === 'click') {
+                if (this.disabled) {
+                    return
+                }
+                this.$emit('selected', this.value)
+            }
+            if (event.type === 'keydown') {
+                if (event.keyCode === 32) {
+                    if (this.disabled) {
+                        return
+                    }
+                    this.$emit('selected', this.value)
+                }
+            }
             // this.selected = !this.selected
         },
     },
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+*:focus {
+    outline: 3px solid blue;
+}
+</style>

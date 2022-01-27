@@ -6,6 +6,9 @@
                 :key="i"
                 type="button"
                 :class="{ 'mr-1': i < stars }"
+                role="button"
+                :aria-pressed="i <= rating"
+                tabindex="0"
                 @click="setRating(i)"
             >
                 <star-icon

@@ -1,74 +1,92 @@
 <template>
     <h2
-        class="pb-5 animate__animated animate__fadeInDown"
+        ref="question"
+        class="pb-5 m-1 animate__animated animate__fadeInDown"
+        tabindex="0"
         v-html="content.params.question[lang]"
     ></h2>
-    <div>
-        <label
-            class="
-                pl-3
-                flex
-                items-center
-                rounded-md
-                nav-button
-                p-2
-                pr-3
-                mt-5
-                text-white
-                focus:outline-none
-                animate__animated animate__fadeInUp
-            "
-            :class="
-                selectedAnswer === content.params.trueValue
-                    ? 'bg-blue-700'
-                    : 'bg-blue-400'
-            "
-            :for="'answer-1'"
+    <div role="radiogroup">
+        <div
+            role="radio"
+            :aria-checked="selectedAnswer === content.params.trueValue"
+            tabindex="0"
+            class="ml-1"
+            @keydown="toggleSelection(content.params.trueValue, $event)"
         >
-            <input
-                :id="'answer-1'"
-                v-model="selectedAnswer"
-                type="radio"
-                class="invisible appearance-none"
-                :value="content.params.trueValue"
-            />
-            <!--            @change="handleAnswer(content.params.trueValue)"-->
-            <arrow-circle-right-icon class="h-6 w-6 mr-3 text-white" />
-            <span v-html="content.params.trueLabel[lang]"></span>
-        </label>
-        <label
-            class="
-                pl-3
-                flex
-                items-center
-                rounded-md
-                nav-button
-                p-2
-                pr-3
-                mt-5
-                bg-blue-700
-                text-white
-                focus:outline-none
-                animate__animated animate__fadeInUp
-            "
-            :class="
-                selectedAnswer === content.params.falseValue
-                    ? 'bg-blue-700'
-                    : 'bg-blue-400'
-            "
-            :for="'answer-2'"
+            <label
+                class="
+                    pl-3
+                    flex
+                    items-center
+                    rounded-md
+                    nav-button
+                    p-2
+                    pr-3
+                    mt-5
+                    text-white
+                    focus:outline-none
+                    animate__animated animate__fadeInUp
+                "
+                :class="
+                    selectedAnswer === content.params.trueValue
+                        ? 'bg-blue-700'
+                        : 'bg-blue-400'
+                "
+                :for="'answer-1'"
+            >
+                <input
+                    :id="'answer-1'"
+                    v-model="selectedAnswer"
+                    type="radio"
+                    class="invisible appearance-none"
+                    :value="content.params.trueValue"
+                />
+                <!--            @change="handleAnswer(content.params.trueValue)"-->
+                <arrow-circle-right-icon class="h-6 w-6 mr-3 text-white" />
+                <span v-html="content.params.trueLabel[lang]"></span>
+            </label>
+        </div>
+        <div
+            role="radio"
+            :aria-checked="selectedAnswer === content.params.falseValue"
+            tabindex="0"
+            class="ml-1"
+            @keydown="toggleSelection(content.params.falseValue, $event)"
         >
-            <input
-                :id="'answer-2'"
-                v-model="selectedAnswer"
-                type="radio"
-                class="invisible appearance-none"
-                :value="content.params.falseValue"
-            />
-            <!--            @change="handleAnswer(content.params.falseValue)"-->
-            <arrow-circle-right-icon class="h-6 w-6 mr-3 text-white" />
-            <span v-html="content.params.falseLabel[lang]"></span>
-        </label>
+            <label
+                class="
+                    pl-3
+                    flex
+                    items-center
+                    rounded-md
+                    nav-button
+                    p-2
+                    pr-3
+                    mt-5
+                    bg-blue-700
+                    text-white
+                    focus:outline-none
+                    animate__animated animate__fadeInUp
+                "
+                :class="
+                    selectedAnswer === content.params.falseValue
+                        ? 'bg-blue-700'
+                        : 'bg-blue-400'
+                "
+                :for="'answer-2'"
+            >
+                <input
+                    :id="'answer-2'"
+                    v-model="selectedAnswer"
+                    type="radio"
+                    class="invisible appearance-none"
+                    :value="content.params.falseValue"
+                />
+                <!--            @change="handleAnswer(content.params.falseValue)"-->
+                <arrow-circle-right-icon class="h-6 w-6 mr-3 text-white" />
+                <span v-html="content.params.falseLabel[lang]"></span>
+            </label>
+        </div>
     </div>
     <confirm-button
         class="animate__animated animate__fadeIn animate__delay-1s"
@@ -115,6 +133,16 @@ export default {
             get: () => store.state.lang,
         })
 
+        const toggleSelection = (value, event) => {
+            console.log(event)
+            console.log(value)
+            if (event.type === 'keydown') {
+                if (event.keyCode === 32) {
+                    selectedAnswer.value = value
+                }
+            }
+            // this.selected = !this.selected
+        }
         const setResult = async () => {
             await store.dispatch('surveyResults/sendSurveyResults', {
                 surveyId: route.query.survey,
@@ -157,6 +185,8 @@ export default {
 
         onMounted(() => {
             getResults()
+
+            document.querySelector('h2').focus()
             // let questionResults = props.surveyResults
         })
 
@@ -169,12 +199,17 @@ export default {
             nextStep,
             setResult,
             getResults,
+            toggleSelection,
         }
     },
 }
 </script>
 
 <style scoped>
-input {
+*:focus {
+    outline: 3px solid blue;
+}
+input:blur {
+    outline: 3px solid blue !important;
 }
 </style>

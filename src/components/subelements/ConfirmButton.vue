@@ -11,9 +11,12 @@
                 p-2
                 pr-3
                 mt-5
+                ml-1
                 bg-blue-700
                 text-white
             "
+            tabindex="0"
+            :aria-pressed="!store.state.stepAnswering"
             :disabled="disabled || !store.state.stepAnswering"
             :class="{
                 'bg-gray-400 cursor-not-allowed':
@@ -67,4 +70,8 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+button:focus {
+    outline: 3px solid black;
+}
+</style>

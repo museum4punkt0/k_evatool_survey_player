@@ -1,6 +1,7 @@
 <template>
     <h2
-        class="pb-5 animate__animated animate__fadeInDown"
+        class="pb-5 m-1 animate__animated animate__fadeInDown"
+        tabindex="0"
         v-html="content.params.question[lang]"
     ></h2>
     <!--    {{ content.params }}-->
@@ -8,12 +9,14 @@
         v-model="text"
         class="
             bg-gray-50
-            w-full
+            w-10/12
             text-gray-800 text-2xl
             p-2
+            m-1
             animate__animated animate__fadeInUp
         "
         :placeholder="t('write_comment_placeholder')"
+        tabindex="0"
         @change="inputText"
     />
 
@@ -100,6 +103,7 @@ export default {
         }
         onMounted(() => {
             getResults()
+            document.querySelector('h2').focus()
         })
         watch(
             () => text.value,
@@ -126,11 +130,15 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 textarea {
     resize: none;
     border: none;
     overflow: auto;
     outline: none;
+}
+
+textarea:focus {
+    outline: 3px solid blue;
 }
 </style>

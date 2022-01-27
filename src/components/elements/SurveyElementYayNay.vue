@@ -14,6 +14,7 @@
     >
         <h2
             class="pb-5 animate__animated animate__fadeInDown"
+            tabindex="0"
             v-html="content.params.question[lang]"
         ></h2>
         <SwipeAnswer
@@ -91,7 +92,7 @@
 
 <script>
 import SwipeAnswer from '../subelements/SwipeAnswer.vue'
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useStore } from 'vuex'
 // import { onMounted } from 'vue'
 
@@ -179,6 +180,10 @@ export default {
             store.dispatch('setCurrentStep')
         }
 
+        onMounted(() => {
+            document.querySelector('h2').focus()
+        })
+
         return {
             t,
             lang,
@@ -199,4 +204,8 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+button:focus {
+    outline: 3px solid blue;
+}
+</style>
