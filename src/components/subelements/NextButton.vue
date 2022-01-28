@@ -21,8 +21,6 @@
 </template>
 
 <script>
-// import { CheckCircleIcon } from '@heroicons/vue/outline'
-
 import { CheckCircleIcon } from '@heroicons/vue/solid'
 import { useStore } from 'vuex'
 import { useI18n } from 'vue-i18n'
@@ -41,7 +39,6 @@ export default {
         const store = useStore()
         const { t } = useI18n()
         const confirm = () => {
-            // emit('confirm')
             if (props.subElement) {
                 store.dispatch('setCurrentVideoStep')
             } else {

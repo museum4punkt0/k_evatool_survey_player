@@ -9,6 +9,10 @@ export default {
     action_prev: 'Prev',
     action_audio_start_recording: 'start recording',
     action_audio_stop_recording: 'stop recording',
+    audio_recording_confirmation_body:
+        'You hereby consent to the storage and evaluation of your audio recordings!',
+    audio_recording_confirmation_header: 'Voicerecording Privacy',
+    audio_recording_confirmation_confirm: 'understood',
     at: 'at',
     close_survey: 'close survey',
     comments: 'Comments | Comment | Comment',
@@ -38,7 +42,7 @@ export default {
     question_at: 'Question at',
     questions_answered: 'Questions answered',
     swipe_instructions:
-        'Drag the image to the left to reply "{0}" or drag the image to the right to reply "{1}".',
+        'Drag the image to the left to reply "{0}" or drag the image to the right to reply "{1}". You can also use the "{0}" and "{1}" buttons below the image.',
     view_edit: 'view & edit',
     voice_recorder_placeholder:
         'Click on the microphone to start an audio recording. ',

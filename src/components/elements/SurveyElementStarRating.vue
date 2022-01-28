@@ -1,16 +1,24 @@
 <template>
     <h2
-        class="pb-5 m-1 animate__animated animate__fadeInDown"
+        class="tabindex-focus pb-5 m-1 animate__animated animate__fadeInDown"
         tabindex="0"
         v-html="content.params.question[lang]"
     ></h2>
     <!--    {{ content.params }}-->
     <!--    grades-->
     <div v-if="content.params.displayType === 'grades'">
-        <div class="flex w-full justify-between mb-3">
+        <div class="flex w-full justify-between mb-3 mt-5">
             <label
                 v-for="note in 6"
-                class="inline-flex flex-col flex-wrap w-12 mx-3 items-center"
+                class="
+                    inline-flex
+                    flex-col flex-wrap
+                    w-12
+                    mx-3
+                    items-center
+                    py-2
+                    tabindex-focus
+                "
                 role="radio"
                 :aria-checked="note === rating"
                 tabindex="0"
@@ -41,6 +49,8 @@
                         w-12
                         mx-3
                         items-center
+                        py-2
+                        tabindex-focus
                     "
                     :aria-checked="note === rating"
                     tabindex="0"
@@ -174,11 +184,6 @@ export default {
 
         onMounted(() => {
             let questionResults = props.surveyResults
-            // console.log(props.survey)
-            // console.log(questionResults)
-            // console.log(store.state.surveyResults.surveyResults)
-            // console.log(rating)
-            // rating.value = questionResults.results.pop().result_value.rating
 
             if (questionResults.resultByUuid) {
                 rating.value = questionResults.resultByUuid.rating
@@ -197,13 +202,8 @@ export default {
             setRating,
             nextStep,
             setKeyValue,
-            // setAnswer,
         }
     },
 }
 </script>
-<style scoped>
-label:focus {
-    outline: 3px solid #1a56db;
-}
-</style>
+<style scoped></style>

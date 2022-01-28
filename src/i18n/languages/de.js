@@ -9,6 +9,11 @@ export default {
     action_prev: 'Zurück',
     action_audio_start_recording: 'Aufnahme starten',
     action_audio_stop_recording: 'Aufnahme beenden',
+    audio_recording_confirmation_body:
+        'Sie willigen hiermit in die Speicherung und Auswertung Ihrer Audioaufnahmen ein!',
+    audio_recording_confirmation_header:
+        'Datenschutz bei der Sprachaufzeichnung',
+    audio_recording_confirmation_confirm: 'verstanden',
     at: 'bei',
     close_survey: 'Umfrage schließen',
     comments: 'Kommentare | Kommentar | Kommentar',
@@ -38,7 +43,7 @@ export default {
     question_at: 'Frage bei',
     questions_answered: 'Fragen beantwortet',
     swipe_instructions:
-        'Ziehen Sie das Bild nach links, um mit "{0}" zu antworten, oder ziehen Sie das Bild nach rechts, um mit "{1}" zu antworten.',
+        'Ziehen Sie das Bild nach links, um mit "{0}" zu antworten, oder ziehen Sie das Bild nach rechts, um mit "{1}" zu antworten. Sie können auch die "{0}" und "{1}"-Schaltflächen unter dem Bild verwenden.',
     view_edit: 'Ansehen & Bearbeiten',
     voice_recorder_placeholder:
         'Klicke auf das Mikrofon, um eine Audioaufnahme zu starten.',

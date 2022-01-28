@@ -1,6 +1,6 @@
 <template>
     <h2
-        class="pb-5 m-1 animate__animated animate__fadeInDown"
+        class="tabindex-focus pb-5 m-1 animate__animated animate__fadeInDown"
         tabindex="0"
         v-html="content.params.question[lang]"
     ></h2>
@@ -18,7 +18,7 @@
         <div
             v-for="(emoji, index) in surveyResults.params.emojis"
             :key="'emoji-' + index"
-            class="cursor-pointer emoji"
+            class="cursor-pointer emoji tabindex-focus"
             role="radio"
             :aria-pressed="result === emoji.meaning"
             tabindex="0"
@@ -27,7 +27,9 @@
         >
             <span
                 class="p-5 text-3xl"
-                :class="{ selected: result === emoji.meaning }"
+                :class="{
+                    'border-b-2 border-b-blue-800': result === emoji.meaning,
+                }"
             >
                 {{ emoji.type }}
             </span>
@@ -143,11 +145,4 @@ export default {
 }
 </script>
 
-<style scoped>
-.selected {
-    border-bottom: 2px solid blue;
-}
-.emoji:focus {
-    outline: 3px solid blue;
-}
-</style>
+<style scoped></style>

@@ -1,6 +1,6 @@
 <template>
     <h2
-        class="pb-5 m-1 animate__animated animate__fadeInDown"
+        class="tabindex-focus pb-5 m-1 animate__animated animate__fadeInDown"
         tabindex="0"
         v-html="content.params.question[lang]"
     ></h2>
@@ -14,6 +14,12 @@
             p-2
             m-1
             animate__animated animate__fadeInUp
+            box-border
+            overflow-hidden
+            border-0
+            outline-none
+            resize-none
+            tabindex-focus
         "
         :placeholder="t('write_comment_placeholder')"
         tabindex="0"
@@ -130,15 +136,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-textarea {
-    resize: none;
-    border: none;
-    overflow: auto;
-    outline: none;
-}
-
-textarea:focus {
-    outline: 3px solid blue;
-}
-</style>
+<style lang="scss" scoped></style>

@@ -1,9 +1,7 @@
 <template>
-    <div class="flex" role="group">
+    <div class="flex">
         <div
             class="
-                w-min
-                focus:ring-indigo-500
                 relative
                 flex
                 items-center
@@ -14,6 +12,7 @@
                 rounded-xl
                 w-auto
                 ml-1
+                tabindex-focus
             "
             role="checkbox"
             :aria-checked="selected"
@@ -107,8 +106,4 @@ export default {
 }
 </script>
 
-<style scoped>
-*:focus {
-    outline: 3px solid blue;
-}
-</style>
+<style scoped></style>

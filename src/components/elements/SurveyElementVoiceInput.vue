@@ -1,7 +1,13 @@
 <template>
     <div class="flex flex-wrap flex-col">
         <h2
-            class="pb-5 animate__animated animate__fadeInDown"
+            tabindex="0"
+            class="
+                tabindex-focus
+                m-1
+                pb-5
+                animate__animated animate__fadeInDown
+            "
             v-html="content.params.question[lang]"
         ></h2>
         <custom-alert
@@ -30,18 +36,28 @@
         />
         <template v-else>
             <div class="animate__animated animate__fadeInUp">
-                <textarea
+                <!--                <textarea-->
+                <!--                    v-if="recordedTime < 0"-->
+                <!--                    tabindex="0"-->
+                <!--                    class="m-1 bg-transparent w-full text-xl focus:outline-none"-->
+                <!--                    cols="30"-->
+                <!--                    disabled-->
+                <!--                    :placeholder="t('voice_recorder_placeholder')"-->
+                <!--                ></textarea>-->
+                <div
                     v-if="recordedTime < 0"
+                    tabindex="0"
                     class="
+                        m-1
+                        tabindex-focus
                         bg-transparent
-                        w-full
-                        text-red-700 text-2xl
+                        w-3/4
+                        text-gray-400 text-xl
                         focus:outline-none
                     "
-                    cols="30"
-                    disabled
-                    :placeholder="t('voice_recorder_placeholder')"
-                ></textarea>
+                >
+                    {{ $t('voice_recorder_placeholder') }}
+                </div>
 
                 <div
                     v-else
@@ -50,25 +66,27 @@
                         bg-transparent
                         text-red-700 text-3xl
                         focus:outline-none
+                        items-center
                     "
                 >
-                    <div>
+                    <div tabindex="0" class="ml-1 tabindex-focus">
                         {{ convertTime(recordedTime) }}
                         <p class="text-xs">(max {{ maxRecordingTime }}s)</p>
                     </div>
                     <audio
                         v-if="audioData"
                         id="player"
-                        class="ml-5"
+                        class="ml-5 my-0 py-0 tabindex-focus"
                         preload="auto"
                         :src="audioData"
                         type="audio/wav"
                         controls
                     ></audio>
                 </div>
-                <div class="flex">
+                <div class="flex ml-1">
                     <button
                         type="button"
+                        tabindex="0"
                         class="
                             confirm
                             flex
@@ -78,6 +96,7 @@
                             p-2
                             mt-5
                             bg-gray-200
+                            tabindex-focus
                         "
                         :class="[
                             { 'bg-red-600 text-white-900': recording },
@@ -116,6 +135,7 @@
                             mt-5
                             ml-4
                             bg-gray-200
+                            tabindex-focus
                         "
                         @click="deleteAudio"
                     >
@@ -124,6 +144,11 @@
                     </button>
                 </div>
             </div>
+            <InfoModal
+                :open-modal="modalboxOpen"
+                type="audio"
+                @close-swipe-modal="closeModal"
+            ></InfoModal>
         </template>
         <confirm-button
             class="animate__animated animate__fadeIn animate__delay-1s"
@@ -148,6 +173,7 @@ import AudioRecorder from '../subelements/AudioRecorder.vue'
 import { computed, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import CustomAlert from '../subelements/CustomAlert.vue'
+import InfoModal from '../subelements/InfoModal.vue'
 
 export default {
     name: 'SurveyElementVoiceInput',
@@ -158,6 +184,7 @@ export default {
         AudioRecorder,
         TrashIcon,
         StopIcon,
+        InfoModal,
     },
     props: {
         content: {
@@ -189,10 +216,19 @@ export default {
         const micPermission = ref(false)
         const isSupported = ref(false)
         const hasPermission = ref('ask')
+        const modalboxOpen = ref()
 
         const lang = computed({
             get: () => store.state.lang,
         })
+
+        const openModal = () => {
+            modalboxOpen.value = true
+        }
+        const closeModal = () => {
+            modalboxOpen.value = false
+            window.localStorage.setItem('surveyVoiceRecording', 'confirmed')
+        }
 
         const convertTime = (duration) => {
             let minutes = Math.floor(duration / 60)
@@ -297,6 +333,11 @@ export default {
             // let questionResults = props.surveyResults
             // console.log(questionResults)
             askForMicrophonePermission()
+            document.querySelector('h2').focus()
+
+            modalboxOpen.value =
+                window.localStorage.getItem('surveyVoiceRecording') !==
+                'confirmed'
         })
 
         return {
@@ -318,6 +359,9 @@ export default {
             hasPermission,
             sendAudioAsset,
             setResult,
+            modalboxOpen,
+            openModal,
+            closeModal,
         }
     },
 }

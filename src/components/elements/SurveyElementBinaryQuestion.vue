@@ -1,7 +1,7 @@
 <template>
     <h2
         ref="question"
-        class="pb-5 m-1 animate__animated animate__fadeInDown"
+        class="tabindex-focus m-1 pb-5 animate__animated animate__fadeInDown"
         tabindex="0"
         v-html="content.params.question[lang]"
     ></h2>
@@ -10,7 +10,7 @@
             role="radio"
             :aria-checked="selectedAnswer === content.params.trueValue"
             tabindex="0"
-            class="ml-1"
+            class="ml-1 mt-5 p-1"
             @keydown="toggleSelection(content.params.trueValue, $event)"
         >
             <label
@@ -20,12 +20,12 @@
                     items-center
                     rounded-md
                     nav-button
-                    p-2
+                    px-3
                     pr-3
-                    mt-5
                     text-white
                     focus:outline-none
                     animate__animated animate__fadeInUp
+                    tabindex-focus
                 "
                 :class="
                     selectedAnswer === content.params.trueValue
@@ -50,7 +50,7 @@
             role="radio"
             :aria-checked="selectedAnswer === content.params.falseValue"
             tabindex="0"
-            class="ml-1"
+            class="ml-1 mt-2 p-1"
             @keydown="toggleSelection(content.params.falseValue, $event)"
         >
             <label
@@ -62,7 +62,6 @@
                     nav-button
                     p-2
                     pr-3
-                    mt-5
                     bg-blue-700
                     text-white
                     focus:outline-none
@@ -205,11 +204,4 @@ export default {
 }
 </script>
 
-<style scoped>
-*:focus {
-    outline: 3px solid blue;
-}
-input:blur {
-    outline: 3px solid blue !important;
-}
-</style>
+<style scoped></style>

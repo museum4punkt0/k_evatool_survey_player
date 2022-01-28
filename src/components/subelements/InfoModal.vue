@@ -44,18 +44,43 @@
             <!-- header -->
             <div class="px-4 py-3 border-b border-gray-200">
                 <h2
-                    id="instruction"
+                    v-if="type === 'swipe'"
                     tabindex="0"
-                    class="text-xl font-semibold text-gray-600"
+                    class="
+                        tabindex-focus
+                        instruction
+                        text-2xl
+                        w-auto
+                        inline
+                        font-semibold
+                        text-gray-600
+                    "
                 >
                     {{ $t('instruction') }}
+                </h2>
+                <h2
+                    v-if="type === 'audio'"
+                    tabindex="0"
+                    class="
+                        tabindex-focus
+                        instruction
+                        text-xl
+                        inline
+                        font-semibold
+                        text-gray-600
+                    "
+                >
+                    {{ $t('audio_recording_confirmation_header') }}
                 </h2>
             </div>
 
             <!-- body -->
             <div class="w-full h-5/6 p-3 overflow-y-scroll">
-                <div class="w-full p-3 overflow-y-scroll">
-                    <h2 tabindex="0">
+                <div
+                    v-if="type === 'swipe'"
+                    class="w-full p-3 overflow-y-scroll"
+                >
+                    <h2 tabindex="0" class="tabindex-focus">
                         {{
                             $t('swipe_instructions', [
                                 params.falseLabel[lang],
@@ -63,30 +88,69 @@
                             ])
                         }}
                     </h2>
+
+                    <!-- button close -->
+                    <button
+                        v-if="type === 'swipe'"
+                        class="
+                            modal_close_btn
+                            absolute
+                            -top-3
+                            -right-3
+                            bg-red-500
+                            hover:bg-red-600
+                            text-2xl
+                            w-10
+                            h-10
+                            rounded-full
+                            focus:outline-none
+                            text-white
+                            tabindex-focus-nopadding
+                        "
+                        tabindex="0"
+                        @click="openSwipeModal(false)"
+                    >
+                        &cross;
+                    </button>
+                </div>
+
+                <div
+                    v-if="type === 'audio'"
+                    class="w-full p-3 pb-4 overflow-y-scroll"
+                >
+                    <h2 tabindex="0" class="tabindex-focus">
+                        {{ $t('audio_recording_confirmation_body') }}
+                    </h2>
+
+                    <!-- button confirm -->
+                    <button
+                        v-if="type === 'audio'"
+                        class="
+                            mt-4
+                            modal_close_btn
+                            relative
+                            bg-blue-700
+                            hover:bg-blue-700
+                            text-2xl
+                            left-1/2
+                            -translate-x-1/2
+                            w-auto
+                            flex
+                            items-center
+                            py-1
+                            px-4
+                            rounded-xl
+                            focus:outline-none
+                            text-white
+                            tabindex-focus
+                        "
+                        tabindex="0"
+                        @click="openSwipeModal(false)"
+                    >
+                        {{ $t('audio_recording_confirmation_confirm') }}
+                    </button>
                 </div>
             </div>
-
-            <!-- button close -->
-            <button
-                id="modal_close_btn"
-                class="
-                    absolute
-                    -top-3
-                    -right-3
-                    bg-red-500
-                    hover:bg-red-600
-                    text-2xl
-                    w-10
-                    h-10
-                    rounded-full
-                    focus:outline-none
-                    text-white
-                "
-                tabindex="0"
-                @click="openSwipeModal(false)"
-            >
-                &cross;
-            </button>
         </div>
     </div>
 </template>
@@ -105,7 +169,7 @@ export default {
         },
         type: {
             type: String,
-            default: '',
+            default: 'swipe',
         },
         params: {
             type: Object,
@@ -137,7 +201,7 @@ export default {
                     modalCl.remove('-translate-y-full')
                     modalCl.remove('scale-150')
                 }, 100)
-                document.querySelector('#instruction').focus()
+                document.querySelector('.instruction').focus()
             } else {
                 modalCl.add('-translate-y-full')
                 setTimeout(() => {
@@ -151,7 +215,11 @@ export default {
         }
 
         onMounted(() => {
-            document.querySelector('#instruction').focus()
+            document.querySelector('.instruction').focus()
+
+            if (props.openModal) {
+                openSwipeModal(true)
+            }
         })
 
         watch(
@@ -177,9 +245,5 @@ export default {
 <style scoped>
 #modal_overlay_swipe {
     z-index: 999;
-}
-
-button:focus {
-    outline: 3px solid blue;
 }
 </style>

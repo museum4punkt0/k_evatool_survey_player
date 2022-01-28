@@ -14,6 +14,7 @@
                 ml-1
                 bg-blue-700
                 text-white
+                tabindex-focus
             "
             tabindex="0"
             :aria-pressed="!store.state.stepAnswering"
@@ -70,8 +71,4 @@ export default {
 }
 </script>
 
-<style scoped>
-button:focus {
-    outline: 3px solid black;
-}
-</style>
+<style scoped></style>

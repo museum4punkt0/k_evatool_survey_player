@@ -1,7 +1,13 @@
 <template>
-    <div>
+    <div class="p-2">
         <h2
-            class="my-5 m-1 text-gray-900 animate__animated animate__fadeInDown"
+            class="
+                tabindex-focus
+                my-5
+                m-1
+                text-gray-900
+                animate__animated animate__fadeInDown
+            "
             tabindex="0"
             v-html="surveyResults.params.question[store.state.lang]"
         ></h2>
@@ -43,6 +49,8 @@
                             bg-white
                             rounded-xl
                             mb-3
+                            ml-1
+                            tabindex-focus
                         "
                         tabindex="0"
                         :placeholder="t('write_comment_placeholder')"
@@ -53,6 +61,7 @@
         </div>
         <p
             class="
+                ml-1
                 text-gray-700
                 animate__animated animate__fadeIn animate__delay-1s
             "
@@ -65,6 +74,7 @@
         </p>
         <p
             class="
+                ml-1
                 text-gray-700
                 animate__animated animate__fadeIn animate__delay-1s
             "

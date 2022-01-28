@@ -29,7 +29,7 @@
                 {{ $t('survey_not_available') }}
             </h2>
         </div>
-        <div v-else class="survey-steps xl:mx-5 pt-24 pb-16 px-4 h-full z-40">
+        <div v-else class="survey-steps xl:mx-5 pt-20 pb-12 px-4 h-full z-40">
             <!--            <SurveyElementBuilder-->
             <!--                v-if="store.state.surveys.surveySteps"-->
             <!--                :content="-->

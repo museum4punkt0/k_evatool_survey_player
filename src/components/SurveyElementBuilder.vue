@@ -184,6 +184,6 @@ export default {
     scrollbar-width: thin;
 }
 .survey-content::-webkit-scrollbar {
-    display: block;
+    display: none;
 }
 </style>

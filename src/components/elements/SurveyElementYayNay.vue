@@ -13,7 +13,7 @@
         "
     >
         <h2
-            class="pb-5 animate__animated animate__fadeInDown"
+            class="tabindex-focus pb-5 animate__animated animate__fadeInDown"
             tabindex="0"
             v-html="content.params.question[lang]"
         ></h2>
@@ -41,6 +41,7 @@
                         mt-5
                         mr-3
                         text-white
+                        tabindex-focus
                     "
                     :class="!isLastCard ? 'bg-blue-700' : 'bg-gray-400'"
                     :disabled="isLastCard"
@@ -65,6 +66,7 @@
                         mt-5
                         ml-3
                         text-white
+                        tabindex-focus
                     "
                     :class="!isLastCard ? 'bg-blue-700' : 'bg-gray-400'"
                     :disabled="isLastCard"
@@ -204,8 +206,4 @@ export default {
 }
 </script>
 
-<style scoped>
-button:focus {
-    outline: 3px solid blue;
-}
-</style>
+<style scoped></style>

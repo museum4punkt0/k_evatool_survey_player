@@ -17,16 +17,4 @@ console.log(version)
 * {
     touch-action: manipulation;
 }
-
-h1:focus,
-h2:focus,
-h3:focus,
-h4:focus {
-    outline: 3px solid blue;
-}
-
-img:focus,
-button:focus {
-    outline: 3px solid blue;
-}
 </style>

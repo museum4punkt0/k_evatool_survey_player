@@ -27,6 +27,7 @@
                 <button
                     v-if="demoMode"
                     class="
+                        tabindex-focus
                         rounded
                         bg-green-400
                         text-white
@@ -77,6 +78,7 @@
                 >
                     <button
                         class="
+                            tabindex-focus
                             imprint
                             flex
                             items-center
@@ -94,6 +96,7 @@
                     </button>
                     <button
                         class="
+                            tabindex-focus
                             imprint
                             flex
                             items-center
@@ -178,6 +181,7 @@ export default {
 
         const resetUuid = () => {
             window.localStorage.setItem('surveyUuid', '')
+            window.localStorage.setItem('surveyVoiceRecording', '')
             window.location.reload()
         }
 

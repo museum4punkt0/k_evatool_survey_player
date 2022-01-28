@@ -1,7 +1,12 @@
 <template>
     <div class="px-5">
         <h2
-            class="pb-5 m-1 animate__animated animate__fadeInDown"
+            class="
+                tabindex-focus
+                pb-5
+                m-1
+                animate__animated animate__fadeInDown
+            "
             tabindex="0"
             v-html="content.params.text[lang]"
         ></h2>
@@ -94,9 +99,9 @@ export default {
 </script>
 
 <style scoped>
-textarea {
-    resize: none;
-    box-sizing: border-box;
-    outline: none;
-}
+/*textarea {*/
+/*    resize: none;*/
+/*    box-sizing: border-box;*/
+/*    outline: none;*/
+/*}*/
 </style>
