@@ -14,7 +14,11 @@
         "
     >
         <div class="left-menu">
-            <img src="../assets/logo.svg" class="inline" tabindex="0" />
+            <img
+                src="../assets/logo.svg"
+                class="inline tabindex-focus-nopadding"
+                tabindex="0"
+            />
         </div>
         <div class="right-menu flex justify-center items-center">
             <button
@@ -35,7 +39,7 @@
                 <div v-for="lang in languages" class="inline">
                     <button
                         tabindex="0"
-                        class="inline uppercase mx-2"
+                        class="tabindex-focus-nopadding inline uppercase mx-2"
                         :class="{ active: currentLang === lang }"
                         @click="setLanguage(lang)"
                     >
@@ -44,13 +48,15 @@
                 </div>
             </div>
 
-            <button class="ml-4 md:mr-2 inline">
+            <button class="ml-4 md:mr-2 inline tabindex-focus-nopadding">
                 <menu-icon tabindex="0" class="h-6 w-6"></menu-icon>
             </button>
-            <button class="ml-4 md:mr-2 inline">
+            <button class="ml-4 md:mr-2 inline tabindex-focus-nopadding">
                 <share-icon tabindex="0" class="h-6 w-6"></share-icon>
             </button>
-            <button class="ml-4 md:mr-2 hidden md:inline">
+            <button
+                class="ml-4 md:mr-2 hidden md:inline tabindex-focus-nopadding"
+            >
                 <home-icon tabindex="0" class="h-6 w-6 mx-2"></home-icon>
             </button>
         </div>

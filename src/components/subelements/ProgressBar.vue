@@ -93,13 +93,13 @@ export default {
 
             // seekbar.value = (props.duration * seekbar.value) / props.duration
 
-            console.log(seekToValue)
-            console.log(seekbar.value.value)
+            // console.log(seekToValue)
+            // console.log(seekbar.value.value)
             // emit('addComment', parseFloat(props.currentTime))
             emit('changeProgress', parseFloat(seekbar.value.value))
-            console.log(props.currentTime)
-            console.log(props.duration)
-            console.log((props.currentTime / props.duration) * 100)
+            // console.log(props.currentTime)
+            // console.log(props.duration)
+            // console.log((props.currentTime / props.duration) * 100)
             document.documentElement.style.setProperty(
                 '--videoProgress',
                 `${(props.currentTime / props.duration) * 100}%`,
@@ -127,7 +127,7 @@ export default {
             () => props.currentTime,
             (value) => {
                 seekbar.value.value = value
-                console.log(value)
+                // console.log(value)
                 document.documentElement.style.setProperty(
                     '--videoProgress',
                     `${(props.currentTime / props.duration) * 100}%`,

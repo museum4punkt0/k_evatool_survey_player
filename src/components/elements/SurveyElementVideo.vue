@@ -24,7 +24,6 @@
                     animate__animated animate__fadeInLeft
                 "
             >
-                <!--              h-full-->
                 <div
                     v-if="showQuestion"
                     class="
@@ -38,7 +37,6 @@
                         z-20
                     "
                 ></div>
-                <!--              md:hidden-->
                 <div
                     v-if="!started"
                     class="
@@ -60,15 +58,11 @@
                         class="w-16 h-16 xl:h-32 xl:w-32 z-10 inline text-white"
                     ></play-icon>
                 </div>
-                <!--                <pre>{{ content.stepParams.startTimecode }}</pre>-->
-                <!--                <pre>{{ content.stepParams.stopTimecode }}</pre>-->
-                <!--                src="https://ak.picdn.net/shutterstock/videos/1060516912/preview/stock-footage-beautiful-sunlight-in-the-forest.webm"-->
-                <!--                {{ content.timeBasedSteps }}-->
-                <!--                :src="content.params.videoAsset.urls.original"-->
-                <!--                src="https://evatool-backend.twoavy.com/evaluation-tool/lichtspiel_digitale_werkstatt.mp4"-->
-                <!--                :src="content.params.videoAsset.urls.original"-->
-                <!--                :src=" content.params.videoAsset.urls.original + timeParams "-->
+
                 <!--              src="https://evatool-backend.twoavy.com/evaluation-tool/kultueroeffner_buchbindewerkstatt_gekuerzt.mp4#t=0,67"-->
+
+                <!--                src="https://evatool-backend.twoavy.com/evaluation-tool/lichtspiel_digitale_werkstatt.mp4"-->
+
                 <div class="video-container bg-gray-200">
                     <video
                         ref="videoPlayer"
@@ -84,7 +78,7 @@
                 </div>
 
                 <div
-                    v-if="showQuestion || showFeedback || showFormular"
+                    v-if="showQuestion || showFeedback"
                     class="
                         md:absolute
                         bg-white
@@ -101,13 +95,6 @@
                         fixed
                     "
                 >
-                    <ContentSlider
-                        v-if="showQuestion && 1 < 0"
-                        :content="content"
-                        :step="currentStepData()"
-                        class="z-20"
-                    ></ContentSlider>
-
                     <ModalContent
                         v-if="showQuestion"
                         class="z-20 md:relative"
@@ -117,50 +104,13 @@
                         @confirmed-answer="confirmedAnswer"
                         @close-modal="closeModal"
                     ></ModalContent>
-                    <formular v-if="showFormular" class="z-20"></formular>
                     <div v-if="showFeedback" class="thanks-feedback">
                         <div class="flex">
                             <img src="../../assets/thanks.svg" class="inline" />
                             <h3 class="text-blue-800">
-                                Danke für Ihre Bewertung!
+                                {{ t('feedback_text') }}
                             </h3>
                         </div>
-                    </div>
-
-                    <div
-                        v-if="showQuestion && 1 < 0"
-                        class="
-                            mx-auto
-                            question
-                            bg-white
-                            p-4
-                            absolute
-                            bottom-0
-                            right-0
-                        "
-                    >
-                        <!--            {{ store.state.surveys.surveyStep }}-->
-
-                        <!--                        <h3>Question: {{ answeredSteps }}</h3>-->
-                        <!--                        <h3>-->
-                        <!--                            StopsVideo:-->
-                        <!--                            {{ timeBasedSteps[answeredSteps - 1].stopsVideo }}-->
-                        <!--                        </h3>-->
-                        <!--                        <ul>-->
-                        <!--                            <li>-->
-                        <!--                                <button @click="setAnswer(1)">antwort 1</button>-->
-                        <!--                            </li>-->
-                        <!--                        </ul>-->
-                        <!--                        <ul>-->
-                        <!--                            <li>-->
-                        <!--                                <button @click="setAnswer(2)">antwort 2</button>-->
-                        <!--                            </li>-->
-                        <!--                        </ul>-->
-                        <!--                        <ul>-->
-                        <!--                            <li>-->
-                        <!--                                <button @click="setAnswer(3)">antwort 3</button>-->
-                        <!--                            </li>-->
-                        <!--                        </ul>-->
                     </div>
                 </div>
                 <ProgressBar
@@ -238,17 +188,68 @@
                             </span>
                         </div>
                     </div>
-                    <div>
-                        <!--                        <button
-                class="rounded px-2 py-1"
-                @click="deleteComment"
-            >
-                <trash-icon
-                    class="h-6 w-6 mr-2 inline text-red-600"
-                />
-                {{ t('action_delete') }}
-            </button>-->
-                        <button class="rounded px-2 py-1" @click="saveComment">
+                    <div
+                        v-if="commentDeleting && showDeleteButton"
+                        class="flex justify-center items-center mb-2 mr-2"
+                    >
+                        <p
+                            tabindex="0"
+                            class="rounded mr-2 tabindex-focus-nopadding"
+                        >
+                            {{ t('action_delete_comment') }}
+                        </p>
+                        <button
+                            class="
+                                mr-2
+                                px-2
+                                py-1
+                                rounded
+                                tabindex-focus-nopadding
+                            "
+                            @click="confirmDelete"
+                        >
+                            <check-circle-icon class="h-6 w-6 inline" />
+                            {{ t('action_yes') }}
+                        </button>
+                        <button
+                            class="
+                                mr-2
+                                px-2
+                                py-1
+                                rounded
+                                tabindex-focus-nopadding
+                            "
+                            @click="cancelDelete"
+                        >
+                            <x-circle-icon class="h-6 w-6 inline" />
+                            {{ t('action_no') }}
+                        </button>
+                    </div>
+                    <div
+                        v-if="!commentDeleting"
+                        class="flex justify-center items-center mb-2 mr-2"
+                    >
+                        <button
+                            tabindex="0"
+                            class="rounded px-2 py-1 tabindex-focus-nopadding"
+                            :class="comment ? 'text-red-600' : 'text-gray-600'"
+                            :disabled="!comment"
+                            @click="deleteComment"
+                        >
+                            <trash-icon
+                                class="h-6 w-6 mr-2 inline"
+                                :class="
+                                    comment ? 'text-red-600' : 'text-gray-600'
+                                "
+                            />
+                            {{ t('action_delete') }}
+                        </button>
+
+                        <button
+                            v-if="!commentDeleting"
+                            class="rounded px-2 py-1 tabindex-focus-nopadding"
+                            @click="saveComment"
+                        >
                             <check-circle-icon class="h-6 w-6 mr-2 inline" />
                             {{ t('action_save') }}
                         </button>
@@ -291,13 +292,11 @@ import AudioRecorder from '../subelements/AudioRecorder.vue'
 import ProgressBar from '../subelements/ProgressBar.vue'
 import MediaControls from '../subelements/MediaControls.vue'
 import TimeLine from '../subelements/TimeLine.vue'
-import Formular from '../subelements/Formular.vue'
-import ContentSlider from '../subelements/ContentSlider.vue'
 import ModalContent from '../subelements/ModalContent.vue'
 
 import msToTimeCode from 'ms-to-timecode'
-
 import {
+    XCircleIcon,
     CheckCircleIcon,
     ClockIcon,
     MicrophoneIcon,
@@ -307,9 +306,6 @@ import {
 
 import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-// import { smpteToSeconds } from 'framerate-utils'
-
-// import SurveyElementBuilder from '../SurveyElementBuilder.vue'
 
 export default {
     name: 'SurveyElementVideo',
@@ -318,13 +314,12 @@ export default {
         ProgressBar,
         MediaControls,
         TimeLine,
+        XCircleIcon,
         PlayIcon,
         TrashIcon,
         ClockIcon,
         CheckCircleIcon,
         MicrophoneIcon,
-        Formular,
-        ContentSlider,
         ModalContent,
     },
     props: {
@@ -356,13 +351,14 @@ export default {
         const store = useStore()
         const videoIsPlaying = ref(true)
         const showFeedback = ref(false)
-        const showFormular = ref(false)
         const commentBox = ref(false)
         const commentBoxObject = ref()
         const started = ref(false)
         const audioComment = ref(false)
         const route = useRoute()
         const answeredStepsObject = ref([])
+
+        const showDeleteButton = ref(true)
         console.log(timeBasedSteps)
         const currentStepData = () => {
             return timeBasedSteps.value[answeredSteps.value - 1]
@@ -375,6 +371,7 @@ export default {
         }
 
         const comment = ref()
+        const commentDeleting = ref(false)
         const timelineObject = ref([])
 
         const questionsCounter = ref([])
@@ -423,7 +420,22 @@ export default {
         }
 
         const deleteComment = () => {
+            commentDeleting.value = true
+
+            console.log(commentBoxObject.value)
+
+            console.log(props.content)
+        }
+
+        const cancelDelete = () => {
+            commentDeleting.value = false
+        }
+
+        const confirmDelete = () => {
             comment.value = ''
+
+            removeComment(commentBoxObject.value)
+            commentDeleting.value = false
         }
 
         const toggleComment = () => {
@@ -475,6 +487,7 @@ export default {
                     uuid: props.surveyResults.uuid,
                     resultLanguage: store.state.lang,
                     timecode: convertTimeFull(videoPlayer.value.currentTime),
+                    // deleted:
                 },
             })
             comment.value = ''
@@ -625,11 +638,11 @@ export default {
             return msToTimeCode(duration * 1000, 25)
 
             /*let hours = "00:00";
-      let minutes = Math.floor(duration / 60);
-      minutes = minutes < 10 ? "0" + minutes : minutes;
-      let seconds = Math.round(duration - minutes * 60);
-      seconds = seconds < 10 ? "0" + seconds : seconds;
-      return hours + ":" + minutes + ":" + seconds;*/
+let minutes = Math.floor(duration / 60);
+minutes = minutes < 10 ? "0" + minutes : minutes;
+let seconds = Math.round(duration - minutes * 60);
+seconds = seconds < 10 ? "0" + seconds : seconds;
+return hours + ":" + minutes + ":" + seconds;*/
         }
 
         const sendAudioAsset = (wav) => {
@@ -655,9 +668,6 @@ export default {
                         surveyId: surveySlug,
                         uuid: window.localStorage.getItem('surveyUuid'),
                     })
-
-                    // let currentStepId = await store.state.surveyResults
-                    // console.log(currentStepId)
 
                     let surveySteps =
                         store.state.surveyResults.surveyUuidResults
@@ -725,6 +735,8 @@ export default {
             }
 
             console.log(timelineObject.value)
+
+            console.log(props.content)
         })
 
         return {
@@ -746,7 +758,6 @@ export default {
             comment,
             timelineObject,
             showFeedback,
-            showFormular,
             audioComment,
             commentBox,
             start,
@@ -777,6 +788,10 @@ export default {
             closeModal,
             nextStep,
             timeParams,
+            commentDeleting,
+            cancelDelete,
+            confirmDelete,
+            showDeleteButton,
         }
     },
 }
@@ -792,9 +807,6 @@ export default {
         height: calc(100% - 20px - 3rem);
 
         video {
-            /* override other styles to make responsive */
-            //width: 100% !important;
-            //height: auto !important;
             position: relative;
             height: 100%;
         }
@@ -803,11 +815,6 @@ export default {
 
 .sidebar {
     max-height: 80vh;
-    //    position: relative;
-    //    right: 0px;
-    //    /*width: 30vw;*/
-    //    height: 100vh;
-    //    overflow-y: scroll;
 }
 
 @media (max-width: 768px) {

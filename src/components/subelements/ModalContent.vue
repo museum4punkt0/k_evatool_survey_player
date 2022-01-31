@@ -11,7 +11,7 @@
                 overflow-x-hidden overflow-y-scroll
             "
         >
-            <button class="close-btn" @click="closeModal">
+            <button class="close-btn tabindex-focus" @click="closeModal">
                 <img src="../../assets/close.svg" />
             </button>
 

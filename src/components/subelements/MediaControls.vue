@@ -19,7 +19,16 @@
             <div
                 class="group-left inline xl:flex items-center float-left w-6/12"
             >
-                <div class="play-pause inline float-left" @click="togglePlay()">
+                <div
+                    class="
+                        play-pause
+                        inline
+                        float-left
+                        tabindex-focus-nopadding
+                    "
+                    tabindex="0"
+                    @click="togglePlay()"
+                >
                     <span v-if="videoIsPlaying">
                         <pause-icon class="h-6 w-6 text-gray-800" />
                     </span>
@@ -28,7 +37,14 @@
                     </span>
                 </div>
                 <div
-                    class="volume inline float-left mx-3"
+                    tabindex="0"
+                    class="
+                        volume
+                        inline
+                        float-left
+                        mx-3
+                        tabindex-focus-nopadding
+                    "
                     @click="toggleVolume"
                 >
                     <span v-if="volume">
@@ -42,6 +58,7 @@
                 <!--                    Kommentar schreiben-->
                 <div class="float-left inline">
                     <button
+                        tabindex="0"
                         class="
                             rounded-2xl
                             text-gray-400 text-xs
@@ -49,6 +66,7 @@
                             py-1
                             bg-gray-100
                             whitespace-nowrap
+                            tabindex-focus-nopadding
                         "
                         @click="writeComment()"
                     >

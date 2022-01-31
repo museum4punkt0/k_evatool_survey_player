@@ -2,6 +2,7 @@ export default {
     action_cancel: 'cancel',
     action_confirm: 'next',
     action_delete: 'Delete',
+    action_delete_comment: 'Are you sure?',
     action_save: 'save',
     action_yes: 'Yes',
     action_no: 'No',
@@ -17,6 +18,7 @@ export default {
     close_survey: 'close survey',
     comments: 'Comments | Comment | Comment',
     error: 'Problem found!',
+    feedback_text: 'Thank you for your review!',
     idle_text:
         'Thank you for looking. Here you can rate our content directly and thus ensure a better offer.',
     imprint: 'Imprint',

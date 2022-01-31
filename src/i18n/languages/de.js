@@ -2,6 +2,7 @@ export default {
     action_cancel: 'Abbrechen',
     action_confirm: 'weiter',
     action_delete: 'Löschen',
+    action_delete_comment: 'Sind sie sicher?',
     action_save: 'Speichern',
     action_yes: 'Ja',
     action_no: 'Nein',
@@ -18,6 +19,7 @@ export default {
     close_survey: 'Umfrage schließen',
     comments: 'Kommentare | Kommentar | Kommentar',
     error: 'Problem entdeckt!',
+    feedback_text: 'Danke für Ihre Bewertung!',
     idle_text:
         'Vielen Dank für’s Vorbeischauen. Hier kannst du unsere Inhalte direkt bewerten und somit für ein besseres Angebot sorgen.',
     imprint: 'Impressum',

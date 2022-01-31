@@ -4,7 +4,7 @@
             survey-content
             flex flex-wrap flex-col
             h-auto
-            my-8
+            py-8
             justify-center
             items-center
             overflow-scroll

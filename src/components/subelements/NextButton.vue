@@ -11,6 +11,7 @@
             pr-3
             bg-blue-700
             text-white
+            tabindex-focus
         "
         tabindex="0"
         @click="confirm"
