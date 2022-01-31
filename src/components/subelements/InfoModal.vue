@@ -12,8 +12,7 @@
             w-full
             flex
             justify-center
-            items-start
-            md:items-center
+            items-center
             pt-10
             md:pt-0
             pb-10
@@ -26,14 +25,12 @@
             class="
                 opacity-0
                 transform
-                top-1/4
-                -translate-y-3/4
                 scale-150
                 relative
                 w-10/12
                 md:w-1/2
-                h-1/4
-                md:h-1/4
+                h-1/2
+                md:h-1/2
                 bg-white
                 rounded
                 shadow-lg
@@ -75,7 +72,7 @@
             </div>
 
             <!-- body -->
-            <div class="w-full h-5/6 p-3 overflow-y-scroll">
+            <div class="w-full h-5/6 p-3 overflow-y-scroll flex items-center">
                 <div
                     v-if="type === 'swipe'"
                     class="w-full p-3 overflow-y-scroll"
@@ -245,5 +242,13 @@ export default {
 <style scoped>
 #modal_overlay_swipe {
     z-index: 999;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+.overflow-y-scroll {
+    scrollbar-width: none;
 }
 </style>

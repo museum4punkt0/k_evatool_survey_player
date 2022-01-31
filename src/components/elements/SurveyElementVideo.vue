@@ -247,7 +247,11 @@
 
                         <button
                             v-if="!commentDeleting"
+                            :disabled="!comment"
                             class="rounded px-2 py-1 tabindex-focus-nopadding"
+                            :class="
+                                comment ? 'text-black-600' : 'text-gray-600'
+                            "
                             @click="saveComment"
                         >
                             <check-circle-icon class="h-6 w-6 mr-2 inline" />
@@ -391,12 +395,31 @@ export default {
             console.log(time)
         }
 
-        const removeComment = (comment) => {
+        const removeComment = async (comment) => {
             let id = timelineObject.value.indexOf(comment)
-            timelineObject.value.splice(id, 1)
-            commentsCounter.value = timelineObject.value.filter(
-                (x) => x.type === 'comment',
-            )
+            if (id > -1) {
+                timelineObject.value.splice(id, 1)
+                await store.dispatch('surveyResults/sendSurveyResults', {
+                    surveyId: route.query.survey,
+                    data: {
+                        surveyStepId: props.content.id,
+                        resultValue: {
+                            text: comment.value,
+                        },
+
+                        uuid: props.surveyResults.uuid,
+                        resultLanguage: store.state.lang,
+                        timecode: convertTimeFull(
+                            videoPlayer.value.currentTime,
+                        ),
+                        deleted: true,
+                    },
+                })
+                console.log('deleted')
+                commentsCounter.value = timelineObject.value.filter(
+                    (x) => x.type === 'comment',
+                )
+            }
         }
         const editComment = (commentObj) => {
             console.log(comment)
@@ -421,9 +444,7 @@ export default {
 
         const deleteComment = () => {
             commentDeleting.value = true
-
             console.log(commentBoxObject.value)
-
             console.log(props.content)
         }
 
@@ -432,10 +453,11 @@ export default {
         }
 
         const confirmDelete = () => {
-            comment.value = ''
+            // comment.value = ''
 
             removeComment(commentBoxObject.value)
             commentDeleting.value = false
+            comment.value = ''
         }
 
         const toggleComment = () => {
