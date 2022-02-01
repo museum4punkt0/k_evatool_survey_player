@@ -7,8 +7,16 @@ export default {
         if (uuid) {
             url += '?uuid=' + uuid
         }
+
+        const headers = {}
+        if (store.state.isDemo === true) {
+            headers['X-Demo'] = true
+        }
+
         return axios
-            .get(url)
+            .get(url, {
+                headers,
+            })
             .then((response) => {
                 return response.data
             })
@@ -17,10 +25,9 @@ export default {
             })
     },
     async sendResults(surveySlug, data) {
-        let header = {}
-
+        const headers = {}
         if (store.state.isDemo === true) {
-            header = { 'X-Demo': true }
+            headers['X-Demo'] = true
         }
 
         const url =
@@ -31,7 +38,7 @@ export default {
 
         return axios
             .post(url, data, {
-                headers: header,
+                headers,
             })
             .then((res) => {
                 return { code: res.status, data: res }
