@@ -9,24 +9,32 @@
             v-if="!isSupported"
             :title="t('error')"
             :description="t('voice_recorder_not_supported')"
+            :aria-label="t('voice_recorder_not_supported')"
             color="red"
+            tabindex="0"
         />
         <custom-alert
             v-else-if="!micPermission && hasPermission === 'denied'"
             :title="t('error')"
             :description="t('voice_recorder_not_allowed')"
+            :aria-label="t('voice_recorder_not_allowed')"
             color="red"
+            tabindex="0"
         />
         <custom-alert
             v-else-if="!micPermission && hasPermission === 'ask'"
             :title="t('error')"
+            tabindex="0"
             :description="t('voice_recorder_not_allowed')"
+            :aria-label="t('voice_recorder_not_allowed')"
             color="yellow"
         />
         <custom-alert
             v-else-if="!micPermission && hasPermission === 'prompt'"
             :title="t('prompt')"
+            tabindex="0"
             :description="t('voice_recorder_prompt')"
+            :aria-label="t('voice_recorder_prompt')"
             color="yellow"
         />
         <template v-else>

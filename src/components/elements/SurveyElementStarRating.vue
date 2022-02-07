@@ -174,9 +174,9 @@ export default {
         }
 
         const getLabels = (labels) => {
-            let ariaLabel = t('aria_label_stars_neutral_from_to', [
-                props.content.params.numberOfStars,
-            ])
+            let ariaLabel = t('aria_label_stars_neutral_from_to', {
+                rating: props.content.params.numberOfStars,
+            })
             labels.forEach((label) => {
                 ariaLabel += ', ' + label[lang.value]
             })

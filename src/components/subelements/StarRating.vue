@@ -70,7 +70,9 @@ export default {
         const store = useStore()
         const { t } = useI18n()
         const getLabels = (labels) => {
-            let ariaLabel = t('aria_label_stars_from_to', [props.stars])
+            let ariaLabel = t('aria_label_stars_from_to', {
+                rating: props.stars,
+            })
             labels.forEach((label) => {
                 ariaLabel += ', ' + label[lang.value]
             })

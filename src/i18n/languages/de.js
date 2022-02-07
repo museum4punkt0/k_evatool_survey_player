@@ -11,15 +11,15 @@ export default {
     action_play_video: 'Video abspielen',
     action_audio_start_recording: 'Aufnahme starten',
     action_audio_stop_recording: 'Aufnahme beenden',
-    area_label_write_comment:
+    aria_label_write_comment:
         'Wenn diese Option ausgewählt ist, können Sie einen Kommentar zu dieser Option schreiben.',
     aria_label_next: 'Weiter-Button ist aktiv',
     aria_label_next_disabled:
         'Weiter-Button ist inaktiv. Die Frage wurde nicht beantwortet.',
     aria_label_stars_from_to:
-        'Sternebewertung mit Sternenanzahl von 0 bis {0} . Werte von links nach rechts.',
+        'Sternebewertung mit Sternenanzahl von 1 bis {rating} . Werte von links nach rechts.',
     aria_label_stars_neutral_from_to:
-        'Bewertung mit Werten von 0 bis {0} . Werte von links nach rechts.',
+        'Bewertung mit Werten von 1 bis {rating} . Werte von links nach rechts.',
     aria_label_school_grades: 'Schulnoten von 1 bis {grades}',
     audio_recording_confirmation_body:
         'Sie willigen hiermit in die Speicherung und Auswertung Ihrer Audioaufnahmen ein!',

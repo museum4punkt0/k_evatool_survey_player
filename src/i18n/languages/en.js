@@ -11,15 +11,15 @@ export default {
     action_play_video: 'play video',
     action_audio_start_recording: 'start recording',
     action_audio_stop_recording: 'stop recording',
-    area_label_write_comment:
+    aria_label_write_comment:
         'If this option is selected, you can write a comment about this option.',
     aria_label_next: 'Next button is active.',
     aria_label_next_disabled:
         'Next button is inactive. The question was not answered.',
     aria_label_stars_from_to:
-        'Star rating with number of stars from 0 to {0} . Values from left to right.',
+        'Star rating with number of stars from 1 to {rating} . Values from left to right.',
     aria_label_stars_neutral_from_to:
-        'Rating from 0 to {0} . Values from left to right.',
+        'Rating from 1 to {rating} . Values from left to right.',
     aria_label_school_grades: 'school grades from 1 to {grades}',
     audio_recording_confirmation_body:
         'You hereby consent to the storage and evaluation of your audio recordings!',

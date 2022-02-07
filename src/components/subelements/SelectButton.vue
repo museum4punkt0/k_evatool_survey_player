@@ -32,7 +32,7 @@
                     class="font-medium"
                     :aria-label="
                         commentable
-                            ? label + ' ' + t('area_label_write_comment')
+                            ? label + ' ' + t('aria_label_write_comment')
                             : label
                     "
                     :class="[

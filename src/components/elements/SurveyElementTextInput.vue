@@ -9,6 +9,7 @@
         v-model="text"
         class="bg-gray-50 w-10/12 text-gray-800 text-2xl p-2 m-1 animate__animated animate__fadeInUp box-border overflow-hidden border-0 outline-none resize-none tabindex-focus"
         :placeholder="t('write_comment_placeholder')"
+        :aria-label="t('write_comment_placeholder')"
         tabindex="0"
         @change="inputText"
     />
