@@ -14,7 +14,7 @@
             @keydown="toggleSelection(content.params.trueValue, $event)"
         >
             <label
-                class="pl-3 flex items-center rounded-md nav-button px-3 pr-3 text-white focus:outline-none animate__animated animate__fadeInUp tabindex-focus"
+                class="pl-3 flex items-center rounded-md nav-button p-2 pr-3 text-white focus:outline-none animate__animated animate__fadeInUp tabindex-focus"
                 :class="
                     selectedAnswer === content.params.trueValue
                         ? 'bg-blue-700'

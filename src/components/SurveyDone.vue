@@ -25,7 +25,9 @@ export default {
         const { t } = useI18n()
 
         onMounted(() => {
-            document.querySelector('h1').focus()
+            setTimeout(() => {
+                document.querySelector('h1').focus()
+            }, 1000)
         })
         return { t }
     },

@@ -168,6 +168,9 @@ export default {
             )
             if (surveyAvailable.status === 410) {
                 surveyNotAvailable.value = true
+                setTimeout(() => {
+                    document.querySelector('h2').focus()
+                }, 1000)
             }
             // check for uuid
             if (!localStorage.getItem('surveyUuid')) {
