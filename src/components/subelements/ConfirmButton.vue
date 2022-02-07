@@ -1,22 +1,14 @@
 <template>
-    <div class="">
+    <div
+        class="tabindex-focus-nopadding mt-5"
+        :aria-label="t('aria_label_next_disabled')"
+        :tabindex="disabled || !store.state.stepAnswering ? 0 : -1"
+    >
         <button
             type="button"
-            class="
-                confirm
-                flex
-                items-center
-                rounded-xl
-                nav-button
-                p-2
-                pr-3
-                mt-5
-                ml-1
-                bg-blue-700
-                text-white
-                tabindex-focus
-            "
+            class="confirm flex items-center rounded-xl nav-button p-2 pr-3 ml-1 bg-blue-700 text-white tabindex-focus"
             tabindex="0"
+            :aria-label="t('aria_label_next')"
             :aria-pressed="!store.state.stepAnswering"
             :disabled="disabled || !store.state.stepAnswering"
             :class="{

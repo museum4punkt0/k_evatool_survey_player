@@ -1,22 +1,11 @@
 <template>
     <div
-        class="
-            survey-header-menu
-            fixed
-            w-full
-            bg-white
-            flex
-            justify-between
-            items-center
-            px-5
-            py-2
-            z-50
-        "
+        class="survey-header-menu fixed w-full bg-white flex justify-between items-center px-5 py-2 z-50"
     >
         <div class="left-menu">
             <img
                 src="../assets/logo.svg"
-                class="inline tabindex-focus-nopadding"
+                class="inline rounded tabindex-focus-nopadding"
                 tabindex="0"
             />
         </div>
@@ -39,8 +28,12 @@
                 <div v-for="lang in languages" class="inline">
                     <button
                         tabindex="0"
-                        class="tabindex-focus-nopadding inline uppercase mx-2"
+                        class="tabindex-focus-nopadding rounded inline uppercase mx-2"
                         :class="{ active: currentLang === lang }"
+                        :aria-pressed="currentLang === lang"
+                        :aria-label="
+                            t('language') + ' ' + t('language_' + lang)
+                        "
                         @click="setLanguage(lang)"
                     >
                         {{ lang }}
@@ -48,14 +41,24 @@
                 </div>
             </div>
 
-            <button class="ml-4 md:mr-2 inline tabindex-focus-nopadding">
+            <button
+                class="ml-4 md:mr-2 inline rounded tabindex-focus-nopadding"
+                aria-label="Menu"
+                aria-pressed="false"
+            >
                 <menu-icon tabindex="0" class="h-6 w-6"></menu-icon>
             </button>
-            <button class="ml-4 md:mr-2 inline tabindex-focus-nopadding">
+            <button
+                class="ml-4 md:mr-2 inline rounded tabindex-focus-nopadding"
+                aria-label="Share"
+                aria-pressed="false"
+            >
                 <share-icon tabindex="0" class="h-6 w-6"></share-icon>
             </button>
             <button
-                class="ml-4 md:mr-2 hidden md:inline tabindex-focus-nopadding"
+                class="ml-4 md:mr-2 hidden md:inline rounded tabindex-focus-nopadding"
+                aria-label="Home"
+                aria-pressed="false"
             >
                 <home-icon tabindex="0" class="h-6 w-6 mx-2"></home-icon>
             </button>
@@ -89,6 +92,11 @@ export default {
             type: Array,
             default: null,
         },
+        languageNames: {
+            type: Array,
+            default: null,
+        },
+
         userLang: {
             type: Array,
             default: null,
@@ -111,6 +119,8 @@ export default {
         }
         onMounted(async () => {
             currentLang.value = await store.state.lang
+
+            console.log(store.state)
             i18n.locale.value = currentLang.value
         })
 

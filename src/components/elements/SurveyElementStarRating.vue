@@ -7,18 +7,18 @@
     <!--    {{ content.params }}-->
     <!--    grades-->
     <div v-if="content.params.displayType === 'grades'">
-        <div class="flex w-full justify-between mb-3 mt-5">
+        <div
+            class="flex w-full justify-between mb-3 mt-5"
+            tabindex="0"
+            :aria-label="
+                t('aria_label_school_grades', {
+                    grades: parseInt(content.params.numberOfStars),
+                })
+            "
+        >
             <label
                 v-for="note in 6"
-                class="
-                    inline-flex
-                    flex-col flex-wrap
-                    w-12
-                    mx-3
-                    items-center
-                    py-2
-                    tabindex-focus
-                "
+                class="inline-flex flex-col flex-wrap w-12 mx-3 items-center py-2 tabindex-focus"
                 role="radio"
                 :aria-checked="note === rating"
                 tabindex="0"
@@ -40,18 +40,14 @@
     <!--    neutral-->
     <div v-else-if="content.params.displayType === 'neutral'">
         <div class="mx-2">
-            <div class="flex w-full justify-between mb-3">
+            <div
+                class="flex w-full justify-between mb-3"
+                tabindex="0"
+                :aria-label="getLabels(labels)"
+            >
                 <label
                     v-for="note in parseInt(content.params.numberOfStars)"
-                    class="
-                        inline-flex
-                        flex-col flex-wrap
-                        w-12
-                        mx-3
-                        items-center
-                        py-2
-                        tabindex-focus
-                    "
+                    class="inline-flex flex-col flex-wrap w-12 mx-3 items-center py-2 tabindex-focus"
                     :aria-checked="note === rating"
                     tabindex="0"
                     @keydown="setKeyValue(note, $event)"
@@ -103,6 +99,7 @@ import { useStore } from 'vuex'
 import { onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import ConfirmButton from '../subelements/ConfirmButton.vue'
+import { useI18n } from 'vue-i18n'
 
 export default {
     name: 'SurveyElementStarRating',
@@ -135,6 +132,7 @@ export default {
         const route = useRoute()
         const labels = ref()
         const selectedNote = ref()
+        const { t } = useI18n()
         labels.value = [
             props.content.params.lowestValueLabel,
             props.content.params.middleValueLabel,
@@ -175,6 +173,17 @@ export default {
             console.log('setRating')
         }
 
+        const getLabels = (labels) => {
+            let ariaLabel = t('aria_label_stars_neutral_from_to', [
+                props.content.params.numberOfStars,
+            ])
+            labels.forEach((label) => {
+                ariaLabel += ', ' + label[lang.value]
+            })
+
+            return ariaLabel
+        }
+
         watch(
             () => rating.value,
             () => {
@@ -191,10 +200,13 @@ export default {
                 //rating.value = questionResults.resultByUuid.rating
             }
 
-            document.querySelector('h2').focus()
+            setTimeout(() => {
+                document.querySelector('h2').focus()
+            }, 1000)
         })
 
         return {
+            t,
             lang,
             labels,
             rating,
@@ -202,6 +214,7 @@ export default {
             setRating,
             nextStep,
             setKeyValue,
+            getLabels,
         }
     },
 }

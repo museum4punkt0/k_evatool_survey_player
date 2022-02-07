@@ -8,8 +8,19 @@ export default {
     action_no: 'No',
     action_next: 'Next',
     action_prev: 'Prev',
+    action_play_video: 'play video',
     action_audio_start_recording: 'start recording',
     action_audio_stop_recording: 'stop recording',
+    area_label_write_comment:
+        'If this option is selected, you can write a comment about this option.',
+    aria_label_next: 'Next button is active.',
+    aria_label_next_disabled:
+        'Next button is inactive. The question was not answered.',
+    aria_label_stars_from_to:
+        'Star rating with number of stars from 0 to {0} . Values from left to right.',
+    aria_label_stars_neutral_from_to:
+        'Rating from 0 to {0} . Values from left to right.',
+    aria_label_school_grades: 'school grades from 1 to {grades}',
     audio_recording_confirmation_body:
         'You hereby consent to the storage and evaluation of your audio recordings!',
     audio_recording_confirmation_header: 'Voicerecording Privacy',
@@ -23,9 +34,17 @@ export default {
         'Thank you for looking. Here you can rate our content directly and thus ensure a better offer.',
     imprint: 'Imprint',
     instruction: 'Instruction',
+    language: 'language {lang}',
+    language_de: 'German',
+    language_en: 'English',
+    language_fr: 'French',
+    language_it: 'Italian',
     languages: 'languages | language | languages',
     min_selectable: 'select at least { selectable }',
+    min_selectable_long: 'select at least { selectable }',
     max_selectable: 'select maximum { selectable }',
+    max_selectable_long: 'select maximum { selectable }',
+    min_max_selectable_from: 'of a total of { counter } options',
     new_uuid: 'New ID',
     steps: 'Steps | Step | Step',
     surveys: 'Surveys | Survey | Survey',

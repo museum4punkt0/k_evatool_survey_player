@@ -1,62 +1,30 @@
 <template>
     <div class="relative md:mx-auto md:w-full md:flex">
         <div
-            class="
-                sidebar sidebar-left
-                w-full
-                md:w-2/3
-                p-0
-                m-0
-                md:overflow-y-scroll
-                bg-white
-                md:bg-transparent
-                z-10
-            "
+            class="sidebar sidebar-left w-full md:w-2/3 p-0 m-0 md:overflow-y-scroll bg-white md:bg-transparent z-10"
         >
             <div
-                class="
-                    video-wrap
-                    bg-white
-                    overflow-hidden
-                    relative
-                    z-20
-                    h-full
-                    animate__animated animate__fadeInLeft
-                "
+                class="video-wrap bg-white overflow-hidden relative z-20 h-full animate__animated animate__fadeInLeft"
             >
                 <div
                     v-if="showQuestion"
-                    class="
-                        fixed
-                        w-screen
-                        h-screen
-                        bg-black
-                        opacity-50
-                        left-0
-                        top-0
-                        z-20
-                    "
+                    class="fixed w-screen h-screen bg-black opacity-50 left-0 top-0 z-20"
                 ></div>
                 <div
                     v-if="!started"
-                    class="
-                        absolute
-                        w-full
-                        h-full
-                        bg-black
-                        opacity-50
-                        left-0
-                        top-0
-                        z-20
-                        flex
-                        items-center
-                        justify-center
-                    "
-                    @click="start"
+                    class="absolute w-full h-full bg-black opacity-50 left-0 top-0 z-20 flex items-center justify-center"
                 >
-                    <play-icon
-                        class="w-16 h-16 xl:h-32 xl:w-32 z-10 inline text-white"
-                    ></play-icon>
+                    <div
+                        tabindex="0"
+                        :aria-label="t('action_play_video')"
+                        class="tabindex-focus-nopadding"
+                        @click="start"
+                        @keydown="start"
+                    >
+                        <play-icon
+                            class="w-16 h-16 xl:h-32 xl:w-32 z-10 inline text-white"
+                        ></play-icon>
+                    </div>
                 </div>
 
                 <!--              src="https://evatool-backend.twoavy.com/evaluation-tool/kultueroeffner_buchbindewerkstatt_gekuerzt.mp4#t=0,67"-->
@@ -79,21 +47,7 @@
 
                 <div
                     v-if="showQuestion || showFeedback"
-                    class="
-                        md:absolute
-                        bg-white
-                        w-11/12
-                        h-5/6
-                        md:w-2/3 md:h-2/3
-                        top-1/2
-                        left-1/2
-                        transform
-                        -translate-x-1/2 -translate-y-1/2
-                        md:-translate-y-2/3
-                        xl:z-30
-                        z-50
-                        fixed
-                    "
+                    class="md:absolute bg-white w-11/12 h-5/6 md:w-2/3 md:h-2/3 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 md:-translate-y-2/3 xl:z-30 z-50 fixed"
                 >
                     <ModalContent
                         v-if="showQuestion"
@@ -133,19 +87,7 @@
             </div>
             <!--            ToDo: move to component-->
             <div
-                class="
-                    left-1/2
-                    -translate-x-1/2
-                    inline-block
-                    text-center
-                    comments
-                    border-2 border-blue-800
-                    bg-white
-                    w-full
-                    md:w-4/5
-                    z-10
-                    relative
-                "
+                class="left-1/2 -translate-x-1/2 inline-block text-center comments border-2 border-blue-800 bg-white w-full md:w-4/5 z-10 relative"
                 :class="[
                     { 'slideDown my-3': commentBox },
                     { 'h-0 hidden': !commentBox },
@@ -161,14 +103,7 @@
                     <textarea
                         v-model="comment"
                         type="text"
-                        class="
-                            textarea
-                            px-5
-                            pt-2
-                            text-left text-xs
-                            w-full
-                            focus:outline-none
-                        "
+                        class="textarea px-5 pt-2 text-left text-xs w-full focus:outline-none"
                         :placeholder="t('write_video_comment_placeholder')"
                     />
                 </div>
@@ -199,26 +134,14 @@
                             {{ t('action_delete_comment') }}
                         </p>
                         <button
-                            class="
-                                mr-2
-                                px-2
-                                py-1
-                                rounded
-                                tabindex-focus-nopadding
-                            "
+                            class="mr-2 px-2 py-1 rounded tabindex-focus-nopadding"
                             @click="confirmDelete"
                         >
                             <check-circle-icon class="h-6 w-6 inline" />
                             {{ t('action_yes') }}
                         </button>
                         <button
-                            class="
-                                mr-2
-                                px-2
-                                py-1
-                                rounded
-                                tabindex-focus-nopadding
-                            "
+                            class="mr-2 px-2 py-1 rounded tabindex-focus-nopadding"
                             @click="cancelDelete"
                         >
                             <x-circle-icon class="h-6 w-6 inline" />
@@ -262,15 +185,7 @@
             </div>
         </div>
         <div
-            class="
-                sidebar sidebar-right
-                w-full
-                md:w-1/3 md:mx-4
-                h-full
-                md:overflow-y-scroll
-                relative
-                animate__animated animate__fadeInRight
-            "
+            class="sidebar sidebar-right w-full md:w-1/3 md:mx-4 h-full md:overflow-y-scroll relative animate__animated animate__fadeInRight"
         >
             <!--          pb-36-->
             <TimeLine

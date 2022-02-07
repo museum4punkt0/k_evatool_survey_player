@@ -1,16 +1,6 @@
 <template>
     <div
-        class="
-            flex
-            pt-24
-            pb-16
-            my-5
-            flex-wrap
-            justify-center
-            items-center
-            w-full
-            h-10/12
-        "
+        class="flex pt-24 pb-16 my-5 flex-wrap justify-center items-center w-full h-10/12"
     >
         <h2
             class="tabindex-focus pb-5 animate__animated animate__fadeInDown"
@@ -30,19 +20,7 @@
             <div class="inline flex mt-5">
                 <button
                     type="button"
-                    class="
-                        confirm
-                        flex
-                        items-center
-                        rounded-md
-                        nav-button
-                        p-2
-                        pr-5
-                        mt-5
-                        mr-3
-                        text-white
-                        tabindex-focus
-                    "
+                    class="confirm flex items-center rounded-md nav-button p-2 pr-5 mt-5 mr-3 text-white tabindex-focus"
                     :class="!isLastCard ? 'bg-blue-700' : 'bg-gray-400'"
                     :disabled="isLastCard"
                     @click.prevent.stop="setAnswer(0)"
@@ -55,19 +33,7 @@
                 </button>
                 <button
                     type="button"
-                    class="
-                        confirm
-                        flex
-                        items-center
-                        rounded-md
-                        nav-button
-                        p-2
-                        pr-5
-                        mt-5
-                        ml-3
-                        text-white
-                        tabindex-focus
-                    "
+                    class="confirm flex items-center rounded-md nav-button p-2 pr-5 mt-5 ml-3 text-white tabindex-focus"
                     :class="!isLastCard ? 'bg-blue-700' : 'bg-gray-400'"
                     :disabled="isLastCard"
                     @click.prevent.stop="setAnswer(1)"
@@ -183,7 +149,9 @@ export default {
         }
 
         onMounted(() => {
-            document.querySelector('h2').focus()
+            setTimeout(() => {
+                document.querySelector('h2').focus()
+            }, 1000)
         })
 
         return {

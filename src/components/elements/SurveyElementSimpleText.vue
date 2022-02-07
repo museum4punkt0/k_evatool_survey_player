@@ -1,12 +1,7 @@
 <template>
     <div class="px-5">
         <h2
-            class="
-                tabindex-focus
-                pb-5
-                m-1
-                animate__animated animate__fadeInDown
-            "
+            class="tabindex-focus pb-5 m-1 animate__animated animate__fadeInDown"
             tabindex="0"
             v-html="content.params.text[lang]"
         ></h2>
@@ -82,7 +77,9 @@ export default {
 
         onMounted(() => {
             store.dispatch('setStepAnswering', true)
-            document.querySelector('h2').focus()
+            setTimeout(() => {
+                document.querySelector('h2').focus()
+            }, 1000)
         })
 
         return {

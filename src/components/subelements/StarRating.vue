@@ -1,9 +1,15 @@
 <template>
     <div class="flex flex-col w-10/12 xl:w-full">
-        <div class="flex w-full justify-between mb-3">
+        <div
+            class="flex w-full justify-between mb-3"
+            role="tablist"
+            tabindex="0"
+            :aria-label="getLabels(labels)"
+        >
             <button
                 v-for="i in parseInt(stars)"
                 :key="i"
+                :aria-label="i + ' von ' + stars"
                 type="button"
                 :class="{ 'mr-1': i < stars }"
                 role="button"
@@ -36,6 +42,7 @@ import { StarIcon } from '@heroicons/vue/outline'
 import { CheckCircleIcon } from '@heroicons/vue/outline'
 import { computed, ref } from 'vue'
 import { useStore } from 'vuex'
+import { useI18n } from 'vue-i18n'
 
 export default {
     name: 'StarRating',
@@ -61,6 +68,16 @@ export default {
     setup(props, { emit }) {
         const rating = ref()
         const store = useStore()
+        const { t } = useI18n()
+        const getLabels = (labels) => {
+            let ariaLabel = t('aria_label_stars_from_to', [props.stars])
+            labels.forEach((label) => {
+                ariaLabel += ', ' + label[lang.value]
+            })
+
+            return ariaLabel
+        }
+
         const setRating = (i) => {
             rating.value = i
             emit('input', i)
@@ -70,10 +87,10 @@ export default {
         })
 
         /*const confirm = (i) => {
-    emit('input', i)
+emit('input', i)
 }*/
 
-        return { rating, lang, store, setRating }
+        return { t, rating, lang, store, setRating, getLabels }
     },
 }
 </script>

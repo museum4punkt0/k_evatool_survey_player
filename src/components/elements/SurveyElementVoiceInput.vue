@@ -2,12 +2,7 @@
     <div class="flex flex-wrap flex-col">
         <h2
             tabindex="0"
-            class="
-                tabindex-focus
-                m-1
-                pb-5
-                animate__animated animate__fadeInDown
-            "
+            class="tabindex-focus m-1 pb-5 animate__animated animate__fadeInDown"
             v-html="content.params.question[lang]"
         ></h2>
         <custom-alert
@@ -47,27 +42,14 @@
                 <div
                     v-if="recordedTime < 0"
                     tabindex="0"
-                    class="
-                        m-1
-                        tabindex-focus
-                        bg-transparent
-                        w-3/4
-                        text-gray-400 text-xl
-                        focus:outline-none
-                    "
+                    class="m-1 tabindex-focus bg-transparent w-3/4 text-gray-400 text-xl focus:outline-none"
                 >
                     {{ $t('voice_recorder_placeholder') }}
                 </div>
 
                 <div
                     v-else
-                    class="
-                        flex
-                        bg-transparent
-                        text-red-700 text-3xl
-                        focus:outline-none
-                        items-center
-                    "
+                    class="flex bg-transparent text-red-700 text-3xl focus:outline-none items-center"
                 >
                     <div tabindex="0" class="ml-1 tabindex-focus">
                         {{ convertTime(recordedTime) }}
@@ -87,17 +69,7 @@
                     <button
                         type="button"
                         tabindex="0"
-                        class="
-                            confirm
-                            flex
-                            items-center
-                            rounded-xl
-                            nav-button
-                            p-2
-                            mt-5
-                            bg-gray-200
-                            tabindex-focus
-                        "
+                        class="confirm flex items-center rounded-xl nav-button p-2 mt-5 bg-gray-200 tabindex-focus"
                         :class="[
                             { 'bg-red-600 text-white-900': recording },
                             { 'text-gray-900': !recording },
@@ -125,18 +97,7 @@
                     </button>
                     <button
                         v-if="!recording && recordedTime > -1"
-                        class="
-                            confirm
-                            flex
-                            items-center
-                            rounded-xl
-                            nav-button
-                            p-2
-                            mt-5
-                            ml-4
-                            bg-gray-200
-                            tabindex-focus
-                        "
+                        class="confirm flex items-center rounded-xl nav-button p-2 mt-5 ml-4 bg-gray-200 tabindex-focus"
                         @click="deleteAudio"
                     >
                         <trash-icon class="h-6 w-6 mr-2 inline text-grey-600" />
@@ -333,7 +294,9 @@ export default {
             // let questionResults = props.surveyResults
             // console.log(questionResults)
             askForMicrophonePermission()
-            document.querySelector('h2').focus()
+            setTimeout(() => {
+                document.querySelector('h2').focus()
+            }, 1000)
 
             modalboxOpen.value =
                 window.localStorage.getItem('surveyVoiceRecording') !==

@@ -3,16 +3,7 @@
     <!--    {{ surveyResults }}-->
     <div
         v-if="content?.surveyElementType !== 'video'"
-        class="
-            survey-content
-            flex flex-wrap
-            xl:flex-col
-            md:h-full md:mt-0
-            justify-center
-            items-center
-            h-full
-            overflow-scroll
-        "
+        class="survey-content flex flex-wrap xl:flex-col md:h-full md:mt-0 justify-center items-center h-full overflow-scroll"
     >
         <!--        :class="{-->
         <!--        ' xl:pt-0 overflow-y-scroll flex-col':-->
@@ -20,7 +11,7 @@
         <!--        ' xl:pt-72': content && content.surveyElementType === 'yayNay',-->
         <!--        }"-->
         <div
-            class="flex flex-wrap items-start w-full pb-24 xl:mt-0 xl:w-1/3"
+            class="flex flex-wrap items-start w-full pb-24 xl:mt-0 xl:w-1/3 md:mt-0 md:w-1/2"
             :class="{
                 ' xl:pt-0 overflow-y-scroll flex-col':
                     content && content.surveyElementType !== 'yayNay',
@@ -105,16 +96,7 @@
     </div>
     <div
         v-if="content && content.surveyElementType === 'video'"
-        class="
-            bg-gray-200
-            font-sans
-            h-full
-            w-full
-            md:flex
-            flex-col
-            justify-center
-            items-center
-        "
+        class="bg-gray-200 font-sans h-full w-full md:flex flex-col justify-center items-center"
     >
         <SurveyElementVideo
             :content="content"

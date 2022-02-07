@@ -5,14 +5,7 @@
         v-html="content.params.question[lang]"
     ></h2>
     <div
-        class="
-            flex
-            mb-2
-            ml-1
-            justify-center
-            items-center
-            animate__animated animate__fadeInUp
-        "
+        class="flex mb-2 ml-1 justify-center items-center animate__animated animate__fadeInUp"
         role="radiogroup"
     >
         <div
@@ -129,7 +122,9 @@ export default {
             // else {
             //     result.value = questionResults.resultByUuid.meaning
             // }
-            document.querySelector('h2').focus()
+            setTimeout(() => {
+                document.querySelector('h2').focus()
+            }, 1000)
         })
 
         return {

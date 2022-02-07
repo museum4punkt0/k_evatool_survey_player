@@ -3,69 +3,27 @@
     <div
         id="modal_overlay_swipe"
         ref="modal_overlay_swipe"
-        class="
-            hidden
-            fixed
-            inset-0
-            bg-black bg-opacity-30
-            h-screen
-            w-full
-            flex
-            justify-center
-            items-center
-            pt-10
-            md:pt-0
-            pb-10
-        "
+        class="hidden fixed inset-0 bg-black bg-opacity-30 h-screen w-full flex justify-center items-center pt-10 md:pt-0 pb-10"
     >
         <!-- modal -->
         <div
             id="modal_swipe"
             ref="modal_swipe"
-            class="
-                opacity-0
-                transform
-                scale-150
-                relative
-                w-10/12
-                md:w-1/2
-                h-1/2
-                md:h-1/2
-                bg-white
-                rounded
-                shadow-lg
-                transition-opacity transition-transform
-                duration-300
-            "
+            class="opacity-0 transform scale-150 relative w-10/12 md:w-1/2 h-1/2 md:h-1/2 bg-white rounded shadow-lg transition-opacity transition-transform duration-300"
         >
             <!-- header -->
             <div class="px-4 py-3 border-b border-gray-200">
                 <h2
                     v-if="type === 'swipe'"
                     tabindex="0"
-                    class="
-                        tabindex-focus
-                        instruction
-                        text-2xl
-                        w-auto
-                        inline
-                        font-semibold
-                        text-gray-600
-                    "
+                    class="tabindex-focus instruction text-2xl w-auto inline font-semibold text-gray-600"
                 >
                     {{ $t('instruction') }}
                 </h2>
                 <h2
                     v-if="type === 'audio'"
                     tabindex="0"
-                    class="
-                        tabindex-focus
-                        instruction
-                        text-xl
-                        inline
-                        font-semibold
-                        text-gray-600
-                    "
+                    class="tabindex-focus instruction text-xl inline font-semibold text-gray-600"
                 >
                     {{ $t('audio_recording_confirmation_header') }}
                 </h2>
@@ -89,21 +47,7 @@
                     <!-- button close -->
                     <button
                         v-if="type === 'swipe'"
-                        class="
-                            modal_close_btn
-                            absolute
-                            -top-3
-                            -right-3
-                            bg-red-500
-                            hover:bg-red-600
-                            text-2xl
-                            w-10
-                            h-10
-                            rounded-full
-                            focus:outline-none
-                            text-white
-                            tabindex-focus-nopadding
-                        "
+                        class="modal_close_btn absolute -top-3 -right-3 bg-red-500 hover:bg-red-600 text-2xl w-10 h-10 rounded-full focus:outline-none text-white tabindex-focus-nopadding"
                         tabindex="0"
                         @click="openSwipeModal(false)"
                     >
@@ -122,25 +66,7 @@
                     <!-- button confirm -->
                     <button
                         v-if="type === 'audio'"
-                        class="
-                            mt-4
-                            modal_close_btn
-                            relative
-                            bg-blue-700
-                            hover:bg-blue-700
-                            text-2xl
-                            left-1/2
-                            -translate-x-1/2
-                            w-auto
-                            flex
-                            items-center
-                            py-1
-                            px-4
-                            rounded-xl
-                            focus:outline-none
-                            text-white
-                            tabindex-focus
-                        "
+                        class="mt-4 modal_close_btn relative bg-blue-700 hover:bg-blue-700 text-2xl left-1/2 -translate-x-1/2 w-auto flex items-center py-1 px-4 rounded-xl focus:outline-none text-white tabindex-focus"
                         tabindex="0"
                         @click="openSwipeModal(false)"
                     >
@@ -198,7 +124,10 @@ export default {
                     modalCl.remove('-translate-y-full')
                     modalCl.remove('scale-150')
                 }, 100)
-                document.querySelector('.instruction').focus()
+
+                setTimeout(() => {
+                    document.querySelector('.instruction').focus()
+                }, 1000)
             } else {
                 modalCl.add('-translate-y-full')
                 setTimeout(() => {
@@ -207,13 +136,16 @@ export default {
                 }, 100)
                 setTimeout(() => overlayCl.classList.add('hidden'), 300)
                 emit('close-swipe-modal')
-                document.querySelector('h2').focus()
+                setTimeout(() => {
+                    document.querySelector('h2').focus()
+                }, 1000)
             }
         }
 
         onMounted(() => {
-            document.querySelector('.instruction').focus()
-
+            setTimeout(() => {
+                document.querySelector('.instruction').focus()
+            }, 1000)
             if (props.openModal) {
                 openSwipeModal(true)
             }

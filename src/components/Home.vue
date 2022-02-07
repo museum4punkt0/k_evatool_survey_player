@@ -3,6 +3,7 @@
         <div class="survey-header-menu top-0 fixed w-screen z-50 bg-white">
             <header-menu
                 :languages="languages"
+                :language-names="languageNames"
                 :user-lang="userLang"
             ></header-menu>
 
@@ -11,19 +12,7 @@
         <IdleScreen v-if="idle" @start="idle = false"></IdleScreen>
         <div
             v-else-if="surveyNotAvailable"
-            class="
-                survey-not-available
-                flex
-                items-center
-                justify-center
-                xl:mx-5
-                pt-24
-                pb-16
-                px-4
-                w-full
-                h-full
-                z-40
-            "
+            class="survey-not-available flex items-center justify-center xl:mx-5 pt-24 pb-16 px-4 w-full h-full z-40"
         >
             <h2 tabindex="0" class="text-center">
                 {{ $t('survey_not_available') }}
@@ -94,6 +83,8 @@ export default {
         const idle = ref(false)
         const surveyStep = ref()
         const languages = ref()
+        const languageNames = ref()
+
         const surveyNotAvailable = ref(false)
 
         backlink.value = document.referer ? document.referer : '/'
@@ -191,6 +182,9 @@ export default {
                 store.state.surveyResults.surveyUuidResults.survey.languages
             console.log(languages.value)
 
+            languageNames.value =
+                store.state.surveyResults.surveyUuidResults.survey.languageNames
+
             // set User Language
             userLang.value = localStorage.getItem('surveyUserLanguage')
             // console.log(userLang.value)
@@ -259,6 +253,7 @@ export default {
             nextSurvey,
             currentStep,
             languages,
+            languageNames,
             surveyNotAvailable,
             nextStep,
             prevStep,

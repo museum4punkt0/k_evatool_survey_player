@@ -1,19 +1,7 @@
 <template>
     <div class="flex">
         <div
-            class="
-                relative
-                flex
-                items-center
-                py-4
-                px-7
-                mb-3
-                bg-white
-                rounded-xl
-                w-auto
-                ml-1
-                tabindex-focus
-            "
+            class="relative flex items-center py-4 px-7 mb-3 bg-white rounded-xl w-auto ml-1 tabindex-focus"
             role="checkbox"
             :aria-checked="selected"
             tabindex="0"
@@ -42,6 +30,11 @@
                 <!--            whitespace-nowrap-->
                 <label
                     class="font-medium"
+                    :aria-label="
+                        commentable
+                            ? label + ' ' + t('area_label_write_comment')
+                            : label
+                    "
                     :class="[
                         selected ? 'text-blue-700' : 'text-gray-700',
                         disabled
@@ -49,7 +42,7 @@
                             : 'cursor-pointer',
                     ]"
                 >
-                    {{ label }}
+                    <div role="option">{{ label }}</div>
                 </label>
             </div>
         </div>
@@ -58,7 +51,7 @@
 
 <script>
 import { CheckIcon } from '@heroicons/vue/outline'
-
+import { useI18n } from 'vue-i18n'
 export default {
     name: 'SelectButton',
     components: {
@@ -77,10 +70,26 @@ export default {
             type: String,
             default: '',
         },
+        labels: {
+            type: Number,
+            default: 1,
+        },
+        index: {
+            type: Number,
+            default: 1,
+        },
         disabled: {
             type: Boolean,
             default: false,
         },
+        commentable: {
+            type: Boolean,
+            default: false,
+        },
+    },
+    setup() {
+        const { t } = useI18n()
+        return { t }
     },
     methods: {
         toggleSelection(event) {

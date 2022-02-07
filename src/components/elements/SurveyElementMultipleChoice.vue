@@ -1,17 +1,33 @@
 <template>
     <div class="p-2">
         <h2
-            class="
-                tabindex-focus
-                my-5
-                m-1
-                text-gray-900
-                animate__animated animate__fadeInDown
-            "
+            class="tabindex-focus my-5 m-1 text-gray-900 animate__animated animate__fadeInDown"
             tabindex="0"
             v-html="surveyResults.params.question[store.state.lang]"
         ></h2>
-        <div class="mt-2">
+        <!--      :aria-label="-->
+        <!--      'Selectbox mit' +-->
+        <!--      surveyResults.params.options.length +-->
+        <!--      'Antworten.'-->
+        <!--      "-->
+        <!--      tabindex="0"-->
+        <div
+            class="mt-2"
+            tabindex="0"
+            :aria-label="
+                t('min_selectable_long', {
+                    selectable: surveyResults.params.minSelectable,
+                }) +
+                ',' +
+                t('max_selectable_long', {
+                    selectable: surveyResults.params.maxSelectable,
+                }) +
+                ' ' +
+                t('min_max_selectable_from', {
+                    counter: surveyResults.params.options.length,
+                })
+            "
+        >
             <template
                 v-for="(option, index) in surveyResults.params.options"
                 :key="'selection-button-' + index"
@@ -22,10 +38,14 @@
                             (x) => x.value === option.value,
                         ) >= 0
                     "
+                    role="option"
                     :disabled="disabled(option.value)"
                     :value="option.value"
                     :label="option.labels[store.state.lang]"
+                    :index="index"
+                    :labels="surveyResults.params.options.length"
                     class="animate__animated animate__fadeInUp"
+                    :commentable="option.commentable"
                     @selected="changeValue(option)"
                 />
 
@@ -39,19 +59,7 @@
                     <input
                         v-model="option.comment"
                         type="text"
-                        class="
-                            w-full
-                            border-2 border-blue-600 border-black
-                            rounded-lg
-                            text-gray-900
-                            py-2
-                            px-7
-                            bg-white
-                            rounded-xl
-                            mb-3
-                            ml-1
-                            tabindex-focus
-                        "
+                        class="w-full border-2 border-blue-600 border-black rounded-lg text-gray-900 py-2 px-7 bg-white rounded-xl mb-3 ml-1 tabindex-focus"
                         tabindex="0"
                         :placeholder="t('write_comment_placeholder')"
                         @input="changeComment(option)"
@@ -60,11 +68,7 @@
             </template>
         </div>
         <p
-            class="
-                ml-1
-                text-gray-700
-                animate__animated animate__fadeIn animate__delay-1s
-            "
+            class="ml-1 text-gray-700 animate__animated animate__fadeIn animate__delay-1s"
         >
             {{
                 t('min_selectable', {
@@ -73,11 +77,7 @@
             }}
         </p>
         <p
-            class="
-                ml-1
-                text-gray-700
-                animate__animated animate__fadeIn animate__delay-1s
-            "
+            class="ml-1 text-gray-700 animate__animated animate__fadeIn animate__delay-1s"
         >
             {{
                 t('max_selectable', {
@@ -225,7 +225,9 @@ export default {
 
         onMounted(() => {
             getResults()
-            document.querySelector('h2').focus()
+            setTimeout(() => {
+                document.querySelector('h2').focus()
+            }, 1000)
         })
 
         return {
