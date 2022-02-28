@@ -64,6 +64,7 @@ export default {
     questions_answered: 'Questions answered',
     swipe_instructions:
         'Drag the image to the left to reply "{0}" or drag the image to the right to reply "{1}". You can also use the "{0}" and "{1}" buttons below the image.',
+    tooltip_answer_first:'Please answer the questions!',
     view_edit: 'view & edit',
     voice_recorder_placeholder:
         'Click on the microphone to start an audio recording. ',

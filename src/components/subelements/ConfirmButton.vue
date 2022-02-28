@@ -1,5 +1,7 @@
 <template>
     <div
+        style="display: inline-block;"
+        v-tippy="disabled?{ content: t('tooltip_answer_first') }:''"
         class="tabindex-focus-nopadding mt-5"
         :aria-label="t('aria_label_next_disabled')"
         :tabindex="disabled || !store.state.stepAnswering ? 0 : -1"
