@@ -7,7 +7,7 @@
             tabindex="0"
             :class="[
                 selected
-                    ? 'border-blue-700 border-2'
+                    ? 'border-blue-900 border-2'
                     : 'border-gray-900 border-2',
                 disabled ? 'cursor-not-allowed select-none' : 'cursor-pointer',
             ]"
@@ -19,7 +19,7 @@
                     class="h-6 w-6 rounded"
                     :class="
                         selected
-                            ? 'border-blue-700 border-2 bg-blue-700'
+                            ? 'border-blue-900 border-2 bg-blue-900'
                             : 'border-gray-900 border-2'
                     "
                 >
@@ -36,7 +36,7 @@
                             : label
                     "
                     :class="[
-                        selected ? 'text-blue-700' : 'text-gray-700',
+                        selected ? 'text-blue-900' : 'text-gray-700',
                         disabled
                             ? 'cursor-not-allowed select-none'
                             : 'cursor-pointer',

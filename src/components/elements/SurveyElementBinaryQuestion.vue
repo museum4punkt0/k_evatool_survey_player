@@ -17,7 +17,7 @@
                 class="pl-3 flex items-center rounded-md nav-button p-2 pr-3 text-white focus:outline-none animate__animated animate__fadeInUp tabindex-focus"
                 :class="
                     selectedAnswer === content.params.trueValue
-                        ? 'bg-blue-700'
+                        ? 'bg-blue-900'
                         : 'bg-blue-400'
                 "
                 :for="'answer-1'"
@@ -42,10 +42,10 @@
             @keydown="toggleSelection(content.params.falseValue, $event)"
         >
             <label
-                class="pl-3 flex items-center rounded-md nav-button p-2 pr-3 bg-blue-700 text-white focus:outline-none animate__animated animate__fadeInUp"
+                class="pl-3 flex items-center rounded-md nav-button p-2 pr-3 bg-blue-900 text-white focus:outline-none animate__animated animate__fadeInUp"
                 :class="
                     selectedAnswer === content.params.falseValue
-                        ? 'bg-blue-700'
+                        ? 'bg-blue-900'
                         : 'bg-blue-400'
                 "
                 :for="'answer-2'"
