@@ -6,40 +6,42 @@
     ></h2>
     <!--    {{ content.params }}-->
     <!--    grades-->
-    <div v-if="content.params.displayType === 'grades'">
-        <div
-            class="flex w-full justify-between mb-3 mt-5"
-            tabindex="0"
-            :aria-label="
-                t('aria_label_school_grades', {
-                    grades: parseInt(content.params.numberOfStars),
-                })
-            "
-        >
-            <label
-                v-for="note in 6"
-                class="inline-flex flex-col flex-wrap w-12 mx-3 items-center py-2 tabindex-focus"
-                role="radio"
-                :aria-checked="note === rating"
+    <div v-if="content.params.displayType === 'grades'" class="w-full">
+        <div class="px-2 w-full">
+            <div
+                class="flex w-full justify-between mb-3 mt-5"
                 tabindex="0"
-                @keydown="setKeyValue(note, $event)"
+                :aria-label="
+                    t('aria_label_school_grades', {
+                        grades: parseInt(content.params.numberOfStars),
+                    })
+                "
             >
-                <input
-                    v-model="selectedNote"
-                    type="radio"
-                    class="form-radio"
-                    name="accountType"
-                    :value="note"
-                    tabindex="-1"
-                    @change="setRating(note)"
-                />
-                <span class="mt-2">{{ note }}</span>
-            </label>
+                <label
+                    v-for="note in 6"
+                    class="inline-flex flex-col flex-wrap items-center py-2 tabindex-focus"
+                    role="radio"
+                    :aria-checked="note === rating"
+                    tabindex="0"
+                    @keydown="setKeyValue(note, $event)"
+                >
+                    <input
+                        v-model="selectedNote"
+                        type="radio"
+                        class="form-radio"
+                        name="accountType"
+                        :value="note"
+                        tabindex="-1"
+                        @change="setRating(note)"
+                    />
+                    <span class="mt-2">{{ note }}</span>
+                </label>
+            </div>
         </div>
     </div>
     <!--    neutral-->
-    <div v-else-if="content.params.displayType === 'neutral'">
-        <div class="mx-2">
+    <div v-else-if="content.params.displayType === 'neutral'" class="w-full">
+        <div class="px-2 w-full">
             <div
                 class="flex w-full justify-between mb-3"
                 tabindex="0"
@@ -47,9 +49,15 @@
             >
                 <label
                     v-for="note in parseInt(content.params.numberOfStars)"
-                    class="inline-flex flex-col flex-wrap w-12 mx-3 items-center py-2 tabindex-focus"
+                    class="inline-flex flex-col flex-wrap items-center py-2 tabindex-focus"
                     :aria-checked="note === rating"
                     tabindex="0"
+                    role="radio"
+                    :aria-label="
+                        note +
+                        t('aria_label_of') +
+                        parseInt(content.params.numberOfStars)
+                    "
                     @keydown="setKeyValue(note, $event)"
                 >
                     <input
@@ -67,6 +75,7 @@
                 <p
                     v-for="(label, index) in labels"
                     :key="'emoji-label-' + index"
+                    class="emoji-label"
                 >
                     {{ label[lang] }}
                 </p>
@@ -219,4 +228,20 @@ export default {
     },
 }
 </script>
-<style scoped></style>
+<style scoped>
+.emoji-label {
+    flex-basis: 100%;
+}
+
+.emoji-label:nth-child(1) {
+    text-align: left;
+}
+
+.emoji-label:nth-child(2) {
+    text-align: center;
+}
+
+.emoji-label:nth-child(3) {
+    text-align: right;
+}
+</style>

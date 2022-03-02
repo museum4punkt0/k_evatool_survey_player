@@ -11,11 +11,12 @@ export default {
     action_play_video: 'play video',
     action_audio_start_recording: 'start recording',
     action_audio_stop_recording: 'stop recording',
+    aria_label_of: ' out of ',
     aria_label_write_comment:
         'If this option is selected, you can write a comment about this option.',
     aria_label_next: 'Next button is active.',
     aria_label_next_disabled:
-        'Next button is inactive. The question was not answered.',
+        'Next button is inactive. The question was not answered. Please answer the question!',
     aria_label_stars_from_to:
         'Star rating with number of stars from 1 to {rating} . Values from left to right.',
     aria_label_stars_neutral_from_to:
@@ -64,7 +65,7 @@ export default {
     questions_answered: 'Questions answered',
     swipe_instructions:
         'Drag the image to the left to reply "{0}" or drag the image to the right to reply "{1}". You can also use the "{0}" and "{1}" buttons below the image.',
-    tooltip_answer_first:'Please answer the questions!',
+    tooltip_answer_first: 'Please answer the question!',
     view_edit: 'view & edit',
     voice_recorder_placeholder:
         'Click on the microphone to start an audio recording. ',
