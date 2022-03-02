@@ -21,7 +21,7 @@
                 <button
                     type="button"
                     class="confirm flex items-center rounded-md nav-button p-2 pr-5 mt-5 mr-3 text-white tabindex-focus"
-                    :class="!isLastCard ? 'bg-blue-700' : 'bg-gray-400'"
+                    :class="!isLastCard ? 'bg-blue-900' : 'bg-gray-400'"
                     :disabled="isLastCard"
                     @click.prevent.stop="setAnswer(0)"
                 >
@@ -34,7 +34,7 @@
                 <button
                     type="button"
                     class="confirm flex items-center rounded-md nav-button p-2 pr-5 mt-5 ml-3 text-white tabindex-focus"
-                    :class="!isLastCard ? 'bg-blue-700' : 'bg-gray-400'"
+                    :class="!isLastCard ? 'bg-blue-900' : 'bg-gray-400'"
                     :disabled="isLastCard"
                     @click.prevent.stop="setAnswer(1)"
                 >

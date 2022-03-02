@@ -12,7 +12,7 @@
     >
         <button
             type="button"
-            class="confirm flex items-center rounded-xl nav-button p-2 pr-3 ml-1 bg-blue-700 text-white tabindex-focus"
+            class="confirm flex items-center rounded-xl nav-button p-2 pr-3 ml-1 bg-blue-900 text-white tabindex-focus"
             tabindex="0"
             :aria-label="t('aria_label_next')"
             :aria-pressed="!store.state.stepAnswering"

@@ -3,18 +3,7 @@
         style="display: inline-block;"
         v-tippy="(disabled || !store.state.stepAnswering)?{ content: t('tooltip_answer_first') }:''"
         type="button"
-        class="
-            confirm
-            flex
-            items-center
-            rounded-md
-            nav-button
-            p-2
-            pr-3
-            bg-blue-700
-            text-white
-            tabindex-focus
-        "
+        class="confirm flex items-center rounded-md nav-button p-2 pr-3 bg-blue-900 text-white tabindex-focus"
         tabindex="0"
         @click="confirm"
     >

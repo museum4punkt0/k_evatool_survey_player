@@ -1,14 +1,6 @@
 <template>
     <div
-        class="
-            flex
-            swiper-wrap
-            flex-wrap
-            justify-center
-            items-center
-            w-full
-            h-full
-        "
+        class="flex swiper-wrap flex-wrap justify-center items-center w-full h-full"
     >
         <!--        <div-->
         <!--            class="swipe-overlay"-->
@@ -32,21 +24,7 @@
         <div class="flex m-0 p-0 w-full relative">
             <div
                 v-if="currentElement !== images.length"
-                class="
-                    inline
-                    swipe-left
-                    absolute
-                    md:relative
-                    z-20
-                    top-1/2
-                    left-12
-                    md:left-12
-                    xl:-left-10
-                    flex flex-col
-                    justify-center
-                    items-center
-                    animate__animated animate__fadeInLeft
-                "
+                class="inline swipe-left absolute md:relative z-20 top-1/2 left-12 md:left-12 xl:-left-10 flex flex-col justify-center items-center animate__animated animate__fadeInLeft"
                 @click="triggerAnswer(0)"
             >
                 <img
@@ -62,35 +40,14 @@
                 </span>
             </div>
             <div
-                class="
-                    relative
-                    card-container
-                    z-10
-                    w-1/2
-                    md:w-96
-                    h-1/2
-                    pb-4
-                    animate__animated animate__fadeIn animate__delay-1s
-                "
+                class="relative card-container z-10 w-1/2 md:w-96 h-1/2 pb-4 animate__animated animate__fadeIn animate__delay-1s"
             >
                 <div class="card-ghost relative w-full md:w-96">
                     <!--                  -->
                     <div
                         v-for="(image, index) in images"
                         :key="'card-' + index"
-                        class="
-                            card
-                            absolute
-                            touch-element
-                            h-full
-                            md:h-50
-                            hover:shadow
-                            rounded-t-xl
-                            bg-white
-                            p-3
-                            w-full
-                            md:w-96
-                        "
+                        class="card absolute touch-element h-full md:h-50 hover:shadow rounded-t-xl bg-white p-3 w-full md:w-96"
                         :class="[
                             { 'transition-all linear duration-300': !dragging },
                             { ' duration-0': index < currentElement },
@@ -118,7 +75,7 @@
                                 src="../../assets/yes.svg"
                             />
                             <!--                            <span-->
-                            <!--                                class="yes-icon bg-blue-700"-->
+                            <!--                                class="yes-icon bg-blue-900"-->
                             <!--                                :style="opacityTrue"-->
                             <!--                            >-->
                             <!--                                {{ surveyResults.params.trueLabel[lang] }}-->
@@ -129,7 +86,7 @@
                                 src="../../assets/no.svg"
                             />
                             <!--                            <span-->
-                            <!--                                class="no-icon bg-blue-700"-->
+                            <!--                                class="no-icon bg-blue-900"-->
                             <!--                                :style="opacityFalse"-->
                             <!--                            >-->
                             <!--                                {{ surveyResults.params.falseLabel[lang] }}-->
@@ -146,20 +103,7 @@
                     <!--            </div>-->
                     <!--        </div>-->
                     <div
-                        class="
-                            card
-                            absolute
-                            touch-element
-                            h-full
-                            md:h-50
-                            hover:shadow
-                            rounded-t-xl
-                            bg-white
-                            w-full
-                            flex
-                            justify-center
-                            items-center
-                        "
+                        class="card absolute touch-element h-full md:h-50 hover:shadow rounded-t-xl bg-white w-full flex justify-center items-center"
                         :class="{
                             'last-card': currentElement === images.length,
                         }"
@@ -172,21 +116,7 @@
             </div>
             <div
                 v-if="currentElement !== images.length"
-                class="
-                    inline
-                    swipe-right
-                    absolute
-                    md:relative
-                    z-20
-                    top-1/2
-                    right-12
-                    md:right-12
-                    xl:-right-10
-                    flex flex-col
-                    justify-center
-                    items-center
-                    animate__animated animate__fadeInRight
-                "
+                class="inline swipe-right absolute md:relative z-20 top-1/2 right-12 md:right-12 xl:-right-10 flex flex-col justify-center items-center animate__animated animate__fadeInRight"
                 @click="triggerAnswer(1)"
             >
                 <img

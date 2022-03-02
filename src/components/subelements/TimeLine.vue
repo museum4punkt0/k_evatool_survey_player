@@ -1,28 +1,10 @@
 <template>
     <div
-        class="
-            timeline-container
-            bg-gray-200
-            md:mx-auto
-            mx-0
-            px-0
-            w-full
-            h-full
-            md:overflow-scroll
-            xl:absolute
-        "
+        class="timeline-container bg-gray-200 md:mx-auto mx-0 px-0 w-full h-full md:overflow-scroll xl:absolute"
     >
         <!--      pb-24-->
         <div
-            class="
-                relative
-                wrap
-                md:p-5 md:mx-2
-                bg-blue-700
-                p-4
-                text-white
-                tl-header
-            "
+            class="relative wrap md:p-5 md:mx-2 bg-blue-900 p-4 text-white tl-header"
         >
             <!--          md:overflow-scroll-->
             <h3>{{ t('overview') }}</h3>
@@ -31,26 +13,11 @@
             </p>
         </div>
         <div
-            class="
-                relative
-                wrap
-                md:overflow-scroll
-                h-auto
-                px-5
-                md:mx-2
-                bg-white
-                tl-body
-            "
+            class="relative wrap md:overflow-scroll h-auto px-5 md:mx-2 bg-white tl-body"
         >
             <!--            {{ timeBasedSteps[answeredSteps - 1] }}-->
             <div
-                class="
-                    absolute
-                    border-opacity-20 border-gray-700
-                    h-full
-                    border
-                    ml-7
-                "
+                class="absolute border-opacity-20 border-gray-700 h-full border ml-7"
             ></div>
             <!-- right timeline -->
             <template
@@ -59,37 +26,14 @@
             >
                 <div
                     v-if="comment.type === 'comment'"
-                    class="
-                        mb-8
-                        flex
-                        justify-between
-                        items-start
-                        w-full
-                        right-timeline
-                        pt-5
-                    "
+                    class="mb-8 flex justify-between items-start w-full right-timeline pt-5"
                 >
                     <!--                <div class="order-1 w-5/12"></div>-->
                     <div
-                        class="
-                            z-20
-                            flex
-                            items-center
-                            order-1
-                            bg-gray-300
-                            border-white border-8
-                            w-14
-                            h-14
-                            rounded-full
-                        "
+                        class="z-20 flex items-center order-1 bg-gray-300 border-white border-8 w-14 h-14 rounded-full"
                     >
                         <h1
-                            class="
-                                mx-auto
-                                font-semibold
-                                text-lg text-black
-                                bg-gray-300
-                            "
+                            class="mx-auto font-semibold text-lg text-black bg-gray-300"
                         >
                             <chat-alt-icon class="h-6 w-6 bg-gray-300 solid" />
                         </h1>
@@ -103,13 +47,7 @@
                             {{ convertTime(comment.time) }}
                         </p>
                         <p
-                            class="
-                                mt-3
-                                text-sm
-                                leading-snug
-                                tracking-wide
-                                text-gray-900 text-opacity-100
-                            "
+                            class="mt-3 text-sm leading-snug tracking-wide text-gray-900 text-opacity-100"
                         >
                             {{ comment.body }}
                             <!--                            <audio-->
@@ -144,53 +82,24 @@
 
                 <div
                     v-if="comment.type === 'question'"
-                    class="
-                        mb-8
-                        flex
-                        justify-between
-                        flex-row
-                        items-start
-                        w-full
-                        left-timeline
-                        pt-5
-                    "
+                    class="mb-8 flex justify-between flex-row items-start w-full left-timeline pt-5"
                 >
                     <!--                <div class="order-1 w-5/12"></div>-->
                     <div
-                        class="
-                            z-20
-                            flex
-                            items-center
-                            border-white border-8
-                            w-14
-                            h-14
-                            rounded-full
-                        "
+                        class="z-20 flex items-center border-white border-8 w-14 h-14 rounded-full"
                         :class="{
                             'bg-green-400': content[index].answered,
-                            'bg-blue-700': !content[index].answered,
+                            'bg-blue-900': !content[index].answered,
                         }"
                     >
                         <h1 class="mx-auto text-black font-semibold text-lg">
                             <check-icon
                                 v-if="content[index].answered"
-                                class="
-                                    h-6
-                                    w-6
-                                    bg-green-400
-                                    rounded-full
-                                    text-white
-                                "
+                                class="h-6 w-6 bg-green-400 rounded-full text-white"
                             />
                             <question-mark-circle-icon
                                 v-else
-                                class="
-                                    h-6
-                                    w-6
-                                    bg-blue-700
-                                    rounded-full
-                                    text-white
-                                "
+                                class="h-6 w-6 bg-blue-900 rounded-full text-white"
                                 :class="{
                                     'bg-green-400': content[index].answered,
                                 }"
@@ -201,7 +110,7 @@
                         <div class="inline-block">
                             <h3
                                 v-if="content[index]?.question"
-                                class="mb-3 text-blue-700 text-xl inline"
+                                class="mb-3 text-blue-900 text-xl inline"
                                 :class="{
                                     'text-green-400': content[index].answered,
                                 }"
@@ -209,7 +118,7 @@
                             ></h3>
                             <h3
                                 v-if="content[index]?.text"
-                                class="mb-3 text-blue-700 text-xl inline"
+                                class="mb-3 text-blue-900 text-xl inline"
                                 :class="{
                                     'text-green-400': content[index].answered,
                                 }"
@@ -255,35 +164,11 @@
 
         <!--        {{ content }}-->
         <div
-            class="
-                flex
-                justify-between
-                flex-row
-                items-center
-                left-timeline
-                bg-white
-                md:mx-2
-                border-t-2
-                p-2
-                tl-footer
-                mb-24
-                md:mb-0
-            "
+            class="flex justify-between flex-row items-center left-timeline bg-white md:mx-2 border-t-2 p-2 tl-footer mb-24 md:mb-0"
         >
             <!--                <div class="order-1 w-5/12"></div>-->
             <div
-                class="
-                    z-20
-                    flex
-                    items-center
-                    order-1
-                    bg-blue-700
-                    w-14
-                    h-14
-                    border-white border-8
-                    mx-3
-                    rounded-full
-                "
+                class="z-20 flex items-center order-1 bg-blue-900 w-14 h-14 border-white border-8 mx-3 rounded-full"
                 :class="{
                     'bg-green-400': interactiveSteps.length - answeredSteps > 0,
                 }"

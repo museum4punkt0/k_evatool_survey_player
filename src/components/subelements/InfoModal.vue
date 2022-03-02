@@ -66,7 +66,7 @@
                     <!-- button confirm -->
                     <button
                         v-if="type === 'audio'"
-                        class="mt-4 modal_close_btn relative bg-blue-700 hover:bg-blue-700 text-2xl left-1/2 -translate-x-1/2 w-auto flex items-center py-1 px-4 rounded-xl focus:outline-none text-white tabindex-focus"
+                        class="mt-4 modal_close_btn relative bg-blue-900 hover:bg-blue-900 text-2xl left-1/2 -translate-x-1/2 w-auto flex items-center py-1 px-4 rounded-xl focus:outline-none text-white tabindex-focus"
                         tabindex="0"
                         @click="openSwipeModal(false)"
                     >
