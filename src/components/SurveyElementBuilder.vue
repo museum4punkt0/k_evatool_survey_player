@@ -1,17 +1,10 @@
 <template>
-    <!--    {{ content?.surveyElementType }}-->
-    <!--    {{ surveyResults }}-->
     <div
         v-if="content?.surveyElementType !== 'video'"
         class="survey-content flex flex-wrap xl:flex-col md:h-full md:mt-0 justify-center items-center h-full overflow-scroll"
     >
-        <!--        :class="{-->
-        <!--        ' xl:pt-0 overflow-y-scroll flex-col':-->
-        <!--        content && content.surveyElementType !== 'yayNay',-->
-        <!--        ' xl:pt-72': content && content.surveyElementType === 'yayNay',-->
-        <!--        }"-->
         <div
-            class="flex flex-wrap items-start w-full pb-24 xl:mt-0 xl:w-1/3 md:mt-0 md:w-1/2"
+            class="flex items-start w-full pb-24 xl:mt-0 xl:w-1/3 md:mt-0 md:w-1/2 survey-content-inner"
             :class="{
                 ' xl:pt-0 overflow-y-scroll flex-col':
                     content && content.surveyElementType !== 'yayNay',
@@ -118,6 +111,7 @@ import SurveyElementVoiceInput from './elements/SurveyElementVoiceInput.vue'
 import SurveyElementYayNay from './elements/SurveyElementYayNay.vue'
 import SurveyDone from './SurveyDone.vue'
 import { useStore } from 'vuex'
+import { onMounted, watch } from 'vue'
 
 export default {
     name: 'SurveyElementBuilder',
@@ -151,21 +145,32 @@ export default {
             default: null,
         },
     },
-    setup() {
+    setup(prop) {
         const store = useStore()
+
+        onMounted(() => {
+            document.querySelector('.survey-content-inner').scrollTo(0, 0)
+            window.scrollTo(0, 0)
+        })
+        watch(
+            () => prop.content,
+            () => {
+                setTimeout(() => {
+                    document
+                        .querySelector('.survey-content-inner')
+                        .scrollTo(0, 0)
+                    window.scrollTo(0, 0)
+                }, 1000)
+            },
+        )
+
         return { store }
     },
 }
 </script>
 
 <style lang="scss" scoped>
-.items-start {
+.survey-content-inner {
     scrollbar-width: none;
-}
-.survey-content {
-    scrollbar-width: thin;
-}
-.survey-content::-webkit-scrollbar {
-    display: none;
 }
 </style>

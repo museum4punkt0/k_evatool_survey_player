@@ -5,12 +5,6 @@
             tabindex="0"
             v-html="surveyResults.params.question[store.state.lang]"
         ></h2>
-        <!--      :aria-label="-->
-        <!--      'Selectbox mit' +-->
-        <!--      surveyResults.params.options.length +-->
-        <!--      'Antworten.'-->
-        <!--      "-->
-        <!--      tabindex="0"-->
         <div
             class="mt-2"
             tabindex="0"
@@ -227,7 +221,7 @@ export default {
             getResults()
             setTimeout(() => {
                 document.querySelector('h2').focus()
-            }, 1000)
+            }, 500)
         })
 
         return {

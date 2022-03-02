@@ -79,7 +79,7 @@ export default {
             store.dispatch('setStepAnswering', true)
             setTimeout(() => {
                 document.querySelector('h2').focus()
-            }, 1000)
+            }, 500)
         })
 
         return {

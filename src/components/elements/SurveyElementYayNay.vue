@@ -151,7 +151,7 @@ export default {
         onMounted(() => {
             setTimeout(() => {
                 document.querySelector('h2').focus()
-            }, 1000)
+            }, 500)
         })
 
         return {

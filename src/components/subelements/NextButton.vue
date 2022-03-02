@@ -1,5 +1,7 @@
 <template>
     <button
+        style="display: inline-block;"
+        v-tippy="(disabled || !store.state.stepAnswering)?{ content: t('tooltip_answer_first') }:''"
         type="button"
         class="
             confirm

@@ -17,4 +17,24 @@ console.log(version)
 * {
     touch-action: manipulation;
 }
+
+.timeline-container .wrap,
+.timeline-container,
+.sidebar,
+.overflow-y-scroll,
+.survey-content {
+    overflow-y: scroll;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+.timeline-container .wrap::-webkit-scrollbar,
+.timeline-container::-webkit-scrollbar,
+.sidebar::-webkit-scrollbar,
+.overflow-y-scroll::-webkit-scrollbar,
+.survey-content::-webkit-scrollbar {
+    /* WebKit */
+    width: 0;
+    height: 0;
+}
 </style>

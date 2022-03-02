@@ -304,7 +304,7 @@ export default {
             askForMicrophonePermission()
             setTimeout(() => {
                 document.querySelector('h2').focus()
-            }, 1000)
+            }, 500)
 
             modalboxOpen.value =
                 window.localStorage.getItem('surveyVoiceRecording') !==

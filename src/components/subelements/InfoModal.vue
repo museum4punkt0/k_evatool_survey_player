@@ -176,11 +176,11 @@ export default {
     z-index: 999;
 }
 
-::-webkit-scrollbar {
-    display: none;
-}
+/*::-webkit-scrollbar {*/
+/*    display: none;*/
+/*}*/
 
-.overflow-y-scroll {
-    scrollbar-width: none;
-}
+/*.overflow-y-scroll {*/
+/*    scrollbar-width: none;*/
+/*}*/
 </style>

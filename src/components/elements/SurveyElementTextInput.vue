@@ -99,7 +99,7 @@ export default {
             getResults()
             setTimeout(() => {
                 document.querySelector('h2').focus()
-            }, 1000)
+            }, 500)
         })
         watch(
             () => text.value,

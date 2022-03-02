@@ -22,7 +22,7 @@
                         @keydown="start"
                     >
                         <play-icon
-                            class="w-16 h-16 xl:h-32 xl:w-32 z-10 inline text-white"
+                            class="w-16 h-16 xl:h-16 xl:w-16 z-10 inline text-white"
                         ></play-icon>
                     </div>
                 </div>
