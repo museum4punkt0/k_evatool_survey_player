@@ -701,6 +701,9 @@ export default {
 .swipe-left,
 .swipe-right {
     pointer-events: none;
+    img {
+        max-width: unset;
+    }
 }
 
 .swipe-overlay {
