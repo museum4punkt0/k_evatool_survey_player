@@ -21,7 +21,7 @@ export default {
                 data.uuid,
             )
 
-            if (surveyResults.status !== 404 || surveyResults.status !== 409) {
+            if (surveyResults.status !== 404 && surveyResults.status !== 409) {
                 commit('setSurveyUuidResults', surveyResults)
                 commit('setSurveyLoaded')
                 return surveyResults
