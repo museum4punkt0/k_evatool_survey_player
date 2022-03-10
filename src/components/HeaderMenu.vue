@@ -118,9 +118,7 @@ export default {
             currentLang.value = lang
         }
         onMounted(async () => {
-            currentLang.value = await store.state.lang
-
-            console.log(store.state)
+            currentLang.value = store.state.lang
             i18n.locale.value = currentLang.value
         })
 

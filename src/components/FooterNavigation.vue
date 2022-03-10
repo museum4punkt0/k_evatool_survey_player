@@ -1,41 +1,17 @@
 <template>
     <div
-        class="
-            survey-footer-menu
-            bg-white
-            bottom-0
-            fixed
-            w-full
-            md:w-screen
-            z-100
-        "
+        class="survey-footer-menu bg-white bottom-0 fixed w-full md:w-screen z-100"
     >
         <div
-            class="
-                survey-navigation-inner
-                flex
-                items-center
-                h-auto
-                min-h-10
-                py-2
-            "
+            class="survey-navigation-inner flex items-center h-auto min-h-10 py-2"
         >
             <div class="ml-3 text-xs text-gray-500 flex items-center relative">
-                Version
+                Version&nbsp;
                 <strong>{{ version }}</strong>
 
                 <button
                     v-if="demoMode"
-                    class="
-                        tabindex-focus
-                        rounded
-                        bg-green-400
-                        text-white
-                        px-3
-                        md:whitespace-nowrap
-                        py-2
-                        ml-3
-                    "
+                    class="tabindex-focus rounded bg-green-400 text-white px-3 md:whitespace-nowrap py-2 ml-3"
                     @click="resetUuid"
                 >
                     {{ t('new_uuid') }}
@@ -67,26 +43,10 @@
                     <!--                    </button>-->
                 </div>
                 <div
-                    class="
-                        flex
-                        relative
-                        justify-center
-                        xl:absolute xl:right-6
-                        bg-white
-                        md:bg-transparent
-                    "
+                    class="flex relative justify-center xl:absolute xl:right-6 bg-white md:bg-transparent"
                 >
                     <button
-                        class="
-                            tabindex-focus
-                            imprint
-                            flex
-                            items-center
-                            rounded-md
-                            nav-button
-                            p-2
-                            ml-2
-                        "
+                        class="tabindex-focus imprint flex items-center rounded-md nav-button p-2 ml-2"
                         @click="openModal('privacy')"
                     >
                         <finger-print-icon
@@ -95,16 +55,7 @@
                         {{ t('privacy') }}
                     </button>
                     <button
-                        class="
-                            tabindex-focus
-                            imprint
-                            flex
-                            items-center
-                            rounded-md
-                            nav-button
-                            p-2
-                            ml-6
-                        "
+                        class="tabindex-focus imprint flex items-center rounded-md nav-button p-2 ml-6"
                         @click="openModal('imprint')"
                     >
                         <book-open-icon

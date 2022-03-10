@@ -17,6 +17,7 @@ export default createStore({
         stepAnswering: false,
         editVideoQuestionId: -1,
         isDemo: false,
+        surveyLoaded: false,
     },
     mutations: {
         setSurveyId(state, surveyId) {
@@ -53,15 +54,6 @@ export default createStore({
         },
         setUserLanguage(state, lang) {
             state.lang = lang
-            // set userLanguage or set defaultLanguage if userLanguage not found
-            // if (state.languages.find((x) => x.code === lang)) {
-            //     state.lang = lang
-            // } else {
-            //     let defaultLangObject = state.languages.find(
-            //         (x) => x.default === true,
-            //     )
-            //     state.lang = defaultLangObject.code
-            // }
         },
     },
     actions: {
@@ -93,7 +85,7 @@ export default createStore({
         // async getLanguages({ commit }, userLang) {
         async getLanguages() {
             const url = 'evaluation-tool/survey-languages'
-            let languages = await axios
+            await axios
                 .get(url)
                 .then((response) => {
                     return response.data.data
@@ -101,7 +93,7 @@ export default createStore({
                 .catch((error) => {
                     return error
                 })
-            console.log(languages)
+
             //commit('setLanguages', languages)
             // commit('setUserLanguage', userLang)
         },

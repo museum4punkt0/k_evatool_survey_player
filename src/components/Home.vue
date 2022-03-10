@@ -1,56 +1,49 @@
 <template>
     <div class="main-page h-screen overflow-y-scroll bg-gray-100">
-        <div class="survey-header-menu top-0 fixed w-screen z-50 bg-white">
-            <header-menu
-                :languages="languages"
-                :language-names="languageNames"
-                :user-lang="userLang"
-            ></header-menu>
+        <template v-if="store.state.surveyResults.surveyLoaded">
+            <div class="survey-header-menu top-0 fixed w-screen z-50 bg-white">
+                <header-menu
+                    :languages="languages"
+                    :language-names="languageNames"
+                    :user-lang="userLang"
+                ></header-menu>
+            </div>
 
-            <!--            {{ store.state.currentStep }}-->
-        </div>
-        <IdleScreen v-if="idle" @start="idle = false"></IdleScreen>
-        <div
-            v-else-if="surveyNotAvailable"
-            class="survey-not-available flex items-center justify-center xl:mx-5 pt-24 pb-16 px-4 w-full h-full z-40"
-        >
-            <h2 tabindex="0" class="text-center">
-                {{ $t('survey_not_available') }}
-            </h2>
-        </div>
-        <div v-else class="survey-steps xl:mx-5 pt-20 pb-12 px-4 h-full z-40">
-            <!--            <SurveyElementBuilder-->
-            <!--                v-if="store.state.surveys.surveySteps"-->
-            <!--                :content="-->
-            <!--                    store.state.surveys.surveySteps[store.state.currentStep]-->
-            <!--                "-->
-            <!--                :survey="store.state.surveys.survey"-->
-            <!--                :result="-->
-            <!--                    store.state.surveys.surveySteps[store.state.currentStep]-->
-            <!--                "-->
-            <!--                :survey-results="-->
-            <!--                    store.state.surveyResults['surveyResults']?.steps[-->
-            <!--                        store.state.currentStep-->
-            <!--                    ]-->
-            <!--                "-->
-            <!--            ></SurveyElementBuilder>-->
+            <IdleScreen v-if="idle" @start="idle = false"></IdleScreen>
+            <div
+                v-else-if="surveyNotAvailable"
+                class="survey-not-available flex items-center justify-center xl:mx-5 pt-24 pb-16 px-4 w-full h-full z-40"
+            >
+                <h2 tabindex="0" class="text-center">
+                    {{ $t('survey_not_available') }}
+                </h2>
+            </div>
+            <div
+                v-else
+                class="survey-steps xl:mx-5 pt-20 pb-12 px-4 h-full z-40"
+            >
+                <SurveyElementBuilder
+                    v-if="store.state.surveys.surveySteps"
+                    :content="currentStep"
+                    :survey="store.state.surveys.survey"
+                    :result="currentStep"
+                    :survey-results="currentStep"
+                ></SurveyElementBuilder>
+            </div>
 
-            <SurveyElementBuilder
-                v-if="store.state.surveys.surveySteps"
-                :content="currentStep"
-                :survey="store.state.surveys.survey"
-                :result="currentStep"
-                :survey-results="currentStep"
-            ></SurveyElementBuilder>
-        </div>
-
-        <SurveyNavigation
-            v-if="!idle"
-            :survey-steps="store.state.surveys.surveySteps.length"
-            :current-step="surveyStep + 1"
-            @next-step="nextStep()"
-            @prev-step="prevStep()"
-        ></SurveyNavigation>
+            <SurveyNavigation
+                v-if="!idle"
+                :survey-steps="store.state.surveys.surveySteps.length"
+                :current-step="surveyStep + 1"
+                @next-step="nextStep()"
+                @prev-step="prevStep()"
+            ></SurveyNavigation>
+        </template>
+        <template v-else>
+            <div class="w-full h-full flex items-center justify-center">
+                <h1>Umfrage nicht geladen / Survey not loaded</h1>
+            </div>
+        </template>
     </div>
 </template>
 
@@ -104,38 +97,17 @@ export default {
             window.localStorage.setItem('surveyBacklink', queries.backlink)
 
             delete queries.backlink
-            console.log(queries)
             router.replace({ query: queries })
         }
 
-        // if (
-        //     !localStorage.getItem('ev-tool-backlink') ||
-        //     window.history.state.back !==
-        //         localStorage.getItem('ev-tool-backlink')
-        // )
         backlink.value = window.history.state.back
-
-        // localStorage.setItem('ev-tool-backlink', backlink.value)
-        // queries.backlink = backlink.value
-        //
-        // router.replace({ query: queries })
 
         const surveySlug = route.query.survey || ''
         queries.survey = route.query.survey || ''
         router.replace({ query: queries })
-        const userLang = ref() //route.query.lang || ''
+        const userLang = ref()
 
-        // const surveyContent = store.state.surveys.surveySteps
         const nextSurvey = ref()
-
-        //store.dispatch('getLanguages', userLang)
-        //store.dispatch('setUserLanguage', userLang)
-        // store.dispatch('surveys/getSurvey', surveySlug)
-        // store.dispatch('surveys/getSurveySteps', surveyId)
-        // store.dispatch('surveyResults/setSurveyResults', surveySlug)
-
-        // console.log(route.query)
-        // console.log(router)
 
         const nextStep = () => {
             console.log('nextStep')
@@ -151,11 +123,9 @@ export default {
         }
 
         const getNextSurvey = async () => {
-            console.log(store.state.surveys.surveySteps)
             nextSurvey.value = await store.state.surveys.surveySteps[
                 surveyStep.value
             ]
-            console.log(nextSurvey)
         }
 
         onMounted(async () => {
@@ -183,16 +153,13 @@ export default {
             })
             languages.value =
                 store.state.surveyResults.surveyUuidResults.survey.languages
-            console.log(languages.value)
 
             languageNames.value =
                 store.state.surveyResults.surveyUuidResults.survey.languageNames
 
             // set User Language
             userLang.value = localStorage.getItem('surveyUserLanguage')
-            // console.log(userLang.value)
-            // console.log(languages.value)
-            // console.log(languages.value.indexOf(userLang.value))
+
             if (languages.value.indexOf(userLang.value) > -1) {
                 await store.dispatch('setUserLanguage', userLang.value)
                 document.documentElement.setAttribute('lang', userLang.value)
