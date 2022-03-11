@@ -3,7 +3,6 @@
     "description": "Evaluation Tool Survey Player",
     "private": true,
     "version": "1.0.171",
-    "main": "electron/electron.js",
     "author": "2av",
     "scripts": {
         "dev": "vite",
