@@ -5,3 +5,4 @@ dist-ssr
 *.local
 .idea
 dist_electron
+/local_scripts/
