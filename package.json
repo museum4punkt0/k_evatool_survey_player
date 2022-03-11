@@ -27,8 +27,6 @@
         "animate.css": "^4.1.1",
         "axios": "^0.26.1",
         "dotenv": "^16.0.0",
-        "electron-json-storage": "^4.5.0",
-        "electron-prompt": "^1.7.0",
         "framerate-utils": "^4.1.0",
         "lodash": "^4.17.21",
         "ms-to-timecode": "^0.1.2",
