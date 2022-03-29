@@ -54,7 +54,7 @@ import SurveyElementBuilder from './SurveyElementBuilder.vue'
 import HeaderMenu from './HeaderMenu.vue'
 import IdleScreen from './subelements/IdleScreen.vue'
 import SurveyNavigation from './FooterNavigation.vue'
-import { ref, watch } from 'vue'
+import { ref, watch, inject } from 'vue'
 import { onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { v4 as uuidv4 } from 'uuid'
@@ -77,13 +77,14 @@ export default {
         const surveyStep = ref()
         const languages = ref()
         const languageNames = ref()
-
+        const idleTimer = inject('idle-timer')
         const surveyNotAvailable = ref(false)
 
         backlink.value = document.referer ? document.referer : '/'
 
         let queries = JSON.parse(JSON.stringify(route.query))
 
+        // Demo mode
         if (queries && queries.demo === 'true') {
             window.localStorage.setItem('surveyDemo', true)
             store.dispatch('setIsDemo', true)
@@ -92,6 +93,33 @@ export default {
             store.dispatch('setIsDemo', false)
         }
 
+        // Kiosk mode
+        if (
+            (queries && queries.kiosk && parseInt(queries.kiosk) > 0) ||
+            parseInt(window.localStorage.getItem('surveyKiosk')) > 0
+        ) {
+            window.localStorage.setItem(
+                'surveyKiosk',
+                parseInt(queries.kiosk) ||
+                    parseInt(window.localStorage.getItem('surveyKiosk')),
+            )
+            idleTimer.emitter.on('idle', () => {
+                window.location.reload()
+            })
+            window.localStorage.setItem('surveyUuid', '')
+        }
+        if (
+            (queries && parseInt(queries.kiosk) === 0) ||
+            parseInt(window.localStorage.getItem('surveyKiosk')) === 0
+        ) {
+            window.localStorage.setItem('surveyKiosk', 0)
+        }
+        if (queries.kiosk) {
+            delete queries.kiosk
+            router.replace({ query: queries })
+        }
+
+        // backlink
         if (queries.backlink) {
             window.localStorage.setItem('backlink', queries.backlink)
             window.localStorage.setItem('surveyBacklink', queries.backlink)
@@ -105,8 +133,8 @@ export default {
         const surveySlug = route.query.survey || ''
         queries.survey = route.query.survey || ''
         router.replace({ query: queries })
-        const userLang = ref()
 
+        const userLang = ref()
         const nextSurvey = ref()
 
         const nextStep = () => {

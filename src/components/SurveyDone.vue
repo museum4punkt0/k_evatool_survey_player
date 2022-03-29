@@ -28,6 +28,11 @@ export default {
             setTimeout(() => {
                 document.querySelector('h1').focus()
             }, 1000)
+            if (parseInt(window.localStorage.getItem('surveyKiosk')) > 0) {
+                setTimeout(() => {
+                    window.location.reload()
+                }, 10000)
+            }
         })
         return { t }
     },
