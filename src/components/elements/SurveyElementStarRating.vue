@@ -1,6 +1,10 @@
 <template>
     <h2
-        class="tabindex-focus pb-5 m-1 animate__animated animate__fadeInDown"
+        class="tabindex-focus pb-5 m-1"
+        :class="
+            store.state.showAnimations &&
+            'animate__animated animate__fadeInDown'
+        "
         tabindex="0"
         v-html="content.params.question[lang]"
     ></h2>
@@ -85,7 +89,9 @@
     <!--    starts-->
     <StarRating
         v-else
-        class="animate__animated animate__fadeInUp"
+        :class="
+            store.state.showAnimations && 'animate__animated animate__fadeInUp'
+        "
         :value="rating"
         :stars="content.params.numberOfStars"
         :params="content.params"
@@ -94,7 +100,7 @@
     />
 
     <confirm-button
-        class="animate__animated animate__fadeIn animate__delay-1s"
+        :class="store.state.showAnimations && 'animate__animated animate__fadeIn animate__delay-1s'"
         :sub-element="subElement"
         :disabled="!rating"
         @confirm="nextStep"
@@ -221,6 +227,7 @@ export default {
             rating,
             selectedNote,
             setRating,
+            store,
             nextStep,
             setKeyValue,
             getLabels,

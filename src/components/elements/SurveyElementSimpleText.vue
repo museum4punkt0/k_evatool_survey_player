@@ -1,7 +1,11 @@
 <template>
     <div class="px-5">
         <h2
-            class="tabindex-focus pb-5 m-1 animate__animated animate__fadeInDown"
+            class="tabindex-focus pb-5 m-1"
+            :class="
+                store.state.showAnimations &&
+                'animate__animated animate__fadeInDown'
+            "
             tabindex="0"
             v-html="content.params.text[lang]"
         ></h2>
@@ -10,7 +14,10 @@
         <!--            @confirm="nextStep"-->
         <!--        ></NextButton>-->
         <confirm-button
-            class="animate__animated animate__fadeIn animate__delay-1s"
+            :class="
+                store.state.showAnimations &&
+                'animate__animated animate__fadeIn animate__delay-1s'
+            "
             @confirm="nextStep"
         ></confirm-button>
     </div>

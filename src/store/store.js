@@ -11,6 +11,7 @@ export default createStore({
     state: {
         lang: '',
         surveyId: null,
+        showAnimations: true,
         languages: [],
         currentStep: 0,
         currentVideoStep: 0,
@@ -55,6 +56,9 @@ export default createStore({
         setUserLanguage(state, lang) {
             state.lang = lang
         },
+        setShowAnimations(state, show) {
+            state.showAnimations = show
+        },
     },
     actions: {
         setSurveyId({ commit }, surveyId) {
@@ -96,6 +100,9 @@ export default createStore({
 
             //commit('setLanguages', languages)
             // commit('setUserLanguage', userLang)
+        },
+        setShowAnimations({ commit }, show) {
+            commit('setShowAnimations', show)
         },
     },
 })

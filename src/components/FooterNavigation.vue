@@ -45,6 +45,36 @@
                 <div
                     class="flex relative justify-center xl:absolute xl:right-6 bg-white md:bg-transparent"
                 >
+                    <SwitchGroup>
+                        <div class="flex items-center mr-16">
+                            <SwitchLabel class="mr-4">
+                                Animationen anzeigen
+                            </SwitchLabel>
+                            <Switch
+                                v-model="store.state.showAnimations"
+                                :class="
+                                    store.state.showAnimations
+                                        ? 'bg-green-400'
+                                        : 'bg-gray-500'
+                                "
+                                class="relative inline-flex items-center h-6 rounded-full w-11"
+                            >
+                                <span
+                                    :class="
+                                        store.state.showAnimations
+                                            ? 'translate-x-6'
+                                            : 'translate-x-1'
+                                    "
+                                    :style="
+                                        store.state.showAnimations && {
+                                            transition: 'all ease 0.3s',
+                                        }
+                                    "
+                                    class="inline-block w-4 h-4 transform bg-white rounded-full"
+                                />
+                            </Switch>
+                        </div>
+                    </SwitchGroup>
                     <button
                         class="tabindex-focus imprint flex items-center rounded-md nav-button p-2 ml-2"
                         @click="openModal('privacy')"
@@ -77,6 +107,7 @@
 <script>
 import { BookOpenIcon, FingerPrintIcon } from '@heroicons/vue/solid'
 import { useRoute } from 'vue-router'
+import { Switch, SwitchGroup, SwitchLabel } from '@headlessui/vue'
 
 import {
     ChevronDoubleLeftIcon,
@@ -92,6 +123,8 @@ import ImprintPrivacyModal from './ImprintPrivacyModal.vue'
 export default {
     name: 'Navigation',
     components: {
+        SwitchGroup,
+        Switch,
         BookOpenIcon,
         FingerPrintIcon,
         ChevronDoubleLeftIcon,
@@ -145,6 +178,10 @@ export default {
             modalboxOpen.value = false
         }
 
+        const toggleAnimations = () => {
+            store.dispatch('setShowAnimations', !store.state.showAnimations)
+        }
+
         onMounted(() => {
             if (route.query.demo && route.query.demo === 'true') {
                 demoMode.value = true
@@ -162,6 +199,7 @@ export default {
             resetUuid,
             openModal,
             closeModal,
+            toggleAnimations,
             modalboxOpen,
             modalboxType,
         }

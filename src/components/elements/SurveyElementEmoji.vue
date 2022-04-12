@@ -1,11 +1,18 @@
 <template>
     <h2
-        class="tabindex-focus pb-5 m-1 animate__animated animate__fadeInDown"
+        class="tabindex-focus pb-5 m-1"
+        :class="
+            store.state.showAnimations &&
+            'animate__animated animate__fadeInDown'
+        "
         tabindex="0"
         v-html="content.params.question[lang]"
     ></h2>
     <div
-        class="flex mb-2 ml-1 justify-center items-center animate__animated animate__fadeInUp"
+        class="flex mb-2 ml-1 justify-center items-center"
+        :class="
+            store.state.showAnimations && 'animate__animated animate__fadeInUp'
+        "
         role="radiogroup"
     >
         <div
@@ -30,7 +37,10 @@
     </div>
 
     <confirm-button
-        class="animate__animated animate__fadeIn animate__delay-1s"
+        :class="
+            store.state.showAnimations &&
+            'animate__animated animate__fadeIn animate__delay-1s'
+        "
         :sub-element="subElement"
         @confirm="nextStep"
     ></confirm-button>

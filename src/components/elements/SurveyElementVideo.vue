@@ -4,7 +4,8 @@
             class="sidebar sidebar-left w-full md:w-2/3 p-0 m-0 md:overflow-y-scroll bg-white md:bg-transparent z-10"
         >
             <div
-                class="video-wrap bg-white overflow-hidden relative z-20 h-full animate__animated animate__fadeInLeft"
+                class="video-wrap bg-white overflow-hidden relative z-20 h-full"
+                :class="store.state.showAnimations && 'animate__animated animate__fadeInLeft'"
             >
                 <div
                     v-if="showQuestion"
@@ -185,7 +186,8 @@
             </div>
         </div>
         <div
-            class="sidebar sidebar-right w-full md:w-1/3 md:mx-4 h-full md:overflow-y-scroll relative animate__animated animate__fadeInRight"
+            class="sidebar sidebar-right w-full md:w-1/3 md:mx-4 h-full md:overflow-y-scroll relative"
+            :class="store.state.showAnimations && 'animate__animated animate__fadeInRight'"
         >
             <!--          pb-36-->
             <TimeLine

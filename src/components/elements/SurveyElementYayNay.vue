@@ -3,7 +3,8 @@
         class="flex pt-24 pb-16 my-5 flex-wrap justify-center items-center w-full h-10/12"
     >
         <h2
-            class="tabindex-focus pb-5 animate__animated animate__fadeInDown"
+            class="tabindex-focus pb-5"
+            :class="store.state.showAnimations && 'animate__animated animate__fadeInDown'"
             tabindex="0"
             v-html="content.params.question[lang]"
         ></h2>

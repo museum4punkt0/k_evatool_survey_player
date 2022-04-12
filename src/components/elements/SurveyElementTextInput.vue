@@ -1,13 +1,15 @@
 <template>
     <h2
-        class="tabindex-focus pb-5 m-1 animate__animated animate__fadeInDown"
+        class="tabindex-focus pb-5 m-1"
+        :class="store.state.showAnimations && 'animate__animated animate__fadeInDown'"
         tabindex="0"
         v-html="content.params.question[lang]"
     ></h2>
     <!--    {{ content.params }}-->
     <textarea
         v-model="text"
-        class="bg-gray-50 w-10/12 text-gray-800 text-2xl p-2 m-1 animate__animated animate__fadeInUp box-border overflow-hidden border-0 outline-none resize-none tabindex-focus"
+        class="bg-gray-50 w-10/12 text-gray-800 text-2xl p-2 m-1 box-border overflow-hidden border-0 outline-none resize-none tabindex-focus"
+        :class="store.state.showAnimations && 'animate__animated animate__fadeInUp'"
         :placeholder="t('write_comment_placeholder')"
         :aria-label="t('write_comment_placeholder')"
         tabindex="0"
@@ -15,7 +17,7 @@
     />
 
     <confirm-button
-        class="animate__animated animate__fadeIn animate__delay-1s"
+        :class="store.state.showAnimations && 'animate__animated animate__fadeIn animate__delay-1s'"
         :sub-element="subElement"
         :disabled="!text"
         @confirm="nextStep"

@@ -24,7 +24,8 @@
         <div class="flex m-0 p-0 w-full relative">
             <div
                 v-if="currentElement !== images.length"
-                class="inline swipe-left absolute md:relative z-20 top-1/2 left-12 md:left-12 xl:-left-10 flex flex-col justify-center items-center animate__animated animate__fadeInLeft"
+                class="inline swipe-left absolute md:relative z-20 top-1/2 left-12 md:left-12 xl:-left-10 flex flex-col justify-center items-center"
+                :class="store.state.showAnimations && 'animate__animated animate__fadeInLeft'"
                 @click="triggerAnswer(0)"
             >
                 <img
@@ -40,7 +41,8 @@
                 </span>
             </div>
             <div
-                class="relative card-container z-10 w-1/2 md:w-96 h-1/2 pb-4 animate__animated animate__fadeIn animate__delay-1s"
+                class="relative card-container z-10 w-1/2 md:w-96 h-1/2 pb-4"
+                :class="store.state.showAnimations && 'animate__animated animate__fadeIn animate__delay-1s'"
             >
                 <div class="card-ghost relative w-full md:w-96">
                     <!--                  -->
@@ -116,7 +118,8 @@
             </div>
             <div
                 v-if="currentElement !== images.length"
-                class="inline swipe-right absolute md:relative z-20 top-1/2 right-12 md:right-12 xl:-right-10 flex flex-col justify-center items-center animate__animated animate__fadeInRight"
+                class="inline swipe-right absolute md:relative z-20 top-1/2 right-12 md:right-12 xl:-right-10 flex flex-col justify-center items-center"
+                :class="store.state.showAnimations && 'animate__animated animate__fadeInRight'"
                 @click="triggerAnswer(1)"
             >
                 <img

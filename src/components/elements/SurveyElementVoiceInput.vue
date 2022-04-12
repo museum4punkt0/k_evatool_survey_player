@@ -2,7 +2,11 @@
     <div class="flex flex-wrap flex-col">
         <h2
             tabindex="0"
-            class="tabindex-focus m-1 pb-5 animate__animated animate__fadeInDown"
+            class="tabindex-focus m-1 pb-5"
+            :class="
+                store.state.showAnimations &&
+                'animate__animated animate__fadeInDown'
+            "
             v-html="content.params.question[lang]"
         ></h2>
         <custom-alert
@@ -38,7 +42,12 @@
             color="yellow"
         />
         <template v-else>
-            <div class="animate__animated animate__fadeInUp">
+            <div
+                :class="
+                    store.state.showAnimations &&
+                    'animate__animated animate__fadeInUp'
+                "
+            >
                 <!--                <textarea-->
                 <!--                    v-if="recordedTime < 0"-->
                 <!--                    tabindex="0"-->
@@ -120,7 +129,10 @@
             ></InfoModal>
         </template>
         <confirm-button
-            class="animate__animated animate__fadeIn animate__delay-1s"
+            :class="
+                store.state.showAnimations &&
+                'animate__animated animate__fadeIn animate__delay-1s'
+            "
             :disabled="recording"
             @confirm="nextStep"
         />

@@ -1,7 +1,11 @@
 <template>
     <div class="p-2">
         <h2
-            class="tabindex-focus my-5 m-1 text-gray-900 animate__animated animate__fadeInDown"
+            class="tabindex-focus my-5 m-1 text-gray-900"
+            :class="
+                store.state.showAnimations &&
+                'animate__animated animate__fadeInDown'
+            "
             tabindex="0"
             v-html="surveyResults.params.question[store.state.lang]"
         ></h2>
@@ -38,7 +42,10 @@
                     :label="option.labels[store.state.lang]"
                     :index="index"
                     :labels="surveyResults.params.options.length"
-                    class="animate__animated animate__fadeInUp"
+                    :class="
+                        store.state.showAnimations &&
+                        'animate__animated animate__fadeInUp'
+                    "
                     :commentable="option.commentable"
                     @selected="changeValue(option)"
                 />
@@ -62,7 +69,11 @@
             </template>
         </div>
         <p
-            class="ml-1 text-gray-700 animate__animated animate__fadeIn animate__delay-1s"
+            class="ml-1 text-gray-700"
+            :class="
+                store.state.showAnimations &&
+                'animate__animated animate__fadeIn animate__delay-1s'
+            "
         >
             {{
                 t('min_selectable', {
@@ -71,7 +82,11 @@
             }}
         </p>
         <p
-            class="ml-1 text-gray-700 animate__animated animate__fadeIn animate__delay-1s"
+            class="ml-1 text-gray-700"
+            :class="
+                store.state.showAnimations &&
+                'animate__animated animate__fadeIn animate__delay-1s'
+            "
         >
             {{
                 t('max_selectable', {
@@ -80,7 +95,7 @@
             }}
         </p>
         <confirm-button
-            class="animate__animated animate__fadeIn animate__delay-1s"
+            :class="store.state.showAnimations && 'animate__animated animate__fadeIn animate__delay-1s'"
             :sub-element="subElement"
             @confirm="nextStep"
         ></confirm-button>

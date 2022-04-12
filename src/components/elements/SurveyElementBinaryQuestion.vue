@@ -2,7 +2,11 @@
     <!--    <div class="px-5 w-auto">-->
     <h2
         ref="question"
-        class="tabindex-focus m-1 pb-5 animate__animated animate__fadeInDown"
+        class="tabindex-focus m-1 pb-5"
+        :class="
+            store.state.showAnimations &&
+            'animate__animated animate__fadeInDown'
+        "
         tabindex="0"
         v-html="content.params.question[lang]"
     ></h2>
@@ -15,12 +19,14 @@
             @keydown="toggleSelection(content.params.trueValue, $event)"
         >
             <label
-                class="pl-3 flex items-center rounded-md nav-button p-2 pr-3 text-white focus:outline-none animate__animated animate__fadeInUp tabindex-focus"
-                :class="
+                class="pl-3 flex items-center rounded-md nav-button p-2 pr-3 text-white focus:outline-none tabindex-focus"
+                :class="[
                     selectedAnswer === content.params.trueValue
                         ? 'bg-blue-900'
-                        : 'bg-blue-400'
-                "
+                        : 'bg-blue-400',
+                    store.state.showAnimations &&
+                        'animate__animated animate__fadeInUp',
+                ]"
                 :for="'answer-1'"
             >
                 <input
@@ -43,12 +49,14 @@
             @keydown="toggleSelection(content.params.falseValue, $event)"
         >
             <label
-                class="pl-3 flex items-center rounded-md nav-button p-2 pr-3 text-white focus:outline-none animate__animated animate__fadeInUp"
-                :class="
+                class="pl-3 flex items-center rounded-md nav-button p-2 pr-3 text-white focus:outline-none"
+                :class="[
                     selectedAnswer === content.params.falseValue
                         ? 'bg-blue-900'
-                        : 'bg-blue-400'
-                "
+                        : 'bg-blue-400',
+                    store.state.showAnimations &&
+                        'animate__animated animate__fadeInUp',
+                ]"
                 :for="'answer-2'"
             >
                 <input
@@ -65,7 +73,10 @@
         </div>
     </div>
     <confirm-button
-        class="animate__animated animate__fadeIn animate__delay-1s"
+        :class="
+            store.state.showAnimations &&
+            'animate__animated animate__fadeIn animate__delay-1s'
+        "
         :sub-element="subElement"
         @confirm="nextStep"
     ></confirm-button>
