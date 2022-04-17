@@ -15,7 +15,7 @@
                 class="survey-not-available flex items-center justify-center xl:mx-5 pt-24 pb-16 px-4 w-full h-full z-40"
             >
                 <h2 tabindex="0" class="text-center">
-                    {{ $t('survey_not_available') }}
+                    {{ t('survey_not_available') }}
                 </h2>
             </div>
             <div
@@ -23,9 +23,12 @@
                 class="survey-steps xl:mx-5 pt-20 pb-12 px-4 h-full z-40"
             >
                 <SurveyElementBuilder
-                    v-if="store.state.surveys.surveySteps"
+                    v-if="
+                        store.state.surveyResults.surveyUuidResults.steps
+                            .length > 0
+                    "
                     :content="currentStep"
-                    :survey="store.state.surveys.survey"
+                    :survey="store.state.surveyResults.surveyUuidResults.survey"
                     :result="currentStep"
                     :survey-results="currentStep"
                 ></SurveyElementBuilder>
@@ -33,7 +36,9 @@
 
             <SurveyNavigation
                 v-if="!idle"
-                :survey-steps="store.state.surveys.surveySteps.length"
+                :survey-steps="
+                    store.state.surveyResults.surveyUuidResults.steps.length
+                "
                 :current-step="surveyStep + 1"
                 @next-step="nextStep()"
                 @prev-step="prevStep()"
@@ -57,7 +62,7 @@ import SurveyNavigation from './FooterNavigation.vue'
 import { ref, watch, inject } from 'vue'
 import { onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { v4 as uuidv4 } from 'uuid'
+import { useI18n } from 'vue-i18n'
 
 export default {
     name: 'Home',
@@ -71,68 +76,21 @@ export default {
         const store = useStore()
         const route = useRoute()
         const router = useRouter()
-        const backlink = ref()
         const currentStep = ref()
         const idle = ref(false)
         const surveyStep = ref()
+        const { t } = useI18n()
         const languages = ref()
         const languageNames = ref()
         const idleTimer = inject('idle-timer')
         const surveyNotAvailable = ref(false)
 
-        backlink.value = document.referer ? document.referer : '/'
-
-        let queries = JSON.parse(JSON.stringify(route.query))
-
-        // Demo mode
-        if (queries && queries.demo === 'true') {
-            window.localStorage.setItem('surveyDemo', true)
-            store.dispatch('setIsDemo', true)
-        } else {
-            window.localStorage.setItem('surveyDemo', false)
-            store.dispatch('setIsDemo', false)
-        }
-
-        // Kiosk mode
-        if (
-            (queries && queries.kiosk && parseInt(queries.kiosk) > 0) ||
-            parseInt(window.localStorage.getItem('surveyKiosk')) > 0
-        ) {
-            window.localStorage.setItem(
-                'surveyKiosk',
-                parseInt(queries.kiosk) ||
-                    parseInt(window.localStorage.getItem('surveyKiosk')),
-            )
+        if (store.state.kiosk) {
+            console.log('kiosk')
             idleTimer.emitter.on('idle', () => {
                 window.location.reload()
             })
-            window.localStorage.setItem('surveyUuid', '')
         }
-        if (
-            (queries && parseInt(queries.kiosk) === 0) ||
-            parseInt(window.localStorage.getItem('surveyKiosk')) === 0
-        ) {
-            window.localStorage.setItem('surveyKiosk', 0)
-        }
-        if (queries.kiosk) {
-            delete queries.kiosk
-            router.replace({ query: queries })
-        }
-
-        // backlink
-        if (queries.backlink) {
-            window.localStorage.setItem('backlink', queries.backlink)
-            window.localStorage.setItem('surveyBacklink', queries.backlink)
-
-            delete queries.backlink
-            router.replace({ query: queries })
-        }
-
-        backlink.value = window.history.state.back
-
-        const surveySlug = route.query.survey || ''
-        queries.survey = route.query.survey || ''
-        router.replace({ query: queries })
 
         const userLang = ref()
         const nextSurvey = ref()
@@ -151,34 +109,12 @@ export default {
         }
 
         const getNextSurvey = async () => {
-            nextSurvey.value = await store.state.surveys.surveySteps[
+            nextSurvey.value = await store.state.surveyResults.surveySteps[
                 surveyStep.value
             ]
         }
 
         onMounted(async () => {
-            let surveyAvailable = await store.dispatch(
-                'surveyResults/getUuidResults',
-                {
-                    surveyId: surveySlug,
-                    uuid: window.localStorage.getItem('surveyUuid'),
-                },
-            )
-            if (surveyAvailable.status === 410) {
-                surveyNotAvailable.value = true
-                setTimeout(() => {
-                    document.querySelector('h2').focus()
-                }, 1000)
-            }
-            // check for uuid
-            if (!localStorage.getItem('surveyUuid')) {
-                await localStorage.setItem('surveyUuid', uuidv4())
-            }
-
-            await store.dispatch('surveyResults/getUuidResults', {
-                surveyId: surveySlug,
-                uuid: localStorage.getItem('surveyUuid'),
-            })
             languages.value =
                 store.state.surveyResults.surveyUuidResults.survey.languages
 
@@ -217,10 +153,7 @@ export default {
             () => store.state.currentStep,
             () => {
                 setTimeout(async () => {
-                    await store.dispatch('surveyResults/getUuidResults', {
-                        surveyId: surveySlug,
-                        uuid: window.localStorage.getItem('surveyUuid'),
-                    })
+                    await store.dispatch('surveyResults/getUuidResults')
                     let surveySteps =
                         store.state.surveyResults.surveyUuidResults.steps
                     let currentStepId = await store.state.surveyResults
@@ -247,7 +180,6 @@ export default {
             userLang,
             router,
             route,
-            backlink,
             nextSurvey,
             currentStep,
             languages,
@@ -255,6 +187,7 @@ export default {
             surveyNotAvailable,
             nextStep,
             prevStep,
+            t,
         }
     },
 }

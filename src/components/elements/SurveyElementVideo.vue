@@ -5,7 +5,10 @@
         >
             <div
                 class="video-wrap bg-white overflow-hidden relative z-20 h-full"
-                :class="store.state.showAnimations && 'animate__animated animate__fadeInLeft'"
+                :class="
+                    store.state.showAnimations &&
+                    'animate__animated animate__fadeInLeft'
+                "
             >
                 <div
                     v-if="showQuestion"
@@ -187,7 +190,10 @@
         </div>
         <div
             class="sidebar sidebar-right w-full md:w-1/3 md:mx-4 h-full md:overflow-y-scroll relative"
-            :class="store.state.showAnimations && 'animate__animated animate__fadeInRight'"
+            :class="
+                store.state.showAnimations &&
+                'animate__animated animate__fadeInRight'
+            "
         >
             <!--          pb-36-->
             <TimeLine
@@ -603,8 +609,10 @@ return hours + ":" + minutes + ":" + seconds;*/
                     confirmedAnswer(value - 1)
                     playVideo()
                     const surveySlug = route.query.survey || ''
+                    const stepSlug = route.query.step || ''
                     await store.dispatch('surveyResults/getUuidResults', {
                         surveyId: surveySlug,
+                        stepId: stepSlug,
                         uuid: window.localStorage.getItem('surveyUuid'),
                     })
 

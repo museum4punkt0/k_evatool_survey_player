@@ -5,40 +5,60 @@ export default {
     state: {
         surveyUuidResults: null,
         surveyLoaded: false,
+        slug: '',
+        type: 'survey',
+        uuid: '',
     },
     mutations: {
         setSurveyUuidResults(state, surveyResults) {
             state.surveyUuidResults = surveyResults
         },
-        setSurveyLoaded(state) {
-            state.surveyLoaded = true
+        setSurveyLoaded(state, surveyLoaded) {
+            state.surveyLoaded = surveyLoaded
+        },
+        setType(state, type) {
+            state.type = type
+        },
+        setSlug(state, slug) {
+            state.slug = slug
+        },
+        setUuid(state, uuid) {
+            state.uuid = uuid
         },
     },
     actions: {
-        async getUuidResults({ commit }, data) {
+        async getUuidResults({ commit, state }) {
             const surveyResults = await SURVEY_RESULTS.getUuidResults(
-                data.surveyId,
-                data.uuid,
+                state.slug,
+                state.uuid,
+                state.type,
             )
 
-            if (surveyResults.status !== 404 && surveyResults.status !== 409) {
+            // check for errors
+            if (surveyResults.status) {
+                if (surveyResults.status === 404) {
+                    console.log('error 404')
+                }
+
+                if (surveyResults.status === 409) {
+                    console.log('error 409')
+                }
+
+                if (surveyResults.status === 410) {
+                    console.log('error 410')
+                }
+            } else {
+                // set survey and loaded
                 commit('setSurveyUuidResults', surveyResults)
-                commit('setSurveyLoaded')
+                commit('setSurveyLoaded', true)
                 return surveyResults
             }
         },
         async sendSurveyResults(_, resultData) {
-            console.log(resultData)
             await SURVEY_RESULTS.sendResults(
                 resultData.surveyId,
                 resultData.data,
             )
-
-            // const surveyResults = await SURVEY_RESULTS.getUuidResults(
-            //     resultData.surveyId,
-            //     localStorage.getItem('surveyUuid'),
-            // )
-            // commit('setSurveyUuidResults', surveyResults)
         },
         async sendSurveyAudioAsset({ commit }, resultData) {
             await SURVEY_RESULTS.sendAudioResults(resultData)
@@ -47,6 +67,15 @@ export default {
                 localStorage.getItem('surveyUuid'),
             )
             commit('setSurveyUuidResults', surveyResults)
+        },
+        setType({ commit }, type) {
+            commit('setType', type)
+        },
+        setSlug({ commit }, slug) {
+            commit('setSlug', slug)
+        },
+        setUuid({ commit }, uuid) {
+            commit('setUuid', uuid)
         },
     },
 }

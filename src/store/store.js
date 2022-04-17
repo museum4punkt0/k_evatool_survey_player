@@ -1,16 +1,13 @@
 import { createStore } from 'vuex'
 import axios from 'axios'
-import surveysStoreModule from './surveys'
 import surveyResultsStoreModule from './survey-results'
 
 export default createStore({
     modules: {
-        surveys: surveysStoreModule,
         surveyResults: surveyResultsStoreModule,
     },
     state: {
         lang: '',
-        surveyId: null,
         showAnimations: true,
         languages: [],
         currentStep: 0,
@@ -19,11 +16,11 @@ export default createStore({
         editVideoQuestionId: -1,
         isDemo: false,
         surveyLoaded: false,
+        kiosk: false,
+        appReady: false,
+        error: '',
     },
     mutations: {
-        setSurveyId(state, surveyId) {
-            state.surveyId = surveyId
-        },
         setCurrentStep(state, step = null) {
             if (step) {
                 state.currentStep = step
@@ -59,11 +56,17 @@ export default createStore({
         setShowAnimations(state, show) {
             state.showAnimations = show
         },
+        setKiosk(state, kiosk) {
+            state.kiosk = kiosk
+        },
+        setError(state, errorString) {
+            state.error = errorString
+        },
+        setAppReady(state, appReady) {
+            state.appReady = appReady
+        },
     },
     actions: {
-        setSurveyId({ commit }, surveyId) {
-            commit('setSurveyId', surveyId)
-        },
         setCurrentStep({ commit }) {
             commit('setCurrentStep')
         },
@@ -82,11 +85,9 @@ export default createStore({
         editVideoQuestionId({ commit }, value) {
             commit('editVideoQuestionId', value)
         },
-        // async setUserLanguage({ commit }, lang) {
         async setUserLanguage({ commit }, lang) {
             commit('setUserLanguage', lang)
         },
-        // async getLanguages({ commit }, userLang) {
         async getLanguages() {
             const url = 'evaluation-tool/survey-languages'
             await axios
@@ -97,12 +98,18 @@ export default createStore({
                 .catch((error) => {
                     return error
                 })
-
-            //commit('setLanguages', languages)
-            // commit('setUserLanguage', userLang)
         },
         setShowAnimations({ commit }, show) {
             commit('setShowAnimations', show)
+        },
+        setKiosk({ commit }, kiosk) {
+            commit('setKiosk', kiosk)
+        },
+        setError({ commit }, errorString) {
+            commit('setError', errorString)
+        },
+        setAppReady({ commit }, appReady) {
+            commit('setAppReady', appReady)
         },
     },
 })

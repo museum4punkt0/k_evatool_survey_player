@@ -4,6 +4,7 @@
     >
         <div class="left-menu">
             <img
+                alt="logo"
                 src="../assets/logo.svg"
                 class="inline rounded tabindex-focus-nopadding"
                 tabindex="0"
@@ -25,7 +26,7 @@
                 v-if="languages && languages.length > 1"
                 class="inline-block h-6"
             >
-                <div v-for="lang in languages" class="inline">
+                <div v-for="(lang, l) in languages" :key="l" class="inline">
                     <button
                         tabindex="0"
                         class="tabindex-focus-nopadding rounded inline uppercase mx-2"
@@ -96,10 +97,9 @@ export default {
             type: Array,
             default: null,
         },
-
         userLang: {
-            type: Array,
-            default: null,
+            type: String,
+            default: 'de',
         },
     },
     setup(props) {

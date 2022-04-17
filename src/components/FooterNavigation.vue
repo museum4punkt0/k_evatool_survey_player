@@ -125,6 +125,7 @@ export default {
     components: {
         SwitchGroup,
         Switch,
+        SwitchLabel,
         BookOpenIcon,
         FingerPrintIcon,
         ChevronDoubleLeftIcon,

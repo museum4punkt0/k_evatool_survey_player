@@ -2,8 +2,13 @@ import axios from 'axios'
 import store from '../store/store'
 
 export default {
-    async getUuidResults(surveySlug, uuid = null) {
-        let url = 'evaluation-tool/surveys/' + surveySlug + '/run'
+    async getUuidResults(surveySlug, uuid = null, type = 'survey') {
+        let url
+        if (type === 'step') {
+            url = 'evaluation-tool/surveys/' + surveySlug + '/run-step'
+        } else {
+            url = 'evaluation-tool/surveys/' + surveySlug + '/run'
+        }
         if (uuid) {
             url += '?uuid=' + uuid
         }
