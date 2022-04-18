@@ -1,48 +1,67 @@
 <template>
     <div class="main-page h-screen overflow-y-scroll bg-gray-100">
         <template v-if="store.state.surveyResults.surveyLoaded">
-            <div class="survey-header-menu top-0 fixed w-screen z-50 bg-white">
-                <header-menu
-                    :languages="languages"
-                    :language-names="languageNames"
-                    :user-lang="userLang"
-                ></header-menu>
-            </div>
+            <template v-if="store.state.surveyResults.type === 'survey'">
+                <div
+                    class="survey-header-menu top-0 fixed w-screen z-50 bg-white"
+                >
+                    <header-menu
+                        :languages="languages"
+                        :language-names="languageNames"
+                        :user-lang="userLang"
+                    ></header-menu>
+                </div>
 
-            <IdleScreen v-if="idle" @start="idle = false"></IdleScreen>
-            <div
-                v-else-if="surveyNotAvailable"
-                class="survey-not-available flex items-center justify-center xl:mx-5 pt-24 pb-16 px-4 w-full h-full z-40"
-            >
-                <h2 tabindex="0" class="text-center">
-                    {{ t('survey_not_available') }}
-                </h2>
-            </div>
-            <div
-                v-else
-                class="survey-steps xl:mx-5 pt-20 pb-12 px-4 h-full z-40"
-            >
-                <SurveyElementBuilder
-                    v-if="
-                        store.state.surveyResults.surveyUuidResults.steps
-                            .length > 0
+                <IdleScreen v-if="idle" @start="idle = false"></IdleScreen>
+                <div
+                    v-else-if="surveyNotAvailable"
+                    class="survey-not-available flex items-center justify-center xl:mx-5 pt-24 pb-16 px-4 w-full h-full z-40"
+                >
+                    <h2 tabindex="0" class="text-center">
+                        {{ t('survey_not_available') }}
+                    </h2>
+                </div>
+                <div
+                    v-else
+                    class="survey-steps xl:mx-5 pt-20 pb-12 px-4 h-full z-40"
+                >
+                    <SurveyElementBuilder
+                        v-if="
+                            store.state.surveyResults.surveyUuidResults.steps
+                                .length > 0
+                        "
+                        :content="currentStep"
+                        :survey="
+                            store.state.surveyResults.surveyUuidResults.survey
+                        "
+                        :result="currentStep"
+                        :survey-results="currentStep"
+                    ></SurveyElementBuilder>
+                </div>
+
+                <SurveyNavigation
+                    v-if="!idle"
+                    :survey-steps="
+                        store.state.surveyResults.surveyUuidResults.steps.length
                     "
-                    :content="currentStep"
-                    :survey="store.state.surveyResults.surveyUuidResults.survey"
-                    :result="currentStep"
-                    :survey-results="currentStep"
-                ></SurveyElementBuilder>
-            </div>
-
-            <SurveyNavigation
-                v-if="!idle"
-                :survey-steps="
-                    store.state.surveyResults.surveyUuidResults.steps.length
-                "
-                :current-step="surveyStep + 1"
-                @next-step="nextStep()"
-                @prev-step="prevStep()"
-            ></SurveyNavigation>
+                    :current-step="surveyStep + 1"
+                    @next-step="nextStep()"
+                    @prev-step="prevStep()"
+                ></SurveyNavigation>
+            </template>
+            <template v-if="store.state.surveyResults.type === 'step'">
+                <div class="survey-steps xl:mx-5 pt-20 pb-12 px-4 h-full z-40">
+                    <SurveyElementBuilder
+                        v-if="store.state.surveyResults.surveyUuidResults.step"
+                        :content="currentStep"
+                        :survey="
+                            store.state.surveyResults.surveyUuidResults.survey
+                        "
+                        :result="currentStep"
+                        :survey-results="currentStep"
+                    ></SurveyElementBuilder>
+                </div>
+            </template>
         </template>
         <template v-else>
             <div class="w-full h-full flex items-center justify-center">
@@ -96,14 +115,12 @@ export default {
         const nextSurvey = ref()
 
         const nextStep = () => {
-            console.log('nextStep')
             surveyStep.value++
-
             store.dispatch('setCurrentStep')
             getNextSurvey()
         }
+
         const prevStep = () => {
-            console.log('prevStep')
             surveyStep.value--
             getNextSurvey()
         }
@@ -115,15 +132,18 @@ export default {
         }
 
         onMounted(async () => {
+            // get languages
             languages.value =
                 store.state.surveyResults.surveyUuidResults.survey.languages
 
+            // get language names (for display)
             languageNames.value =
                 store.state.surveyResults.surveyUuidResults.survey.languageNames
 
-            // set User Language
+            // set user Language
             userLang.value = localStorage.getItem('surveyUserLanguage')
 
+            // check if user language is available, if not fallback to default (first available language)
             if (languages.value.indexOf(userLang.value) > -1) {
                 await store.dispatch('setUserLanguage', userLang.value)
                 document.documentElement.setAttribute('lang', userLang.value)
@@ -137,12 +157,23 @@ export default {
                 userLang.value = languages.value[0]
             }
 
-            let surveySteps = store.state.surveyResults.surveyUuidResults.steps
+            // set current step for survey mode
+            if (store.state.surveyResults.type === 'survey') {
+                const surveySteps =
+                    store.state.surveyResults.surveyUuidResults.steps
+                let currentStepId =
+                    store.state.surveyResults.surveyUuidResults.survey
+                        .statusByUuid.currentStep
+                currentStep.value = surveySteps.find(
+                    (x) => x.id === currentStepId,
+                )
+            }
 
-            let currentStepId =
-                store.state.surveyResults.surveyUuidResults.survey.statusByUuid
-                    .currentStep
-            currentStep.value = surveySteps.find((x) => x.id === currentStepId)
+            // set current step for step mode
+            if (store.state.surveyResults.type === 'step') {
+                currentStep.value =
+                    store.state.surveyResults.surveyUuidResults.step
+            }
 
             if (surveyStep.value > 0) {
                 idle.value = false
@@ -154,13 +185,22 @@ export default {
             () => {
                 setTimeout(async () => {
                     await store.dispatch('surveyResults/getUuidResults')
-                    let surveySteps =
-                        store.state.surveyResults.surveyUuidResults.steps
-                    let currentStepId = await store.state.surveyResults
-                        .surveyUuidResults.survey.statusByUuid.currentStep
-                    currentStep.value = await surveySteps.find(
-                        (x) => x.id === currentStepId,
-                    )
+
+                    // set current step for survey mode
+                    if (store.state.surveyResults.type === 'survey') {
+                        let surveySteps =
+                            store.state.surveyResults.surveyUuidResults.steps
+                        let currentStepId = await store.state.surveyResults
+                            .surveyUuidResults.survey.statusByUuid.currentStep
+                        currentStep.value = await surveySteps.find(
+                            (x) => x.id === currentStepId,
+                        )
+                    }
+
+                    if (store.state.surveyResults.type === 'step') {
+                        currentStep.value =
+                            store.state.surveyResults.surveyUuidResults.step
+                    }
                 }, 300)
             },
         )
