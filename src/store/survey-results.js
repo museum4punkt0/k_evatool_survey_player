@@ -27,7 +27,7 @@ export default {
         },
     },
     actions: {
-        async getUuidResults({ commit, state }) {
+        async getUuidResults({ commit, state, rootState }) {
             const surveyResults = await SURVEY_RESULTS.getUuidResults(
                 state.slug,
                 state.uuid,
@@ -46,6 +46,10 @@ export default {
 
                 if (surveyResults.status === 410) {
                     console.log('error 410')
+                }
+
+                if (surveyResults.status > 400) {
+                    rootState.error = surveyResults.data
                 }
             } else {
                 // set survey and loaded

@@ -1,8 +1,25 @@
 <template>
     <router-view
-        v-if="store.state.appReady && store.state.surveyResults.surveyLoaded"
+        v-if="
+            store.state.appReady &&
+            store.state.surveyResults.surveyLoaded &&
+            !store.state.error
+        "
     />
-    <div v-if="store.state.error">{{ store.state.error }}</div>
+    <div
+        v-if="store.state.error"
+        class="w-screen h-screen flex items-center justify-center"
+    >
+        <div class="mx-5">
+            <h1 class="text-red-700 ml-2 mb-1">Error</h1>
+            <div class="p-5 bg-red-300 rounded-2xl">
+                <pre class="text-red-700">{{ store.state.error }}</pre>
+            </div>
+            <p class="text-xs mt-2 ml-2 text-red-700">
+                Please contact the administrator of this website
+            </p>
+        </div>
+    </div>
 </template>
 
 <script>
