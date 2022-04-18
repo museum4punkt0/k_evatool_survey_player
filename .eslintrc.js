@@ -1,12 +1,10 @@
 module.exports = {
     root: true,
-
     env: {
         node: true,
     },
     parserOptions: {
-        parser: 'babel-eslint',
-        ecmaVersion: 2020,
+        ecmaVersion: 2022,
     },
     rules: {
         'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
@@ -14,10 +12,10 @@ module.exports = {
         'vue/no-unused-components': 'off',
         'vue/no-v-html': 'off',
         'vue/no-deprecated-filter': 'off',
+        'vue/multi-word-component-names': 'off',
     },
     extends: [
         'plugin:vue/vue3-recommended',
-        'plugin:vue/vue3-essential',
         'eslint:recommended',
         '@vue/prettier',
     ],

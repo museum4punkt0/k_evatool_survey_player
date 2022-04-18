@@ -64,6 +64,7 @@ export default {
     privacy: 'Datenschutz',
     question_at: 'Frage bei',
     questions_answered: 'Fragen beantwortet',
+    show_animations: 'Animationen anzeigen',
     swipe_instructions:
         'Ziehen Sie das Bild nach links, um mit "{0}" zu antworten, oder ziehen Sie das Bild nach rechts, um mit "{1}" zu antworten. Sie können auch die "{0}" und "{1}"-Schaltflächen unter dem Bild verwenden.',
     tooltip_answer_first: 'Bitte beantworten Sie die Frage!',

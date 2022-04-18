@@ -63,6 +63,7 @@ export default {
     privacy: 'Privacy',
     question_at: 'Question at',
     questions_answered: 'Questions answered',
+    show_animations: 'Show animations',
     swipe_instructions:
         'Drag the image to the left to reply "{0}" or drag the image to the right to reply "{1}". You can also use the "{0}" and "{1}" buttons below the image.',
     tooltip_answer_first: 'Please answer the question!',

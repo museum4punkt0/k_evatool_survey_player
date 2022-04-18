@@ -18,40 +18,16 @@
                 </button>
             </div>
             <div class="flex bg-white items-center justify-center w-full">
-                <div class="flex justify-center items-center w-full">
-                    <!--                    <button-->
-                    <!--                        class="prev flex items-center rounded-md nav-button p-2"-->
-                    <!--                        @click="prevStep()"-->
-                    <!--                    >-->
-                    <!--                        <chevron-double-left-icon-->
-                    <!--                            class="h-5 w-5 mr-1"-->
-                    <!--                        ></chevron-double-left-icon>-->
-
-                    <!--                        {{ t('action_prev') }}-->
-                    <!--                    </button>-->
-                    <!--                    <span class="mx-4 p-0">-->
-                    <!--                        &lt;!&ndash;                        {{ store.state.currentStep + 1 }}/{{ surveySteps }}&ndash;&gt;-->
-                    <!--                    </span>-->
-                    <!--                    <button-->
-                    <!--                        class="next flex items-center rounded-md nav-button p-2"-->
-                    <!--                        @click="nextStep()"-->
-                    <!--                    >-->
-                    <!--                        {{ t('action_next') }}-->
-                    <!--                        <chevron-double-right-icon-->
-                    <!--                            class="h-5 w-5 ml-2"-->
-                    <!--                        ></chevron-double-right-icon>-->
-                    <!--                    </button>-->
-                </div>
                 <div
                     class="flex relative justify-center xl:absolute xl:right-6 bg-white md:bg-transparent"
                 >
                     <SwitchGroup>
                         <div class="flex items-center mr-16">
                             <SwitchLabel class="mr-4">
-                                Animationen anzeigen
+                                {{ t('show_animations') }}
                             </SwitchLabel>
                             <Switch
-                                v-model="store.state.showAnimations"
+                                v-model="showAnimations"
                                 :class="
                                     store.state.showAnimations
                                         ? 'bg-green-400'
@@ -75,6 +51,7 @@
                             </Switch>
                         </div>
                     </SwitchGroup>
+
                     <button
                         class="tabindex-focus imprint flex items-center rounded-md nav-button p-2 ml-2"
                         @click="openModal('privacy')"
@@ -97,8 +74,8 @@
             </div>
         </div>
         <ImprintPrivacyModal
-            :open="modalboxOpen"
-            :type="modalboxType"
+            :open="modalBoxOpen"
+            :type="modalBoxType"
             @close-modal="closeModal"
         ></ImprintPrivacyModal>
     </div>
@@ -114,7 +91,7 @@ import {
     ChevronDoubleRightIcon,
 } from '@heroicons/vue/outline'
 import { useStore } from 'vuex'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { version } from '../../package.json'
 import { useI18n } from 'vue-i18n'
 import { onMounted } from 'vue'
@@ -146,10 +123,18 @@ export default {
     setup(props, { emit }) {
         const store = useStore()
         const route = useRoute()
-        const modalboxOpen = ref()
-        const modalboxType = ref()
-        const demoMode = ref(false)
         const { t } = useI18n()
+        const modalBoxOpen = ref()
+        const modalBoxType = ref()
+        const demoMode = ref(false)
+
+        const showAnimations = computed({
+            get: () => {
+                return store.state.showAnimations
+            },
+            set: (value) => store.dispatch('setShowAnimations', value),
+        })
+
         const nextStep = () => {
             if (props.currentStep < props.surveySteps) {
                 console.log('nextStep')
@@ -172,21 +157,19 @@ export default {
 
         const openModal = (type) => {
             console.log(type)
-            modalboxOpen.value = true
-            modalboxType.value = type
+            modalBoxOpen.value = true
+            modalBoxType.value = type
         }
         const closeModal = () => {
-            modalboxOpen.value = false
-        }
-
-        const toggleAnimations = () => {
-            store.dispatch('setShowAnimations', !store.state.showAnimations)
+            modalBoxOpen.value = false
         }
 
         onMounted(() => {
             if (route.query.demo && route.query.demo === 'true') {
                 demoMode.value = true
             }
+
+            showAnimations.value = store.state.showAnimations
         })
 
         return {
@@ -200,9 +183,9 @@ export default {
             resetUuid,
             openModal,
             closeModal,
-            toggleAnimations,
-            modalboxOpen,
-            modalboxType,
+            modalBoxOpen,
+            modalBoxType,
+            showAnimations,
         }
     },
 }

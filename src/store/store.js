@@ -8,7 +8,7 @@ export default createStore({
     },
     state: {
         lang: '',
-        showAnimations: true,
+        showAnimations: localStorage.getItem('surveyShowAnimations') || true,
         languages: [],
         currentStep: 0,
         currentVideoStep: 0,
@@ -54,6 +54,7 @@ export default createStore({
             state.lang = lang
         },
         setShowAnimations(state, show) {
+            localStorage.setItem('surveyShowAnimations', show)
             state.showAnimations = show
         },
         setKiosk(state, kiosk) {
