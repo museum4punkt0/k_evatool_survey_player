@@ -1,7 +1,10 @@
 <template>
     <h2
         class="tabindex-focus pb-5 m-1"
-        :class="store.state.showAnimations && 'animate__animated animate__fadeInDown'"
+        :class="
+            store.state.showAnimations &&
+            'animate__animated animate__fadeInDown'
+        "
         tabindex="0"
         v-html="content.params.question[lang]"
     ></h2>
@@ -9,7 +12,9 @@
     <textarea
         v-model="text"
         class="bg-gray-50 w-10/12 text-gray-800 text-2xl p-2 m-1 box-border overflow-hidden border-0 outline-none resize-none tabindex-focus"
-        :class="store.state.showAnimations && 'animate__animated animate__fadeInUp'"
+        :class="
+            store.state.showAnimations && 'animate__animated animate__fadeInUp'
+        "
         :placeholder="t('write_comment_placeholder')"
         :aria-label="t('write_comment_placeholder')"
         tabindex="0"
@@ -17,7 +22,10 @@
     />
 
     <confirm-button
-        :class="store.state.showAnimations && 'animate__animated animate__fadeIn animate__delay-1s'"
+        :class="
+            store.state.showAnimations &&
+            'animate__animated animate__fadeIn animate__delay-1s'
+        "
         :sub-element="subElement"
         :disabled="!text"
         @confirm="nextStep"
@@ -65,11 +73,9 @@ export default {
         })
 
         const inputText = () => {
-            console.log(text.value)
             store.dispatch('setStepAnswering', true)
         }
         const nextStep = async () => {
-            console.log(text.value)
             await store.dispatch('setStepAnswering', true)
             await store.dispatch('surveyResults/sendSurveyResults', {
                 surveyId: route.query.survey,
@@ -84,7 +90,6 @@ export default {
             })
             await store.dispatch('setCurrentStep')
         }
-        console.log(props)
 
         const getResults = () => {
             let questionResults = props.surveyResults
