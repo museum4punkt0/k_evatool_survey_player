@@ -23,6 +23,7 @@
             >
                 <label
                     v-for="note in 6"
+                    :key="note"
                     class="inline-flex flex-col flex-wrap items-center py-2 tabindex-focus"
                     role="radio"
                     :aria-checked="note === rating"
@@ -53,6 +54,7 @@
             >
                 <label
                     v-for="note in parseInt(content.params.numberOfStars)"
+                    :key="note"
                     class="inline-flex flex-col flex-wrap items-center py-2 tabindex-focus"
                     :aria-checked="note === rating"
                     tabindex="0"
@@ -100,7 +102,10 @@
     />
 
     <confirm-button
-        :class="store.state.showAnimations && 'animate__animated animate__fadeIn animate__delay-1s'"
+        :class="
+            store.state.showAnimations &&
+            'animate__animated animate__fadeIn animate__delay-1s'
+        "
         :sub-element="subElement"
         :disabled="!rating"
         @confirm="nextStep"
@@ -185,7 +190,6 @@ export default {
                 },
             })
             await store.dispatch('setStepAnswering', true)
-            console.log('setRating')
         }
 
         const getLabels = (labels) => {
