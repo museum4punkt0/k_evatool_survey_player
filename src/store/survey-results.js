@@ -54,10 +54,12 @@ export default {
                 return surveyResults
             }
         },
-        async sendSurveyResults(_, resultData) {
+        async sendSurveyResults({ state }, resultData) {
             await SURVEY_RESULTS.sendResults(
-                resultData.surveyId,
+                state.slug,
                 resultData.data,
+                state.uuid,
+                state.type,
             )
         },
         async sendSurveyAudioAsset({ commit }, resultData) {

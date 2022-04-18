@@ -29,17 +29,23 @@ export default {
                 return error.response
             })
     },
-    async sendResults(surveySlug, data) {
+    async sendResults(slug, data, uuid, type = 'survey') {
         const headers = {}
+
+        // set demo header
         if (store.state.isDemo === true) {
             headers['X-Demo'] = true
         }
 
-        const url =
-            'evaluation-tool/surveys/' +
-            surveySlug +
-            '/run?uuid=' +
-            window.localStorage.getItem('surveyUuid')
+        // set url bases on type
+        let url
+        if (type === 'survey') {
+            url = 'evaluation-tool/surveys/' + slug + '/run?uuid=' + uuid
+        }
+
+        if (type === 'step') {
+            url = 'evaluation-tool/surveys/' + slug + '/run-step?uuid=' + uuid
+        }
 
         return axios
             .post(url, data, {
