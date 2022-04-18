@@ -58,7 +58,6 @@ export default {
             } else {
                 emit('confirm')
             }
-            // store.dispatch('setCurrentStep')
         }
         return {
             t,
