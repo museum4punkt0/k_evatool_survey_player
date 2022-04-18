@@ -8,7 +8,10 @@ export default createStore({
     },
     state: {
         lang: '',
-        showAnimations: localStorage.getItem('surveyShowAnimations') || true,
+        // check if local storage is set or default to true
+        showAnimations: localStorage.getItem('surveyShowAnimations')
+            ? localStorage.getItem('surveyShowAnimations') === 'true'
+            : true,
         languages: [],
         currentStep: 0,
         currentVideoStep: 0,
