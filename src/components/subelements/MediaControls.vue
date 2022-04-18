@@ -1,31 +1,15 @@
 <template>
     <div
-        class="
-            media-player-controls-wrap
-            items-center
-            justify-center
-            bg-white
-            p-2
-        "
+        class="media-player-controls-wrap items-center justify-center bg-white p-2"
     >
         <div
-            class="
-                media-player-controls
-                flex flex-wrap
-                items-start
-                xl:items-center
-            "
+            class="media-player-controls flex flex-wrap items-start xl:items-center"
         >
             <div
                 class="group-left inline xl:flex items-center float-left w-6/12"
             >
                 <div
-                    class="
-                        play-pause
-                        inline
-                        float-left
-                        tabindex-focus-nopadding
-                    "
+                    class="play-pause inline float-left tabindex-focus-nopadding"
                     tabindex="0"
                     @click="togglePlay()"
                 >
@@ -38,13 +22,7 @@
                 </div>
                 <div
                     tabindex="0"
-                    class="
-                        volume
-                        inline
-                        float-left
-                        mx-3
-                        tabindex-focus-nopadding
-                    "
+                    class="volume inline float-left mx-3 tabindex-focus-nopadding"
                     @click="toggleVolume"
                 >
                     <span v-if="volume">
@@ -59,15 +37,7 @@
                 <div class="float-left inline">
                     <button
                         tabindex="0"
-                        class="
-                            rounded-2xl
-                            text-gray-400 text-xs
-                            px-3
-                            py-1
-                            bg-gray-100
-                            whitespace-nowrap
-                            tabindex-focus-nopadding
-                        "
+                        class="rounded-2xl text-gray-400 text-xs px-3 py-1 bg-gray-100 whitespace-nowrap tabindex-focus-nopadding"
                         @click="writeComment()"
                     >
                         <pencil-alt-icon class="h-6 w-6 inline" />

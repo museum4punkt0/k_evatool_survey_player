@@ -95,7 +95,10 @@
             }}
         </p>
         <confirm-button
-            :class="store.state.showAnimations && 'animate__animated animate__fadeIn animate__delay-1s'"
+            :class="
+                store.state.showAnimations &&
+                'animate__animated animate__fadeIn animate__delay-1s'
+            "
             :sub-element="subElement"
             @confirm="nextStep"
         ></confirm-button>

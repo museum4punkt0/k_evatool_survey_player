@@ -87,6 +87,7 @@ export default {
             default: false,
         },
     },
+    emits: ['selected'],
     setup() {
         const { t } = useI18n()
         return { t }
@@ -109,7 +110,6 @@ export default {
                     this.$emit('selected', this.value)
                 }
             }
-            // this.selected = !this.selected
         },
     },
 }

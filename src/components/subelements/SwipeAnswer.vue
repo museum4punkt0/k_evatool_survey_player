@@ -25,7 +25,10 @@
             <div
                 v-if="currentElement !== images.length"
                 class="inline swipe-left absolute md:relative z-20 top-1/2 left-12 md:left-12 xl:-left-10 flex flex-col justify-center items-center"
-                :class="store.state.showAnimations && 'animate__animated animate__fadeInLeft'"
+                :class="
+                    store.state.showAnimations &&
+                    'animate__animated animate__fadeInLeft'
+                "
                 @click="triggerAnswer(0)"
             >
                 <img
@@ -42,7 +45,10 @@
             </div>
             <div
                 class="relative card-container z-10 w-1/2 md:w-96 h-1/2 pb-4"
-                :class="store.state.showAnimations && 'animate__animated animate__fadeIn animate__delay-1s'"
+                :class="
+                    store.state.showAnimations &&
+                    'animate__animated animate__fadeIn animate__delay-1s'
+                "
             >
                 <div class="card-ghost relative w-full md:w-96">
                     <!--                  -->
@@ -76,34 +82,15 @@
                                 :style="opacityTrue"
                                 src="../../assets/yes.svg"
                             />
-                            <!--                            <span-->
-                            <!--                                class="yes-icon bg-blue-900"-->
-                            <!--                                :style="opacityTrue"-->
-                            <!--                            >-->
-                            <!--                                {{ surveyResults.params.trueLabel[lang] }}-->
-                            <!--                            </span>-->
+
                             <img
                                 class="no-icon"
                                 :style="opacityFalse"
                                 src="../../assets/no.svg"
                             />
-                            <!--                            <span-->
-                            <!--                                class="no-icon bg-blue-900"-->
-                            <!--                                :style="opacityFalse"-->
-                            <!--                            >-->
-                            <!--                                {{ surveyResults.params.falseLabel[lang] }}-->
-                            <!--                            </span>-->
                         </div>
                     </div>
-                    <!--        <div class="touch-element">-->
-                    <!--            <div class="px-6 text-center font-light text-sm">-->
-                    <!--                <img src="https://picsum.photos/400" alt="" />-->
-                    <!--                <p>-->
-                    <!--                    Front end Developer, avid reader. Love to take a long walk,-->
-                    <!--                    swim-->
-                    <!--                </p>-->
-                    <!--            </div>-->
-                    <!--        </div>-->
+
                     <div
                         class="card absolute touch-element h-full md:h-50 hover:shadow rounded-t-xl bg-white w-full flex justify-center items-center"
                         :class="{
@@ -119,7 +106,10 @@
             <div
                 v-if="currentElement !== images.length"
                 class="inline swipe-right absolute md:relative z-20 top-1/2 right-12 md:right-12 xl:-right-10 flex flex-col justify-center items-center"
-                :class="store.state.showAnimations && 'animate__animated animate__fadeInRight'"
+                :class="
+                    store.state.showAnimations &&
+                    'animate__animated animate__fadeInRight'
+                "
                 @click="triggerAnswer(1)"
             >
                 <img
@@ -149,7 +139,6 @@
 import { computed, onUnmounted, ref } from 'vue'
 import { onMounted, watch } from 'vue'
 import { useStore } from 'vuex'
-// import SwipeInstructionModal from '../subelements/SwipeInstructionModal.vue'
 import InfoModal from '../subelements/InfoModal.vue'
 
 export default {

@@ -21,17 +21,7 @@
                                 type="text"
                                 name="first-name"
                                 autocomplete="given-name"
-                                class="
-                                    mt-1
-                                    focus:ring-indigo-500
-                                    focus:border-indigo-500
-                                    block
-                                    w-full
-                                    shadow-sm
-                                    sm:text-sm
-                                    border-gray-800
-                                    rounded-md
-                                "
+                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-800 rounded-md"
                             />
                         </div>
 
@@ -47,18 +37,7 @@
                                 type="text"
                                 name="last-name"
                                 autocomplete="family-name"
-                                class="
-                                    mt-1
-                                    focus:ring-indigo-500
-                                    focus:border-indigo-500
-                                    block
-                                    w-full
-                                    shadow-sm
-                                    sm:text-sm
-                                    border-1
-                                    2xl:border-gray-80000
-                                    rounded-md
-                                "
+                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-1 2xl:border-gray-80000 rounded-md"
                             />
                         </div>
 
@@ -74,17 +53,7 @@
                                 type="text"
                                 name="email-address"
                                 autocomplete="email"
-                                class="
-                                    mt-1
-                                    focus:ring-indigo-500
-                                    focus:border-indigo-500
-                                    block
-                                    w-full
-                                    shadow-sm
-                                    sm:text-sm
-                                    border-gray-300
-                                    rounded-md
-                                "
+                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                             />
                         </div>
 
@@ -99,21 +68,7 @@
                                 id="country"
                                 name="country"
                                 autocomplete="country"
-                                class="
-                                    mt-1
-                                    block
-                                    w-full
-                                    py-2
-                                    px-3
-                                    border border-gray-300
-                                    bg-white
-                                    rounded-md
-                                    shadow-sm
-                                    focus:outline-none
-                                    focus:ring-indigo-500
-                                    focus:border-indigo-500
-                                    sm:text-sm
-                                "
+                                class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             >
                                 <option>United States</option>
                                 <option>Canada</option>
@@ -133,17 +88,7 @@
                                 type="text"
                                 name="street-address"
                                 autocomplete="street-address"
-                                class="
-                                    mt-1
-                                    focus:ring-indigo-500
-                                    focus:border-indigo-500
-                                    block
-                                    w-full
-                                    shadow-sm
-                                    sm:text-sm
-                                    border-gray-300
-                                    rounded-md
-                                "
+                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                             />
                         </div>
 
@@ -158,17 +103,7 @@
                                 id="city"
                                 type="text"
                                 name="city"
-                                class="
-                                    mt-1
-                                    focus:ring-indigo-500
-                                    focus:border-indigo-500
-                                    block
-                                    w-full
-                                    shadow-sm
-                                    sm:text-sm
-                                    border-gray-300
-                                    rounded-md
-                                "
+                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                             />
                         </div>
 
@@ -183,17 +118,7 @@
                                 id="state"
                                 type="text"
                                 name="state"
-                                class="
-                                    mt-1
-                                    focus:ring-indigo-500
-                                    focus:border-indigo-500
-                                    block
-                                    w-full
-                                    shadow-sm
-                                    sm:text-sm
-                                    border-gray-300
-                                    rounded-md
-                                "
+                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                             />
                         </div>
 
@@ -209,17 +134,7 @@
                                 type="text"
                                 name="postal-code"
                                 autocomplete="postal-code"
-                                class="
-                                    mt-1
-                                    focus:ring-indigo-500
-                                    focus:border-indigo-500
-                                    block
-                                    w-full
-                                    shadow-sm
-                                    sm:text-sm
-                                    border-gray-300
-                                    rounded-md
-                                "
+                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                             />
                         </div>
                     </div>
@@ -227,24 +142,7 @@
                 <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
                     <button
                         type="submit"
-                        class="
-                            inline-flex
-                            justify-center
-                            py-2
-                            px-4
-                            border border-transparent
-                            shadow-sm
-                            text-sm
-                            font-medium
-                            rounded-md
-                            text-white
-                            bg-indigo-600
-                            hover:bg-indigo-700
-                            focus:outline-none
-                            focus:ring-2
-                            focus:ring-offset-2
-                            focus:ring-indigo-500
-                        "
+                        class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >
                         Save
                     </button>

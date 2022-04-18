@@ -1,15 +1,7 @@
 <template>
     <div class="slider absolute w-full h-full z-50">
         <div
-            class="
-                relative
-                flex
-                justify-center
-                items-center
-                w-full
-                h-full
-                overflow-x-hidden overflow-y-scroll
-            "
+            class="relative flex justify-center items-center w-full h-full overflow-x-hidden overflow-y-scroll"
         >
             <button class="close-btn tabindex-focus" @click="closeModal">
                 <img src="../../assets/close.svg" />

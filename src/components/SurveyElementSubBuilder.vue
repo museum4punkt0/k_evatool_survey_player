@@ -1,15 +1,6 @@
 <template>
     <div
-        class="
-            survey-content
-            flex flex-wrap flex-col
-            h-auto
-            py-8
-            justify-center
-            items-center
-            overflow-scroll
-            px-8
-        "
+        class="survey-content flex flex-wrap flex-col h-auto py-8 justify-center items-center overflow-scroll px-8"
     >
         <SurveyElementBinaryQuestion
             v-if="content?.surveyElementType === 'binary'"

@@ -6,113 +6,37 @@
             <!--            {{ store.state.surveys.surveyStep }}-->
 
             <div
-                class="
-                    absolute
-                    inset-0
-                    w-full
-                    h-full
-                    text-black
-                    flex
-                    items-center
-                    justify-center
-                    text-5xl
-                    transition-all
-                    ease-in-out
-                    duration-1000
-                    transform
-                    translate-x-0
-                    slide
-                "
+                class="absolute inset-0 w-full h-full text-black flex items-center justify-center text-5xl transition-all ease-in-out duration-1000 transform translate-x-0 slide"
             >
                 Frage ID {{ content.id }}
             </div>
             <div
-                class="
-                    absolute
-                    inset-0
-                    w-full
-                    h-full
-                    text-black
-                    flex
-                    items-center
-                    justify-center
-                    text-5xl
-                    transition-all
-                    ease-in-out
-                    duration-1000
-                    transform
-                    translate-x-full
-                    slide
-                "
+                class="absolute inset-0 w-full h-full text-black flex items-center justify-center text-5xl transition-all ease-in-out duration-1000 transform translate-x-full slide"
             >
                 Frage 2
             </div>
 
             <div
-                class="
-                    absolute
-                    inset-0
-                    text-black
-                    flex
-                    items-center
-                    justify-center
-                    text-5xl
-                    transition-all
-                    ease-in-out
-                    duration-1000
-                    transform
-                    translate-x-full
-                    slide
-                "
+                class="absolute inset-0 text-black flex items-center justify-center text-5xl transition-all ease-in-out duration-1000 transform translate-x-full slide"
             >
                 Frage 3
             </div>
         </div>
         <div
-            class="
-                relative
-                navigation
-                bottom-0
-                z-50
-                bg-white
-                flex
-                justify-between
-                px-4
-            "
+            class="relative navigation bottom-0 z-50 bg-white flex justify-between px-4"
         >
             <div class="inline text-gray-400 flex items-center">
                 {{ currentIndex + 1 }}/{{ slidesCounter }}
             </div>
             <div class="inline">
                 <div
-                    class="
-                        relative
-                        right-0
-                        top-0
-                        mr-4
-                        text-black
-                        inline-block
-                        py-2
-                        px-4
-                        my-2
-                    "
+                    class="relative right-0 top-0 mr-4 text-black inline-block py-2 px-4 my-2"
                     @click="cancel"
                 >
                     Abbrechen
                 </div>
                 <div
-                    class="
-                        relative
-                        right-0
-                        top-0
-                        text-white
-                        inline-block
-                        bg-blue-800
-                        rounded-2xl
-                        py-2
-                        px-4
-                        my-2
-                    "
+                    class="relative right-0 top-0 text-white inline-block bg-blue-800 rounded-2xl py-2 px-4 my-2"
                     @click="nextSlide"
                 >
                     Weiter

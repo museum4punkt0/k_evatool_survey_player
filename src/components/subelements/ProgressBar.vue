@@ -59,47 +59,18 @@ export default {
             default: null,
         },
     },
-    emits: ['changeProgress', 'addComment'],
+    emits: ['changeProgress', 'addComment', 'jumpToItem'],
     setup(props, { emit }) {
         const moving = ref(false)
         const seekbar = ref()
-
-        // const mediaCurrentTime = props.currentTime
-        // const mediaDuration = props.duration
-        //
-        // const changeProgress = (seekToValue) => {
-        //     console.log(seekToValue)
-        //
-        //     // this.$refs.mediaPlayer.pause()
-        //     // this.mediaCurrentTime = parseInt(seekToValue)
-        //     // this.mediaPlayer.currentTime = seekToValue
-        //     // if (this.mediaIsPlaying) {
-        //     //     this.mediaPlayer.play()
-        //     // }
-        // }
-        // const seekbarMin = ref(0)
-        // const seekbarMax = ref(0)
-
-        // const seekbar = ref()
 
         const showContent = (content) => {
             console.log(content)
             emit('jumpToItem', content)
         }
 
-        const changeTheTime = (seekToValue) => {
-            // seekbar.value = (props.duration * props.seekbar) / props.seekbar.max
-            //
-
-            // seekbar.value = (props.duration * seekbar.value) / props.duration
-
-            // console.log(seekToValue)
-            // console.log(seekbar.value.value)
-            // emit('addComment', parseFloat(props.currentTime))
+        const changeTheTime = () => {
             emit('changeProgress', parseFloat(seekbar.value.value))
-            // console.log(props.currentTime)
-            // console.log(props.duration)
-            // console.log((props.currentTime / props.duration) * 100)
             document.documentElement.style.setProperty(
                 '--videoProgress',
                 `${(props.currentTime / props.duration) * 100}%`,

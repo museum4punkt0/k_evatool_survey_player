@@ -77,8 +77,8 @@
                     :interactive-steps="interactiveSteps"
                     :comments="commentsCounter"
                     @add-comment="addComment"
-                    @changeProgress="changeProgress"
-                    @jumpToItem="jumpToItem"
+                    @change-progress="changeProgress"
+                    @jump-to-item="jumpToItem"
                 ></ProgressBar>
                 <MediaControls
                     :current-time="mediaCurrentTime"
@@ -203,9 +203,9 @@
                 :content="timelineObject"
                 :time-based-steps="content.timeBasedSteps"
                 :audio-comment="audioComment"
-                @removeComment="removeComment"
-                @editComment="editComment"
-                @nextStep="nextStep"
+                @remove-comment="removeComment"
+                @edit-comment="editComment"
+                @next-step="nextStep"
             ></TimeLine>
         </div>
     </div>

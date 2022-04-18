@@ -1,29 +1,5 @@
 <template>
-    <!--    <div class="block">-->
-    <!--        <div v-if="hasPermission === 'ask'" @click="askForMicrophonePermission">-->
-    <!--            {{ t('permissionMicrophoneDenied') }}-->
-    <!--        </div>-->
-    <!--        <div v-else class="flex justify-center items-center">-->
-    <!--            <div-->
-    <!--                v-if="isSupported"-->
-    <!--                class="vue-audio-recorder p-2"-->
-    <!--                :class="{ active: isRecording, paused: isPaused }"-->
-    <!--                @mousedown="startRecording"-->
-    <!--                @mouseleave="stopRecording"-->
-    <!--                @mouseup="stopRecording"-->
-    <!--                @touchstart="startRecording"-->
-    <!--                @touchend="stopRecording"-->
-    <!--                @touchcancel="stopRecording"-->
-    <!--            >-->
-    <!--                <microphone-icon-->
-    <!--                    v-if="!recording"-->
-    <!--                    class="h-6 w-6 inline text-blue-800"-->
-    <!--                ></microphone-icon>-->
-    <!--                <stop-icon v-else class="h-6 w-6 inline text-white"></stop-icon>-->
-    <!--            </div>-->
-    <!--            &lt;!&ndash;            <audio id="player" type="audio/wav" controls></audio>&ndash;&gt;-->
-    <!--        </div>-->
-    <!--    </div>-->
+    <div></div>
 </template>
 
 <script>

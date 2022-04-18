@@ -4,7 +4,10 @@
     >
         <h2
             class="tabindex-focus pb-5"
-            :class="store.state.showAnimations && 'animate__animated animate__fadeInDown'"
+            :class="
+                store.state.showAnimations &&
+                'animate__animated animate__fadeInDown'
+            "
             tabindex="0"
             v-html="content.params.question[lang]"
         ></h2>
@@ -13,10 +16,10 @@
             :images="content.params.assets"
             :content="content"
             :survey-results="surveyResults"
-            @draggedThreshold="setResult"
-            @currentElement="checkForLastElement"
+            @dragged-threshold="setResult"
+            @current-element="checkForLastElement"
         ></SwipeAnswer>
-        <!--        <div>1/{{ content.params.assets.length }} Karten eingestuft</div>-->
+
         <div class="flex flex-wrap flex-col">
             <div class="inline flex mt-5">
                 <button

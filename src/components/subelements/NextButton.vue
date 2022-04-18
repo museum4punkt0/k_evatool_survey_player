@@ -1,7 +1,11 @@
 <template>
     <button
-        style="display: inline-block;"
-        v-tippy="(disabled || !store.state.stepAnswering)?{ content: t('tooltip_answer_first') }:''"
+        v-tippy="
+            disabled || !store.state.stepAnswering
+                ? { content: t('tooltip_answer_first') }
+                : ''
+        "
+        style="display: inline-block"
         type="button"
         class="confirm flex items-center rounded-md nav-button p-2 pr-3 bg-blue-900 text-white tabindex-focus"
         tabindex="0"
