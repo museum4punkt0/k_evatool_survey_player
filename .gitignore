@@ -6,3 +6,4 @@ dist-ssr
 .idea
 dist_electron
 /local_scripts/
+/.bashrc

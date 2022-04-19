@@ -40,86 +40,110 @@ export default {
         const router = useRouter()
         const backlink = ref()
 
+        if (window.electronApi) {
+            console.log('has electron api')
+
+            // send vue ready event
+            window.electronApi.send('vueReady', true)
+
+            // receive status event
+            window.electronApi.receive('setStatus', (data) => {
+                console.log(data)
+            })
+        }
+
         onMounted(async () => {
             await router.isReady()
 
             const queries = { ...route.query }
 
             if (!route.query.survey && !route.query.step) {
-                await store.dispatch('setError', 'No survey or step provided')
-            }
+                await store.dispatch('setError', {
+                    error: 'No survey or step provided',
+                    code: 411,
+                })
+            } else {
+                // set survey or step
+                if (route.query.survey) {
+                    await store.dispatch(
+                        'surveyResults/setSlug',
+                        route.query.survey,
+                    )
+                    await store.dispatch('surveyResults/setType', 'survey')
+                }
+                if (route.query.step) {
+                    await store.dispatch(
+                        'surveyResults/setSlug',
+                        route.query.step,
+                    )
+                    await store.dispatch('surveyResults/setType', 'step')
+                }
 
-            // set survey or step
-            if (route.query.survey) {
+                backlink.value = document.referer ? document.referer : '/'
+
+                // backlink
+                if (queries.backlink) {
+                    window.localStorage.setItem(
+                        'surveyBacklink',
+                        queries.backlink,
+                    )
+                    delete queries.backlink
+                }
+
+                // Demo mode
                 await store.dispatch(
-                    'surveyResults/setSlug',
-                    route.query.survey,
-                )
-                await store.dispatch('surveyResults/setType', 'survey')
-            }
-            if (route.query.step) {
-                await store.dispatch('surveyResults/setSlug', route.query.step)
-                await store.dispatch('surveyResults/setType', 'step')
-            }
-
-            backlink.value = document.referer ? document.referer : '/'
-
-            // backlink
-            if (queries.backlink) {
-                window.localStorage.setItem('surveyBacklink', queries.backlink)
-                delete queries.backlink
-            }
-
-            // Demo mode
-            await store.dispatch(
-                'setIsDemo',
-                queries && queries.demo === 'true',
-            )
-
-            // Kiosk mode
-            // Set kiosk
-            if (
-                (queries.kiosk && parseInt(queries.kiosk) > 0) ||
-                parseInt(window.localStorage.getItem('surveyKiosk')) > 0
-            ) {
-                window.localStorage.setItem(
-                    'surveyKiosk',
-                    parseInt(queries.kiosk) ||
-                        parseInt(window.localStorage.getItem('surveyKiosk')),
+                    'setIsDemo',
+                    queries && queries.demo === 'true',
                 )
 
-                await store.dispatch('setKiosk', true)
+                // Kiosk mode
+                // Set kiosk
+                if (
+                    (queries.kiosk && parseInt(queries.kiosk) > 0) ||
+                    parseInt(window.localStorage.getItem('surveyKiosk')) > 0
+                ) {
+                    window.localStorage.setItem(
+                        'surveyKiosk',
+                        parseInt(queries.kiosk) ||
+                            parseInt(
+                                window.localStorage.getItem('surveyKiosk'),
+                            ),
+                    )
 
-                window.localStorage.removeItem('surveyUuid')
-            }
+                    await store.dispatch('setKiosk', true)
 
-            // Reset kiosk
-            if (
-                (queries && parseInt(queries.kiosk) === 0) ||
-                parseInt(window.localStorage.getItem('surveyKiosk')) === 0
-            ) {
-                window.localStorage.removeItem('surveyKiosk')
-            }
-            if (queries.kiosk) {
-                delete queries.kiosk
-            }
+                    window.localStorage.removeItem('surveyUuid')
+                }
 
-            // Update URL
-            await router.replace({ query: queries })
+                // Reset kiosk
+                if (
+                    (queries && parseInt(queries.kiosk) === 0) ||
+                    parseInt(window.localStorage.getItem('surveyKiosk')) === 0
+                ) {
+                    window.localStorage.removeItem('surveyKiosk')
+                }
+                if (queries.kiosk) {
+                    delete queries.kiosk
+                }
 
-            // Load or create UUID
-            const uuid = window.localStorage.getItem('surveyUuid') || uuidv4()
+                // Update URL
+                await router.replace({ query: queries })
 
-            // Save uuid to local storage
-            await localStorage.setItem('surveyUuid', uuid)
-            await store.dispatch('surveyResults/setUuid', uuid)
+                // Load or create UUID
+                const uuid =
+                    window.localStorage.getItem('surveyUuid') || uuidv4()
 
-            // load data from api
-            await store.dispatch('surveyResults/getUuidResults')
+                // Save uuid to local storage
+                await localStorage.setItem('surveyUuid', uuid)
+                await store.dispatch('surveyResults/setUuid', uuid)
 
-            // set app ready if uuid is set
-            if (store.state.surveyResults.surveyUuidResults.uuid) {
-                await store.dispatch('setAppReady', true)
+                // load data from api
+                await store.dispatch('surveyResults/getUuidResults')
+
+                // set app ready if uuid is set
+                if (store.state.surveyResults.surveyUuidResults.uuid) {
+                    await store.dispatch('setAppReady', true)
+                }
             }
         })
 
