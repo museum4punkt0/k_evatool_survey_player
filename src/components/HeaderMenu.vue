@@ -2,13 +2,22 @@
     <div
         class="survey-header-menu fixed w-full bg-white flex justify-between items-center px-5 py-2 z-50"
     >
-        <div class="left-menu">
-            <img
-                alt="logo"
-                src="../assets/logo.svg"
-                class="inline rounded tabindex-focus-nopadding"
-                tabindex="0"
-            />
+        <div class="left-menu flex-1 h-20 flex items-center">
+            <div
+                v-if="surveySetting.logoImage"
+                class="h-full w-80 relative rounded overflow-hidden"
+            >
+                <img
+                    alt="logo"
+                    :src="surveySetting.logoImage"
+                    class="absolute top-0 bottom-0 left-0 object-contain inline tabindex-focus-nopadding"
+                    tabindex="0"
+                />
+            </div>
+
+            <p v-else class="font-semibold text-lg py-2">
+                {{ surveySetting.companyName[currentLang] }}
+            </p>
         </div>
         <div class="right-menu flex justify-center items-center">
             <button
@@ -75,7 +84,7 @@ import {
     MenuIcon,
 } from '@heroicons/vue/outline'
 import { HomeIcon } from '@heroicons/vue/solid'
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, ref, watch, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useStore } from 'vuex'
 
@@ -108,6 +117,13 @@ export default {
         const store = useStore()
         const { t } = useI18n()
         const i18n = useI18n()
+
+        const surveySetting = computed(
+            () => store.getters['surveyResults/surverySetting'],
+        )
+
+        console.log(surveySetting.value.logoImage)
+
         backlink.value = localStorage.getItem('surveyBacklink')
         const openPage = () => {
             window.location.href = backlink.value
@@ -138,6 +154,7 @@ export default {
             store,
             t,
             currentLang,
+            surveySetting,
         }
     },
 }

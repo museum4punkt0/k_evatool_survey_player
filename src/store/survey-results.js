@@ -9,6 +9,11 @@ export default {
         type: 'survey',
         uuid: '',
     },
+    getters: {
+        surverySetting(state) {
+            return state.surveyUuidResults.survey.setting.setting
+        },
+    },
     mutations: {
         setSurveyUuidResults(state, surveyResults) {
             state.surveyUuidResults = surveyResults
