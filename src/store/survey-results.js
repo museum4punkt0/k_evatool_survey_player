@@ -10,7 +10,7 @@ export default {
         uuid: '',
     },
     getters: {
-        surverySetting(state) {
+        surveySetting(state) {
             return state.surveyUuidResults.survey.setting.setting
         },
     },

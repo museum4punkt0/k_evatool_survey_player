@@ -119,7 +119,7 @@ export default {
         const i18n = useI18n()
 
         const surveySetting = computed(
-            () => store.getters['surveyResults/surverySetting'],
+            () => store.getters['surveyResults/surveySetting'],
         )
 
         console.log(surveySetting.value.logoImage)
