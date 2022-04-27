@@ -7,12 +7,11 @@ export default createStore({
         surveyResults: surveyResultsStoreModule,
     },
     state: {
-        lang: '',
+        lang: 'de',
         // check if local storage is set or default to true
         showAnimations: localStorage.getItem('surveyShowAnimations')
             ? localStorage.getItem('surveyShowAnimations') === 'true'
             : true,
-        languages: [],
         currentStep: 0,
         currentVideoStep: 0,
         stepAnswering: false,
@@ -22,6 +21,15 @@ export default createStore({
         kiosk: false,
         appReady: false,
         error: '',
+    },
+    getters: {
+        languages(state) {
+            return state.surveyResults.surveyUuidResults.survey.languages
+        },
+
+        languageNames(state) {
+            return state.surveyResults.surveyUuidResults.survey.languageNames
+        },
     },
     mutations: {
         setCurrentStep(state, step = null) {
@@ -53,8 +61,23 @@ export default createStore({
         editVideoQuestionId(state, value) {
             state.editVideoQuestionId = value
         },
-        setUserLanguage(state, lang) {
+        initLang(state, languages) {
+            const localStorageValue = localStorage.getItem('surveyUserLanguage')
+
+            if (languages.length > 0) {
+                if (
+                    localStorageValue &&
+                    languages.includes(localStorageValue)
+                ) {
+                    return (state.lang = localStorageValue)
+                }
+                state.lang = languages[0]
+                localStorage.setItem('surveyUserLanguage', languages[0])
+            }
+        },
+        setLang(state, lang) {
             state.lang = lang
+            localStorage.setItem('surveyUserLanguage', lang)
         },
         setShowAnimations(state, show) {
             localStorage.setItem('surveyShowAnimations', show)

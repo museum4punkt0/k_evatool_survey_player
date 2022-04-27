@@ -28,8 +28,9 @@ import 'animate.css'
 import { onMounted } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute, useRouter } from 'vue-router'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
+import { useI18n } from 'vue-i18n'
 
 console.log(version)
 
@@ -39,6 +40,7 @@ export default {
         const route = useRoute()
         const router = useRouter()
         const backlink = ref()
+        const i18n = useI18n()
 
         if (window.electronApi) {
             console.log('has electron api')
@@ -137,8 +139,12 @@ export default {
                 await localStorage.setItem('surveyUuid', uuid)
                 await store.dispatch('surveyResults/setUuid', uuid)
 
-                // load data from api
-                await store.dispatch('surveyResults/getUuidResults')
+                // load data from api and set language globally
+                await store
+                    .dispatch('surveyResults/getUuidResults')
+                    .then(() =>
+                        store.commit('initLang', store.getters.languages),
+                    )
 
                 // set app ready if uuid is set
                 if (store.state.surveyResults.surveyUuidResults.uuid) {
@@ -146,6 +152,14 @@ export default {
                 }
             }
         })
+
+        watch(
+            () => store.state.lang,
+            (value) => {
+                document.documentElement.setAttribute('lang', value)
+                i18n.locale.value = value
+            },
+        )
 
         return {
             store,

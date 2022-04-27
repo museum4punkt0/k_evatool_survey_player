@@ -54,7 +54,7 @@
 
                     <button
                         class="tabindex-focus imprint flex items-center rounded-md nav-button p-2 ml-2"
-                        @click="openModal('privacy')"
+                        @click="showPrivacy()"
                     >
                         <finger-print-icon
                             class="h-5 w-5 mr-2 invisible md:visible"
@@ -162,6 +162,10 @@ export default {
         }
         const closeModal = () => {
             modalBoxOpen.value = false
+        }
+
+        const showPrivacy = () => {
+            openModal('privacy')
         }
 
         onMounted(() => {

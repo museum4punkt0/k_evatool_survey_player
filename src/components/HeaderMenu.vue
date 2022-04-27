@@ -84,7 +84,7 @@ import {
     MenuIcon,
 } from '@heroicons/vue/outline'
 import { HomeIcon } from '@heroicons/vue/solid'
-import { onMounted, ref, watch, computed } from 'vue'
+import { ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useStore } from 'vuex'
 
@@ -97,54 +97,25 @@ export default {
         MenuIcon,
         HomeIcon,
     },
-    props: {
-        languages: {
-            type: Array,
-            default: null,
-        },
-        languageNames: {
-            type: Array,
-            default: null,
-        },
-        userLang: {
-            type: String,
-            default: 'de',
-        },
-    },
-    setup(props) {
+
+    setup() {
         const backlink = ref()
-        const currentLang = ref()
         const store = useStore()
         const { t } = useI18n()
         const i18n = useI18n()
 
+        const languages = computed(() => store.getters.languages)
+        const languageNames = computed(() => store.getters.languageNames)
+        const currentLang = computed(() => store.state.lang)
         const surveySetting = computed(
             () => store.getters['surveyResults/surveySetting'],
         )
 
-        console.log(surveySetting.value.logoImage)
-
         backlink.value = localStorage.getItem('surveyBacklink')
-        const openPage = () => {
-            window.location.href = backlink.value
-        }
-        const setLanguage = async (lang) => {
-            await store.dispatch('setUserLanguage', lang)
-            i18n.locale.value = lang
-            currentLang.value = lang
-        }
-        onMounted(async () => {
-            currentLang.value = store.state.lang
-            i18n.locale.value = currentLang.value
-        })
 
-        watch(
-            () => props.userLang,
-            (val) => {
-                currentLang.value = val
-                i18n.locale.value = currentLang.value
-            },
-        )
+        const openPage = () => (window.location.href = backlink.value)
+
+        const setLanguage = (lang) => store.commit('setLang', lang)
 
         return {
             i18n,
@@ -155,6 +126,8 @@ export default {
             t,
             currentLang,
             surveySetting,
+            languages,
+            languageNames,
         }
     },
 }

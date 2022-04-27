@@ -5,11 +5,7 @@
                 <div
                     class="survey-header-menu top-0 fixed w-screen z-50 bg-white"
                 >
-                    <header-menu
-                        :languages="languages"
-                        :language-names="languageNames"
-                        :user-lang="userLang"
-                    ></header-menu>
+                    <header-menu></header-menu>
                 </div>
 
                 <IdleScreen v-if="idle" @start="idle = false"></IdleScreen>
@@ -73,15 +69,14 @@
 
 <script>
 import { useStore } from 'vuex'
+import { ref, watch, inject, computed, onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 
 import SurveyElementBuilder from './SurveyElementBuilder.vue'
 import HeaderMenu from './HeaderMenu.vue'
 import IdleScreen from './subelements/IdleScreen.vue'
 import SurveyNavigation from './FooterNavigation.vue'
-import { ref, watch, inject } from 'vue'
-import { onMounted } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { useI18n } from 'vue-i18n'
 
 export default {
     name: 'Home',
@@ -95,14 +90,19 @@ export default {
         const store = useStore()
         const route = useRoute()
         const router = useRouter()
+        const { t } = useI18n()
+
+        const idleTimer = inject('idle-timer')
+
         const currentStep = ref()
         const idle = ref(false)
         const surveyStep = ref()
-        const { t } = useI18n()
-        const languages = ref()
-        const languageNames = ref()
-        const idleTimer = inject('idle-timer')
         const surveyNotAvailable = ref(false)
+        const nextSurvey = ref()
+
+        const languages = computed(() => store.getters.languages)
+        const languageNames = computed(() => store.getters.languageNames)
+        const userLang = computed(() => store.state.lang)
 
         if (store.state.kiosk) {
             console.log('kiosk')
@@ -110,9 +110,6 @@ export default {
                 window.location.reload()
             })
         }
-
-        const userLang = ref()
-        const nextSurvey = ref()
 
         const nextStep = () => {
             surveyStep.value++
@@ -132,31 +129,6 @@ export default {
         }
 
         onMounted(async () => {
-            // get languages
-            languages.value =
-                store.state.surveyResults.surveyUuidResults.survey.languages
-
-            // get language names (for display)
-            languageNames.value =
-                store.state.surveyResults.surveyUuidResults.survey.languageNames
-
-            // set user Language
-            userLang.value = localStorage.getItem('surveyUserLanguage')
-
-            // check if user language is available, if not fallback to default (first available language)
-            if (languages.value.indexOf(userLang.value) > -1) {
-                await store.dispatch('setUserLanguage', userLang.value)
-                document.documentElement.setAttribute('lang', userLang.value)
-            } else {
-                await store.dispatch('setUserLanguage', languages.value[0])
-                document.documentElement.setAttribute(
-                    'lang',
-                    languages.value[0],
-                )
-                localStorage.setItem('surveyUserLanguage', languages.value[0])
-                userLang.value = languages.value[0]
-            }
-
             // set current step for survey mode
             if (store.state.surveyResults.type === 'survey') {
                 const surveySteps =
@@ -202,14 +174,6 @@ export default {
                             store.state.surveyResults.surveyUuidResults.step
                     }
                 }, 300)
-            },
-        )
-
-        watch(
-            () => store.state.lang,
-            (val) => {
-                document.documentElement.setAttribute('lang', val)
-                localStorage.setItem('surveyUserLanguage', val)
             },
         )
 
