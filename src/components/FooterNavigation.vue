@@ -54,7 +54,7 @@
 
                     <button
                         class="tabindex-focus imprint flex items-center rounded-md nav-button p-2 ml-2"
-                        @click="showPrivacy()"
+                        @click="openModal('privacy')"
                     >
                         <finger-print-icon
                             class="h-5 w-5 mr-2 invisible md:visible"
@@ -73,11 +73,10 @@
                 </div>
             </div>
         </div>
-        <ImprintPrivacyModal
-            :open="modalBoxOpen"
-            :type="modalBoxType"
-            @close-modal="closeModal"
-        ></ImprintPrivacyModal>
+        <ImprintPrivacyModal :open="modalBoxOpen" @close-modal="closeModal">
+            <template #header>{{ t(`${modalBoxType}`) }}</template>
+            <div v-html="modalContent" />
+        </ImprintPrivacyModal>
     </div>
 </template>
 
@@ -124,8 +123,10 @@ export default {
         const store = useStore()
         const route = useRoute()
         const { t } = useI18n()
+
         const modalBoxOpen = ref()
         const modalBoxType = ref()
+        const modalContent = ref('')
         const demoMode = ref(false)
 
         const showAnimations = computed({
@@ -134,6 +135,12 @@ export default {
             },
             set: (value) => store.dispatch('setShowAnimations', value),
         })
+
+        const surveySetting = computed(
+            () => store.getters['surveyResults/surveySetting'],
+        )
+
+        const currentLang = computed(() => store.state.lang)
 
         const nextStep = () => {
             if (props.currentStep < props.surveySteps) {
@@ -156,16 +163,22 @@ export default {
         }
 
         const openModal = (type) => {
-            console.log(type)
-            modalBoxOpen.value = true
-            modalBoxType.value = type
+            const link = surveySetting.value[type + 'Link']
+            const text = surveySetting.value[type][currentLang.value]
+
+            if (link) {
+                window.open(link, '_blank')
+            } else {
+                modalContent.value = text
+                    ? text
+                    : '<p class="text-red-500">Text is missing</p>'
+                modalBoxOpen.value = true
+                modalBoxType.value = type
+            }
         }
         const closeModal = () => {
             modalBoxOpen.value = false
-        }
-
-        const showPrivacy = () => {
-            openModal('privacy')
+            modalContent.value = ''
         }
 
         onMounted(() => {
@@ -188,6 +201,7 @@ export default {
             openModal,
             closeModal,
             modalBoxOpen,
+            modalContent,
             modalBoxType,
             showAnimations,
         }

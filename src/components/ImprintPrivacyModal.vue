@@ -17,62 +17,14 @@
                     tabindex="0"
                     class="text-xl font-semibold text-gray-600 header"
                 >
-                    {{ t(`${type}`) }}
+                    <slot name="header"></slot>
                 </h2>
             </div>
 
             <!-- body -->
             <div class="w-full h-5/6 p-3 overflow-y-scroll">
                 <div class="w-full p-3 overflow-y-scroll" tabindex="0">
-                    <template v-if="type === 'imprint'">
-                        Klassik Stiftung Weimar
-                        <br />
-                        Stiftung des öffentlichen Rechts
-                        <br />
-                        Burgplatz 4
-                        <br />
-                        99423 Weimar
-                        <br />
-                        <br />
-                        Tel.: +49 (0) 3643-545-0
-                        <br />
-                        E-Mail: poststelle@klassik-stiftung.de
-                        <br />
-                        <br />
-                        <strong>Vertretungsberechtigte</strong>
-                        <br />
-                        <br />
-                        Die Klassik Stiftung Weimar wird gesetzlich vertreten
-                        durch ihre Präsidentin, Frau Dr. Ulrike Lorenz.
-                        <br />
-                        <br />
-                        Umsatzsteuer-Identifikationsnummer gemäß § 27 a
-                        Umsatzsteuergesetz (VAT) DE 150125730
-                        <br />
-                        <br />
-                        <strong>Entwicklung und Gestaltung</strong>
-                        <br />
-                        2av
-                        <br />
-                        <a
-                            class="text-red-500"
-                            target="_blank"
-                            href="https://www.2av.de"
-                        >
-                            <external-link-icon class="h-5 w-5 mb-1 inline" />
-                            www.2av.de
-                        </a>
-                    </template>
-                    <template v-if="type === 'privacy'">
-                        <a
-                            class="text-red-600"
-                            target="_blank"
-                            href="https://www.klassik-stiftung.de/datenschutz"
-                        >
-                            <external-link-icon class="h-5 w-5 mb-1 inline" />
-                            Link zur Datenschutzerklärung
-                        </a>
-                    </template>
+                    <slot></slot>
                 </div>
             </div>
             <!-- button close -->
@@ -113,22 +65,15 @@ export default {
             type: Boolean,
             default: false,
         },
-        type: {
-            type: String,
-            default: '',
-        },
     },
     emits: ['close-modal'],
     setup(props, { emit }) {
         const { t } = useI18n()
         const openModal = (value) => {
-            console.log(value)
             const modal_overlay = ref()
             modal_overlay.value = document.querySelector('#modal_overlay')
             const modal = ref()
             modal.value = document.querySelector('#modal')
-            console.log(document.querySelector('#modal'))
-            console.log(modal.value)
             const modalCl = modal.value.classList
             const overlayCl = modal_overlay.value
 
@@ -159,14 +104,7 @@ export default {
 
         watch(
             () => props.open,
-            (value) => {
-                console.log(value)
-                if (value) {
-                    openModal(true)
-                } else {
-                    openModal(false)
-                }
-            },
+            (value) => openModal(value),
         )
         return {
             t,
