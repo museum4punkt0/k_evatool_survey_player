@@ -332,13 +332,10 @@ export default {
 
                         uuid: props.surveyResults.uuid,
                         resultLanguage: store.state.lang,
-                        timecode: convertTimeFull(
-                            videoPlayer.value.currentTime,
-                        ),
+                        timecode: convertTimeFull(comment.time),
                         deleted: true,
                     },
                 })
-                console.log('deleted')
                 commentsCounter.value = timelineObject.value.filter(
                     (x) => x.type === 'comment',
                 )

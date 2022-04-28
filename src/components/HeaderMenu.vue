@@ -4,9 +4,9 @@
     >
         <div class="left-menu flex-1 h-16 flex items-center">
             <img
-                v-if="surveySetting.logoImage"
+                v-if="surveySetting.logoImageUrl"
                 alt="logo"
-                :src="surveySetting.logoImage"
+                :src="surveySetting.logoImageUrl"
                 class="object-contain h-[60px] inline tabindex-focus-nopadding"
                 tabindex="0"
             />

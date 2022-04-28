@@ -4,9 +4,9 @@
         class="survey-content flex flex-wrap xl:flex-col md:h-full md:mt-0 justify-center items-center h-full overflow-scroll"
     >
         <div
-            class="flex items-start w-full pb-24 xl:mt-0 xl:w-1/3 md:mt-0 md:w-1/2 survey-content-inner"
+            class="flex items-start w-full pb-24 xl:mt-0 xl:w-1/3 md:mt-0 md:w-1/2 survey-content-inner bg-white rounded-2xl p-4"
             :class="{
-                ' xl:pt-0 overflow-y-scroll flex-col':
+                ' overflow-y-scroll flex-col':
                     content && content.surveyElementType !== 'yayNay',
                 'h-full xl:pt-0 pb-3':
                     content && content.surveyElementType === 'yayNay',

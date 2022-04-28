@@ -2,7 +2,7 @@
     <div
         class="main-page h-screen overflow-y-scroll bg-gray-100"
         :style="{
-            'background-image': 'url(' + surveySetting.backgroundImage + ')',
+            'background-image': 'url(' + surveySetting.backgroundImageUrl + ')',
         }"
     >
         <template v-if="store.state.surveyResults.surveyLoaded">
