@@ -1,5 +1,10 @@
 <template>
-    <div class="main-page h-screen overflow-y-scroll bg-gray-100">
+    <div
+        class="main-page h-screen overflow-y-scroll bg-gray-100"
+        :style="{
+            'background-image': 'url(' + surveySetting.backgroundImage + ')',
+        }"
+    >
         <template v-if="store.state.surveyResults.surveyLoaded">
             <template v-if="store.state.surveyResults.type === 'survey'">
                 <div
@@ -104,6 +109,10 @@ export default {
         const languageNames = computed(() => store.getters.languageNames)
         const userLang = computed(() => store.state.lang)
 
+        const surveySetting = computed(
+            () => store.getters['surveyResults/surveySetting'],
+        )
+
         if (store.state.kiosk) {
             console.log('kiosk')
             idleTimer.emitter.on('idle', () => {
@@ -192,6 +201,7 @@ export default {
             nextStep,
             prevStep,
             t,
+            surveySetting,
         }
     },
 }
