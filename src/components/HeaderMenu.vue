@@ -2,18 +2,14 @@
     <div
         class="survey-header-menu fixed w-full bg-white flex justify-between items-center px-5 py-2 z-50"
     >
-        <div class="left-menu flex-1 h-20 flex items-center">
-            <div
+        <div class="left-menu flex-1 h-16 flex items-center">
+            <img
                 v-if="surveySetting.logoImage"
-                class="h-full w-80 relative rounded overflow-hidden"
-            >
-                <img
-                    alt="logo"
-                    :src="surveySetting.logoImage"
-                    class="absolute top-0 bottom-0 left-0 object-contain inline tabindex-focus-nopadding"
-                    tabindex="0"
-                />
-            </div>
+                alt="logo"
+                :src="surveySetting.logoImage"
+                class="object-contain h-[60px] inline tabindex-focus-nopadding"
+                tabindex="0"
+            />
 
             <p v-else class="font-semibold text-lg py-2">
                 {{ surveySetting.companyName[currentLang] }}
