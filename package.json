@@ -2,7 +2,7 @@
     "name": "evaluation-tool-survey-player",
     "description": "Evaluation Tool Survey Player",
     "private": true,
-    "version": "1.0.193",
+    "version": "1.0.194",
     "author": "2av",
     "main": "./main.js",
     "scripts": {
@@ -33,6 +33,7 @@
         "framerate-utils": "^4.1.0",
         "lodash": "^4.17.21",
         "ms-to-timecode": "^0.1.2",
+        "qrcode.vue": "^3.3.3",
         "sass": "^1.50.1",
         "uuid": "^8.3.2",
         "vue": "^3.2.33",

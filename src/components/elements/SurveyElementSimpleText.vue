@@ -1,5 +1,11 @@
 <template>
-    <div class="px-5">
+    <div>
+        <img
+            v-if="image"
+            class="rounded-xl mb-5"
+            :src="image"
+            alt="simple text image"
+        />
         <h2
             class="tabindex-focus pb-5 m-1"
             :class="
@@ -9,6 +15,9 @@
             tabindex="0"
             v-html="content.params.text[lang]"
         ></h2>
+
+        <qr-code :url="url" />
+
         <!--        <NextButton-->
         <!--            class="animate__animated animate__fadeIn animate__delay-1s"-->
         <!--            @confirm="nextStep"-->
@@ -29,10 +38,11 @@ import { useStore } from 'vuex'
 // import NextButton from '../subelements/NextButton.vue'
 import ConfirmButton from '../subelements/ConfirmButton.vue'
 import { useRoute } from 'vue-router'
+import QrCode from '../subelements/QrCode.vue'
 
 export default {
     name: 'SurveyElementSimpleText',
-    components: { ConfirmButton },
+    components: { QrCode, ConfirmButton },
     props: {
         content: {
             type: Object,
@@ -60,6 +70,9 @@ export default {
         const lang = computed({
             get: () => store.state.lang,
         })
+
+        const image = ref(props.content.params?.imageAsset.urls.original)
+        const url = ref(props.content.params?.url)
 
         const nextStep = async () => {
             await store.dispatch('setStepAnswering', true)
@@ -97,6 +110,8 @@ export default {
             allowSkip,
             resultBasedNextSteps,
             nextStep,
+            image,
+            url,
         }
     },
 }
