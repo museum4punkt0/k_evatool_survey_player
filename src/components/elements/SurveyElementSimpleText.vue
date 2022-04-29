@@ -16,7 +16,7 @@
             v-html="content.params.text[lang]"
         ></h2>
 
-        <qr-code :url="url" />
+        <qr-code v-if="url" :url="url" />
 
         <!--        <NextButton-->
         <!--            class="animate__animated animate__fadeIn animate__delay-1s"-->
@@ -71,7 +71,7 @@ export default {
             get: () => store.state.lang,
         })
 
-        const image = ref(props.content.params?.imageAsset.urls.original)
+        const image = ref(props.content.params?.imageAsset?.urls?.original)
         const url = ref(props.content.params?.url)
 
         const nextStep = async () => {
