@@ -43,6 +43,7 @@
         />
         <template v-else>
             <div
+                v-if="manualText.length === 0"
                 :class="
                     store.state.showAnimations &&
                     'animate__animated animate__fadeInUp'
@@ -59,7 +60,7 @@
                 <div
                     v-if="recordedTime < 0"
                     tabindex="0"
-                    class="m-1 tabindex-focus bg-transparent w-3/4 text-gray-400 text-xl focus:outline-none"
+                    class="tabindex-focus bg-transparent w-3/4 text-gray-400 text-xl focus:outline-none"
                 >
                     {{ $t('voice_recorder_placeholder') }}
                 </div>
@@ -122,6 +123,27 @@
                     </button>
                 </div>
             </div>
+
+            <section v-if="!audioData && !recording" class="mt-6">
+                <div
+                    v-if="recordedTime < 0"
+                    tabindex="0"
+                    class="mb-3 tabindex-focus bg-transparent w-3/4 text-gray-400 text-xl focus:outline-none"
+                >
+                    {{ $t('voice_recorder_comment_placeholder') }}
+                </div>
+                <textarea
+                    class="w-full bg-gray-50 text-gray-800 text-xl p-2 box-border overflow-hidden border-0 outline-none resize-none tabindex-focus"
+                    :class="
+                        store.state.showAnimations &&
+                        'animate__animated animate__fadeInUp'
+                    "
+                    :placeholder="t('write_comment_placeholder')"
+                    :aria-label="t('write_comment_placeholder')"
+                    tabindex="0"
+                    @input="submitManualText"
+                />
+            </section>
             <InfoModal
                 :open-modal="modalboxOpen"
                 type="audio"
@@ -155,6 +177,7 @@ import { computed, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import CustomAlert from '../subelements/CustomAlert.vue'
 import InfoModal from '../subelements/InfoModal.vue'
+import { debounce } from 'lodash'
 
 export default {
     name: 'SurveyElementVoiceInput',
@@ -198,6 +221,7 @@ export default {
         const isSupported = ref(false)
         const hasPermission = ref('ask')
         const modalboxOpen = ref()
+        const manualText = ref('')
 
         const lang = computed({
             get: () => store.state.lang,
@@ -243,6 +267,7 @@ export default {
                     surveyStepId: props.content.id,
                     resultValue: {
                         audio: audioData.value,
+                        manual_text: manualText.value,
                     },
                     uuid: props.surveyResults.uuid,
                     resultLanguage: store.state.lang,
@@ -309,6 +334,10 @@ export default {
                 })
         }
 
+        const submitManualText = debounce((event) => {
+            manualText.value = event.target.value
+        }, 500)
+
         onMounted(() => {
             store.dispatch('setStepAnswering', true)
             // let questionResults = props.surveyResults
@@ -345,6 +374,7 @@ export default {
             modalboxOpen,
             openModal,
             closeModal,
+            submitManualText,
         }
     },
 }

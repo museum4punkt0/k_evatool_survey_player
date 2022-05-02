@@ -68,8 +68,9 @@ export default {
         'Drag the image to the left to reply "{0}" or drag the image to the right to reply "{1}". You can also use the "{0}" and "{1}" buttons below the image.',
     tooltip_answer_first: 'Please answer the question!',
     view_edit: 'view & edit',
+    voice_recorder_comment_placeholder: 'or write a comment.',
     voice_recorder_placeholder:
-        'Click on the microphone to start an audio recording. ',
+        'Click on the microphone to start an audio recording, ',
     voice_recorder_not_allowed: 'Audio recording not allowed, please allow.',
     voice_recorder_not_supported:
         'Cannot record audio, your device does not seem to have a microphone.',

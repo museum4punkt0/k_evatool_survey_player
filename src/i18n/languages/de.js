@@ -69,8 +69,9 @@ export default {
         'Ziehen Sie das Bild nach links, um mit "{0}" zu antworten, oder ziehen Sie das Bild nach rechts, um mit "{1}" zu antworten. Sie können auch die "{0}" und "{1}"-Schaltflächen unter dem Bild verwenden.',
     tooltip_answer_first: 'Bitte beantworten Sie die Frage!',
     view_edit: 'Ansehen & Bearbeiten',
+    voice_recorder_comment_placeholder: 'oder schreibe einen Kommentar.',
     voice_recorder_placeholder:
-        'Klicke auf das Mikrofon, um eine Audioaufnahme zu starten.',
+        'Klicke auf das Mikrofon, um eine Audioaufnahme zu starten, ',
     voice_recorder_not_allowed: 'Audioaufnahme nicht erlaubt, bitte erlauben.',
     voice_recorder_not_supported:
         'Audioaufnahme nicht möglich, ihr Gerät scheint kein Mikrofon zu haben.',
