@@ -142,9 +142,10 @@ export default {
                 // load data from api and set language globally
                 await store
                     .dispatch('surveyResults/getUuidResults')
-                    .then(() =>
-                        store.commit('initLang', store.getters.languages),
-                    )
+                    .then(() => {
+                        store.commit('initLang', store.getters.languages)
+                        store.dispatch('surveyResults/getSurveyPath')
+                    })
 
                 // set app ready if uuid is set
                 if (store.state.surveyResults.surveyUuidResults.uuid) {

@@ -165,7 +165,11 @@ export default {
             () => store.state.currentStep,
             () => {
                 setTimeout(async () => {
-                    await store.dispatch('surveyResults/getUuidResults')
+                    await store
+                        .dispatch('surveyResults/getUuidResults')
+                        .then(() =>
+                            store.dispatch('surveyResults/getSurveyPath'),
+                        )
 
                     // set current step for survey mode
                     if (store.state.surveyResults.type === 'survey') {

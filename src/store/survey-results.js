@@ -8,6 +8,7 @@ export default {
         slug: '',
         type: 'survey',
         uuid: '',
+        surveyPath: null,
     },
     getters: {
         surveySetting(state) {
@@ -29,6 +30,9 @@ export default {
         },
         setUuid(state, uuid) {
             state.uuid = uuid
+        },
+        setSurveyPath(state, data) {
+            state.surveyPath = data
         },
     },
     actions: {
@@ -87,6 +91,15 @@ export default {
         },
         setUuid({ commit }, uuid) {
             commit('setUuid', uuid)
+        },
+
+        async getSurveyPath({ state, commit }) {
+            const path = await SURVEY_RESULTS.getSurveyPath(
+                state.slug,
+                state.uuid,
+            )
+
+            commit('setSurveyPath', path)
         },
     },
 }

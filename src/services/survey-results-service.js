@@ -58,4 +58,24 @@ export default {
                 return error
             })
     },
+
+    async getSurveyPath(slug, uuid) {
+        let url = 'evaluation-tool/surveys/' + slug + '/path?uuid=' + uuid
+
+        const headers = {}
+        if (store.state.isDemo === true) {
+            headers['X-Demo'] = true
+        }
+
+        return axios
+            .get(url, {
+                headers,
+            })
+            .then((response) => {
+                return response.data
+            })
+            .catch((error) => {
+                return error.response
+            })
+    },
 }

@@ -16,6 +16,7 @@
                 >
                     {{ t('new_uuid') }}
                 </button>
+                <ProgressSteps />
             </div>
             <div class="flex bg-white items-center justify-center w-full">
                 <div
@@ -95,10 +96,12 @@ import { version } from '../../package.json'
 import { useI18n } from 'vue-i18n'
 import { onMounted } from 'vue'
 import ImprintPrivacyModal from './ImprintPrivacyModal.vue'
+import ProgressSteps from './subelements/ProgressSteps.vue'
 
 export default {
     name: 'Navigation',
     components: {
+        ProgressSteps,
         SwitchGroup,
         Switch,
         SwitchLabel,
