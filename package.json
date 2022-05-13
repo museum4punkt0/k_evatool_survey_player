@@ -2,7 +2,7 @@
     "name": "evaluation-tool-survey-player",
     "description": "Evaluation Tool Survey Player",
     "private": true,
-    "version": "1.0.197",
+    "version": "1.0.199",
     "author": "2av",
     "main": "./main.js",
     "scripts": {
@@ -15,6 +15,7 @@
         "electron:builder": "electron-builder",
         "build:for:electron": "cross-env ELECTRON=true vite build",
         "electron:win": "vite build && electron-builder --win",
+        "electron:mac": "vite build && electron-builder --mac",
         "electron:dev": "concurrently -k \"cross-env BROWSER=none yarn dev\" \"yarn electron\"",
         "electron:build": "yarn build:for:electron && yarn electron:builder -mwl",
         "lint": "eslint --ext .js,.vue src"
