@@ -84,7 +84,7 @@
                     :current-time="mediaCurrentTime"
                     :duration="mediaDurationTime"
                     :video-is-playing="videoIsPlaying"
-                    @play-pause="tooglePlay"
+                    @play-pause="togglePlay"
                     @toggle-comment="toggleComment"
                     @toggle-volume="toggleVolume"
                 ></MediaControls>
@@ -286,7 +286,7 @@ export default {
         const answeredStepsObject = ref([])
 
         const showDeleteButton = ref(true)
-        console.log(timeBasedSteps)
+
         const currentStepData = () => {
             return timeBasedSteps.value[answeredSteps.value - 1]
         }
@@ -314,9 +314,8 @@ export default {
 
         const mediaCurrentTime = ref(0)
         const mediaDurationTime = ref(0)
-        const addComment = (time) => {
-            console.log(time)
-        }
+
+        const addComment = () => {}
 
         const removeComment = async (comment) => {
             let id = timelineObject.value.indexOf(comment)
@@ -342,7 +341,6 @@ export default {
             }
         }
         const editComment = (commentObj) => {
-            console.log(comment)
             pauseVideo()
             videoPlayer.value.currentTime = commentObj.time
 
@@ -364,8 +362,6 @@ export default {
 
         const deleteComment = () => {
             commentDeleting.value = true
-            console.log(commentBoxObject.value)
-            console.log(props.content)
         }
 
         const cancelDelete = () => {
@@ -460,17 +456,15 @@ export default {
         }
 
         const setAnswer = (id) => {
-            console.log(id)
             // getNextQuestionByAnswer
             nextQuestion(id)
         }
 
-        const nextQuestion = (id) => {
+        const nextQuestion = () => {
             playVideo()
-            console.log(id)
         }
 
-        const tooglePlay = () => {
+        const togglePlay = () => {
             if (videoIsPlaying.value) {
                 pauseVideo()
             } else {
@@ -478,55 +472,26 @@ export default {
             }
         }
 
-        const jumpToItem = (itemId) => {
+        const jumpToItem = () => {
             pauseVideo()
-            console.log(itemId)
-            // answeredSteps.value = itemId
-            // console.log(questionsCounter.value)
-            // // videoPlayer.value.currentTime = questionsCounter.value[itemId]
-            // console.log(questionsCounter.value[itemId])
         }
 
-        const videoEnded = () => {
-            // showFeedback.value = true
-        }
+        const videoEnded = () => {}
 
         const videoTimeUpdate = () => {
-            // console.log('videoTimeUpdate')
-            // const currentTime = parseInt(videoPlayer.value.currentTime)
-            // const { content } = toRefs(props)
-            // console.log(content)
-
             mediaCurrentTime.value = videoPlayer.value.currentTime
             mediaDurationTime.value = videoPlayer.value.duration
-            // console.log(mediaCurrentTime.value)
-            // if (interactiveSteps.value.indexOf(currentTime) > -1) {
+
             if (
                 interactiveSteps.value[answeredSteps.value] ===
                 parseInt(videoPlayer.value.currentTime)
             ) {
-                console.log('update')
-                //ToDo close previous (not stopedVideo) question and show the next one
+                // Todo: close previous (not stopedVideo) question and show the next one
                 showQuestion.value = false
+
                 if (timeBasedSteps.value[answeredSteps.value].stopsVideo) {
                     pauseVideo()
                 }
-                console.log(timeBasedSteps.value[answeredSteps.value].stepId)
-                // store.dispatch(
-                //     'surveys/getSurveyStepById',
-                //     timeBasedSteps.value[answeredSteps.value].stepId,
-                // )
-
-                // questionsCounter.value = timelineObject.value.filter(
-                //     (x) => x.type === 'question',
-                // )
-
-                // timelineObject.value.push({
-                //     body: '',
-                //     type: 'question',
-                //     time: currentTime,
-                //     index: questionsCounter.value.length + 1,
-                // })
 
                 showQuestion.value = true
                 answeredSteps.value++
@@ -546,25 +511,24 @@ export default {
             }
         }
         const playVideo = () => {
-            console.log('playVideo')
             videoPlayer.value.play()
             showQuestion.value = false
             videoIsPlaying.value = true
         }
         const pauseVideo = () => {
-            console.log('pauseVideo')
             videoPlayer.value.pause()
             videoIsPlaying.value = false
         }
-        //ToDo backend value with fps?
-        const convertTimeCode = (time, fps = 24) => {
+
+        // Todo: backend value with fps?
+        const convertTimeCode = (time /*,fps = 24*/) => {
             time = time.split(':')
-            let minutes = time[0] * 60 + Number(time[1])
-            //let minutesCounted = minutes - Math.floor(minutes / 10)
-            let seconds = minutes * 60 + Number(time[2])
-            let frames = Number(time[3])
-            frames += Math.ceil(seconds * fps)
-            console.log(frames)
+            const minutes = time[0] * 60 + Number(time[1])
+
+            const seconds = minutes * 60 + Number(time[2])
+            /*let frames = Number(time[3])
+            frames += Math.ceil(seconds * fps)*/
+
             return seconds
         }
 
@@ -575,16 +539,9 @@ export default {
             seconds = seconds < 10 ? '0' + seconds : seconds
             return minutes + ':' + seconds
         }
-        // ToDo
+
         const convertTimeFull = (duration) => {
             return msToTimeCode(duration * 1000, 25)
-
-            /*let hours = "00:00";
-let minutes = Math.floor(duration / 60);
-minutes = minutes < 10 ? "0" + minutes : minutes;
-let seconds = Math.round(duration - minutes * 60);
-seconds = seconds < 10 ? "0" + seconds : seconds;
-return hours + ":" + minutes + ":" + seconds;*/
         }
 
         const sendAudioAsset = (wav) => {
@@ -612,24 +569,6 @@ return hours + ":" + minutes + ":" + seconds;*/
                         stepId: stepSlug,
                         uuid: window.localStorage.getItem('surveyUuid'),
                     })
-
-                    let surveySteps =
-                        store.state.surveyResults.surveyUuidResults
-                    console.log(surveySteps)
-                    // let currentStepId = await store.state.surveyResults
-                    //     .surveyUuidResults.survey.statusByUuid.currentStep
-                    // console.log(currentStepId)
-                    // await store.dispatch('surveyResults/getUuidResults', {
-                    //     surveyId: surveySlug,
-                    //     uuid: window.localStorage.getItem('surveyUuid'),
-                    // })
-                    // let surveySteps =
-                    //     store.state.surveyResults.surveyUuidResults.steps
-                    // let currentStepId = await store.state.surveyResults
-                    //     .surveyUuidResults.survey.statusByUuid.currentStep
-                    // currentStep.value = surveySteps.find(
-                    //     (x) => x.id === currentStepId,
-                    // )
                 }, 300)
             },
         )
@@ -665,7 +604,6 @@ return hours + ":" + minutes + ":" + seconds;*/
 
             if (props.content.timeBasedSteps) {
                 props.content.timeBasedSteps.forEach((el, index) => {
-                    console.log(el)
                     timelineObject.value.push({
                         body: '',
                         type: 'question',
@@ -677,10 +615,6 @@ return hours + ":" + minutes + ":" + seconds;*/
                     })
                 })
             }
-
-            console.log(timelineObject.value)
-
-            console.log(props.content)
         })
 
         return {
@@ -709,7 +643,7 @@ return hours + ":" + minutes + ":" + seconds;*/
             commentBoxObject,
             currentStepData,
             videoEnded,
-            tooglePlay,
+            togglePlay,
             sendAudioAsset,
             convertTimeCode,
             convertTimeFull,
