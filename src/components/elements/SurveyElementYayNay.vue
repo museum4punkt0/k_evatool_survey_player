@@ -48,16 +48,6 @@
                     {{ t('action_yes') }}
                 </button>
             </div>
-
-            <!--            <confirm-button-->
-            <!--                class="-->
-            <!--                    mx-auto-->
-            <!--                    mt-3-->
-            <!--                    animate__animated animate__fadeIn animate__delay-1s-->
-            <!--                "-->
-            <!--                :sub-element="subElement"-->
-            <!--                @confirm="confirm"-->
-            <!--            ></confirm-button>-->
         </div>
     </div>
 </template>
@@ -66,8 +56,6 @@
 import SwipeAnswer from '../subelements/SwipeAnswer.vue'
 import { computed, onMounted, ref } from 'vue'
 import { useStore } from 'vuex'
-// import { onMounted } from 'vue'
-
 import { XCircleIcon, CheckCircleIcon } from '@heroicons/vue/outline'
 import { useRoute } from 'vue-router'
 import ConfirmButton from '../subelements/ConfirmButton.vue'
@@ -115,10 +103,8 @@ export default {
         }
         const results = ref([])
         const setResult = async (res) => {
-            console.log(res)
             results.value.push(res)
             await store.dispatch('setStepAnswering', true)
-            console.log(results.value)
 
             await store.dispatch('surveyResults/sendSurveyResults', {
                 surveyId: route.query.survey,
@@ -131,12 +117,6 @@ export default {
                     resultLanguage: store.state.lang,
                 },
             })
-
-            // if (props.content.params.assets.length === results.value.length) {
-            //     setTimeout(() => {
-            //         store.dispatch('setCurrentStep')
-            //     }, 500)
-            // }
         }
 
         const checkForLastElement = (current) => {
@@ -171,10 +151,6 @@ export default {
             checkForLastElement,
         }
     },
-    // setup() {
-    //     //throwDirection == direction.LEFT ? 'left' : 'right'
-    //     return {}
-    // },
 }
 </script>
 

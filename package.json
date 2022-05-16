@@ -2,7 +2,7 @@
     "name": "evaluation-tool-survey-player",
     "description": "Evaluation Tool Survey Player",
     "private": true,
-    "version": "1.0.200",
+    "version": "1.0.201",
     "author": "2av",
     "main": "./main.js",
     "scripts": {

@@ -95,7 +95,7 @@
 import { computed, onMounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useStore } from 'vuex'
-// https://tailwindcomponents.com/component/animation-modal
+
 export default {
     name: 'SwipeModal',
     props: {
@@ -120,13 +120,10 @@ export default {
             get: () => store.state.lang,
         })
         const openSwipeModal = (value) => {
-            console.log(value)
             const modal_overlay = ref()
             modal_overlay.value = document.querySelector('#modal_overlay_swipe')
             const modal = ref()
             modal.value = document.querySelector('#modal_swipe')
-            console.log(document.querySelector('#modal_swipe'))
-            console.log(modal.value)
             const modalCl = modal.value.classList
             const overlayCl = modal_overlay.value
 
@@ -167,7 +164,6 @@ export default {
         watch(
             () => props.openModal,
             (value) => {
-                console.log(value)
                 if (value) {
                     openSwipeModal(true)
                 } else {
@@ -188,12 +184,4 @@ export default {
 #modal_overlay_swipe {
     z-index: 999;
 }
-
-/*::-webkit-scrollbar {*/
-/*    display: none;*/
-/*}*/
-
-/*.overflow-y-scroll {*/
-/*    scrollbar-width: none;*/
-/*}*/
 </style>
