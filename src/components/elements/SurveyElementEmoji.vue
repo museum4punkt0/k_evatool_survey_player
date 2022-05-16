@@ -123,15 +123,9 @@ export default {
         )
         onMounted(() => {
             let questionResults = props.surveyResults
-            console.log(questionResults.results)
-            // result.value = questionResults.results.pop().result_value.meaning
-
             if (questionResults.resultByUuid) {
                 result.value = questionResults.resultByUuid.meaning
             }
-            // else {
-            //     result.value = questionResults.resultByUuid.meaning
-            // }
             setTimeout(() => {
                 document.querySelector('h2').focus()
             }, 500)

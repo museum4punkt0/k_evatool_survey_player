@@ -94,8 +94,6 @@ export default {
     },
     methods: {
         toggleSelection(event) {
-            console.log(event)
-
             if (event.type === 'click') {
                 if (this.disabled) {
                     return
