@@ -274,9 +274,6 @@ export default {
         const lang = computed({
             get: () => store.state.lang,
         })
-        onMounted(() => {
-            console.log(props)
-        })
 
         const convertTime = (duration) => {
             let minutes = Math.floor(duration / 60)
