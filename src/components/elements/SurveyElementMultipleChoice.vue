@@ -175,7 +175,6 @@ export default {
                 store.dispatch('setStepAnswering', true)
             } else {
                 store.dispatch('setStepAnswering', false)
-                //selectedOptions.value = questionResults.resultByUuid.selected
             }
         }
 
@@ -257,9 +256,6 @@ export default {
     },
     methods: {
         disabled(value) {
-            // console.log(this.selectedOptions)
-            // console.log(value)
-            // console.log(this.selectedOptions.find((x) => x.value === value))
             return (
                 parseInt(this.surveyResults.params.maxSelectable) > 1 &&
                 this.selectedOptions.length >=
