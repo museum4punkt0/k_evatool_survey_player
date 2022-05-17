@@ -43,7 +43,7 @@
         />
         <template v-else>
             <div
-                v-if="manualText.length === 0"
+                v-if="!manualText"
                 :class="
                     store.state.showAnimations &&
                     'animate__animated animate__fadeInUp'
@@ -115,23 +115,23 @@
                     </button>
                     <button
                         v-if="!recording && recordedTime > -1"
-                        class="confirm flex items-center rounded-xl nav-button p-2 mt-5 ml-4 bg-gray-200 tabindex-focus"
+                        class="confirm flex items-center rounded-xl nav-button p-2 my-5 ml-4 bg-gray-200 tabindex-focus"
                         @click="deleteAudio"
                     >
                         <trash-icon class="h-6 w-6 mr-2 inline text-grey-600" />
                         {{ t('action_delete') }}
                     </button>
                 </div>
-            </div>
-
-            <section v-if="!audioData && !recording" class="mt-6">
                 <div
                     v-if="recordedTime < 0"
                     tabindex="0"
-                    class="mb-3 tabindex-focus bg-transparent w-3/4 text-gray-400 text-xl focus:outline-none"
+                    class="tabindex-focus bg-transparent w-3/4 text-gray-400 text-xl mt-5 focus:outline-none"
                 >
                     {{ $t('voice_recorder_comment_placeholder') }}
                 </div>
+            </div>
+
+            <section v-if="!audioData && !recording" class="mt-6">
                 <textarea
                     class="w-full bg-gray-50 text-gray-800 text-xl p-2 box-border overflow-hidden border-0 outline-none resize-none tabindex-focus"
                     :class="
@@ -155,7 +155,7 @@
                 store.state.showAnimations &&
                 'animate__animated animate__fadeIn animate__delay-1s'
             "
-            :disabled="recording"
+            :disabled="!manualText && !audioData"
             @confirm="nextStep"
         />
 
@@ -375,6 +375,7 @@ export default {
             openModal,
             closeModal,
             submitManualText,
+            manualText,
         }
     },
 }
