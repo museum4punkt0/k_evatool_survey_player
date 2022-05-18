@@ -3,9 +3,13 @@
 ## Project setup
 
 Please copy the file .env_example to .env and adjust the parameters:
-- VITE_API_BASE_URL: Set the base URL of the k:evatool backend
+- VITE_API_BASE_URL: Set the base URL of the k:evatool backend (i.e. http://localhost:8085/api for local development)
 - ELECTRON_FULLSCREEN: Configure if the electron build runs in fullscreen mode or as a floating window
 
+### Important note
+Please make sure that the Laravel Backend is running. Otherwise backend connection and saving answers won't be possible.
+
+### Preparation
 The following needs to be run for production and development prior to building and running the dev environment
 ```
 yarn
