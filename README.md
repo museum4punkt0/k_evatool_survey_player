@@ -1,5 +1,7 @@
 # k:evatool survey player
 
+The survey player is part of the k:evatool and holds the user frontend needed to display a survey or single question. The player connects to the k:evatool backend through the RESTful API using a maximum of three endpoints to get the survey and post the result data and if applicable the audio file data of a voice recording.
+
 ## Project setup
 
 Please copy the file .env_example to .env and adjust the parameters:
@@ -46,4 +48,9 @@ yarn electron:mac
 ### Kiosk mode
 You can run the player in kiosk mode by adding the kiosk url parameter (i.e. https://your-keva-player.com?kiosk=60). The number set the timeout in seconds 
 that resets the uuid and goes back to the starting point after user inactivity.
+
+### License
+GNU GENERAL PUBLIC LICENSE <br>
+Copyright © 2022, 2av GmbH <br>
+Please also see the LICENSE file provided within this repository
 
