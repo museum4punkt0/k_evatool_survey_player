@@ -43,3 +43,7 @@ yarn electron:win
 yarn electron:mac
 ```
 
+### Kiosk mode
+You can run the player in kiosk mode by adding the kiosk url parameter (i.e. https://your-keva-player.com?kiosk=60). The number set the timeout in seconds 
+that resets the uuid and goes back to the starting point after user inactivity.
+
