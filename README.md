@@ -2,6 +2,14 @@
 
 The survey player is part of the k:evatool and holds the user frontend needed to display a survey or single question. The player connects to the k:evatool backend through the RESTful API using a maximum of three endpoints to get the survey and post the result data and if applicable the audio file data of a voice recording.
 
+### Funding
+This project is part of the project museum4punkt0 - Digital Strategies for the Museum of the Future, sub-project k:eva. Further information: https://www.museum4punkt0.de.
+
+The project museum4punkt0 is funded by the Federal Government Commissioner for Culture and the Media in accordance with a resolution issued by the German Bundestag (Parliament of the Federal Republic of Germany).
+
+![BKM-Logo](https://github.com/museum4punkt0/Object-by-Object/blob/77bba25aa5a7f9948d4fd6f0b59f5bfb56ae89e2/04%20Logos/BKM_Fz_2017_Web_de.gif)
+![NeustartKultur](https://github.com/museum4punkt0/Object-by-Object/blob/22f4e86d4d213c87afdba45454bf62f4253cada1/04%20Logos/BKM_Neustart_Kultur_Wortmarke_pos_RGB_RZ_web.jpg)
+
 ## Project setup
 
 Please copy the file .env_example to .env and adjust the parameters:
