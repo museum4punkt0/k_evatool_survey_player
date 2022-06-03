@@ -1,5 +1,6 @@
 <template>
     <div
+        v-if="route.query.noframe !== 'true'"
         class="survey-header-menu fixed w-full bg-white flex justify-between items-center px-5 py-2 z-50"
     >
         <div class="left-menu flex-1 h-16 flex items-center">
@@ -83,6 +84,7 @@ import { HomeIcon } from '@heroicons/vue/solid'
 import { ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useStore } from 'vuex'
+import { useRoute } from 'vue-router'
 
 export default {
     name: 'HeaderMenu',
@@ -99,6 +101,7 @@ export default {
         const store = useStore()
         const { t } = useI18n()
         const i18n = useI18n()
+        const route = useRoute()
 
         const languages = computed(() => store.getters.languages)
         const languageNames = computed(() => store.getters.languageNames)
@@ -120,6 +123,7 @@ export default {
             setLanguage,
             store,
             t,
+            route,
             currentLang,
             surveySetting,
             languages,

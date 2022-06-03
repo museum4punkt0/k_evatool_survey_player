@@ -1,5 +1,6 @@
 <template>
     <div
+        v-if="route.query.noframe !== 'true'"
         class="survey-footer-menu bg-white bottom-0 fixed w-full md:w-screen z-100"
     >
         <div
