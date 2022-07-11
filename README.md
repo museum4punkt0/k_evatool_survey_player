@@ -44,6 +44,12 @@ yarn electron:mac
 ```
 
 ### Kiosk mode
-You can run the player in kiosk mode by adding the kiosk url parameter (i.e. https://your-keva-player.com?kiosk=60). The number set the timeout in seconds 
+You can run the player in kiosk mode by adding the kiosk url parameter (i.e. https://your-keva-player.com?kiosk=60). The number sets the timeout in seconds 
 that resets the uuid and goes back to the starting point after user inactivity.
+
+### Autoclose (for app integration)
+You can run the player with an autoclose query parameter (between 0 and 30 ... seconds).
+Examlple: https://your-keva-player.com?
+autoclose=5).
+The number sets the timeout in seconds after which the close event "gpwebevent:window.close" is sent. This event can be intercepted in an app.
 
