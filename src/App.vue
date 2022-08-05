@@ -149,6 +149,21 @@ export default {
                     .then(() => {
                         store.commit('initLang', store.getters.languages)
                         store.dispatch('surveyResults/getSurveyPath')
+                        if (
+                            route.query.language &&
+                            store.state.surveyResults.surveyUuidResults.survey
+                                ?.languages
+                        ) {
+                            if (
+                                store.state.surveyResults.surveyUuidResults.survey.languages.indexOf(
+                                    route.query.language,
+                                ) < 0
+                            ) {
+                                console.log('language not found')
+                            } else {
+                                store.commit('setLang', route.query.language)
+                            }
+                        }
                     })
 
                 // set app ready if uuid is set
