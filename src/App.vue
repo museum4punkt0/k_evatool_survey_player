@@ -59,6 +59,10 @@ export default {
 
             const queries = { ...route.query }
 
+            if (route.query.refresh) {
+                window.localStorage.removeItem('surveyUuid')
+            }
+
             if (!route.query.survey && !route.query.step) {
                 await store.dispatch('setError', {
                     error: 'No survey or step provided',
